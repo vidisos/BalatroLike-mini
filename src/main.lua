@@ -4,14 +4,16 @@ local BASE_WIDTH = 1920
 local BASE_HEIGHT = 1080
 
 function love.load()
+    love.window.setFullscreen(true)
+    love.graphics.setDefaultFilter('nearest', 'nearest')
+
+    --[[
+    local ww, wh = love.graphics.getDimensions()
+    love.window.setMode( ww/2, wh/2, {resizable=true} )
+    ]]
+
     Scenes:init()
 
-    love.window.setFullscreen(true)
-    --[[
-        local ww, wh = love.graphics.getDimensions()
-        love.graphics.setDefaultFilter('nearest', 'nearest')
-        love.window.setMode( ww/2, wh/2, {resizable=true} )
-    ]]
 end
 
 function love.update(dt)
@@ -27,12 +29,12 @@ function love.draw()
     love.graphics.push()
     love.graphics.scale(sx, sy)
 
-    for _, scene in pairs(Scenes.Scene_list) do
+    for _, scene in pairs(Scenes.scene_list) do
 
         -- doesnt draw the current screen if the bool is false
         if scene.shouldDraw then
-            for _, button in pairs(scene.buttons) do
-                button:draw()
+            for _, drawable in pairs(scene.drawables) do
+                drawable:draw()
             end
         end
     end
@@ -52,11 +54,16 @@ function love.mousepressed(mx, my, mouse_button)
     my = my / sy
 
     -- goes through all the drawn buttons
-    for _, scenes in pairs(Scenes.Scene_list) do
+    for _, scenes in pairs(Scenes.scene_list) do
         if scenes.shouldDraw then
-            for _, button in pairs(scenes.buttons) do
-                button:onClick(mx, my)
+            for _, drawable in pairs(scenes.drawables) do
+                -- do smth here so rectangles aint clicked
+                if drawable.type == "Button" then
+                    drawable:onClick(mx, my)
+                end
             end
         end
     end
 end
+
+

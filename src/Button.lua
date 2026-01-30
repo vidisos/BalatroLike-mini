@@ -1,10 +1,13 @@
 local setColorRGB = require "Utils".setColorRGB
+local Utils = require "Utils"
 local Button = {}
 Button.__index = Button
 
+-- makes a new button
 function Button:new(text, font, x, y, width, height, text_color, button_color, func)
     local self = setmetatable({}, Button) -- {} is basically a created object that you add stuff to wowza (setmetatable() returns a table)
 
+    self.type = "Button"
     self.text = text or ""
     self.font = font or love.graphics.getFont()
     self.x = x or 0
@@ -19,22 +22,18 @@ function Button:new(text, font, x, y, width, height, text_color, button_color, f
 end
 
 function Button:draw()
-    local rgb;
-
     -- button
-    rgb = self.button_color
-    setColorRGB(rgb)
+    setColorRGB(self.button_color)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 
     -- text
     local text_width = self.font:getWidth(self.text)
     local text_height = self.font:getHeight()
-    local text_x = self.x + self.width/2 - text_width + text_width/2
-    local text_y = self.y + self.height/2 - text_height + text_height/2
+    local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)
+    local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
 
-    rgb = self.text_color
     love.graphics.setFont(self.font)
-    setColorRGB(rgb)
+    setColorRGB(self.text_color)
     love.graphics.print(self.text, text_x, text_y)
 end
 
