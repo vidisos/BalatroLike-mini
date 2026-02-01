@@ -1,4 +1,3 @@
-local setColorRGB = require "Utils".setColorRGB
 local Utils = require "Utils"
 local TextBox = {}
 TextBox.__index = TextBox
@@ -7,6 +6,7 @@ function TextBox:new(text, font, x, y, width, height, text_color, background_col
     local self = setmetatable({}, TextBox) -- {} is basically a created object that you add stuff to wowza (setmetatable() returns a table)
 
     self.type = "TextBox"
+    self.isClickable = false
     self.text = text or "No text"
     self.font = font or love.graphics.getFont()
     self.x = x or 0
@@ -21,7 +21,7 @@ end
 
 function TextBox:draw()
     -- button
-    setColorRGB(self.background_color)
+    Utils.setColorRGB(self.background_color)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 
     -- text
@@ -31,7 +31,7 @@ function TextBox:draw()
     local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
 
     love.graphics.setFont(self.font)
-    setColorRGB(self.text_color)
+    Utils.setColorRGB(self.text_color)
     love.graphics.print(self.text, text_x, text_y)
 end
 

@@ -6,6 +6,7 @@ function Rectangle:new(x, y, width, height, background_color)
     local self = setmetatable({}, Rectangle) -- {} is basically a created object that you add stuff to wowza (setmetatable() returns a table)
 
     self.type = "Rectangle"
+    self.isClickable = false
     self.x = x or 0
     self.y = y or 0
     self.width = width or 100

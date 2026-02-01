@@ -1,18 +1,22 @@
-local Scenes = require "Scenes" -- a sort of 'class' which has the list of screens inside after init()
-
-local BASE_WIDTH = 1920
-local BASE_HEIGHT = 1080
+local CONSTANTS = require "constants"
+local Scenes = require "Scenes"
+local audio_list = require "audio"
 
 function love.load()
-    love.window.setFullscreen(true)
     love.graphics.setDefaultFilter('nearest', 'nearest')
+    love.window.setFullscreen(true)
 
-    --[[
-    local ww, wh = love.graphics.getDimensions()
-    love.window.setMode( ww/2, wh/2, {resizable=true} )
+    --[[    
+        love.window.setMode( 600, 800, {resizable=true} )
+        local ww, wh = love.graphics.getDimensions()
     ]]
 
     Scenes:init()
+
+    local background_music = audio_list.background_music
+    background_music:setVolume(0.04)
+    background_music:setLooping(true)
+    background_music:play()
 
 end
 
@@ -23,18 +27,16 @@ end
 function love.draw()
     -- scaling based on window
     local ww, wh = love.graphics.getDimensions()
-    local sx = ww / BASE_WIDTH
-    local sy = wh / BASE_HEIGHT
+    local sx = ww / CONSTANTS.BASE_WIDTH
+    local sy = wh / CONSTANTS.BASE_HEIGHT
 
     love.graphics.push()
     love.graphics.scale(sx, sy)
 
-    for _, scene in pairs(Scenes.scene_list) do
-
-        -- doesnt draw the current screen if the bool is false
+    for _, scene in ipairs(Scenes.scene_list) do
         if scene.shouldDraw then
-            for _, drawable in pairs(scene.drawables) do
-                drawable:draw()
+            for _, item in ipairs(scene.drawables) do
+                item.drawable:draw()
             end
         end
     end
@@ -47,19 +49,18 @@ function love.mousepressed(mx, my, mouse_button)
 
     -- scaling based on window
     local ww, wh = love.graphics.getDimensions()
-    local sx = ww / BASE_WIDTH
-    local sy = wh / BASE_HEIGHT
+    local sx = ww / CONSTANTS.BASE_WIDTH
+    local sy = wh / CONSTANTS.BASE_HEIGHT
 
     mx = mx / sx
     my = my / sy
 
-    -- goes through all the drawn buttons
-    for _, scenes in pairs(Scenes.scene_list) do
-        if scenes.shouldDraw then
-            for _, drawable in pairs(scenes.drawables) do
-                -- do smth here so rectangles aint clicked
-                if drawable.type == "Button" then
-                    drawable:onClick(mx, my)
+    -- goes through all the drawables and if they can be clicked they do the onClick check
+    for _, scene in ipairs(Scenes.scene_list) do
+        if scene.shouldDraw then
+            for _, item in ipairs(scene.drawables) do
+                if item.drawable.isClickable then
+                    item.drawable:onClick(mx, my)
                 end
             end
         end
