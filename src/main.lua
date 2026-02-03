@@ -14,7 +14,7 @@ function love.load()
     Scenes:init()
 
     local background_music = audio_list.background_music
-    background_music:setVolume(0.04)
+    background_music:setVolume(0.3)
     background_music:setLooping(true)
     background_music:play()
 end
@@ -40,6 +40,7 @@ function love.draw()
 end
 
 function love.mousepressed(mx, my, mouse_button)
+    -- only accepts left mouse clicks
     if mouse_button ~= 1 then return end
 
     -- scaling based on window

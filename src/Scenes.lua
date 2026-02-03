@@ -35,9 +35,7 @@ end
 function Scenes:update(dt)
     for _, scene in ipairs(self.scene_list) do
         for _, item in ipairs(scene.drawables) do
-            if item.drawable.isUpdatable then
-                item.drawable:update(dt)
-            end
+            item.drawable:update(dt)
         end
     end
 end
@@ -57,9 +55,7 @@ function Scenes:onClick(mx, my)
     for _, scene in ipairs(self.scene_list) do
         if scene.shouldDraw then
             for _, item in ipairs(scene.drawables) do
-                if item.drawable.isClickable then
-                    item.drawable:onClick(mx, my)
-                end
+                item.drawable:onClick(mx, my)
             end
         end
     end

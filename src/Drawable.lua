@@ -1,30 +1,34 @@
-local Utils = require "Utils"
 local Drawable = {}
 Drawable.__index = Drawable
 
--- makes a new button
+-- class for all drawables
 function Drawable:new(x, y, width, height, updateFunc)
     local self = setmetatable({}, Drawable) -- {} is basically a created object that you add stuff to wowza (setmetatable() returns a table)
-    
-    self.isClickable = true
-    self.isUpdatable = true
-    self.text = text or ""
-    self.font = font or love.graphics.getFont()
+
     self.x = x or 0
     self.y = y or 0
-    self.width = width or 100
-    self.height = height or 100
-    self.text_color = text_color or {0, 0, 0}
-    self.button_color = button_color or {255, 255, 255}
-    self.func = func or function () end
+    self.width = width or 300
+    self.height = height or 300
     self.updateFunc = updateFunc or function () end
 
     return self
 end
 
+-- defined in Drawable, empty by default
 function Drawable:update(dt)
     self.updateFunc(self, dt)
 end
 
+-- from the specific drawable
+function Drawable:draw()
+    self.drawFunc(self)
+end
+
+-- from the specific drawable, empty by default
+function Drawable:onClick(mx, my)
+    if self.isClickable then
+        self.onClickFunc(mx, my)
+    end
+end
 
 return Drawable
