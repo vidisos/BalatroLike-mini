@@ -5,7 +5,8 @@ local ImageBox   = require "ImageBox"
 local audio_list = require "audio"
 local image_list = require "images"
 local Utils = require "Utils"
-local CONSTANTS = require "constants"
+local Scenes = require "Scenes"
+local CONSTANTS = require "src.CONSTANTS"
 
 local pixel_font = "fonts/Karma Suture.otf"
 local pixel_font_bold = "fonts/Karma Future.otf"
@@ -24,9 +25,10 @@ return {
                 {237, 164, 74},
                 {212, 198, 182},
                 function()
-                    disableScenes()
-                    enableScene("start-menu")
-                end
+                    Scenes:disableScenes()
+                    Scenes:enableScene("start-menu")
+                end,
+                nil
             )
         }
     }

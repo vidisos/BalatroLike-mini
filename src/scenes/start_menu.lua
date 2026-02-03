@@ -5,7 +5,9 @@ local ImageBox   = require "ImageBox"
 local audio_list = require "audio"
 local image_list = require "images"
 local Utils = require "Utils"
-local CONSTANTS = require "constants"
+local Scenes = require "Scenes"
+local GameState = require "GameState"
+local CONSTANTS = require "src.CONSTANTS"
 
 local pixel_font = "fonts/Karma Suture.otf"
 local pixel_font_bold = "fonts/Karma Future.otf"
@@ -21,7 +23,8 @@ return {
             drawable = Rectangle:new(
                 0, 0,
                 ww, wh,
-                {59, 124, 217}
+                {59, 124, 217},
+                nil
             )
         },
 
@@ -32,7 +35,8 @@ return {
                 Utils.getCenterAnchorX(0, ww, 1200), Utils.getCenterAnchorY(0, wh, 400),
                 1200, 400,
                 nil,
-                {59, 124, 217}
+                {59, 124, 217},
+                nil
             )
         },
 
@@ -42,6 +46,7 @@ return {
                 image_list.settings_icon,
                 ww - 100, 10,
                 90, 90,
+                nil,
                 nil
             )
         },
@@ -51,7 +56,8 @@ return {
             drawable = Rectangle:new(
                 360, wh - 210,
                 320, 120,
-                {100, 50, 20}
+                {100, 50, 20},
+                nil
             )
         },
         {
@@ -65,15 +71,18 @@ return {
                 function()
                     audio_list["uderehee"]:stop()
                     audio_list["uderehee"]:play()
-                end
+                end,
+                nil
             )
         },
+
         {
             id = "rect-new-screen",
             drawable = Rectangle:new(
                 790, wh - 210,
                 220, 120,
-                {100, 50, 20}
+                {100, 50, 20},
+                nil
             )
         },
         {
@@ -85,9 +94,10 @@ return {
                 {237, 164, 74},
                 {212, 198, 182},
                 function()
-                    disableScenes()
-                    enableScene("game-main")
-                end
+                    Scenes:disableScenes()
+                    Scenes:enableScene("game-main")
+                end,
+                nil
             )
         },
 
@@ -96,7 +106,8 @@ return {
             drawable = Rectangle:new(
                 1340, wh - 210,
                 220, 120,
-                {224, 176, 16}
+                {224, 176, 16},
+                nil
             )
         },
         {
@@ -109,6 +120,21 @@ return {
                 {255, 0, 0},
                 function()
                     love.event.quit()
+                end,
+                nil
+            )
+        },
+
+        {
+            id = "text-dynamic",
+            drawable = TextBox:new(
+                GameState.points, Utils.resizeFont(pixel_font, 50),
+                100, 100,
+                200, 200,
+                nil,
+                {59, 124, 217},
+                function (self, dt)
+                    self.text = GameState.points 
                 end
             )
         }

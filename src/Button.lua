@@ -3,11 +3,12 @@ local Button = {}
 Button.__index = Button
 
 -- makes a new button
-function Button:new(text, font, x, y, width, height, text_color, button_color, func)
+function Button:new(text, font, x, y, width, height, text_color, button_color, func, updateFunc)
     local self = setmetatable({}, Button) -- {} is basically a created object that you add stuff to wowza (setmetatable() returns a table)
 
     self.type = "Button"
     self.isClickable = true
+    self.isUpdatable = true
     self.text = text or ""
     self.font = font or love.graphics.getFont()
     self.x = x or 0
@@ -17,6 +18,7 @@ function Button:new(text, font, x, y, width, height, text_color, button_color, f
     self.text_color = text_color or {0, 0, 0}
     self.button_color = button_color or {255, 255, 255}
     self.func = func or function () end
+    self.updateFunc = updateFunc or function () end
 
     return self
 end
@@ -46,5 +48,10 @@ function Button:onClick(mx, my)
         self.func()
     end
 end
+
+function Button:update(dt)
+    self.updateFunc(self, dt)
+end
+
 
 return Button

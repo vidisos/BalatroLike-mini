@@ -1,15 +1,15 @@
-local CONSTANTS = require "constants"
+local CONSTANTS = require "CONSTANTS"
+local GameState = require "GameState"
 local Scenes = require "Scenes"
 local audio_list = require "audio"
 
 function love.load()
+    --[[    
+    love.window.setMode( 600, 800, {resizable=true} )
+    local ww, wh = love.graphics.getDimensions()
+    ]]
     love.graphics.setDefaultFilter('nearest', 'nearest')
     love.window.setFullscreen(true)
-
-    --[[    
-        love.window.setMode( 600, 800, {resizable=true} )
-        local ww, wh = love.graphics.getDimensions()
-    ]]
 
     Scenes:init()
 
@@ -17,11 +17,12 @@ function love.load()
     background_music:setVolume(0.04)
     background_music:setLooping(true)
     background_music:play()
-
 end
 
 function love.update(dt)
+    GameState.setPoints(GameState.points + 1)
 
+    Scenes:update(dt)
 end
 
 function love.draw()
@@ -33,13 +34,7 @@ function love.draw()
     love.graphics.push()
     love.graphics.scale(sx, sy)
 
-    for _, scene in ipairs(Scenes.scene_list) do
-        if scene.shouldDraw then
-            for _, item in ipairs(scene.drawables) do
-                item.drawable:draw()
-            end
-        end
-    end
+    Scenes:draw()
 
     love.graphics.pop()
 end
@@ -55,16 +50,7 @@ function love.mousepressed(mx, my, mouse_button)
     mx = mx / sx
     my = my / sy
 
-    -- goes through all the drawables and if they can be clicked they do the onClick check
-    for _, scene in ipairs(Scenes.scene_list) do
-        if scene.shouldDraw then
-            for _, item in ipairs(scene.drawables) do
-                if item.drawable.isClickable then
-                    item.drawable:onClick(mx, my)
-                end
-            end
-        end
-    end
+    Scenes:onClick(mx, my)
 end
 
 

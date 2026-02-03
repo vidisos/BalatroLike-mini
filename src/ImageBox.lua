@@ -3,17 +3,19 @@ local ImageBox = {}
 ImageBox.__index = ImageBox
 
 -- makes a new ImageBox (that can be clicked)
-function ImageBox:new(image, x, y, width, height, func)
+function ImageBox:new(image, x, y, width, height, func, updateFunc)
     local self = setmetatable({}, ImageBox) -- {} is basically a created object that you add stuff to wowza (setmetatable() returns a table)
 
     self.type = "ImageBox"
     self.isClickable = true
+    self.isUpdatable = false
     self.image = image or image_list.settings_icon
     self.x = x or 0
     self.y = y or 0
     self.width = width or 100
     self.height = height or 100
     self.func = func or function () end
+    self.updateFunc = updateFunc or function () end
 
     return self
 end
@@ -32,6 +34,10 @@ function ImageBox:onClick(mx, my)
     if isClicked then
         self.func()
     end
+end
+
+function ImageBox:update(dt)
+    self.updateFunc(self, dt)
 end
 
 return ImageBox
