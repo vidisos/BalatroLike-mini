@@ -20,8 +20,7 @@ function love.load()
 end
 
 function love.update(dt)
-    GameState.setPoints(GameState.points + 1)
-
+    GameState:setPoints(GameState.points + dt)
     Scenes:update(dt)
 end
 

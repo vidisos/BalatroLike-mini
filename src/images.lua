@@ -2,7 +2,7 @@ local image_folder = "images/"
 local image_list = {}
 
 local images = {
-    settings_icon = {"settings_icon.png", {} }
+    settings_icon = {"settings_icon.png", {}}
 }
 
 for key, image in pairs(images) do

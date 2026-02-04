@@ -1,4 +1,4 @@
-local setColorRGB = require "Utils".setColorRGB
+local Utils = require "Utils"
 local Rectangle = {}
 Rectangle.__index = Rectangle
 
@@ -10,8 +10,10 @@ function Rectangle:Rectangle(background_color)
     self.background_color = background_color or {255, 255, 255}
 
     self.drawFunc = function ()
-        setColorRGB(self.background_color)
+        Utils.setColorRGB(self.background_color)
         love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+
+        Utils.resetColor()
     end
 
     return self

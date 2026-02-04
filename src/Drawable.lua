@@ -24,10 +24,10 @@ function Drawable:draw()
     self.drawFunc(self)
 end
 
--- from the specific drawable, empty by default
-function Drawable:onClick(mx, my)
+-- from the specific drawable, empty by default, returns bool
+function Drawable:isClicked(mx, my)
     if self.isClickable then
-        self.onClickFunc(mx, my)
+        return self.isClickedFunc(mx, my)
     end
 end
 

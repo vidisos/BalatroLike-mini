@@ -4,6 +4,10 @@ function Utils.setColorRGB(rgb)
     love.graphics.setColor(love.math.colorFromBytes(rgb[1], rgb[2], rgb[3]))
 end
 
+function Utils.resetColor()
+    Utils.setColorRGB({255, 255, 255})
+end
+
 -- returns the x to center an inner items inside an outer item
 function Utils.getCenterAnchorX(x, outer_width, inner_width)
     local x = x + outer_width / 2 - inner_width / 2

@@ -3,7 +3,7 @@ local TextBox = {}
 TextBox.__index = TextBox
 
 -- extension of Drawable
--- displays text on a background
+-- displays text on a background rectangle
 function TextBox:TextBox(text, font, text_color, background_color)
     self.type = "TextBox"
     self.isClickable = false
@@ -26,6 +26,8 @@ function TextBox:TextBox(text, font, text_color, background_color)
         love.graphics.setFont(self.font)
         Utils.setColorRGB(self.text_color)
         love.graphics.print(self.text, text_x, text_y)
+
+        Utils.resetColor()
     end
 
     return self
