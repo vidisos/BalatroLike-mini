@@ -1,0 +1,6 @@
+local CONSTANTS = {
+    BASE_WIDTH = 1920,
+    BASE_HEIGHT = 1080
+}
+
+return CONSTANTS

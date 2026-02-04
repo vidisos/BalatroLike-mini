@@ -2,7 +2,7 @@ local Scenes = {
     scene_list = {}
 }
 
--- initializes all the scenes and sorts them by z-index
+---initializes all the scenes and sorts them by z-index
 function Scenes:init()
     table.insert(self.scene_list, require("scenes/start_menu"))
     table.insert(self.scene_list, require("scenes/game_main"))
@@ -13,7 +13,8 @@ function Scenes:init()
     end
 end
 
--- activates the update function of every drawable
+---activates the update function of every drawable
+---@param dt number
 function Scenes:update(dt)
     for _, scene in ipairs(self.scene_list) do
         for _, item in ipairs(scene.drawables) do
@@ -22,7 +23,7 @@ function Scenes:update(dt)
     end
 end
 
--- activates the draw function of every drawable
+---activates the draw function of every drawable
 function Scenes:draw()
     for _, scene in ipairs(self.scene_list) do
         if scene.shouldDraw then
@@ -33,7 +34,9 @@ function Scenes:draw()
     end
 end
 
--- checks if items are clicked, accounts for z-index
+---checks if items are clicked, accounts for z-index
+---@param mx number
+---@param my number
 function Scenes:onClick(mx, my)
     local clicked_drawables = {}
 
@@ -57,14 +60,15 @@ function Scenes:onClick(mx, my)
     end
 end
 
--- prevents all scenes from being drawn
+---prevents all scenes from being drawn
 function Scenes:disableScenes()
     for _, scene in ipairs(self.scene_list) do
         scene.shouldDraw = false
     end
 end
 
--- allows one scene to be drawn
+---allows one scene to be drawn
+---@param id string
 function Scenes:enableScene(id)
     for _, scene in ipairs(self.scene_list) do
         if scene.id == id then
@@ -73,7 +77,9 @@ function Scenes:enableScene(id)
     end
 end
 
--- returns a specific scene table with the id
+---returns a specific scene table with the id
+---@param id string
+---@return table?
 function Scenes:getScene(id)
     for _, scene in ipairs(self.scene_list) do
         if scene.id == id then
@@ -82,12 +88,12 @@ function Scenes:getScene(id)
     end
 end
 
--- sorts all scenes with z-index
+---sorts all scenes with z-index
 function Scenes:sortScenes()
     table.sort(self.scene_list, function (a, b) return a.z_index < b.z_index end)
 end
 
--- sorts all drawables of a scene by z-index
+---sorts all drawables of a scene by z-index
 function Scenes:sortDrawables(scene)
     table.sort(scene.drawables, function (a, b) return a.z_index < b.z_index end)
 end

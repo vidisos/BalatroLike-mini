@@ -2,8 +2,9 @@ local Utils = require "Utils"
 local Rectangle = {}
 Rectangle.__index = Rectangle
 
--- extension of Drawable
--- a colored rectangle
+---extension of Drawable: a colored rectangle
+---@param background_color? table
+---@return table
 function Rectangle:Rectangle(background_color)
     self.type = "Rectangle"
     self.isClickable = false

@@ -1,9 +1,9 @@
-local CONSTANTS = require "src.CONSTANTS"
+local CONSTANTS = require "CONSTANTS"
 local Scenes = require "Scenes"
 local Drawable  = require "Drawable"
 local Utils = require "Utils"
-local audio_list = require "audio"
-local image_list = require "images"
+local audio_list = require "audio_list"
+local image_list = require "image_list"
 local GameState = require "GameState"
 
 local pixel_font = "fonts/Karma Suture.otf"
@@ -44,7 +44,7 @@ return {
         {
             id = "img-settings",
             z_index = 0,
-            drawable = Drawable:new(ww-100, 10, 90, 90):ImageBox(image_list.settings_icon)
+            drawable = Drawable:new(ww-100, 10, 90, 90):ImageBox(image_list.settings_icon, function () audio_list.uderehee:stop() end)
         },
 
         {
@@ -55,8 +55,8 @@ return {
                 {237, 164, 74},
                 {212, 198, 182},
                 function ()
-                    audio_list["uderehee"]:stop()
-                    audio_list["uderehee"]:play()
+                    audio_list.uderehee:stop()
+                    audio_list.uderehee:play()
                 end,
                 nil,
                 {100, 50, 20}
@@ -95,10 +95,10 @@ return {
         },
 
         {
-            id = "btn-quit",
+            id = "btn-test",
             z_index = 1,
             drawable = Drawable:new(1250, wh-200, 200, 100):Button(
-                "Quit", Utils.resizeFont(pixel_font, 30),
+                "layered", Utils.resizeFont(pixel_font, 30),
                 {0, 0, 100},
                 {255, 0, 0},
                 nil,

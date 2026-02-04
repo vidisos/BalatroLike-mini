@@ -2,8 +2,15 @@ local Utils = require "Utils"
 local Button = {}
 Button.__index = Button
 
--- extension of Drawable
--- a colored rectangle with optional text that can be clicked, border that can be skipped
+---extension of Drawable: a colored rectangle with optional text that can be clicked, border that can be skipped
+---@param text? string
+---@param font? love.Font
+---@param text_color? table
+---@param button_color? table
+---@param onClickFunc? function
+---@param border_width? number
+---@param border_color? number
+---@return table
 function Button:Button(text, font, text_color, button_color, onClickFunc, border_width, border_color)
     self.type = "Button"
     self.isClickable = true
@@ -40,7 +47,8 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
     return self
 end
 
--- drawing a button normally
+---drawing a button normally
+---@param self table
 function Button.normalButtonDraw(self)
     -- button
     Utils.setColorRGB(self.button_color)
@@ -57,7 +65,8 @@ function Button.normalButtonDraw(self)
     love.graphics.print(self.text, text_x, text_y)
 end
 
--- drawing a button that basically makes border part of it in terms of width and such
+---drawing a button that basically makes border part of it in terms of width and such
+---@param self table
 function Button.borderedButtonDraw(self)
     -- border
     Utils.setColorRGB(self.border_color)

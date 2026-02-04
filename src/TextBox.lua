@@ -2,8 +2,12 @@ local Utils = require "Utils"
 local TextBox = {}
 TextBox.__index = TextBox
 
--- extension of Drawable
--- displays text on a background rectangle
+---extension of Drawable: displays text on a background rectangle
+---@param text? string
+---@param font? love.Font
+---@param text_color? table
+---@param background_color? table
+---@return table
 function TextBox:TextBox(text, font, text_color, background_color)
     self.type = "TextBox"
     self.isClickable = false

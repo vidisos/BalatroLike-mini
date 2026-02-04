@@ -1,9 +1,9 @@
-local CONSTANTS = require "src.CONSTANTS"
+local CONSTANTS = require "CONSTANTS"
 local Scenes = require "Scenes"
 local Drawable  = require "Drawable"
 local Utils = require "Utils"
-local audio_list = require "audio"
-local image_list = require "images"
+local audio_list = require "audio_list"
+local image_list = require "image_list"
 local GameState = require "GameState"
 
 local pixel_font = "fonts/Karma Suture.otf"
