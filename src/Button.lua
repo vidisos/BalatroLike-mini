@@ -1,6 +1,11 @@
 local Utils = require "Utils"
+
+---@class Button : Drawable
 local Button = {}
 Button.__index = Button
+
+-- just here so we cannot reference the functions before theyre declared fully
+local normalButtonDraw, borderedButtonDraw
 
 ---extension of Drawable: a colored rectangle with optional text that can be clicked, border that can be skipped
 ---@param text? string
@@ -9,8 +14,8 @@ Button.__index = Button
 ---@param button_color? table
 ---@param onClickFunc? function
 ---@param border_width? number
----@param border_color? number
----@return table
+---@param border_color? table
+---@return Button
 function Button:Button(text, font, text_color, button_color, onClickFunc, border_width, border_color)
     self.type = "Button"
     self.isClickable = true
@@ -29,9 +34,9 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
 
     self.drawFunc = function ()
         if border_width then
-            Button.borderedButtonDraw(self)
+            borderedButtonDraw(self)
         else
-            Button.normalButtonDraw(self)
+            normalButtonDraw(self)
         end
 
         Utils.resetColor()
@@ -48,8 +53,8 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
 end
 
 ---drawing a button normally
----@param self table
-function Button.normalButtonDraw(self)
+---@param self Button
+normalButtonDraw = function(self)
     -- button
     Utils.setColorRGB(self.button_color)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
@@ -65,9 +70,9 @@ function Button.normalButtonDraw(self)
     love.graphics.print(self.text, text_x, text_y)
 end
 
----drawing a button that basically makes border part of it in terms of width and such
----@param self table
-function Button.borderedButtonDraw(self)
+---drawing a button that basically makes the border part of it in terms of width and such
+---@param self Button
+borderedButtonDraw = function(self)
     -- border
     Utils.setColorRGB(self.border_color)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)

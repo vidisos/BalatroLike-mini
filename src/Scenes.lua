@@ -52,8 +52,8 @@ function Scenes:onClick(mx, my)
         end
     end
 
+    -- runs the onclick function of the most top layered item
     if #clicked_drawables > 0 then
-        -- runs the onclick function of the most top layered item
         table.sort(clicked_drawables, function (a, b) return a.z_index > b.z_index end)
 
         clicked_drawables[1].drawable:onClickFunc()

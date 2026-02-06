@@ -25,7 +25,7 @@ return {
         {
             id = "rect-background",
             z_index = 0,
-            drawable = Drawable:new(0, 0, ww, wh):Rectangle({59, 124, 217})
+            drawable = Drawable:new(0, 0, ww, wh):Rectangle({59, 124, 217}),
         },
 
         {
@@ -115,7 +115,7 @@ return {
                     self.text = string.format("%.2f", GameState.points + dt)
                 end
             ):TextBox(
-                GameState.points, Utils.resizeFont(pixel_font, 50),
+                tostring(GameState.points), Utils.resizeFont(pixel_font, 50),
                 nil,
                 {59, 124, 217}
             )

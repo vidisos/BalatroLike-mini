@@ -1,13 +1,13 @@
 local Drawable = {}
 Drawable.__index = Drawable
 
----class for all drawables
+---initializes a drawable
 ---@param x? number
 ---@param y? number
 ---@param width? number
 ---@param height? number
 ---@param updateFunc? function
----@return table
+---@return Drawable
 function Drawable:new(x, y, width, height, updateFunc)
     local self = setmetatable({}, Drawable) -- {} is basically a created object that you add stuff to wowza (setmetatable() returns a table)
 
@@ -43,4 +43,17 @@ function Drawable:isClicked(mx, my)
     return false
 end
 
+---@class Drawable
+---@field x number
+---@field y number
+---@field width number
+---@field height number
+---@field updateFunc fun(self: Drawable, dt: number)
+---@field drawFunc fun(self: Drawable)
+---@field isClickable boolean
+---@field isClickedFunc fun(mx: number, my: number): boolean
+---@field Button fun(self: Drawable, text?: string, font?: love.Font, text_color?: table, button_color?: table, onClickFunc?: fun(), border_width?: number, border_color?: table): Button
+---@field ImageBox fun(self: Drawable, image?: love.Image, onClickFunc?: fun()): ImageBox
+---@field Rectangle fun(self: Drawable, background_color?: table): Rectangle
+---@field TextBox fun(self: Drawable, text?: string, font?: love.Font, text_color?: table, background_color?: table): TextBox
 return Drawable

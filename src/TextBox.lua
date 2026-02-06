@@ -1,4 +1,6 @@
 local Utils = require "Utils"
+
+---@class TextBox : Drawable
 local TextBox = {}
 TextBox.__index = TextBox
 
@@ -7,7 +9,7 @@ TextBox.__index = TextBox
 ---@param font? love.Font
 ---@param text_color? table
 ---@param background_color? table
----@return table
+---@return TextBox
 function TextBox:TextBox(text, font, text_color, background_color)
     self.type = "TextBox"
     self.isClickable = false

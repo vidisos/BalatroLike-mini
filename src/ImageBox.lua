@@ -1,12 +1,14 @@
 local Utils = require "Utils"
 local image_list = require "image_list"
+
+---@class ImageBox : Drawable
 local ImageBox = {}
 ImageBox.__index = ImageBox
 
 ---extension of Drawable: an imagebox that can be clicked
 ---@param image? love.Image
 ---@param onClickFunc? function
----@return table
+---@return ImageBox
 function ImageBox:ImageBox(image, onClickFunc)
     self.type = "ImageBox"
     self.isClickable = true
