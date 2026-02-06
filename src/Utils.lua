@@ -12,12 +12,14 @@ function Utils.resetColor()
 end
 
 ---returns the x to center an inner item inside an outer item
+---@return number
 function Utils.getCenterAnchorX(x, outer_width, inner_width)
     local x = x + outer_width / 2 - inner_width / 2
     return x
 end
 
 ---returns the y to center an inner item inside an outer item
+---@return number
 function Utils.getCenterAnchorY(y, outer_height, inner_height)
     local y = y + outer_height / 2 - inner_height / 2
     return y

@@ -4,10 +4,10 @@ local Utils = require "Utils"
 local Button = {}
 Button.__index = Button
 
--- just here so we cannot reference the functions before theyre declared fully
+-- just here so we can reference the functions before theyre declared fully for readability reasons
 local normalButtonDraw, borderedButtonDraw
 
----extension of Drawable: a colored rectangle with optional text that can be clicked, border that can be skipped
+---extension of Drawable: a colored rectangle with optional text that can be clicked, optional border
 ---@param text? string
 ---@param font? love.Font
 ---@param text_color? table
