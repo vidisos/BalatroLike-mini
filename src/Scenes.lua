@@ -88,7 +88,23 @@ function Scenes:getScene(id)
     end
 end
 
----sorts all scenes with z-index
+---returns a specific drawable table with the id
+---@param id string
+---@return table?
+function Scenes:getDrawable(scene_id, id)
+    for _, scene in ipairs(self.scene_list) do
+        if scene.id == scene_id then
+
+            for _, drawable in ipairs(scene.drawables) do
+                if drawable.id == id then
+                    return drawable
+                end
+            end
+        end
+    end
+end
+
+---sorts all scenes by z-index
 function Scenes:sortScenes()
     table.sort(self.scene_list, function (a, b) return a.z_index < b.z_index end)
 end
@@ -96,6 +112,15 @@ end
 ---sorts all drawables of a scene by z-index
 function Scenes:sortDrawables(scene)
     table.sort(scene.drawables, function (a, b) return a.z_index < b.z_index end)
+end
+
+---adds a new drawable to a scene
+function Scenes:addDrawable(scene, id, z_index, drawable)
+
+    if scene then
+        local drawables = scene.drawables
+        table.insert(drawables, {id = id, z_index = z_index, drawable = drawable})
+    end
 end
 
 return Scenes

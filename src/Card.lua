@@ -1,18 +1,22 @@
 local Utils = require "Utils"
 local image_list = require "image_list"
+local card_list = require "card_list"
 
----@class ImageBox : Drawable
-local ImageBox = {}
-ImageBox.__index = ImageBox
+---@class Card : Drawable
+local Card = {}
+Card.__index = Card
 
 ---extension of Drawable: an imagebox that can be clicked
----@param image? love.Image
+---@param card_base CardBase
 ---@param onClickFunc? function
----@return ImageBox
-function ImageBox:Card(image, onClickFunc)
-    self.type = "ImageBox"
+---@return Card
+function Card:Card(card_base, onClickFunc)
+    self.type = "Card"
+
     self.isClickable = true
-    self.image = image or image_list.settings_icon
+    self.image = card_base.image or image_list.settings_icon
+    self.suit = card_base.suit or ""
+    self.rank = card_base.rank or 0
     self.onClickFunc = onClickFunc or function () end
 
     self.drawFunc = function (self)
@@ -34,4 +38,4 @@ function ImageBox:Card(image, onClickFunc)
     return self
 end
 
-return ImageBox
+return Card

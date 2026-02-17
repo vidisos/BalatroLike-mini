@@ -4,6 +4,7 @@ local Drawable  = require "Drawable"
 local Utils = require "Utils"
 local audio_list = require "audio_list"
 local image_list = require "image_list"
+local card_list = require "card_list"
 local GameState = require "GameState"
 
 local pixel_font = "fonts/Karma Suture.otf"
@@ -12,10 +13,11 @@ local ww = CONSTANTS.BASE_WIDTH
 local wh = CONSTANTS.BASE_HEIGHT
 
 -- adding extensions to the Drawable superclass
-Drawable.ImageBox = require("ImageBox").ImageBox
+Drawable.ImageBox = require("ImageBox").Card
 Drawable.Rectangle = require("Rectangle").Rectangle
 Drawable.TextBox = require("TextBox").TextBox
 Drawable.Button = require("Button").Button
+Drawable.Card = require("Card").Card
 
 return {
     id = "start-menu",
@@ -34,11 +36,7 @@ return {
             drawable = Drawable:new(
                 Utils.getCenterAnchorX(0, ww, 1200), Utils.getCenterAnchorY(0, wh, 400),
                 1200, 400
-            ):TextBox(
-                "Poinker", Utils.resizeFont(pixel_font_bold, 300),
-                nil,
-                {59, 124, 217}
-            )
+            ):TextBox("Poinker", Utils.resizeFont(pixel_font_bold, 300))
         },
 
         {
@@ -70,9 +68,21 @@ return {
                 "New Screen", Utils.resizeFont(pixel_font, 30),
                 {237, 164, 74},
                 {212, 198, 182},
-                function ()
+                function (self)
                     Scenes:disableScenes()
                     Scenes:enableScene("game-main")
+
+                    self.x = self.x - 200
+                    Scenes:addDrawable(
+                        Scenes:getScene("game-main"),
+                        "card",
+                        10,
+                        Drawable:new(0, 0, 200, 200*CONSTANTS.CARD_IMAGE_RATIO, function(self, dt) local x_movement = 500 self.x = self.x + x_movement * dt end):Card(
+                            card_list.cards.spade1
+                        )
+                    )
+
+                    Scenes:sortDrawables(Scenes:getScene("game-main"))
                 end,
                 10,
                 {100, 50, 20}

@@ -4,7 +4,7 @@ local Utils = require "Utils"
 local TextBox = {}
 TextBox.__index = TextBox
 
----extension of Drawable: displays text on a background rectangle
+---extension of Drawable: displays text on an optional background rectangle
 ---@param text? string
 ---@param font? love.Font
 ---@param text_color? table
@@ -16,12 +16,14 @@ function TextBox:TextBox(text, font, text_color, background_color)
     self.text = text or "No text"
     self.font = font or love.graphics.getFont()
     self.text_color = text_color or {0, 0, 0}
-    self.background_color = background_color or {255, 255, 255}
+    self.background_color = background_color
 
     self.drawFunc = function ()
         -- button
-        Utils.setColorRGB(self.background_color)
-        love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+        if background_color then
+            Utils.setColorRGB(self.background_color)
+            love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+        end
 
         -- text
         local text_width = self.font:getWidth(self.text)

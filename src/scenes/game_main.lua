@@ -12,7 +12,7 @@ local ww = CONSTANTS.BASE_WIDTH
 local wh = CONSTANTS.BASE_HEIGHT
 
 -- adding extensions to the Drawable superclass
-Drawable.ImageBox = require("ImageBox").ImageBox
+Drawable.ImageBox = require("ImageBox").Card
 Drawable.Rectangle = require("Rectangle").Rectangle
 Drawable.TextBox = require("TextBox").TextBox
 Drawable.Button = require("Button").Button

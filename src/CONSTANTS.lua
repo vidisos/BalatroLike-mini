@@ -1,6 +1,7 @@
 local CONSTANTS = {
     BASE_WIDTH = 1920,
-    BASE_HEIGHT = 1080
+    BASE_HEIGHT = 1080,
+    CARD_IMAGE_RATIO = 1.65
 }
 
 return CONSTANTS

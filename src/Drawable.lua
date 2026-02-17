@@ -6,7 +6,7 @@ Drawable.__index = Drawable
 ---@param y? number
 ---@param width? number
 ---@param height? number
----@param updateFunc? function
+---@param updateFunc? fun(self: Drawable, dt)
 ---@return Drawable
 function Drawable:new(x, y, width, height, updateFunc)
     local self = setmetatable({}, Drawable) -- {} is basically a created object that you add stuff to wowza (setmetatable() returns a table)
@@ -56,4 +56,5 @@ end
 ---@field ImageBox fun(self: Drawable, image?: love.Image, onClickFunc?: fun()): ImageBox
 ---@field Rectangle fun(self: Drawable, background_color?: table): Rectangle
 ---@field TextBox fun(self: Drawable, text?: string, font?: love.Font, text_color?: table, background_color?: table): TextBox
+---@field Card fun(self: Drawable, card_base?: CardBase, onClickFunc?: fun()): Card
 return Drawable
