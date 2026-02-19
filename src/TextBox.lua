@@ -1,11 +1,12 @@
 local Utils = require "Utils"
+local GameState = require "GameState"
 
 ---@class TextBox : Drawable
 local TextBox = {}
 TextBox.__index = TextBox
 
 ---extension of Drawable: displays text on an optional background rectangle
----@param text? string
+---@param text? table|string
 ---@param font? love.Font
 ---@param text_color? table
 ---@param background_color? table
@@ -13,27 +14,39 @@ TextBox.__index = TextBox
 function TextBox:TextBox(text, font, text_color, background_color)
     self.type = "TextBox"
     self.isClickable = false
-    self.text = text or "No text"
+    if (type(text) == "table") then
+        self.text = text or {"", ""}
+    else 
+        self.text = text or ""
+    end
+
     self.font = font or love.graphics.getFont()
     self.text_color = text_color or {0, 0, 0}
     self.background_color = background_color
 
     self.drawFunc = function ()
-        -- button
+        -- background if needed
         if background_color then
             Utils.setColorRGB(self.background_color)
             love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
         end
 
         -- text
-        local text_width = self.font:getWidth(self.text)
+        local text = ""
+        if (type(self.text) == "table") then
+            text = self.text[GameState.current_lang]
+        else
+            text = self.text
+        end
+
+        local text_width = self.font:getWidth(text)
         local text_height = self.font:getHeight()
         local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)
         local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
 
         love.graphics.setFont(self.font)
         Utils.setColorRGB(self.text_color)
-        love.graphics.print(self.text, text_x, text_y)
+        love.graphics.print(text, text_x, text_y)
 
         Utils.resetColor()
     end

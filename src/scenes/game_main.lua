@@ -5,6 +5,7 @@ local Utils = require "Utils"
 local audio_list = require "audio_list"
 local image_list = require "image_list"
 local GameState = require "GameState"
+local LANG = require "LANG"
 
 local pixel_font = "fonts/Karma Suture.otf"
 local pixel_font_bold = "fonts/Karma Future.otf"
@@ -23,10 +24,16 @@ return {
     z_index = 0,
     drawables = {
         {
+            id = "rect-left",
+            z_index = 100,
+            drawable = Drawable:new(0, 0, 450, wh):Rectangle({255, 0, 0})
+        },
+
+        {
             id = "btn-abuioabu",
             z_index = 0,
             drawable = Drawable:new(200, 200, 300, 200):Button(
-                "ABUIOABU", Utils.resizeFont(pixel_font, 30),
+                LANG.quit, Utils.resizeFont(pixel_font, 30),
                 {237, 164, 74},
                 {212, 198, 182},
                 function()

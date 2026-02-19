@@ -41,10 +41,9 @@ function Scenes:onClick(mx, my)
     local clicked_drawables = {}
 
     for _, scene in ipairs(self.scene_list) do
-
         if scene.shouldDraw then
-            for _, item in ipairs(scene.drawables) do
 
+            for _, item in ipairs(scene.drawables) do
                 if item.drawable:isClicked(mx, my) then
                     table.insert(clicked_drawables, item)
                 end

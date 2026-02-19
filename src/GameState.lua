@@ -1,4 +1,5 @@
 local GameState = {
+    current_lang = "sl",
     points = 0
 }
 

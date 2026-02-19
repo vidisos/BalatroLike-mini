@@ -1,4 +1,5 @@
 local Utils = require "Utils"
+local GameState = require "GameState"
 
 ---@class Button : Drawable
 local Button = {}
@@ -8,7 +9,7 @@ Button.__index = Button
 local normalButtonDraw, borderedButtonDraw
 
 ---extension of Drawable: a colored rectangle with optional text that can be clicked, optional border
----@param text? string
+---@param text? table
 ---@param font? love.Font
 ---@param text_color? table
 ---@param button_color? table
@@ -19,7 +20,13 @@ local normalButtonDraw, borderedButtonDraw
 function Button:Button(text, font, text_color, button_color, onClickFunc, border_width, border_color)
     self.type = "Button"
     self.isClickable = true
-    self.text = text or ""
+
+    if (type(text) == "table") then
+        self.text = text or {"", ""}
+    else 
+        self.text = text or ""
+    end
+
     self.font = font or love.graphics.getFont()
     self.text_color = text_color or {0, 0, 0}
     self.button_color = button_color or {255, 255, 255}
@@ -60,14 +67,20 @@ normalButtonDraw = function(self)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 
     -- text
-    local text_width = self.font:getWidth(self.text)
+    local text = ""
+    if (type(self.text) == "table") then
+        text = self.text[GameState.current_lang]
+    else
+        text = self.text
+    end
+    local text_width = self.font:getWidth(text)
     local text_height = self.font:getHeight()
     local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)
     local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
 
     love.graphics.setFont(self.font)
     Utils.setColorRGB(self.text_color)
-    love.graphics.print(self.text, text_x, text_y)
+    love.graphics.print(text, text_x, text_y)
 end
 
 ---drawing a button that basically makes the border part of it in terms of width and such
@@ -86,14 +99,20 @@ borderedButtonDraw = function(self)
     love.graphics.rectangle("fill", button_x, button_y, button_width, button_height)
 
     -- text
-    local text_width = self.font:getWidth(self.text)
+    local text = ""
+    if (type(self.text) == "table") then
+        text = self.text[GameState.current_lang]
+    else
+        text = self.text
+    end
+    local text_width = self.font:getWidth(text)
     local text_height = self.font:getHeight()
     local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)
     local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
 
     love.graphics.setFont(self.font)
     Utils.setColorRGB(self.text_color)
-    love.graphics.print(self.text, text_x, text_y)
+    love.graphics.print(text, text_x, text_y)
 end
 
 return Button

@@ -7,6 +7,9 @@ local image_list = require "image_list"
 local card_list = require "card_list"
 local GameState = require "GameState"
 
+local LANG = require "LANG"
+local current_lang = GameState.current_lang
+
 local pixel_font = "fonts/Karma Suture.otf"
 local pixel_font_bold = "fonts/Karma Future.otf"
 local ww = CONSTANTS.BASE_WIDTH
@@ -36,7 +39,7 @@ return {
             drawable = Drawable:new(
                 Utils.getCenterAnchorX(0, ww, 1200), Utils.getCenterAnchorY(0, wh, 400),
                 1200, 400
-            ):TextBox("Poinker", Utils.resizeFont(pixel_font_bold, 300))
+            ):TextBox(LANG.title, Utils.resizeFont(pixel_font_bold, 300))
         },
 
         {
@@ -46,45 +49,18 @@ return {
         },
 
         {
-            id = "btn-uderehee",
+            id = "btn-start",
             z_index = 0,
-            drawable = Drawable:new(370, wh-200, 300, 100):Button(
-                "Uderehee", Utils.resizeFont(pixel_font, 40),
-                {237, 164, 74},
-                {212, 198, 182},
-                function ()
-                    audio_list.uderehee:stop()
-                    audio_list.uderehee:play()
-                end,
-                nil,
-                {100, 50, 20}
-            )
-        },
-
-        {
-            id = "btn-new-screen",
-            z_index = 0,
-            drawable = Drawable:new(800, wh-200, 200, 100):Button(
-                "New Screen", Utils.resizeFont(pixel_font, 30),
+            drawable = Drawable:new(500, 800, 300, 150):Button(
+                LANG.start, Utils.resizeFont(pixel_font, 90),
                 {237, 164, 74},
                 {212, 198, 182},
                 function (self)
                     Scenes:disableScenes()
                     Scenes:enableScene("game-main")
-
-                    self.x = self.x - 200
-                    Scenes:addDrawable(
-                        Scenes:getScene("game-main"),
-                        "card",
-                        10,
-                        Drawable:new(0, 0, 200, 200*CONSTANTS.CARD_IMAGE_RATIO, function(self, dt) local x_movement = 500 self.x = self.x + x_movement * dt end):Card(
-                            card_list.cards.spade1
-                        )
-                    )
-
                     Scenes:sortDrawables(Scenes:getScene("game-main"))
                 end,
-                10,
+                15,
                 {100, 50, 20}
             )
         },
@@ -92,8 +68,8 @@ return {
         {
             id = "btn-quit",
             z_index = 0,
-            drawable = Drawable:new(1350, wh-200, 200, 100):Button(
-                "Quit", Utils.resizeFont(pixel_font, 30),
+            drawable = Drawable:new(1000, 820, 250, 130):Button(
+                LANG.quit, Utils.resizeFont(pixel_font, 50),
                 {0, 0, 100},
                 {255, 0, 0},
                 function()
@@ -105,15 +81,21 @@ return {
         },
 
         {
-            id = "btn-test",
-            z_index = 1,
-            drawable = Drawable:new(1250, wh-200, 200, 100):Button(
-                "layered", Utils.resizeFont(pixel_font, 30),
+            id = "btn-change-lang",
+            z_index = 0,
+            drawable = Drawable:new(1600, 950, 200, 100):Button(
+                LANG.language, Utils.resizeFont(pixel_font, 30),
                 {0, 0, 100},
                 {255, 0, 0},
+                function(self)
+                    if (GameState.current_lang == "en") then
+                        GameState.current_lang = "sl"
+                    else
+                        GameState.current_lang = "en"
+                    end
+                end,
                 nil,
-                0,
-                {0, 25, 255}
+                {0, 100, 25}
             )
         },
 
@@ -124,7 +106,7 @@ return {
                 function (self, dt)
                     self.text = string.format("%.2f", GameState.points + dt)
                 end
-            ):TextBox(
+                ):TextBox(
                 tostring(GameState.points), Utils.resizeFont(pixel_font, 50),
                 nil,
                 {59, 124, 217}
