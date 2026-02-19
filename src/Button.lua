@@ -67,12 +67,16 @@ normalButtonDraw = function(self)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 
     -- text
-    local text = ""
-    if (type(self.text) == "table") then
+    local text
+    local text_type = type(self.text)
+    if (text_type == "table") then
         text = self.text[GameState.current_lang]
-    else
+    elseif text_type == "string" then
         text = self.text
+    else 
+        text = ""
     end
+
     local text_width = self.font:getWidth(text)
     local text_height = self.font:getHeight()
     local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)
@@ -99,12 +103,16 @@ borderedButtonDraw = function(self)
     love.graphics.rectangle("fill", button_x, button_y, button_width, button_height)
 
     -- text
-    local text = ""
-    if (type(self.text) == "table") then
+    local text
+    local text_type = type(self.text)
+    if (text_type == "table") then
         text = self.text[GameState.current_lang]
-    else
+    elseif text_type == "string" then
         text = self.text
+    else
+        text = ""
     end
+
     local text_width = self.font:getWidth(text)
     local text_height = self.font:getHeight()
     local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)

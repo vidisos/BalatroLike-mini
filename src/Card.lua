@@ -12,7 +12,6 @@ Card.__index = Card
 ---@return Card
 function Card:Card(card_base, onClickFunc)
     self.type = "Card"
-
     self.isClickable = true
     self.image = card_base.image or image_list.settings_icon
     self.suit = card_base.suit or ""

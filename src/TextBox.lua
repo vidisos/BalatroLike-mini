@@ -14,6 +14,7 @@ TextBox.__index = TextBox
 function TextBox:TextBox(text, font, text_color, background_color)
     self.type = "TextBox"
     self.isClickable = false
+
     if (type(text) == "table") then
         self.text = text or {"", ""}
     else 
@@ -32,11 +33,14 @@ function TextBox:TextBox(text, font, text_color, background_color)
         end
 
         -- text
-        local text = ""
-        if (type(self.text) == "table") then
+        local text
+        local text_type = type(self.text)
+        if (text_type == "table") then
             text = self.text[GameState.current_lang]
-        else
+        elseif text_type == "string" then
             text = self.text
+        else 
+            text = ""
         end
 
         local text_width = self.font:getWidth(text)
@@ -49,6 +53,13 @@ function TextBox:TextBox(text, font, text_color, background_color)
         love.graphics.print(text, text_x, text_y)
 
         Utils.resetColor()
+    end
+
+    self.isClickedFunc = function (mx, my)
+        local isClicked =
+            self.x <= mx and mx <= self.x + self.width and
+            self.y <= my and my <= self.y + self.height
+        return isClicked
     end
 
     return self

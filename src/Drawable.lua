@@ -36,11 +36,7 @@ end
 ---@param my number
 ---@return boolean
 function Drawable:isClicked(mx, my)
-    if self.isClickable then
-        return self.isClickedFunc(mx, my)
-    end
-
-    return false
+    return self.isClickedFunc(mx, my)
 end
 
 ---@class Drawable
