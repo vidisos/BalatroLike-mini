@@ -1,3 +1,4 @@
+local GameState = require "GameState"
 local Scenes = {
     scene_list = {}
 }
@@ -23,7 +24,7 @@ function Scenes:update(dt)
     end
 end
 
----activates the draw function of every drawable
+---activates the draw function of every drawable 
 function Scenes:draw()
     for _, scene in ipairs(self.scene_list) do
         if scene.shouldDraw then
@@ -119,10 +120,8 @@ end
 
 ---adds a new drawable to a scene
 function Scenes:addDrawable(scene, id, z_index, drawable)
-
     if scene then
-        local drawables = scene.drawables
-        table.insert(drawables, {id = id, z_index = z_index, drawable = drawable})
+        table.insert(scene.drawables, {id = id, z_index = z_index, drawable = drawable})
     end
 end
 

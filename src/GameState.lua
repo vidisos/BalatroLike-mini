@@ -1,12 +1,13 @@
 local GameState = {
     current_lang = "sl",
-    points = 0
-}
+    timer = 0,
 
----sets the points lel
----@param num number
-function GameState:setPoints(num)
-    self.points = num or 0
-end
+    level = 1,
+    score = 0,
+    chips = 0,
+    mult = 0,
+    hands_remaining = 5,
+    discards_remaining = 5
+}
 
 return GameState

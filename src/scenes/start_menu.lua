@@ -15,7 +15,7 @@ local pixel_font_bold = "fonts/Karma Future.otf"
 local ww = CONSTANTS.BASE_WIDTH
 local wh = CONSTANTS.BASE_HEIGHT
 
--- adding extensions to the Drawable superclass
+-- adding extensions to the Drawable "superclass"
 Drawable.ImageBox = require("ImageBox").Card
 Drawable.Rectangle = require("Rectangle").Rectangle
 Drawable.TextBox = require("TextBox").TextBox
@@ -104,10 +104,10 @@ return {
             z_index = 1,
             drawable = Drawable:new(100, 100, 200, 200,
                 function (self, dt)
-                    self.text = string.format("%.2f", GameState.points + dt)
+                    self.text = string.format("%.2f", GameState.timer)
                 end
                 ):TextBox(
-                tostring(GameState.points), Utils.resizeFont(pixel_font, 50),
+                tostring(GameState.timer), Utils.resizeFont(pixel_font, 50),
                 nil,
                 {59, 124, 217}
             )

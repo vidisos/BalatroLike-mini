@@ -12,15 +12,16 @@ function love.load()
     love.window.setFullscreen(true)
 
     Scenes:init()
-
+    --[[
     local background_music = audio_list.background_music
     background_music:setVolume(0.3)
     background_music:setLooping(true)
     background_music:play()
+    ]]
 end
 
 function love.update(dt)
-    GameState:setPoints(GameState.points + dt)
+    GameState.timer = GameState.timer + dt
     Scenes:update(dt)
 end
 
