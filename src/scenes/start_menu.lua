@@ -7,7 +7,7 @@ local image_list = require "image_list"
 local card_list = require "card_list"
 local GameState = require "GameState"
 
-local LANG = require "LANG"
+local LANG = require "src.LANG"
 local current_lang = GameState.current_lang
 
 local pixel_font = "fonts/Karma Suture.otf"

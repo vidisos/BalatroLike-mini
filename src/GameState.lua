@@ -52,7 +52,7 @@ function GameState:makeNewHand()
 end
 
 ---returns a random card base
----@return love.Image
+---@return CardBase
 function GameState:getRandomCard()
     local cards = {}
 
@@ -61,7 +61,7 @@ function GameState:getRandomCard()
     end
 
     local rndIndex = math.random(#cards)
-    print(#cards)
+
     return cards[rndIndex]
 end
 

@@ -5,7 +5,7 @@ local Utils = require "Utils"
 local audio_list = require "audio_list"
 local image_list = require "image_list"
 local GameState = require "GameState"
-local LANG = require "LANG"
+local LANG = require "src.LANG"
 
 local pixel_font = "fonts/Karma Suture.otf"
 local pixel_font_bold = "fonts/Karma Future.otf"
