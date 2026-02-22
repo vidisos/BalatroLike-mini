@@ -16,6 +16,7 @@ function Card:Card(card_base, onClickFunc)
     self.image = card_base.image or image_list.settings_icon
     self.suit = card_base.suit or ""
     self.rank = card_base.rank or 0
+    self.selected = false
     self.onClickFunc = onClickFunc or function () end
 
     self.drawFunc = function (self)

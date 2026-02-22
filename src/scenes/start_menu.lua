@@ -58,6 +58,7 @@ return {
                 function (self)
                     Scenes:disableScenes()
                     Scenes:enableScene("game-main")
+                    GameState:startNewRound()
                     Scenes:sortDrawables(Scenes:getScene("game-main"))
                 end,
                 15,

@@ -24,14 +24,20 @@ return {
     z_index = 0,
     drawables = {
         {
-            id = "rect-left",
+            id = "rect-background",
             z_index = 0,
+            drawable = Drawable:new(0, 0, ww, wh):Rectangle({255, 100, 50})
+        },
+
+        {
+            id = "rect-left",
+            z_index = 1,
             drawable = Drawable:new(0, 0, 450, wh):Rectangle({50, 100, 200})
         },
 
         {
             id = "text-level-title",
-            z_index = 1,
+            z_index = 2,
             drawable = Drawable:new(Utils.getCenterAnchorX(0, 450, 400), 50, 400, 120):TextBox(
                 LANG:getCurrentLevelText(), Utils.resizeFont(pixel_font, 80),
                 nil, {255, 255, 0}
@@ -40,14 +46,14 @@ return {
 
         {
             id = "rect-level-background",
-            z_index = 1,
+            z_index = 2,
             drawable = Drawable:new(Utils.getCenterAnchorX(0, 450, 310), 200, 310, 190):Rectangle(
                 {111, 123, 143}
             )
         },
         {
             id = "text-level-requirement-text",
-            z_index = 2,
+            z_index = 3,
             drawable = Drawable:new(Utils.getCenterAnchorX(0, 450, 400), 200, 400, 100):TextBox(
                 LANG.scoreText, Utils.resizeFont(pixel_font, 35),
                 nil, nil
@@ -55,15 +61,15 @@ return {
         },
         {
             id = "text-level-requirement-score",
-            z_index = 2,
+            z_index = 3,
             drawable = Drawable:new(Utils.getCenterAnchorX(0, 450, 400), 270, 400, 100):TextBox(
-                tostring(600), Utils.resizeFont(pixel_font, 80),
+                tostring(GameState.score_requirement), Utils.resizeFont(pixel_font, 80),
                 {240, 67, 67}, nil
             )
         },
 
         {
-            id = "btn-abuioabu",
+            id = "btn-quit",
             z_index = 1,
             drawable = Drawable:new(1700, 600, 300, 200):Button(
                 LANG.quit, Utils.resizeFont(pixel_font, 30),

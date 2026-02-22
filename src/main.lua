@@ -8,7 +8,7 @@ function love.load()
     love.window.setMode( 600, 800, {resizable=true} )
     local ww, wh = love.graphics.getDimensions()
     ]]
-    love.graphics.setDefaultFilter('nearest', 'nearest')
+
     love.window.setFullscreen(true)
 
     Scenes:init()

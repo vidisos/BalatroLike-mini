@@ -1,4 +1,3 @@
-local GameState = require "GameState"
 local Scenes = {
     scene_list = {}
 }
