@@ -14,6 +14,7 @@ local GameState = {
     score = 0,
     chips = 0,
     mult = 0,
+    selected_hand = "Pair";
     hands_remaining = 5,
     discards_remaining = 5,
     hand_size = 8
@@ -27,7 +28,9 @@ function GameState:makeNewHand()
     for i=1, self.hand_size do
         local id = "card-" .. i
         local z_index = 10 + i
-        local x = CONSTANTS.HAND_X + (i * CONSTANTS.CARD_WIDTH/2)
+
+        local spacing = ((i-1) * (CONSTANTS.HAND_WIDTH - CONSTANTS.CARD_WIDTH) / (self.hand_size - 1))
+        local x = CONSTANTS.HAND_X + spacing
         local y = CONSTANTS.HAND_Y
         local width = CONSTANTS.CARD_WIDTH
         local height = CONSTANTS.CARD_HEIGHT

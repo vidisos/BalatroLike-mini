@@ -8,7 +8,8 @@ local LANG = {
     level1 = {en="Level 1", sl="Stopnja 1"},
     level2 = {en="Level 2", sl="Stopnja 2"},
     level3 = {en="Level 3", sl="Stopnja 3"},
-    scoreText = {en="Score at least:", sl="Doseži vsaj:"}
+    scoreText = {en="Score at least:", sl="Doseži vsaj:"},
+    roundScore = {en="Round\nScore", sl="Točke\nstopnje"}
 }
 
 function LANG:getCurrentLevelText()

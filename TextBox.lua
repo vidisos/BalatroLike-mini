@@ -44,6 +44,7 @@ function TextBox:TextBox(text, font, text_color, background_color)
         end
 
         local text_width = self.font:getWidth(text)
+        --TODO make it so that it includes newline or smth alaso maybe add with printf left right
         local text_height = self.font:getHeight()
         local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)
         local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
