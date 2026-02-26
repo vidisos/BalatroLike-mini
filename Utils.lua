@@ -34,4 +34,15 @@ function Utils.resizeFont(font, size)
     return font
 end
 
+function Utils.countLines(text)
+    local _, count = text:gsub("\n", "\n")
+    return count + 1
+end
+
+function Utils.clearTable(table)
+    for k in pairs(table) do
+        table[k] = nil
+    end
+end
+
 return Utils

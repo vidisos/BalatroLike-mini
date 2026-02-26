@@ -78,7 +78,7 @@ normalButtonDraw = function(self)
     end
 
     local text_width = self.font:getWidth(text)
-    local text_height = self.font:getHeight()
+    local text_height = self.font:getHeight() * Utils.countLines(text)
     local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)
     local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
 
@@ -114,7 +114,7 @@ borderedButtonDraw = function(self)
     end
 
     local text_width = self.font:getWidth(text)
-    local text_height = self.font:getHeight()
+    local text_height = self.font:getHeight() * Utils.countLines(text)
     local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)
     local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
 

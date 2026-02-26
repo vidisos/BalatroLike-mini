@@ -1,3 +1,4 @@
+local Utils = require "Utils"
 local Scenes = {
     scene_list = {}
 }
@@ -121,6 +122,20 @@ end
 function Scenes:addDrawable(scene, id, z_index, drawable)
     if scene then
         table.insert(scene.drawables, {id = id, z_index = z_index, drawable = drawable})
+    end
+end
+
+---deletes all the cards currently in the main game cards table
+function Scenes:clearCards()
+    local scene = self:getScene("game-main")
+
+    -- remove cards from drawables (iterate backwards!)
+    for i = #scene.drawables, 1, -1 do
+
+        local item = scene.drawables[i]
+        if item.drawable.type == "Card" then
+            table.remove(scene.drawables, i)
+        end
     end
 end
 

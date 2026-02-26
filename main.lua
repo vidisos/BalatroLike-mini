@@ -4,7 +4,8 @@ local Scenes = require "Scenes"
 local audio_list = require "audio_list"
 
 function love.load()
-    --[[    
+
+    --[[
     love.window.setMode( 600, 800, {resizable=true} )
     local ww, wh = love.graphics.getDimensions()
     ]]
@@ -12,12 +13,12 @@ function love.load()
     love.window.setFullscreen(true)
 
     Scenes:init()
-
+    --[[
     local background_music = audio_list.background_music
     background_music:setVolume(0.3)
     background_music:setLooping(true)
     background_music:play()
-
+    ]]
 end
 
 function love.update(dt)

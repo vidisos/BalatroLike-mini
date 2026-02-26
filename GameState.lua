@@ -25,6 +25,8 @@ function GameState:startNewRound()
 end
 
 function GameState:makeNewHand()
+    Scenes:clearCards()
+
     for i=1, self.hand_size do
         local id = "card-" .. i
         local z_index = 10 + i
@@ -38,18 +40,16 @@ function GameState:makeNewHand()
             function (self)
                 if self.selected then
                     self.selected = false
-                    self.y = self.y - 200
+                    self.y = CONSTANTS.HAND_Y
                 else
                     self.selected = true
-                    self.y = self.y + 200
+                    self.y = CONSTANTS.HAND_Y - 200
                 end
             end
         )
 
         local card_base = GameState:getRandomCard()
-
         local card = Drawable:new(x, y, width, height):Card(card_base, onClickFunc)
-        card.selected = true
         Scenes:addDrawable(Scenes:getScene("game-main"), id, z_index, card)
     end
 end
