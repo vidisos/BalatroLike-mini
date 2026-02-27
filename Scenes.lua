@@ -83,29 +83,33 @@ end
 
 ---returns a specific scene table with the id
 ---@param id string
----@return table?
+---@return Scene
 function Scenes:getScene(id)
     for _, scene in ipairs(self.scene_list) do
         if scene.id == id then
             return scene
         end
     end
+
+    error("Scenes:getScene(id): Bad scene id")
 end
 
----returns a specific drawable table with the id
+---returns a specific drawable item table with the id
 ---@param id string
----@return table?
-function Scenes:getDrawable(scene_id, id)
+---@return DrawableItem
+function Scenes:getDrawableItem(scene_id, id)
     for _, scene in ipairs(self.scene_list) do
         if scene.id == scene_id then
 
-            for _, drawable in ipairs(scene.drawables) do
-                if drawable.id == id then
-                    return drawable
+            for _, item in ipairs(scene.drawables) do
+                if item.id == id then
+                    return item
                 end
             end
         end
     end
+
+    error("Scenes:getDrawableItem(scene_id, id): smth wrong idk lel")
 end
 
 ---sorts all scenes by z-index

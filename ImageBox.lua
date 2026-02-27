@@ -8,7 +8,7 @@ local ImageBox = {}
 ---@param image? love.Image
 ---@param onClickFunc? function
 ---@return ImageBox
-function ImageBox:Card(image, onClickFunc)
+function ImageBox:ImageBox(image, onClickFunc)
     self.type = "ImageBox"
     self.isClickable = true
     self.image = image or image_list.settings_icon

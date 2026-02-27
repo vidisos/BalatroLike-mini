@@ -4,91 +4,90 @@ local CONSTANTS = require "CONSTANTS"
 local card_list = require "card_list"
 
 local GameState = {
-    current_lang = "sl",
-    timer = 0,
-
+    --should be constants but uh ehe
     hand_size = 8,
     deck_size = 52,
 
+    --level info
     level = 1,
     score_requirement = 600,
 
+    --dynamic stuff
+    current_lang = "sl",
+    timer = 0,
+
     score = 0,
+
+    selected_hand = "Pair";
     chips = 0,
     mult = 0,
-    selected_hand = "Pair";
+
     hands_remaining = 5,
-    discards_remaining = 5
+    discards_remaining = 5,
+
+    deckCount = 0
 }
 
 function GameState:startNewRound()
     self:makeNewDeck()
-    --self:makeNewHand()
+    self:makeNewHand()
 end
 
----creates the amount of cards that should be in the whole deck (usually 52)
+---creates the amount of cards that should be in the whole deck and places them there (usually 52)
 function GameState:makeNewDeck()
     Scenes:clearCards()
+    self.deckCount = 0
 
     for i=1, self.deck_size do
         local id = "card-" .. i
         local z_index = 10 + i
 
-        local spacing = ((i-1) * (CONSTANTS.HAND_WIDTH - CONSTANTS.CARD_WIDTH) / (self.deck_size - 1))
-        local x = CONSTANTS.HAND_X + spacing
-        local y = CONSTANTS.HAND_Y
+        local spacing = ((i-1) * (CONSTANTS.DECK_HEIGHT - CONSTANTS.CARD_HEIGHT) / (self.deck_size - 1))
+        local x = CONSTANTS.DECK_X
+        local y = CONSTANTS.DECK_Y - CONSTANTS.CARD_HEIGHT - spacing
         local width = CONSTANTS.CARD_WIDTH
         local height = CONSTANTS.CARD_HEIGHT
         local onClickFunc = (
             function (self)
-                if self.selected then
-                    self.flipped = false
-                    self.selected = false
-                    self.y = CONSTANTS.HAND_Y
-                else
-                    self.flipped = true
-                    self.selected = true
-                    self.y = CONSTANTS.HAND_Y - 200
+                if not self.inDeck then
+                    if self.selected then
+                        self.flipped = false
+                        self.selected = false
+                        self.y = CONSTANTS.HAND_Y
+                    else
+                        self.flipped = true
+                        self.selected = true
+                        self.y = CONSTANTS.HAND_Y - 200
+                    end
                 end
             end
         )
 
         local card_base = GameState:getRandomCardBase()
+
         local card = Drawable:new(x, y, width, height):Card(card_base, onClickFunc)
+        card.inDeck = true
+        card.flipped = true
+
         Scenes:addDrawable(Scenes:getScene("game-main"), id, z_index, card)
+
+        self.deckCount = self.deckCount + 1
     end
 end
 
 ---moves cards from the deck to the hand
 function GameState:makeNewHand()
-    Scenes:clearCards()
-
     for i=1, self.hand_size do
-        local id = "card-" .. i
-        local z_index = 10 + i
+        local id = "card-" .. (self.deck_size - (i-1))
+        local card = Scenes:getDrawableItem("game-main", id).drawable
 
         local spacing = ((i-1) * (CONSTANTS.HAND_WIDTH - CONSTANTS.CARD_WIDTH) / (self.hand_size - 1))
-        local x = CONSTANTS.HAND_X + spacing
-        local y = CONSTANTS.HAND_Y
-        local width = CONSTANTS.CARD_WIDTH
-        local height = CONSTANTS.CARD_HEIGHT
-        local onClickFunc = (
-            function (self)
-                if self.selected then
-                    self.flipped = false
-                    self.selected = false
-                    self.y = CONSTANTS.HAND_Y
-                else
-                    self.flipped = true
-                    self.selected = true
-                    self.y = CONSTANTS.HAND_Y - 200
-                end
-            end
-        )
+        card.x = CONSTANTS.HAND_X + spacing
+        card.y = CONSTANTS.HAND_Y
+        card.flipped = false
+        card.inDeck = false
 
-        local card_base = GameState:getRandomCardBase()
-        local card = Drawable:new(x, y, width, height):Card(card_base, onClickFunc)
-        Scenes:addDrawable(Scenes:getScene("game-main"), id, z_index, card)
+        self.deckCount = self.deckCount - 1
     end
 end
 
