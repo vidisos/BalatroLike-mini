@@ -3,7 +3,6 @@ local GameState = require "GameState"
 
 ---@class TextBox : Drawable
 local TextBox = {}
-TextBox.__index = TextBox
 
 ---extension of Drawable: displays text on an optional background rectangle
 ---@param text? table|string

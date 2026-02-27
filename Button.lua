@@ -3,7 +3,6 @@ local GameState = require "GameState"
 
 ---@class Button : Drawable
 local Button = {}
-Button.__index = Button
 
 -- just here so we can reference the functions before theyre declared fully for readability reasons
 local normalButtonDraw, borderedButtonDraw

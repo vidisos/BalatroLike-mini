@@ -129,7 +129,7 @@ end
 function Scenes:clearCards()
     local scene = self:getScene("game-main")
 
-    -- remove cards from drawables (iterate backwards!)
+    -- we need to iterate backwards otherwise it doesnt remove properly(the index moves and stuff)
     for i = #scene.drawables, 1, -1 do
 
         local item = scene.drawables[i]

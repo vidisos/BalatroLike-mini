@@ -3,7 +3,6 @@ local image_list = require "image_list"
 
 ---@class ImageBox : Drawable
 local ImageBox = {}
-ImageBox.__index = ImageBox
 
 ---extension of Drawable: an imagebox that can be clicked
 ---@param image? love.Image

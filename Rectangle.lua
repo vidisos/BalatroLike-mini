@@ -2,7 +2,6 @@ local Utils = require "Utils"
 
 ---@class Rectangle : Drawable
 local Rectangle = {}
-Rectangle.__index = Rectangle
 
 ---extension of Drawable: a colored rectangle
 ---@param background_color? table
