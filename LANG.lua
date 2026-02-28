@@ -20,7 +20,12 @@ local LANG = {
     level2 = {en="Level 2", sl="Stopnja 2"},
     level3 = {en="Level 3", sl="Stopnja 3"},
     scoreText = {en="Score at least:", sl="Doseži vsaj:"},
-    roundScore = {en="Round\nScore", sl="Točke\nstopnje"}
+    roundScore = {en="Round\nScore", sl="Točke\nstopnje"},
+    hands = {en="Hands", sl="Roke"},
+    discards = {en="Hands", sl="Zavržki"},
+    rankingInfo = {en="Ranking\ninfo", sl="Info\nrok"},
+    playHand = {en="Play hand", sl="Igraj roko"},
+    discardHand = {en="Discard", sl="Zavrži"}
 }
 
 ---returns the language entry for the current level 

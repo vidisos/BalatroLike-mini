@@ -22,8 +22,8 @@ local GameState = {
     chips = 0,
     mult = 0,
 
-    hands_remaining = 5,
-    discards_remaining = 5,
+    hands_remaining = 4,
+    discards_remaining = 3,
 
     deckCount = 0
 }
@@ -36,7 +36,7 @@ end
 
 ---creates the amount of cards that should be in the whole deck (usually 52) and places them there
 function GameState:makeNewDeck()
-    Scenes:clearCards()
+    self:clearCards()
     self.deckCount = 0
 
     for i=1, self.deck_size do
@@ -44,7 +44,7 @@ function GameState:makeNewDeck()
         local z_index = 10 + i
 
         local spacing = ((i-1) * (CONSTANTS.DECK_HEIGHT - CONSTANTS.CARD_HEIGHT) / (self.deck_size - 1))
-        local x = CONSTANTS.DECK_X
+        local x = CONSTANTS.DECK_X + i*0.15
         local y = CONSTANTS.DECK_Y - CONSTANTS.CARD_HEIGHT - spacing
         local width = CONSTANTS.CARD_WIDTH
         local height = CONSTANTS.CARD_HEIGHT
@@ -58,7 +58,7 @@ function GameState:makeNewDeck()
                     else
                         self.flipped = true
                         self.selected = true
-                        self.y = CONSTANTS.HAND_Y - 200
+                        self.y = CONSTANTS.HAND_Y - 70
                     end
                 end
             end
@@ -106,6 +106,20 @@ function GameState:getRandomCardBase()
     local rndIndex = math.random(#cards)
 
     return cards[rndIndex]
+end
+
+---deletes all the normal cards
+function GameState:clearCards()
+    local scene = Scenes:getScene("game-main")
+
+    -- we need to iterate backwards otherwise it doesnt remove properly(the index moves and stuff)
+    for i = #scene.drawables, 1, -1 do
+
+        local item = scene.drawables[i]
+        if item.drawable.type == "Card" then
+            table.remove(scene.drawables, i)
+        end
+    end
 end
 
 return GameState

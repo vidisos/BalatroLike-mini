@@ -33,11 +33,6 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
     self.border_width = border_width or 0
     self.border_color = border_color or {0, 0, 0}
 
-    if border_width and border_width > 0 then
-        self.width = self.width + 2*self.border_width
-        self.height = self.height + 2*self.border_width
-    end
-
     self.drawFunc = function ()
         if border_width then
             borderedButtonDraw(self)

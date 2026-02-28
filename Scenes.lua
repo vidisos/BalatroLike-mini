@@ -130,18 +130,4 @@ function Scenes:addDrawable(scene, id, z_index, drawable)
     end
 end
 
----deletes all the normal cards
-function Scenes:clearCards()
-    local scene = self:getScene("game-main")
-
-    -- we need to iterate backwards otherwise it doesnt remove properly(the index moves and stuff)
-    for i = #scene.drawables, 1, -1 do
-
-        local item = scene.drawables[i]
-        if item.drawable.type == "Card" then
-            table.remove(scene.drawables, i)
-        end
-    end
-end
-
 return Scenes

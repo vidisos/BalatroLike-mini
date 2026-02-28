@@ -1,6 +1,7 @@
 local CONSTANTS = require "CONSTANTS"
 local GameState = require "GameState"
 local Scenes = require "Scenes"
+local audio_list = require "audio_list"
 
 function love.load()
     --[[
@@ -12,10 +13,10 @@ function love.load()
 
     Scenes:init()
 
-    --[[
     local background_music = audio_list.background_music
     background_music:setVolume(0.3)
     background_music:setLooping(true)
+    --[[
     background_music:play()
     ]]
 end
