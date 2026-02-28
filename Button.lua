@@ -8,7 +8,7 @@ local Button = {}
 local normalButtonDraw, borderedButtonDraw
 
 ---extension of Drawable: a colored rectangle with optional text that can be clicked, optional border
----@param text? table
+---@param text? LanguageEntry|string
 ---@param font? love.Font
 ---@param text_color? table
 ---@param button_color? table
@@ -22,7 +22,7 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
 
     if (type(text) == "table") then
         self.text = text or {"", ""}
-    else 
+    else
         self.text = text or ""
     end
 
@@ -52,6 +52,7 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
         local isClicked =
             self.x <= mx and mx <= self.x + self.width and
             self.y <= my and my <= self.y + self.height
+
         return isClicked
     end
 
@@ -72,7 +73,7 @@ normalButtonDraw = function(self)
         text = self.text[GameState.current_lang]
     elseif text_type == "string" then
         text = self.text
-    else 
+    else
         text = ""
     end
 

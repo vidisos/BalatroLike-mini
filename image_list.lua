@@ -5,7 +5,8 @@ local sparks_folder = image_folder .. "sparks/"
 -- Just renaming the function
 local newImage = love.graphics.newImage
 
-love.graphics.setDefaultFilter('nearest', 'nearest') --images dont become blurry woohoo
+-- Images dont become blurry woohoo
+love.graphics.setDefaultFilter('nearest', 'nearest')
 
 local image_list = {
     settings_icon = newImage(image_folder .. "settings_icon.png"),

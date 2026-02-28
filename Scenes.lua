@@ -1,4 +1,5 @@
 local Utils = require "Utils"
+
 local Scenes = {
     scene_list = {}
 }
@@ -8,9 +9,9 @@ function Scenes:init()
     table.insert(self.scene_list, require("scenes/start_menu"))
     table.insert(self.scene_list, require("scenes/game_main"))
 
-    Scenes:sortScenes()
+    self:sortScenes()
     for _, scene in ipairs(self.scene_list) do
-        Scenes:sortDrawables(scene)
+        self:sortDrawables(scene)
     end
 end
 
@@ -129,7 +130,7 @@ function Scenes:addDrawable(scene, id, z_index, drawable)
     end
 end
 
----deletes all the cards currently in the main game cards table
+---deletes all the normal cards
 function Scenes:clearCards()
     local scene = self:getScene("game-main")
 

@@ -5,7 +5,7 @@ local GameState = require "GameState"
 local TextBox = {}
 
 ---extension of Drawable: displays text on an optional background rectangle
----@param text? table|string
+---@param text? LanguageEntry|string
 ---@param font? love.Font
 ---@param text_color? table
 ---@param background_color? table
@@ -17,7 +17,7 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
 
     if (type(text) == "table") then
         self.text = text or {"", ""}
-    else 
+    else
         self.text = text or ""
     end
 
@@ -34,14 +34,12 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
         end
 
         -- text
-        local text
+        local text = ""
         local text_type = type(self.text)
         if (text_type == "table") then
             text = self.text[GameState.current_lang]
         elseif text_type == "string" then
             text = self.text
-        else
-            text = ""
         end
 
         local text_width = self.font:getWidth(text)

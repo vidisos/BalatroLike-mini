@@ -28,12 +28,13 @@ local GameState = {
     deckCount = 0
 }
 
+---resets everything about the score, curretn cards and stuff
 function GameState:startNewRound()
     self:makeNewDeck()
     self:makeNewHand()
 end
 
----creates the amount of cards that should be in the whole deck and places them there (usually 52)
+---creates the amount of cards that should be in the whole deck (usually 52) and places them there
 function GameState:makeNewDeck()
     Scenes:clearCards()
     self.deckCount = 0
@@ -79,6 +80,8 @@ end
 function GameState:makeNewHand()
     for i=1, self.hand_size do
         local id = "card-" .. (self.deck_size - (i-1))
+
+        ---@class Card
         local card = Scenes:getDrawableItem("game-main", id).drawable
 
         local spacing = ((i-1) * (CONSTANTS.HAND_WIDTH - CONSTANTS.CARD_WIDTH) / (self.hand_size - 1))
