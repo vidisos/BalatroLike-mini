@@ -19,6 +19,8 @@ function Card:Card(card_base, onClickFunc)
     self.selected = false
     self.flipped = false
     self.inDeck = false
+    self.inHand = false
+    self.displayIndex = 1
     self.onClickFunc = onClickFunc or function () end
 
     self.drawFunc = function (self)

@@ -119,6 +119,7 @@ function Scenes:sortScenes()
 end
 
 ---sorts all drawables of a scene by z-index
+---@param scene Scene
 function Scenes:sortDrawables(scene)
     table.sort(scene.drawables, function (a, b) return a.z_index < b.z_index end)
 end

@@ -8,7 +8,7 @@
 ---@field id string
 ---@field shouldDraw boolean
 ---@field z_index number
----@field drawables table
+---@field drawables DrawableItem[]
 
 ---@class CardBase
 ---@field baseImage love.Image
@@ -17,13 +17,14 @@
 ---@field rank number
 
 ---@class Drawable
+---@field type string
 ---@field x number
 ---@field y number
 ---@field width number
 ---@field height number
+---@field isClickable boolean
 ---@field updateFunc fun(self: Drawable, dt: number)
 ---@field drawFunc fun(self: Drawable)
----@field isClickable boolean
 ---@field isClickedFunc fun(mx: number, my: number): boolean
 ---@field Button fun(self: Drawable, text?: table | string, font?: love.Font, text_color?: table, button_color?: table, onClickFunc?: fun(), border_width?: number, border_color?: table): Button
 ---@field ImageBox fun(self: Drawable, image?: love.Image, onClickFunc?: fun()): ImageBox
@@ -46,7 +47,9 @@
 ---@field rank number
 ---@field selected boolean
 ---@field flipped boolean
+---@field inHand boolean
 ---@field inDeck boolean
+---@field displayIndex number
 ---@field onClickFunc fun()
 ---@field drawFunc fun(self: Card)
 ---@field isClickedFunc fun(mx: number, my: number): boolean

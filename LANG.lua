@@ -11,18 +11,20 @@ local GameState = require "GameState"
 ---@field scoreText LanguageEntry
 ---@field roundScore LanguageEntry
 local LANG = {
+    -- start menu
     title = {en="Poinker", sl="Poinker"},
     quit = {en="Quit", sl="Zapusti"},
     start = {en="Start", sl="Začni"},
     language = {en="Language", sl="Jezik"},
 
+    -- main game
     level1 = {en="Level 1", sl="Stopnja 1"},
     level2 = {en="Level 2", sl="Stopnja 2"},
     level3 = {en="Level 3", sl="Stopnja 3"},
     scoreText = {en="Score at least:", sl="Doseži vsaj:"},
     roundScore = {en="Round\nScore", sl="Točke\nstopnje"},
     hands = {en="Hands", sl="Roke"},
-    discards = {en="Hands", sl="Zavržki"},
+    discards = {en="Discards", sl="Zavržki"},
     rankingInfo = {en="Ranking\ninfo", sl="Info\nrok"},
     playHand = {en="Play hand", sl="Igraj roko"},
     discardHand = {en="Discard", sl="Zavrži"}

@@ -8,7 +8,7 @@ local card_list = {
     ---@class CardBase
     cards = {
         -- Clubs (cardBack3)
-        club1  = {baseImage = card_images.club1,  backImage = cardBack3, suit = "club",    rank = 1},
+        club1  = {baseImage = card_images.club1,  backImage = cardBack3, suit = "club",    rank = 14},
         club2  = {baseImage = card_images.club2,  backImage = cardBack3, suit = "club",    rank = 2},
         club3  = {baseImage = card_images.club3,  backImage = cardBack3, suit = "club",    rank = 3},
         club4  = {baseImage = card_images.club4,  backImage = cardBack3, suit = "club",    rank = 4},
@@ -23,7 +23,7 @@ local card_list = {
         club13 = {baseImage = card_images.club13, backImage = cardBack3, suit = "club",    rank = 13},
 
         -- Diamonds (cardBack1)
-        diamond1  = {baseImage = card_images.diamond1,  backImage = cardBack1, suit = "diamond", rank = 1},
+        diamond1  = {baseImage = card_images.diamond1,  backImage = cardBack1, suit = "diamond", rank = 14},
         diamond2  = {baseImage = card_images.diamond2,  backImage = cardBack1, suit = "diamond", rank = 2},
         diamond3  = {baseImage = card_images.diamond3,  backImage = cardBack1, suit = "diamond", rank = 3},
         diamond4  = {baseImage = card_images.diamond4,  backImage = cardBack1, suit = "diamond", rank = 4},
@@ -38,7 +38,7 @@ local card_list = {
         diamond13 = {baseImage = card_images.diamond13, backImage = cardBack1, suit = "diamond", rank = 13},
 
         -- Hearts (cardBack1)
-        heart1  = {baseImage = card_images.heart1,  backImage = cardBack1, suit = "heart", rank = 1},
+        heart1  = {baseImage = card_images.heart1,  backImage = cardBack1, suit = "heart", rank = 14},
         heart2  = {baseImage = card_images.heart2,  backImage = cardBack1, suit = "heart", rank = 2},
         heart3  = {baseImage = card_images.heart3,  backImage = cardBack1, suit = "heart", rank = 3},
         heart4  = {baseImage = card_images.heart4,  backImage = cardBack1, suit = "heart", rank = 4},
@@ -53,7 +53,7 @@ local card_list = {
         heart13 = {baseImage = card_images.heart13, backImage = cardBack1, suit = "heart", rank = 13},
 
         -- Spades (cardBack3)
-        spade1  = {baseImage = card_images.spade1,  backImage = cardBack3, suit = "spade", rank = 1},
+        spade1  = {baseImage = card_images.spade1,  backImage = cardBack3, suit = "spade", rank = 14},
         spade2  = {baseImage = card_images.spade2,  backImage = cardBack3, suit = "spade", rank = 2},
         spade3  = {baseImage = card_images.spade3,  backImage = cardBack3, suit = "spade", rank = 3},
         spade4  = {baseImage = card_images.spade4,  backImage = cardBack3, suit = "spade", rank = 4},
