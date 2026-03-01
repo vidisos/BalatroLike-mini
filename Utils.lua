@@ -49,4 +49,19 @@ function Utils.clearTable(table)
     end
 end
 
+---makes a deep copy of a table
+---@param original any
+---@return table
+function Utils.copyTable(original)
+    local copy = {}
+    for k, v in pairs(original) do
+        if type(v) == "table" then
+            copy[k] = Utils.copyTable(v)
+        else
+            copy[k] = v
+        end
+    end
+    return copy
+end
+
 return Utils

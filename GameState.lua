@@ -3,6 +3,7 @@ local Drawable = require "Drawable"
 local CONSTANTS = require "CONSTANTS"
 local card_list = require "card_list"
 local Card      = require "Card"
+local Utils     = require "Utils"
 
 local GameState = {
     --should be constants but uh ehe
@@ -16,6 +17,8 @@ local GameState = {
     --dynamic stuff
     current_lang = "sl",
     timer = 0,
+
+    deck_bases = {},
 
     score = 0,
 
@@ -43,6 +46,7 @@ end
 function GameState:makeNewDeck()
     self:clearCards()
     self.deck_count = 0
+    self.deck_bases = GameState:makeNewDeckBases()
 
     for i=1, self.deck_size do
         local id = "card-" .. i
@@ -92,18 +96,28 @@ function GameState:makeNewHand()
     end
 end
 
----returns a random card base
+---returns a random card base from the current deck
 ---@return CardBase
 function GameState:getRandomCardBase()
-    local cards = {}
+    local rndIndex = math.random(#self.deck_bases)
 
-    for _, image in pairs(card_list.cards) do
-        table.insert(cards, image)
+    local card_base = self.deck_bases[rndIndex]
+
+    table.remove(self.deck_bases, rndIndex)
+
+    return card_base
+end
+
+---returns a random card base from the current deck
+---@return CardBase[]
+function GameState:makeNewDeckBases()
+    local card_bases = {}
+
+    for _, card_base in pairs(Utils.copyTable(card_list.cards)) do
+        table.insert(card_bases, card_base)
     end
 
-    local rndIndex = math.random(#cards)
-
-    return cards[rndIndex]
+    return card_bases
 end
 
 ---deletes all the normal cards
@@ -120,20 +134,6 @@ function GameState:clearCards()
     end
 end
 
----gets all the ids of the cards in the hand
----@return string[]
-function GameState:getHandIDs()
-    local id_list = {}
-
-    for _, item in ipairs(Scenes:getScene("game-main").drawables) do
-        if item.drawable.type == "Card" and item.drawable.inHand then
-            table.insert(id_list, item.id)
-        end
-    end
-
-    return id_list
-end
-
 ---gets all the card drawable items in the hand
 ---@return DrawableItem
 function GameState:getHandCards()
@@ -148,21 +148,21 @@ function GameState:getHandCards()
     return card_items
 end
 
----gets all the ids of the selected cards in the hand
----@return string[]
-function GameState:getSelectedHandIDs()
-    local id_list = {}
+---gets all the card drawableitems of the selected cards in the hand
+---@return DrawableItem
+function GameState:getSelectedHandCards()
+    local card_list = {}
 
     for _, item in ipairs(Scenes:getScene("game-main").drawables) do
         if item.drawable.type == "Card" and item.drawable.selected then
-            table.insert(id_list, item.id)
+            table.insert(card_list, item)
         end
     end
 
-    return id_list
+    return card_list
 end
 
----discard currently selected cards and put in the new ones
+---discard currently selected cards and moves in new ones from the deck
 function GameState:discard()
     if self.discards_remaining <= 0 then
         return
@@ -170,13 +170,13 @@ function GameState:discard()
 
     -- we need to iterate backwards otherwise it doesnt remove properly(the index moves and stuff)
     local scene = Scenes:getScene("game-main")
-    local selected_ids = self:getSelectedHandIDs()
+    local selected_cards = self:getSelectedHandCards()
     local discarded_items = {}
 
     for i = #scene.drawables, 1, -1 do
         local item = scene.drawables[i]
-        for _, id in ipairs(selected_ids) do
-            if item.id == id then
+        for _, card in ipairs(selected_cards) do
+            if item.id == card.id then
                 table.insert(discarded_items, item)
                 table.remove(scene.drawables, i)
             end
@@ -185,22 +185,18 @@ function GameState:discard()
 
     -- replacing old cards with the new
     for i=1, #discarded_items do
-        ---@type DrawableItem
-        local current_item = discarded_items[i]
-
-        if not current_item then
-            return
-        end
-
-        local id = current_item.id
-        local z_index = current_item.z_index
-        local onClickFunc = self.cardOnClickFunc
-        local updateFunc = self.updateCardInHandFunc
-
+        local item = self:getTopCardInDeck()
         ---@type Card
-        local card = Drawable:new(0, CONSTANTS.HAND_Y, CONSTANTS.CARD_WIDTH, CONSTANTS.CARD_HEIGHT, updateFunc):Card(self:getRandomCardBase(), onClickFunc)
+        local card = item.drawable
+
+        local spacing = ((i-1) * (CONSTANTS.HAND_WIDTH - CONSTANTS.CARD_WIDTH) / (self.hand_size - 1))
+        card.x = CONSTANTS.HAND_X + spacing
+        card.y = CONSTANTS.HAND_Y
         card.inHand = true
-        Scenes:addDrawable(Scenes:getScene("game-main"), id, z_index, card)
+        card.inDeck = false
+        card.flipped = false
+
+        self.deck_count = self.deck_count - 1
     end
 
     self:refreshHand()
@@ -210,9 +206,8 @@ function GameState:discard()
     end
 end
 
----resets all the display indexes of the cards in the hand
+---sorts all the cards in the hand by their rank and changes their display index accordingly
 function GameState:refreshHand()
-    -- we sort card by rank and then change their display index accordingly
     local hand_cards = self:getHandCards()
     table.sort(hand_cards, function (a, b) return a.drawable.rank > b.drawable.rank end)
 
@@ -224,12 +219,26 @@ function GameState:refreshHand()
     Scenes:sortDrawables(Scenes:getScene("game-main"))
 end
 
+---gets the top card in the deck (highest id / z-index)
+---@return DrawableItem
+function GameState:getTopCardInDeck()
+    local deck_cards = {}
 
+    for _, item in ipairs(Scenes:getScene("game-main").drawables) do
+        if item.drawable.type == "Card" and item.drawable.inDeck then
+            table.insert(deck_cards, item)
+        end
+    end
+
+    table.sort(deck_cards, function (a, b) return a.z_index > b.z_index end)
+
+    return Scenes:getDrawableItem("game-main", deck_cards[1].id)
+end
 
 
 function GameState.updateCardInHandFunc(self, dt)
     if self.inHand then
-        local spacing = ((self.displayIndex-1) * ((CONSTANTS.HAND_WIDTH - CONSTANTS.CARD_WIDTH) / (#GameState:getHandIDs() - 1)))
+        local spacing = ((self.displayIndex-1) * ((CONSTANTS.HAND_WIDTH - CONSTANTS.CARD_WIDTH) / (#GameState:getHandCards() - 1)))
         self.x = CONSTANTS.HAND_X + spacing
     end
 end
