@@ -35,7 +35,7 @@ local GameState = {
 ---resets everything about the score, curretn cards and stuff
 function GameState:startNewRound()
     self.hands_remaining = 4
-    self.discards_remaining = 3
+    self.discards_remaining = 12
 
     self:makeNewDeck()
     self:makeNewHand()
@@ -185,6 +185,10 @@ function GameState:discard()
 
     -- replacing old cards with the new
     for i=1, #discarded_items do
+        if self.deck_count <= 0 then
+            break
+        end
+
         local item = self:getTopCardInDeck()
         ---@type Card
         local card = item.drawable
@@ -219,7 +223,7 @@ function GameState:refreshHand()
     Scenes:sortDrawables(Scenes:getScene("game-main"))
 end
 
----gets the top card in the deck (highest id / z-index)
+---gets the top card in the deck (highest id / z-index), not a copy
 ---@return DrawableItem
 function GameState:getTopCardInDeck()
     local deck_cards = {}
