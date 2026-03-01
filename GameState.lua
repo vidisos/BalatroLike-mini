@@ -46,7 +46,7 @@ end
 function GameState:makeNewDeck()
     self:clearCards()
     self.deck_count = 0
-    self.deck_bases = GameState:makeNewDeckBases()
+    self.deck_bases = GameState:getNewDeckBases()
 
     for i=1, self.deck_size do
         local id = "card-" .. i
@@ -110,7 +110,7 @@ end
 
 ---returns a random card base from the current deck
 ---@return CardBase[]
-function GameState:makeNewDeckBases()
+function GameState:getNewDeckBases()
     local card_bases = {}
 
     for _, card_base in pairs(Utils.copyTable(card_list.cards)) do
