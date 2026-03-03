@@ -57,10 +57,10 @@ function Scenes:onClick(mx, my)
     if #clicked_drawables > 0 then
         table.sort(clicked_drawables, function (a, b) return a.z_index > b.z_index end)
 
-        local top_item = clicked_drawables[1]
+        local top_drawable = clicked_drawables[1].drawable
 
-        if top_item.drawable.isClickable then
-            top_item.drawable:onClickFunc()
+        if top_drawable.isClickable then
+            top_drawable:onClickFunc()
         end
     end
 end

@@ -1,5 +1,6 @@
 function love.conf(t)
     t.modules.joystick = false
+    --TODO remember to turn console to false in final version or smth
     t.console = true
     t.window.title = "Poinker"
     t.window.icon = "images/icon.png"

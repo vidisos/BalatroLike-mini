@@ -20,13 +20,15 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
     self.type = "Button"
     self.isClickable = true
 
+    self.baseFont = font or love.graphics.getFont()
+    self.font = font
+
     if (type(text) == "table") then
         self.text = text or {"", ""}
     else
         self.text = text or ""
     end
 
-    self.font = font or love.graphics.getFont()
     self.text_color = text_color or {0, 0, 0}
     self.button_color = button_color or {255, 255, 255}
     self.onClickFunc = onClickFunc or function () end
@@ -66,6 +68,11 @@ normalButtonDraw = function(self)
     local text_type = type(self.text)
     if (text_type == "table") then
         text = self.text[GameState.current_lang]
+        if self.text["font"] then
+            self.font = self.text["font"]
+        else
+            self.font = self.baseFont
+        end
     elseif text_type == "string" then
         text = self.text
     else
@@ -102,6 +109,11 @@ borderedButtonDraw = function(self)
     local text_type = type(self.text)
     if (text_type == "table") then
         text = self.text[GameState.current_lang]
+        if self.text["font"] then
+            self.font = self.text["font"]
+        else
+            self.font = self.baseFont
+        end
     elseif text_type == "string" then
         text = self.text
     else

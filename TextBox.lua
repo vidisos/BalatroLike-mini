@@ -21,7 +21,8 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
         self.text = text or ""
     end
 
-    self.font = font or love.graphics.getFont()
+    self.baseFont = font or love.graphics.getFont()
+    self.font = font
     self.text_color = text_color or {0, 0, 0}
     self.background_color = background_color
     self.align = alignment or nil
@@ -38,6 +39,11 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
         local text_type = type(self.text)
         if (text_type == "table") then
             text = self.text[GameState.current_lang]
+            if self.text["font"] then
+                self.font = self.text["font"]
+            else
+                self.font = self.baseFont
+            end
         elseif text_type == "string" then
             text = self.text
         end

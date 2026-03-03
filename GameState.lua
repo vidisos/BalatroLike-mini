@@ -15,19 +15,21 @@ local GameState = {
     score_requirement = 600,
 
     --dynamic stuff
-    current_lang = "sl",
+    current_lang = "en",
     timer = 0,
 
     deck_bases = {},
 
     score = 0,
 
-    selected_hand = "Pair";
+    selected_hand = "";
     chips = 0,
     mult = 0,
 
     hands_remaining = 4,
     discards_remaining = 3,
+    selected_cards_count = 0,
+    selected_max = 5,
 
     deck_count = 0
 }
@@ -35,7 +37,9 @@ local GameState = {
 ---resets everything about the score, curretn cards and stuff
 function GameState:startNewRound()
     self.hands_remaining = 4
-    self.discards_remaining = 12
+    self.discards_remaining = 999
+    self.selected_hand = ""
+    self.selected_cards_count = 0
 
     self:makeNewDeck()
     self:makeNewHand()
@@ -52,9 +56,8 @@ function GameState:makeNewDeck()
         local id = "card-" .. i
         local z_index = 10 + i
 
-        local spacing = ((i-1) * (CONSTANTS.DECK_HEIGHT - CONSTANTS.CARD_HEIGHT) / (self.deck_size - 1))
         local x = CONSTANTS.DECK_X + i*0.15
-        local y = CONSTANTS.DECK_Y - CONSTANTS.CARD_HEIGHT - spacing
+        local y = CONSTANTS.DECK_Y - CONSTANTS.CARD_HEIGHT - i*0.60
         local width = CONSTANTS.CARD_WIDTH
         local height = CONSTANTS.CARD_HEIGHT
         local onClickFunc = self.cardOnClickFunc
@@ -96,70 +99,16 @@ function GameState:makeNewHand()
     end
 end
 
----returns a random card base from the current deck
----@return CardBase
-function GameState:getRandomCardBase()
-    local rndIndex = math.random(#self.deck_bases)
-
-    local card_base = self.deck_bases[rndIndex]
-
-    table.remove(self.deck_bases, rndIndex)
-
-    return card_base
-end
-
----returns a random card base from the current deck
----@return CardBase[]
-function GameState:getNewDeckBases()
-    local card_bases = {}
-
-    for _, card_base in pairs(Utils.copyTable(card_list.cards)) do
-        table.insert(card_bases, card_base)
+---plays the selected cards
+function GameState:playHand()
+    if self.hands_remaining <= 0 then
+        return
     end
 
-    return card_bases
-end
+    self.discards_remaining = self.discards_remaining + 1
+    self:discard()
 
----deletes all the normal cards
-function GameState:clearCards()
-    local scene = Scenes:getScene("game-main")
-
-    -- we need to iterate backwards otherwise it doesnt remove properly(the index moves and stuff)
-    for i = #scene.drawables, 1, -1 do
-
-        local item = scene.drawables[i]
-        if item.drawable.type == "Card" then
-            table.remove(scene.drawables, i)
-        end
-    end
-end
-
----gets all the card drawable items in the hand
----@return DrawableItem
-function GameState:getHandCards()
-    local card_items = {}
-
-    for _, item in ipairs(Scenes:getScene("game-main").drawables) do
-        if item.drawable.type == "Card" and item.drawable.inHand then
-            table.insert(card_items, item)
-        end
-    end
-
-    return card_items
-end
-
----gets all the card drawableitems of the selected cards in the hand
----@return DrawableItem
-function GameState:getSelectedHandCards()
-    local card_list = {}
-
-    for _, item in ipairs(Scenes:getScene("game-main").drawables) do
-        if item.drawable.type == "Card" and item.drawable.selected then
-            table.insert(card_list, item)
-        end
-    end
-
-    return card_list
+    self.hands_remaining = self.hands_remaining - 1
 end
 
 ---discard currently selected cards and moves in new ones from the deck
@@ -204,10 +153,120 @@ function GameState:discard()
     end
 
     self:refreshHand()
+    self.selected_cards_count = 0
 
     if #discarded_items > 0 then
         self.discards_remaining = self.discards_remaining - 1
     end
+end
+
+---checks the current ranking of the selected cards and changes all behaviour accordingly
+function GameState:checkHandRanking()
+    local card_items = self:getSelectedHandCards()
+    local card_count = #card_items
+    table.sort(card_items, function(a, b) return a.drawable.rank > b.drawable.rank end)
+
+    -- the cummulative difference between all the card rankings
+    local previous_diff = 0
+    local rank_diff = 0
+    local is_same_suit = false
+    local had_same_suit = false
+    local same_rank = 0
+
+    local previous_card
+
+    for i, item in ipairs(card_items) do
+        ---@type Card|Drawable
+        local card = item.drawable
+
+        if i ~= 1 then
+            previous_card = card_items[i-1].drawable
+        else
+            previous_card = card
+        end
+
+        -- flush
+        if not had_same_suit and previous_card.suit == card.suit then
+            is_same_suit = true
+            had_same_suit = true
+        elseif previous_card.suit ~= card.suit then
+            is_same_suit = false
+        end
+
+        -- straight
+        if i ~= 1 then
+            rank_diff = previous_diff - card.rank
+        end
+
+        if i ~= 5 then
+            previous_diff = rank_diff + card.rank
+        end
+
+        -- n of a kind checks
+        --[[
+        if i ~= 1 and rank_diff == 0 then
+            same_rank = card.rank
+        else
+            same_rank
+        end
+        ]]
+    end
+
+    if is_same_suit and card_count==5 and rank_diff==4 and card_items[1].drawable.rank == 14 then
+        self.selected_hand = "royal_flush"
+    elseif is_same_suit and card_count==5 and rank_diff==4 then
+        self.selected_hand = "straight_flush"
+    elseif card_count==5 and rank_diff==4 then
+        self.selected_hand = "straight"
+    elseif is_same_suit and card_count==5 then
+        self.selected_hand = "flush"
+    elseif card_count > 0 then
+        self.selected_hand = "high_card"
+    else
+        self.selected_hand = ""
+    end
+end
+
+---deletes all the normal cards
+function GameState:clearCards()
+    local scene = Scenes:getScene("game-main")
+
+    -- we need to iterate backwards otherwise it doesnt remove properly(the index moves and stuff)
+    for i = #scene.drawables, 1, -1 do
+
+        local item = scene.drawables[i]
+        if item.drawable.type == "Card" then
+            table.remove(scene.drawables, i)
+        end
+    end
+end
+
+---gets all the card drawable items in the hand
+---@return DrawableItem
+function GameState:getHandCards()
+    local card_items = {}
+
+    for _, item in ipairs(Scenes:getScene("game-main").drawables) do
+        if item.drawable.type == "Card" and item.drawable.inHand then
+            table.insert(card_items, item)
+        end
+    end
+
+    return card_items
+end
+
+---gets all the card drawable items of the selected cards in the hand
+---@return DrawableItem[]
+function GameState:getSelectedHandCards()
+    local card_list = {}
+
+    for _, item in ipairs(Scenes:getScene("game-main").drawables) do
+        if item.drawable.type == "Card" and item.drawable.selected then
+            table.insert(card_list, item)
+        end
+    end
+
+    return card_list
 end
 
 ---sorts all the cards in the hand by their rank and changes their display index accordingly
@@ -239,6 +298,30 @@ function GameState:getTopCardInDeck()
     return Scenes:getDrawableItem("game-main", deck_cards[1].id)
 end
 
+---returns a random card base from the current deck
+---@return CardBase
+function GameState:getRandomCardBase()
+    local rndIndex = math.random(#self.deck_bases)
+
+    local card_base = self.deck_bases[rndIndex]
+
+    table.remove(self.deck_bases, rndIndex)
+
+    return card_base
+end
+
+---returns a random card base from the current deck
+---@return CardBase[]
+function GameState:getNewDeckBases()
+    local card_bases = {}
+
+    for _, card_base in pairs(Utils.copyTable(card_list.cards)) do
+        table.insert(card_bases, card_base)
+    end
+
+    return card_bases
+end
+
 
 function GameState.updateCardInHandFunc(self, dt)
     if self.inHand then
@@ -258,9 +341,13 @@ function GameState.cardOnClickFunc(self)
     if self.selected then
         self.selected = false
         self.y = CONSTANTS.HAND_Y
-    else
+        GameState.selected_cards_count = GameState.selected_cards_count - 1
+        GameState:checkHandRanking()
+    elseif GameState.selected_cards_count < GameState.selected_max then
         self.selected = true
         self.y = CONSTANTS.HAND_Y - 70
+        GameState.selected_cards_count = GameState.selected_cards_count + 1
+        GameState:checkHandRanking()
     end
 end
 
