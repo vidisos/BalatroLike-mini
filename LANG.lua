@@ -79,29 +79,7 @@ end
 ---returns the language entry for the selected hand 
 ---@return LanguageEntry|string
 function LANG:getCurrentHandRanking()
-    if GameState.selected_hand == "high_card" then
-        return self.high_card
-    elseif GameState.selected_hand == "pair" then
-        return self.pair
-    elseif GameState.selected_hand == "two_pair" then
-        return self.two_pair
-    elseif GameState.selected_hand == "three_of_a_kind" then
-        return self.three_of_a_kind
-    elseif GameState.selected_hand == "straight" then
-        return self.straight
-    elseif GameState.selected_hand == "flush" then
-        return self.flush
-    elseif GameState.selected_hand == "full_house" then
-        return self.full_house
-    elseif GameState.selected_hand == "four_of_a_kind" then
-        return self.four_of_a_kind
-    elseif GameState.selected_hand == "straight_flush" then
-        return self.straight_flush
-    elseif GameState.selected_hand == "royal_flush" then
-        return self.royal_flush
-    else
-        return ""
-    end
+    return LANG[GameState.selected_hand]
 end
 
 return LANG
