@@ -154,6 +154,7 @@ function GameState:discard()
 
     self:refreshHand()
     self.selected_cards_count = 0
+    self.selected_hand = ""
 
     if #discarded_items > 0 then
         self.discards_remaining = self.discards_remaining - 1
@@ -170,7 +171,13 @@ function GameState:checkHandRanking()
     local is_consecutive = true
     local is_same_suit = false
     local had_same_suit = false
-    local same_rank = 0
+
+    -- can be three and four of a kind too but uh ye idk
+    local first_pair_cards = {}
+    local first_pair_found = false
+    local second_pair_cards = {}
+    local start_second_pair_search = false
+    local second_pair_found = false
 
     local previous_card
 
@@ -202,23 +209,46 @@ function GameState:checkHandRanking()
         end
 
         -- n of a kind checks
-        --[[
-        if i ~= 1 and rank_diff == 0 then
-            same_rank = card.rank
-        else
-            same_rank
+        if i ~= 1 then
+            -- checking for the first instance of a pair, three of a kind...
+            if rank_diff == 0 and not start_second_pair_search then
+                if #first_pair_cards == 0 then
+                    table.insert(first_pair_cards, previous_card)
+                end
+                table.insert(first_pair_cards, card)
+                first_pair_found = true
+            elseif rank_diff ~= 0 and first_pair_found then
+                start_second_pair_search = true
+            end
+
+            -- if we found the end of the first one we check for pairs again
+            if rank_diff == 0 and start_second_pair_search then
+                if #second_pair_cards == 0 then
+                    table.insert(second_pair_cards, previous_card)
+                end
+                table.insert(second_pair_cards, card)
+            end
         end
-        ]]
     end
 
-    if is_same_suit and card_count==5 and is_consecutive and card_items[1].drawable.rank == 14 then
+    if  card_count==5 and is_same_suit and is_consecutive and card_items[1].drawable.rank == 14 then
         self.selected_hand = "royal_flush"
-    elseif is_same_suit and card_count==5 and is_consecutive then
+    elseif card_count==5 and is_same_suit and is_consecutive then
         self.selected_hand = "straight_flush"
+    elseif #first_pair_cards == 4 then
+        self.selected_hand = "four_of_a_kind"
+    elseif (#first_pair_cards == 3 and #second_pair_cards == 2) or (#first_pair_cards == 2 and #second_pair_cards == 3) then
+        self.selected_hand = "full_house"
+    elseif card_count==5 and is_same_suit then
+        self.selected_hand = "flush"
     elseif card_count==5 and is_consecutive then
         self.selected_hand = "straight"
-    elseif is_same_suit and card_count==5 then
-        self.selected_hand = "flush"
+    elseif (#first_pair_cards == 3 and #second_pair_cards == 0) then
+        self.selected_hand = "three_of_a_kind"
+    elseif (#first_pair_cards == 2 and #second_pair_cards == 2) then
+        self.selected_hand = "two_pair"
+    elseif (#first_pair_cards == 2 and #second_pair_cards == 0) then
+        self.selected_hand = "pair"
     elseif card_count > 0 then
         self.selected_hand = "high_card"
     else

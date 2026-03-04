@@ -122,7 +122,7 @@ return {
             z_index = 3,
             drawable = Drawable:new(Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, 450, 400), 400, 200), 525, 200, 100,
                 function (self, dt)
-                    self.text = LANG:getCurrentHandRanking()
+                    self.text = LANG[GameState.selected_hand]
                 end
                 ):TextBox(
                 GameState.selected_hand, Utils.resizeFont(pixel_font, 60),

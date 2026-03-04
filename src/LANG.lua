@@ -4,6 +4,7 @@ local pixel_font = "src/fonts/Karma Suture.otf"
 local pixel_font_bold = "src/fonts/Karma Future.otf"
 local FONTS = {
     font_small = love.graphics.newFont(pixel_font, 40),
+    font_average = love.graphics.newFont(pixel_font, 50),
 }
 
 ---@class LANGTable
@@ -53,12 +54,12 @@ local LANG = {
     high_card = {en="High Card", sl="Visoka karta"},
     pair = {en="Pair", sl="En par"},
     two_pair = {en="Two Pair", sl="Dva para"},
-    three_of_a_kind = {en="Three of a Kind", sl="Tris"},
+    three_of_a_kind = {en="Three of a Kind", sl="Tris", font=FONTS.font_average},
     straight = {en="Straight", sl="Lestvica"},
     flush = {en="Flush", sl="Barva"},
     full_house = {en="Full House", sl="Polna hiša"},
-    four_of_a_kind = {en="Four of a Kind", sl="Poker"},
-    straight_flush = {en="Straight Flush", sl="Barvna lestvica"},
+    four_of_a_kind = {en="Four of a Kind", sl="Poker", font=FONTS.font_average},
+    straight_flush = {en="Straight Flush", sl="Barvna lestvica", font=FONTS.font_average},
     royal_flush = {en="Royal Flush", sl="Kraljeva\nbarvna lestvica", font=FONTS.font_small},
 }
 
@@ -74,12 +75,6 @@ function LANG:getCurrentLevelText()
     else
         error("No current level text found")
     end
-end
-
----returns the language entry for the selected hand 
----@return LanguageEntry|string
-function LANG:getCurrentHandRanking()
-    return LANG[GameState.selected_hand]
 end
 
 return LANG
