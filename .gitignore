@@ -42,3 +42,5 @@ luac.out
 # Custom stuff
 .vscode/
 run.bat
+runD.bat
+runE.bat
