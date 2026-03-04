@@ -4,6 +4,10 @@
 ---@field en string
 ---@field sl string
 
+---@class HandRanking
+---@field chips number
+---@field mult number
+
 ---@class Scene
 ---@field id string
 ---@field shouldDraw boolean

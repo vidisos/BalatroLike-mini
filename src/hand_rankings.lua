@@ -1,0 +1,15 @@
+---@type HandRanking[]
+local hand_rankings = {
+    high_card = {chips=5, mult=1},
+    pair = {chips=10, mult=2},
+    two_pair = {chips=20, mult=2},
+    three_of_a_kind = {chips=30, mult=3},
+    straight = {chips=30, mult=4},
+    flush = {chips=35, mult=4},
+    full_house = {chips=40, mult=4},
+    four_of_a_kind = {chips=60, mult=70},
+    straight_flush = {chips=100, mult=8},
+    royal_flush = {chips=100, mult=8},
+}
+
+return hand_rankings

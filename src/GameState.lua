@@ -4,6 +4,7 @@ local CONSTANTS = require "src.CONSTANTS"
 local card_list = require "src.card_list"
 local Card      = require "src.Card"
 local Utils     = require "src.Utils"
+local hand_rankings = require "src.hand_rankings"
 
 local GameState = {
     --should be constants but uh ehe
@@ -22,7 +23,7 @@ local GameState = {
 
     score = 0,
 
-    selected_hand = "";
+    selected_hand = nil;
     chips = 0,
     mult = 0,
 
@@ -38,7 +39,7 @@ local GameState = {
 function GameState:startNewRound()
     self.hands_remaining = 4
     self.discards_remaining = 999
-    self.selected_hand = ""
+    self.selected_hand = nil
     self.selected_cards_count = 0
 
     self:makeNewDeck()
@@ -154,7 +155,7 @@ function GameState:discard()
 
     self:refreshHand()
     self.selected_cards_count = 0
-    self.selected_hand = ""
+    self.selected_hand = nil
 
     if #discarded_items > 0 then
         self.discards_remaining = self.discards_remaining - 1
@@ -252,8 +253,36 @@ function GameState:checkHandRanking()
     elseif card_count > 0 then
         self.selected_hand = "high_card"
     else
-        self.selected_hand = ""
+        self.selected_hand = nil
     end
+
+    self:refreshChipsAndMult()
+end
+
+---refreshes the base chips and mult according to the current hand
+function GameState:refreshChipsAndMult()
+    if not self.selected_hand then
+        self.chips = 0
+        self.mult = 0
+        return
+    end
+
+    local hand_info = hand_rankings[self.selected_hand]
+    self.chips = hand_info.chips
+    self.mult = hand_info.mult
+end
+
+---sorts all the cards in the hand by their rank and changes their display index accordingly
+function GameState:refreshHand()
+    local hand_cards = self:getHandCards()
+    table.sort(hand_cards, function (a, b) return a.drawable.rank > b.drawable.rank end)
+
+    for i, item in ipairs(hand_cards) do
+        item.drawable.displayIndex = i
+        item.z_index = item.drawable.displayIndex + 10
+    end
+
+    Scenes:sortDrawables(Scenes:getScene("game-main"))
 end
 
 ---deletes all the normal cards
@@ -296,19 +325,6 @@ function GameState:getSelectedHandCards()
     end
 
     return card_list
-end
-
----sorts all the cards in the hand by their rank and changes their display index accordingly
-function GameState:refreshHand()
-    local hand_cards = self:getHandCards()
-    table.sort(hand_cards, function (a, b) return a.drawable.rank > b.drawable.rank end)
-
-    for i, item in ipairs(hand_cards) do
-        item.drawable.displayIndex = i
-        item.z_index = item.drawable.displayIndex + 10
-    end
-
-    Scenes:sortDrawables(Scenes:getScene("game-main"))
 end
 
 ---gets the top card in the deck (highest id / z-index), not a copy
