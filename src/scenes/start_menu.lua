@@ -1,27 +1,28 @@
-local CONSTANTS = require "CONSTANTS"
-local Scenes = require "Scenes"
-local Drawable  = require "Drawable"
-local Utils = require "Utils"
-local audio_list = require "audio_list"
-local image_list = require "image_list"
-local card_list = require "card_list"
-local GameState = require "GameState"
+local CONSTANTS = require "src.CONSTANTS"
+local Scenes = require "src.Scenes"
+local Drawable  = require "src.Drawable"
+local Utils = require "src.Utils"
+local audio_list = require "src.audio_list"
+local image_list = require "src.image_list"
+local card_list = require "src.card_list"
+local GameState = require "src.GameState"
 
 local LANG = require "src.LANG"
 local current_lang = GameState.current_lang
 
-local pixel_font = "fonts/Karma Suture.otf"
-local pixel_font_bold = "fonts/Karma Future.otf"
+local pixel_font = "src/fonts/Karma Suture.otf"
+local pixel_font_bold = "src/fonts/Karma Future.otf"
 local ww = CONSTANTS.BASE_WIDTH
 local wh = CONSTANTS.BASE_HEIGHT
 
 -- adding extensions to the Drawable "superclass"
-Drawable.ImageBox = require("ImageBox").Card
-Drawable.Rectangle = require("Rectangle").Rectangle
-Drawable.TextBox = require("TextBox").TextBox
-Drawable.Button = require("Button").Button
-Drawable.Card = require("Card").Card
+Drawable.ImageBox = require("src.ImageBox").ImageBox
+Drawable.Rectangle = require("src.Rectangle").Rectangle
+Drawable.TextBox = require("src.TextBox").TextBox
+Drawable.Button = require("src.Button").Button
+Drawable.Card = require("src.Card").Card
 
+---@class Scene
 return {
     id = "start-menu",
     shouldDraw = true,
@@ -45,7 +46,15 @@ return {
         {
             id = "img-settings",
             z_index = 1,
-            drawable = Drawable:new(ww-100, 10, 90, 90):ImageBox(image_list.settings_icon, function () audio_list.uderehee:stop() end)
+            drawable = Drawable:new(ww-100, 10, 90, 90):ImageBox(image_list.settings_icon, 
+                function () 
+                    if audio_list.background_music:isPlaying() then
+                        audio_list.background_music:pause()
+                    else
+                        audio_list.background_music:play()
+                    end
+                end
+            )
         },
 
         {
@@ -84,7 +93,7 @@ return {
         {
             id = "btn-change-lang",
             z_index = 1,
-            drawable = Drawable:new(1600, 950, 200, 100):Button(
+            drawable = Drawable:new(1680, 950, 200, 100):Button(
                 LANG.language, Utils.resizeFont(pixel_font, 30),
                 {0, 0, 100},
                 {255, 0, 0},

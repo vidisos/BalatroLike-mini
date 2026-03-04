@@ -26,12 +26,42 @@ function Utils.getCenterAnchorY(y, outer_height, inner_height)
 end
 
 ---returns a new resized font of your choosing
----@param font? string
----@param size? number
+---@param font string
+---@param size number
 ---@return love.Font
 function Utils.resizeFont(font, size)
     local font = love.graphics.newFont(font, size)
     return font
+end
+
+---counts the number of new lines in a string (\n)
+---@param text string 
+function Utils.countLines(text)
+    local _, count = text:gsub("\n", "\n")
+    return count + 1
+end
+
+---clears all elements from the given table
+---@param table any
+function Utils.clearTable(table)
+    for k in pairs(table) do
+        table[k] = nil
+    end
+end
+
+---makes a deep copy of a table
+---@param original any
+---@return table
+function Utils.copyTable(original)
+    local copy = {}
+    for k, v in pairs(original) do
+        if type(v) == "table" then
+            copy[k] = Utils.copyTable(v)
+        else
+            copy[k] = v
+        end
+    end
+    return copy
 end
 
 return Utils

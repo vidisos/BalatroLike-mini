@@ -1,7 +1,7 @@
-local CONSTANTS = require "CONSTANTS"
-local GameState = require "GameState"
-local Scenes = require "Scenes"
-local audio_list = require "audio_list"
+local CONSTANTS = require "src.CONSTANTS"
+local GameState = require "src.GameState"
+local Scenes = require "src.Scenes"
+local audio_list = require "src.audio_list"
 
 function love.load()
     --[[

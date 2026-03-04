@@ -1,15 +1,17 @@
+local Utils = require "src.Utils"
+
 local Scenes = {
     scene_list = {}
 }
 
 ---initializes all the scenes and sorts them by z-index
 function Scenes:init()
-    table.insert(self.scene_list, require("scenes/start_menu"))
-    table.insert(self.scene_list, require("scenes/game_main"))
+    table.insert(self.scene_list, require("src/scenes/start_menu"))
+    table.insert(self.scene_list, require("src/scenes/game_main"))
 
-    Scenes:sortScenes()
+    self:sortScenes()
     for _, scene in ipairs(self.scene_list) do
-        Scenes:sortDrawables(scene)
+        self:sortDrawables(scene)
     end
 end
 
@@ -55,10 +57,10 @@ function Scenes:onClick(mx, my)
     if #clicked_drawables > 0 then
         table.sort(clicked_drawables, function (a, b) return a.z_index > b.z_index end)
 
-        local top_item = clicked_drawables[1]
+        local top_drawable = clicked_drawables[1].drawable
 
-        if top_item.drawable.isClickable then
-            top_item.drawable:onClickFunc()
+        if top_drawable.isClickable then
+            top_drawable:onClickFunc()
         end
     end
 end
@@ -82,29 +84,33 @@ end
 
 ---returns a specific scene table with the id
 ---@param id string
----@return table?
+---@return Scene
 function Scenes:getScene(id)
     for _, scene in ipairs(self.scene_list) do
         if scene.id == id then
             return scene
         end
     end
+
+    error("Scenes:getScene(id): Bad scene id")
 end
 
----returns a specific drawable table with the id
+---returns a specific drawable item table with the id
 ---@param id string
----@return table?
-function Scenes:getDrawable(scene_id, id)
+---@return DrawableItem
+function Scenes:getDrawableItem(scene_id, id)
     for _, scene in ipairs(self.scene_list) do
         if scene.id == scene_id then
 
-            for _, drawable in ipairs(scene.drawables) do
-                if drawable.id == id then
-                    return drawable
+            for _, item in ipairs(scene.drawables) do
+                if item.id == id then
+                    return item
                 end
             end
         end
     end
+
+    error("Scenes:getDrawableItem(scene_id, id): smth wrong idk lel")
 end
 
 ---sorts all scenes by z-index
@@ -113,6 +119,7 @@ function Scenes:sortScenes()
 end
 
 ---sorts all drawables of a scene by z-index
+---@param scene Scene
 function Scenes:sortDrawables(scene)
     table.sort(scene.drawables, function (a, b) return a.z_index < b.z_index end)
 end

@@ -1,15 +1,14 @@
-local Utils = require "Utils"
-local image_list = require "image_list"
+local Utils = require "src.Utils"
+local image_list = require "src.image_list"
 
 ---@class ImageBox : Drawable
 local ImageBox = {}
-ImageBox.__index = ImageBox
 
 ---extension of Drawable: an imagebox that can be clicked
 ---@param image? love.Image
 ---@param onClickFunc? function
 ---@return ImageBox
-function ImageBox:Card(image, onClickFunc)
+function ImageBox:ImageBox(image, onClickFunc)
     self.type = "ImageBox"
     self.isClickable = true
     self.image = image or image_list.settings_icon

@@ -1,15 +1,14 @@
-local Utils = require "Utils"
-local GameState = require "GameState"
+local Utils = require "src.Utils"
+local GameState = require "src.GameState"
 
 ---@class Button : Drawable
 local Button = {}
-Button.__index = Button
 
 -- just here so we can reference the functions before theyre declared fully for readability reasons
 local normalButtonDraw, borderedButtonDraw
 
 ---extension of Drawable: a colored rectangle with optional text that can be clicked, optional border
----@param text? table
+---@param text? LanguageEntry|string
 ---@param font? love.Font
 ---@param text_color? table
 ---@param button_color? table
@@ -21,23 +20,20 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
     self.type = "Button"
     self.isClickable = true
 
+    self.baseFont = font or love.graphics.getFont()
+    self.font = font
+
     if (type(text) == "table") then
         self.text = text or {"", ""}
-    else 
+    else
         self.text = text or ""
     end
 
-    self.font = font or love.graphics.getFont()
     self.text_color = text_color or {0, 0, 0}
     self.button_color = button_color or {255, 255, 255}
     self.onClickFunc = onClickFunc or function () end
     self.border_width = border_width or 0
     self.border_color = border_color or {0, 0, 0}
-
-    if border_width and border_width > 0 then
-        self.width = self.width + 2*self.border_width
-        self.height = self.height + 2*self.border_width
-    end
 
     self.drawFunc = function ()
         if border_width then
@@ -53,6 +49,7 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
         local isClicked =
             self.x <= mx and mx <= self.x + self.width and
             self.y <= my and my <= self.y + self.height
+
         return isClicked
     end
 
@@ -71,14 +68,19 @@ normalButtonDraw = function(self)
     local text_type = type(self.text)
     if (text_type == "table") then
         text = self.text[GameState.current_lang]
+        if self.text["font"] then
+            self.font = self.text["font"]
+        else
+            self.font = self.baseFont
+        end
     elseif text_type == "string" then
         text = self.text
-    else 
+    else
         text = ""
     end
 
     local text_width = self.font:getWidth(text)
-    local text_height = self.font:getHeight()
+    local text_height = self.font:getHeight() * Utils.countLines(text)
     local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)
     local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
 
@@ -107,6 +109,11 @@ borderedButtonDraw = function(self)
     local text_type = type(self.text)
     if (text_type == "table") then
         text = self.text[GameState.current_lang]
+        if self.text["font"] then
+            self.font = self.text["font"]
+        else
+            self.font = self.baseFont
+        end
     elseif text_type == "string" then
         text = self.text
     else
@@ -114,7 +121,7 @@ borderedButtonDraw = function(self)
     end
 
     local text_width = self.font:getWidth(text)
-    local text_height = self.font:getHeight()
+    local text_height = self.font:getHeight() * Utils.countLines(text)
     local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)
     local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
 
