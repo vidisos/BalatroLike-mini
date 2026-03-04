@@ -156,6 +156,7 @@ function GameState:discard()
     self:refreshHand()
     self.selected_cards_count = 0
     self.selected_hand = nil
+    self:refreshChipsAndMult()
 
     if #discarded_items > 0 then
         self.discards_remaining = self.discards_remaining - 1
