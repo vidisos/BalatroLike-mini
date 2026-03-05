@@ -19,6 +19,7 @@
 ---@field backImage love.Image
 ---@field suit string
 ---@field rank number
+---@field chips number
 
 ---@class Drawable
 ---@field type string

@@ -24,6 +24,7 @@ local GameState = {
     score = 0,
 
     selected_hand = nil;
+    selected_hand_cards = {};
     chips = 0,
     mult = 0,
 
@@ -106,6 +107,16 @@ function GameState:playHand()
         return
     end
 
+    local card_items = self:getSelectedHandCards()
+    for _, card_item in ipairs(card_items) do
+        ---@type Card
+        local card = card_item.drawable
+
+        self.chips = self.chips + card.chips
+    end
+
+    self.score = self.score + (self.chips * self.mult)
+
     self.discards_remaining = self.discards_remaining + 1
     self:discard()
 
@@ -177,9 +188,8 @@ function GameState:checkHandRanking()
     -- can be three and four of a kind too but uh ye idk
     local first_pair_cards = {}
     local first_pair_found = false
-    local second_pair_cards = {}
     local start_second_pair_search = false
-    local second_pair_found = false
+    local second_pair_cards = {}
 
     local previous_card
 
