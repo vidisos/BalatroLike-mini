@@ -64,4 +64,16 @@ function Utils.copyTable(original)
     return copy
 end
 
+---insert the values of the input table into the original and returns the table with now unpacked values
+---@param original table
+---@param input_table table
+---@return table
+function Utils.insertFromUnpackedTable(original, input_table)
+    for _, v in ipairs(input_table) do
+        table.insert(original, v)
+    end
+
+    return original
+end
+
 return Utils

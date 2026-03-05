@@ -24,7 +24,7 @@ local GameState = {
     score = 0,
 
     selected_hand = nil;
-    selected_hand_cards = {};
+    active_card_items = {};
     chips = 0,
     mult = 0,
 
@@ -107,11 +107,9 @@ function GameState:playHand()
         return
     end
 
-    local card_items = self:getSelectedHandCards()
-    for _, card_item in ipairs(card_items) do
+    for _, card_item in ipairs(self.active_card_items) do
         ---@type Card
         local card = card_item.drawable
-
         self.chips = self.chips + card.chips
     end
 
@@ -180,39 +178,51 @@ function GameState:checkHandRanking()
     local card_count = #card_items
     table.sort(card_items, function(a, b) return a.drawable.rank > b.drawable.rank end)
 
+    local highest_rank_card_item = {}
+
     local rank_diff = 0
     local is_consecutive = true
     local is_same_suit = false
     local had_same_suit = false
 
     -- can be three and four of a kind too but uh ye idk
-    local first_pair_cards = {}
+    local first_pair_items = {}
     local first_pair_found = false
     local start_second_pair_search = false
-    local second_pair_cards = {}
+    local second_pair_items = {}
 
-    local previous_card
+    local previous_card_item
 
     for i, item in ipairs(card_items) do
         ---@type Card|Drawable
         local card = item.drawable
 
-        if i ~= 1 then
-            previous_card = card_items[i-1].drawable
+        -- high card
+        if i == 1 then
+            highest_rank_card_item = item
         else
-            previous_card = card
+            if card.rank > highest_rank_card_item.drawable.rank then
+                highest_rank_card_item = item
+            end
+        end
+
+        -- previous card definition
+        if i ~= 1 then
+            previous_card_item = card_items[i-1]
+        else
+            previous_card_item = item
         end
 
         -- flush
-        if not had_same_suit and previous_card.suit == card.suit then
+        if not had_same_suit and previous_card_item.drawable.suit == card.suit then
             is_same_suit = true
             had_same_suit = true
-        elseif previous_card.suit ~= card.suit then
+        elseif previous_card_item.drawable.suit ~= card.suit then
             is_same_suit = false
         end
 
         -- straight
-        rank_diff = previous_card.rank - card.rank
+        rank_diff = previous_card_item.drawable.rank - card.rank
 
         if i ~= 1 then
             if is_consecutive and rank_diff ~= 1 then
@@ -224,10 +234,10 @@ function GameState:checkHandRanking()
         if i ~= 1 then
             -- checking for the first instance of a pair, three of a kind...
             if rank_diff == 0 and not start_second_pair_search then
-                if #first_pair_cards == 0 then
-                    table.insert(first_pair_cards, previous_card)
+                if #first_pair_items == 0 then
+                    table.insert(first_pair_items, previous_card_item)
                 end
-                table.insert(first_pair_cards, card)
+                table.insert(first_pair_items, item)
                 first_pair_found = true
             elseif rank_diff ~= 0 and first_pair_found then
                 start_second_pair_search = true
@@ -235,34 +245,48 @@ function GameState:checkHandRanking()
 
             -- if we found the end of the first one we check for pairs again
             if rank_diff == 0 and start_second_pair_search then
-                if #second_pair_cards == 0 then
-                    table.insert(second_pair_cards, previous_card)
+                if #second_pair_items == 0 then
+                    table.insert(second_pair_items, previous_card_item)
                 end
-                table.insert(second_pair_cards, card)
+                table.insert(second_pair_items, item)
             end
         end
     end
 
+    self.active_card_items = {}
+
     if  card_count==5 and is_same_suit and is_consecutive and card_items[1].drawable.rank == 14 then
         self.selected_hand = "royal_flush"
+        self.active_card_items = card_items
     elseif card_count==5 and is_same_suit and is_consecutive then
         self.selected_hand = "straight_flush"
-    elseif #first_pair_cards == 4 then
+        self.active_card_items = card_items
+    elseif #first_pair_items == 4 then
         self.selected_hand = "four_of_a_kind"
-    elseif (#first_pair_cards == 3 and #second_pair_cards == 2) or (#first_pair_cards == 2 and #second_pair_cards == 3) then
+        Utils.insertFromUnpackedTable(self.active_card_items, first_pair_items)
+    elseif (#first_pair_items == 3 and #second_pair_items == 2) or (#first_pair_items == 2 and #second_pair_items == 3) then
         self.selected_hand = "full_house"
+        Utils.insertFromUnpackedTable(self.active_card_items, first_pair_items)
+        Utils.insertFromUnpackedTable(self.active_card_items, second_pair_items)
     elseif card_count==5 and is_same_suit then
         self.selected_hand = "flush"
+        self.active_card_items = card_items
     elseif card_count==5 and is_consecutive then
         self.selected_hand = "straight"
-    elseif (#first_pair_cards == 3 and #second_pair_cards == 0) then
+        self.active_card_items = card_items
+    elseif (#first_pair_items == 3 and #second_pair_items == 0) then
         self.selected_hand = "three_of_a_kind"
-    elseif (#first_pair_cards == 2 and #second_pair_cards == 2) then
+        Utils.insertFromUnpackedTable(self.active_card_items, first_pair_items)
+    elseif (#first_pair_items == 2 and #second_pair_items == 2) then
         self.selected_hand = "two_pair"
-    elseif (#first_pair_cards == 2 and #second_pair_cards == 0) then
+        Utils.insertFromUnpackedTable(self.active_card_items, first_pair_items)
+        Utils.insertFromUnpackedTable(self.active_card_items, second_pair_items)
+    elseif (#first_pair_items == 2 and #second_pair_items == 0) then
         self.selected_hand = "pair"
+        Utils.insertFromUnpackedTable(self.active_card_items, first_pair_items)
     elseif card_count > 0 then
         self.selected_hand = "high_card"
+        table.insert(self.active_card_items, highest_rank_card_item)
     else
         self.selected_hand = nil
     end
