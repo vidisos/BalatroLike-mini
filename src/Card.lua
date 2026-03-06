@@ -9,7 +9,6 @@ local Card = {}
 ---@return Card
 function Card:Card(card_base, onClickFunc)
     self.type = "Card"
-    self.isClickable = true
     self.baseImage = card_base.baseImage
     self.backImage = card_base.backImage
     self.image = self.baseImage

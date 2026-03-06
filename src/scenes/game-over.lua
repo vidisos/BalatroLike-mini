@@ -12,14 +12,7 @@ local pixel_font_bold = "src/fonts/Karma Future.otf"
 local ww = CONSTANTS.BASE_WIDTH
 local wh = CONSTANTS.BASE_HEIGHT
 
--- adding extensions to the Drawable superclass
-Drawable.ImageBox = require("src.ImageBox").ImageBox
-Drawable.Rectangle = require("src.Rectangle").Rectangle
-Drawable.TextBox = require("src.TextBox").TextBox
-Drawable.Button = require("src.Button").Button
-Drawable.Card = require("src.Card").Card
-
----@class Scene
+---@type Scene
 return {
     id = "game-over",
     shouldDraw = false,
@@ -29,12 +22,16 @@ return {
         {
             id = "rect-background",
             z_index = 0,
+            shouldDraw = true,
+            isClickable = true,
             drawable = Drawable:new(500, 500, 500, 500):Rectangle({255, 0, 0})
         },
 
         {
             id = "btn-change-lang",
             z_index = 1,
+            shouldDraw = true,
+            isClickable = true,
             drawable = Drawable:new(1680, 950, 200, 100):Button(
                 LANG.language, Utils.resizeFont(pixel_font, 30),
                 {0, 0, 100},

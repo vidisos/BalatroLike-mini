@@ -13,7 +13,6 @@ local TextBox = {}
 ---@return TextBox
 function TextBox:TextBox(text, font, text_color, background_color, alignment)
     self.type = "TextBox"
-    self.isClickable = false
 
     if (type(text) == "table") then
         self.text = text or {"", ""}
@@ -65,6 +64,8 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
         Utils.resetColor()
     end
 
+    -- we dont need the onclick for this item, this is just here so it doesnt break
+    self.onClickFunc = function () end
     self.isClickedFunc = function (mx, my)
         local isClicked =
             self.x <= mx and mx <= self.x + self.width and

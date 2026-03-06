@@ -28,7 +28,6 @@
 ---@field y number
 ---@field width number
 ---@field height number
----@field isClickable boolean
 ---@field updateFunc fun(self: Drawable, dt: number)
 ---@field drawFunc fun(self: Drawable)
 ---@field isClickedFunc fun(mx: number, my: number): boolean
@@ -40,12 +39,13 @@
 
 ---@class DrawableItem
 ---@field id string
+---@field shouldDraw boolean
+---@field isClickable boolean
 ---@field z_index number
 ---@field drawable Drawable
 
 ---@class Card : Drawable
 ---@field type string
----@field isClickable boolean
 ---@field image love.Image
 ---@field baseImage love.Image
 ---@field backImage love.Image

@@ -15,14 +15,7 @@ local pixel_font_bold = "src/fonts/Karma Future.otf"
 local ww = CONSTANTS.BASE_WIDTH
 local wh = CONSTANTS.BASE_HEIGHT
 
--- adding extensions to the Drawable "superclass"
-Drawable.ImageBox = require("src.ImageBox").ImageBox
-Drawable.Rectangle = require("src.Rectangle").Rectangle
-Drawable.TextBox = require("src.TextBox").TextBox
-Drawable.Button = require("src.Button").Button
-Drawable.Card = require("src.Card").Card
-
----@class Scene
+---@type Scene
 return {
     id = "start-menu",
     shouldDraw = true,
@@ -32,12 +25,16 @@ return {
         {
             id = "rect-background",
             z_index = 0,
+            shouldDraw = true,
+            isClickable = true,
             drawable = Drawable:new(0, 0, ww, wh):Rectangle({59, 124, 217})
         },
 
         {
             id = "text-title",
             z_index = 1,
+            shouldDraw = true,
+            isClickable = true,
             drawable = Drawable:new(
                 Utils.getCenterAnchorX(0, ww, 1200), Utils.getCenterAnchorY(0, wh, 400),
                 1200, 400
@@ -47,6 +44,8 @@ return {
         {
             id = "img-settings",
             z_index = 1,
+            shouldDraw = true,
+            isClickable = true,
             drawable = Drawable:new(ww-100, 10, 90, 90):ImageBox(image_list.settings_icon, 
                 function () 
                     if audio_list.background_music:isPlaying() then
@@ -61,6 +60,8 @@ return {
         {
             id = "btn-start",
             z_index = 1,
+            shouldDraw = true,
+            isClickable = true,
             drawable = Drawable:new(500, 800, 300, 150):Button(
                 LANG.start, Utils.resizeFont(pixel_font, 90),
                 {237, 164, 74},
@@ -79,6 +80,8 @@ return {
         {
             id = "btn-quit",
             z_index = 1,
+            shouldDraw = true,
+            isClickable = true,
             drawable = Drawable:new(1000, 820, 250, 130):Button(
                 LANG.quit, Utils.resizeFont(pixel_font, 50),
                 {0, 0, 100},
@@ -94,6 +97,8 @@ return {
         {
             id = "btn-change-lang",
             z_index = 1,
+            shouldDraw = true,
+            isClickable = true,
             drawable = Drawable:new(1680, 950, 200, 100):Button(
                 LANG.language, Utils.resizeFont(pixel_font, 30),
                 {0, 0, 100},
@@ -109,6 +114,8 @@ return {
         {
             id = "text-dynamic",
             z_index = 1,
+            shouldDraw = true,
+            isClickable = true,
             drawable = Drawable:new(100, 100, 200, 200,
                 function (self, dt)
                     self.text = string.format("%.2f", GameState.timer)

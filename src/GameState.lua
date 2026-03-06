@@ -2,7 +2,6 @@ local Scenes = require "src.Scenes"
 local Drawable = require "src.Drawable"
 local CONSTANTS = require "src.CONSTANTS"
 local card_list = require "src.card_list"
-local Card      = require "src.Card"
 local Utils     = require "src.Utils"
 local hand_rankings = require "src.hand_rankings"
 
@@ -72,7 +71,7 @@ function GameState:makeNewDeck()
         card.inHand = false
         card.flipped = true
 
-        Scenes:addDrawable(Scenes:getScene("game-main"), id, z_index, card)
+        Scenes:addDrawable(Scenes:getScene("game-main"), id, true, true, z_index, card)
 
         self.deck_count = self.deck_count + 1
     end

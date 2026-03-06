@@ -8,7 +8,6 @@ local Rectangle = {}
 ---@return Rectangle
 function Rectangle:Rectangle(background_color)
     self.type = "Rectangle"
-    self.isClickable = false
     self.background_color = background_color or {255, 255, 255}
 
     self.drawFunc = function ()
@@ -18,6 +17,8 @@ function Rectangle:Rectangle(background_color)
         Utils.resetColor()
     end
 
+    -- we dont need the onclick for this item, this is just here so it doesnt break
+    self.onClickFunc = function () end
     self.isClickedFunc = function (mx, my)
         local isClicked =
             self.x <= mx and mx <= self.x + self.width and

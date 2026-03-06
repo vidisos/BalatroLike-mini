@@ -18,7 +18,6 @@ local normalButtonDraw, borderedButtonDraw
 ---@return Button
 function Button:Button(text, font, text_color, button_color, onClickFunc, border_width, border_color)
     self.type = "Button"
-    self.isClickable = true
 
     self.baseFont = font or love.graphics.getFont()
     self.font = font

@@ -1,5 +1,3 @@
-local Utils = require "src.Utils"
-
 local Scenes = {
     ---@type Scene[]
     scene_list = {}
@@ -32,7 +30,9 @@ function Scenes:draw()
     for _, scene in ipairs(self.scene_list) do
         if scene.shouldDraw then
             for _, item in ipairs(scene.drawables) do
-                item.drawable:draw()
+                if item.shouldDraw then
+                    item.drawable:draw()
+                end
             end
         end
     end
@@ -48,7 +48,7 @@ function Scenes:onClick(mx, my)
         if scene.shouldDraw and scene.isClickable then
 
             for _, item in ipairs(scene.drawables) do
-                if item.drawable:isClicked(mx, my) then
+                if item.shouldDraw and item.isClickable and item.drawable:isClicked(mx, my) then
                     table.insert(clicked_drawables, item)
                 end
             end
@@ -61,9 +61,7 @@ function Scenes:onClick(mx, my)
 
         local top_drawable = clicked_drawables[1].drawable
 
-        if top_drawable.isClickable then
-            top_drawable:onClickFunc()
-        end
+        top_drawable:onClickFunc()
     end
 end
 
@@ -149,11 +147,13 @@ end
 ---adds a new drawable to a certain scene
 ---@param scene Scene
 ---@param id string
+---@param shouldDraw boolean
+---@param isClickable boolean
 ---@param z_index number
 ---@param drawable Drawable
-function Scenes:addDrawable(scene, id, z_index, drawable)
+function Scenes:addDrawable(scene, id, shouldDraw, isClickable, z_index, drawable)
     if scene then
-        table.insert(scene.drawables, {id = id, z_index = z_index, drawable = drawable})
+        table.insert(scene.drawables, {id = id, shouldDraw = shouldDraw, isClickable = isClickable, z_index = z_index, drawable = drawable})
     end
 end
 

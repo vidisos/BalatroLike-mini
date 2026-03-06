@@ -1,3 +1,4 @@
+local Drawable = require "src.Drawable" -- without this require everything breaks as the drawable "extensions" are defined inside
 local CONSTANTS = require "src.CONSTANTS"
 local GameState = require "src.GameState"
 local Scenes = require "src.Scenes"

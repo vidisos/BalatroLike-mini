@@ -40,4 +40,32 @@ function Drawable:isClicked(mx, my)
     return self.isClickedFunc(mx, my)
 end
 
+
+-- had to do this instead of requires since circular dependencies
+function Drawable:Button(...)
+    local Button = require("src.Button")
+    return Button.Button(self, ...)
+end
+
+function Drawable:ImageBox(...)
+    local ImageBox = require("src.ImageBox")
+    return ImageBox.ImageBox(self, ...)
+end
+
+function Drawable:Rectangle(...)
+    local Rectangle = require("src.Rectangle")
+    return Rectangle.Rectangle(self, ...)
+end
+
+function Drawable:TextBox(...)
+    local TextBox = require("src.TextBox")
+    return TextBox.TextBox(self, ...)
+end
+
+function Drawable:Card(...)
+    local Card = require("src.Card")
+    return Card.Card(self, ...)
+end
+
+
 return Drawable
