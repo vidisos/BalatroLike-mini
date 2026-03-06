@@ -37,6 +37,6 @@
 ---@field isClickedFunc fun(mx: number, my: number): boolean
 ---@field Button fun(self: Drawable, text?: table | string, font?: love.Font, text_color?: table, button_color?: table, onClickFunc?: fun(), border_width?: number, border_color?: table): Button
 ---@field ImageBox fun(self: Drawable, image?: love.Image, onClickFunc?: fun()): ImageBox
----@field Rectangle fun(self: Drawable, background_color?: table): Rectangle
+---@field Rectangle fun(self: Drawable, background_color?: table, border_width?: number, border_color?: table): Rectangle
 ---@field TextBox fun(self: Drawable, text?: table | string, font?: love.Font, text_color?: table, background_color?: table, alignment?: string): TextBox
 ---@field Card fun(self: Drawable, card_base?: CardBase, onClickFunc?: fun()): Card

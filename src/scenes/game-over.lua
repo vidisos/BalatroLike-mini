@@ -19,25 +19,54 @@ return {
     isClickable = true,
     z_index = 1,
     drawables = {
-        -- red square
+        -- main background
         Drawable:new(
             "rect-background", 0,
-            500, 500, 500, 500
-        ):Rectangle({255, 0, 0}),
+            860, 120, 400, 800
+        ):Rectangle({134, 142, 156}, 10),
 
-        -- language button
+        -- u lose
         Drawable:new(
-            "btn-change-lang", 1,
-            1680, 950, 200, 100
+            "text-you-lose", 1,
+            Utils.getCenterAnchorX(860, 400, 370), 300, 370, 100
+        ):TextBox(
+            LANG.you_lose,
+            Utils.resizeFont(pixel_font_bold, 110)
+        ),
+
+        -- start new game
+        Drawable:new(
+            "btn-new-game", 1,
+            Utils.getCenterAnchorX(860, 400, 330), 650, 330, 100
         ):Button(
-            LANG.language,
+            LANG.new_game,
             Utils.resizeFont(pixel_font, 30),
             {0, 0, 100},
             {255, 0, 0},
             function(self)
-                GameState:changeLang()
+                GameState:startNewRound()
+                Scenes:disableScene("game-over")
+                Scenes:enableSceneClicks("game-main")
             end,
-            nil,
+            10,
+            {0, 100, 25}
+        ),
+
+        -- to main menu
+        Drawable:new(
+            "btn-to-main-menu", 1,
+            Utils.getCenterAnchorX(860, 400, 330), 780, 330, 100
+        ):Button(
+            LANG.to_main_menu,
+            Utils.resizeFont(pixel_font, 30),
+            {0, 0, 100},
+            {255, 0, 0},
+            function(self)
+                Scenes:disableScenes()
+                Scenes:enableSceneClicks("game-main")
+                Scenes:enableScene("start-menu")
+            end,
+            10,
             {0, 100, 25}
         ),
     }

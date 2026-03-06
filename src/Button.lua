@@ -56,7 +56,7 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
 end
 
 ---drawing a button normally
----@param self Button
+---@param self Button|Drawable
 normalButtonDraw = function(self)
     -- button
     Utils.setColorRGB(self.button_color)
@@ -89,7 +89,7 @@ normalButtonDraw = function(self)
 end
 
 ---drawing a button that basically makes the border part of it in terms of width and such
----@param self Button
+---@param self Button|Drawable
 borderedButtonDraw = function(self)
     -- border
     Utils.setColorRGB(self.border_color)

@@ -50,6 +50,9 @@ local LANG = {
     ranking_info = {en="Ranking\ninfo", sl="Info\nrok"},
     play_hand = {en="Play hand", sl="Igraj roko"},
     discard_hand = {en="Discard", sl="Zavrži"},
+    to_main_menu = {en="Main menu", sl="Glavni meni"},
+    new_game = {en="New game", sl="Nova igra"},
+    you_lose = {en="You\nlose!", sl="Zgubil\n   si!"},
 
     high_card = {en="High Card", sl="Visoka karta"},
     pair = {en="Pair", sl="En par"},

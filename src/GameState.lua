@@ -81,7 +81,7 @@ end
 function GameState:makeNewHand()
     for i=1, self.hand_size do
         local id = "card-" .. (self.deck_size - (i-1))
-        ---@type Card
+        ---@type Card|Drawable
         local card = Scenes:getDrawable("game-main", id)
 
         local spacing = ((i-1) * (CONSTANTS.HAND_WIDTH - CONSTANTS.CARD_WIDTH) / (self.hand_size - 1))
@@ -110,8 +110,7 @@ function GameState:playHand()
 
     self.score = self.score + (self.chips * self.mult)
 
-    self.discards_remaining = self.discards_remaining + 1
-    self:discard()
+    self:discardCards()
 
     self.hands_remaining = self.hands_remaining - 1
 
@@ -120,12 +119,22 @@ function GameState:playHand()
     end
 end
 
----discard currently selected cards and moves in new ones from the deck
+---discards and changes the discard count accordingly
 function GameState:discard()
     if self.discards_remaining <= 0 then
         return
     end
 
+    local discarded_drawables = self:discardCards()
+
+    if #discarded_drawables > 0 then
+        self.discards_remaining = self.discards_remaining - 1
+    end
+end
+
+---discard currently selected cards and moves in new ones from the deck
+---@return Drawable|Card[]
+function GameState:discardCards()
     -- we need to iterate backwards otherwise it doesnt remove properly(the index moves and stuff)
     local scene = Scenes:getScene("game-main")
     local selected_cards = self:getSelectedHandCards()
@@ -147,7 +156,7 @@ function GameState:discard()
             break
         end
 
-        ---@type Card
+        ---@type Card|Drawable
         local card = self:getTopCardInDeck()
 
         local spacing = ((i-1) * (CONSTANTS.HAND_WIDTH - CONSTANTS.CARD_WIDTH) / (self.hand_size - 1))
@@ -165,9 +174,7 @@ function GameState:discard()
     self.selected_hand = nil
     self:refreshChipsAndMult()
 
-    if #discarded_drawables > 0 then
-        self.discards_remaining = self.discards_remaining - 1
-    end
+    return discarded_drawables
 end
 
 ---goes to the game over screen and stuff

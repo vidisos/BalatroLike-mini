@@ -52,7 +52,7 @@ return {
         -- start button
         Drawable:new(
             "btn-start", 1,
-            500, 800, 300, 150
+            560, 800, 300, 150
         ):Button(
             LANG.start, Utils.resizeFont(pixel_font, 90),
             {237, 164, 74},
@@ -70,7 +70,7 @@ return {
         -- quit button
         Drawable:new(
             "btn-quit", 1,
-            1000, 820, 250, 130
+            1060, 810, 250, 130
         ):Button(
             LANG.quit, Utils.resizeFont(pixel_font, 50),
             {0, 0, 100},
