@@ -17,7 +17,7 @@ function Rectangle:Rectangle(background_color)
         Utils.resetColor()
     end
 
-    -- we dont need the onclick for this item, this is just here so it doesnt break
+    -- we dont need the onclick for this drawable, this is just here so it doesnt break
     self.onClickFunc = function () end
     self.isClickedFunc = function (mx, my)
         local isClicked =

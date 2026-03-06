@@ -3,14 +3,21 @@ local Drawable = {}
 Drawable.__index = Drawable
 
 ---initializes a drawable
+---@param id string
+---@param z_index number
 ---@param x? number
 ---@param y? number
 ---@param width? number
 ---@param height? number
 ---@param updateFunc? fun(self: Drawable, dt)
 ---@return Drawable
-function Drawable:new(x, y, width, height, updateFunc)
+function Drawable:new(id, z_index, x, y, width, height, updateFunc)
     local self = setmetatable({}, Drawable) -- {} is basically a created object that you add stuff to wowza (setmetatable() returns a table)
+
+    self.id = id
+    self.z_index = z_index
+    self.isClickable = true
+    self.shouldDraw = true
 
     self.x = x or 0
     self.y = y or 0

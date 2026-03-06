@@ -22,109 +22,86 @@ return {
     isClickable = true,
     z_index = 0,
     drawables = {
-        {
-            id = "rect-background",
-            z_index = 0,
-            shouldDraw = true,
-            isClickable = true,
-            drawable = Drawable:new(0, 0, ww, wh):Rectangle({59, 124, 217})
-        },
+        Drawable:new("rect-background", 0,
+            0, 0, ww, wh
+        ):Rectangle({59, 124, 217}),
 
-        {
-            id = "text-title",
-            z_index = 1,
-            shouldDraw = true,
-            isClickable = true,
-            drawable = Drawable:new(
-                Utils.getCenterAnchorX(0, ww, 1200), Utils.getCenterAnchorY(0, wh, 400),
-                1200, 400
-            ):TextBox(LANG.title, Utils.resizeFont(pixel_font_bold, 300))
-        },
+        Drawable:new(
+            "text-title", 1,
+            Utils.getCenterAnchorX(0, ww, 1200), Utils.getCenterAnchorY(0, wh, 400),
+            1200, 400
+        ):TextBox(LANG.title, Utils.resizeFont(pixel_font_bold, 300)),
 
-        {
-            id = "img-settings",
-            z_index = 1,
-            shouldDraw = true,
-            isClickable = true,
-            drawable = Drawable:new(ww-100, 10, 90, 90):ImageBox(image_list.settings_icon, 
-                function () 
-                    if audio_list.background_music:isPlaying() then
-                        audio_list.background_music:pause()
-                    else
-                        audio_list.background_music:play()
-                    end
+        Drawable:new(
+            "img-settings", 1,
+            ww-100, 10, 90, 90
+        ):ImageBox(
+            image_list.settings_icon,
+            function ()
+                if audio_list.background_music:isPlaying() then
+                    audio_list.background_music:pause()
+                else
+                    audio_list.background_music:play()
                 end
-            )
-        },
+            end
+        ),
 
-        {
-            id = "btn-start",
-            z_index = 1,
-            shouldDraw = true,
-            isClickable = true,
-            drawable = Drawable:new(500, 800, 300, 150):Button(
-                LANG.start, Utils.resizeFont(pixel_font, 90),
-                {237, 164, 74},
-                {212, 198, 182},
-                function (self)
-                    Scenes:disableScenes()
-                    Scenes:enableScene("game-main")
-                    GameState:startNewRound()
-                    Scenes:sortDrawables(Scenes:getScene("game-main"))
-                end,
-                15,
-                {100, 50, 20}
-            )
-        },
+        Drawable:new(
+            "btn-start", 1,
+            500, 800, 300, 150
+        ):Button(
+            LANG.start, Utils.resizeFont(pixel_font, 90),
+            {237, 164, 74},
+            {212, 198, 182},
+            function (self)
+                Scenes:disableScenes()
+                Scenes:enableScene("game-main")
+                GameState:startNewRound()
+                Scenes:sortDrawables(Scenes:getScene("game-main"))
+            end,
+            15,
+            {100, 50, 20}
+        ),
 
-        {
-            id = "btn-quit",
-            z_index = 1,
-            shouldDraw = true,
-            isClickable = true,
-            drawable = Drawable:new(1000, 820, 250, 130):Button(
-                LANG.quit, Utils.resizeFont(pixel_font, 50),
-                {0, 0, 100},
-                {255, 0, 0},
-                function()
-                    love.event.quit()
-                end,
-                10,
-                {0, 100, 25}
-            )
-        },
+        Drawable:new(
+            "btn-quit", 1,
+            1000, 820, 250, 130
+        ):Button(
+            LANG.quit, Utils.resizeFont(pixel_font, 50),
+            {0, 0, 100},
+            {255, 0, 0},
+            function()
+                love.event.quit()
+            end,
+            10,
+            {0, 100, 25}
+        ),
 
-        {
-            id = "btn-change-lang",
-            z_index = 1,
-            shouldDraw = true,
-            isClickable = true,
-            drawable = Drawable:new(1680, 950, 200, 100):Button(
-                LANG.language, Utils.resizeFont(pixel_font, 30),
-                {0, 0, 100},
-                {255, 0, 0},
-                function(self)
-                    GameState:changeLang()
-                end,
-                nil,
-                {0, 100, 25}
-            )
-        },
+        Drawable:new(
+            "btn-change-lang", 1,
+            1680, 950, 200, 100
+        ):Button(
+            LANG.language, Utils.resizeFont(pixel_font, 30),
+            {0, 0, 100},
+            {255, 0, 0},
+            function(self)
+                GameState:changeLang()
+            end,
+            nil,
+            {0, 100, 25}
+        ),
 
-        {
-            id = "text-dynamic",
-            z_index = 1,
-            shouldDraw = true,
-            isClickable = true,
-            drawable = Drawable:new(100, 100, 200, 200,
-                function (self, dt)
-                    self.text = string.format("%.2f", GameState.timer)
-                end
-                ):TextBox(
-                tostring(GameState.timer), Utils.resizeFont(pixel_font, 50),
-                nil,
-                {59, 124, 217}
-            )
-        }
+        Drawable:new(
+            "text-dynamic", 1,
+            100, 100, 200, 200,
+            function (self, dt)
+                self.text = string.format("%.2f", GameState.timer)
+            end
+        ):TextBox(
+            tostring(GameState.timer),
+            Utils.resizeFont(pixel_font, 50),
+            nil,
+            {59, 124, 217}
+        )
     }
 }

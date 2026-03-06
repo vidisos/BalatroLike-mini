@@ -13,7 +13,7 @@
 ---@field shouldDraw boolean
 ---@field isClickable boolean
 ---@field z_index number
----@field drawables DrawableItem[]
+---@field drawables Drawable[]
 
 ---@class CardBase
 ---@field baseImage love.Image
@@ -23,6 +23,10 @@
 ---@field chips number
 
 ---@class Drawable
+---@field id string
+---@field z_index number
+---@field isClickable boolean
+---@field shouldDraw boolean
 ---@field type string
 ---@field x number
 ---@field y number
@@ -36,30 +40,3 @@
 ---@field Rectangle fun(self: Drawable, background_color?: table): Rectangle
 ---@field TextBox fun(self: Drawable, text?: table | string, font?: love.Font, text_color?: table, background_color?: table): TextBox
 ---@field Card fun(self: Drawable, card_base?: CardBase, onClickFunc?: fun()): Card
-
----@class DrawableItem
----@field id string
----@field shouldDraw boolean
----@field isClickable boolean
----@field z_index number
----@field drawable Drawable
-
----@class Card : Drawable
----@field type string
----@field image love.Image
----@field baseImage love.Image
----@field backImage love.Image
----@field suit string
----@field rank number
----@field selected boolean
----@field flipped boolean
----@field inHand boolean
----@field inDeck boolean
----@field displayIndex number
----@field onClickFunc fun()
----@field drawFunc fun(self: Card)
----@field isClickedFunc fun(mx: number, my: number): boolean
----@field x number
----@field y number
----@field width number
----@field height number

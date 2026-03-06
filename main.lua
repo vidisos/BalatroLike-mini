@@ -1,4 +1,3 @@
-local Drawable = require "src.Drawable" -- without this require everything breaks as the drawable "extensions" are defined inside
 local CONSTANTS = require "src.CONSTANTS"
 local GameState = require "src.GameState"
 local Scenes = require "src.Scenes"
@@ -17,6 +16,7 @@ function love.load()
     local background_music = audio_list.background_music
     background_music:setVolume(0.3)
     background_music:setLooping(true)
+
     --[[
     background_music:play()
     ]]

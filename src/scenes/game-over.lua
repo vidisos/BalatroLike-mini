@@ -19,29 +19,25 @@ return {
     isClickable = true,
     z_index = 1,
     drawables = {
-        {
-            id = "rect-background",
-            z_index = 0,
-            shouldDraw = true,
-            isClickable = true,
-            drawable = Drawable:new(500, 500, 500, 500):Rectangle({255, 0, 0})
-        },
 
-        {
-            id = "btn-change-lang",
-            z_index = 1,
-            shouldDraw = true,
-            isClickable = true,
-            drawable = Drawable:new(1680, 950, 200, 100):Button(
-                LANG.language, Utils.resizeFont(pixel_font, 30),
-                {0, 0, 100},
-                {255, 0, 0},
-                function(self)
-                    GameState:changeLang()
-                end,
-                nil,
-                {0, 100, 25}
-            )
-        },
+        Drawable:new(
+            "rect-background", 0,
+            500, 500, 500, 500
+        ):Rectangle({255, 0, 0}),
+
+        Drawable:new(
+            "btn-change-lang", 1,
+            1680, 950, 200, 100
+        ):Button(
+            LANG.language,
+            Utils.resizeFont(pixel_font, 30),
+            {0, 0, 100},
+            {255, 0, 0},
+            function(self)
+                GameState:changeLang()
+            end,
+            nil,
+            {0, 100, 25}
+        ),
     }
 }

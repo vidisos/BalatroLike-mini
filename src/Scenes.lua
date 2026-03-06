@@ -19,8 +19,8 @@ end
 ---@param dt number
 function Scenes:update(dt)
     for _, scene in ipairs(self.scene_list) do
-        for _, item in ipairs(scene.drawables) do
-            item.drawable:update(dt)
+        for _, drawable in ipairs(scene.drawables) do
+            drawable:update(dt)
         end
     end
 end
@@ -29,9 +29,9 @@ end
 function Scenes:draw()
     for _, scene in ipairs(self.scene_list) do
         if scene.shouldDraw then
-            for _, item in ipairs(scene.drawables) do
-                if item.shouldDraw then
-                    item.drawable:draw()
+            for _, drawable in ipairs(scene.drawables) do
+                if drawable.shouldDraw then
+                    drawable:draw()
                 end
             end
         end
@@ -47,9 +47,9 @@ function Scenes:onClick(mx, my)
     for _, scene in ipairs(self.scene_list) do
         if scene.shouldDraw and scene.isClickable then
 
-            for _, item in ipairs(scene.drawables) do
-                if item.shouldDraw and item.isClickable and item.drawable:isClicked(mx, my) then
-                    table.insert(clicked_drawables, item)
+            for _, drawable in ipairs(scene.drawables) do
+                if drawable.shouldDraw and drawable.isClickable and drawable:isClicked(mx, my) then
+                    table.insert(clicked_drawables, drawable)
                 end
             end
         end
@@ -59,7 +59,7 @@ function Scenes:onClick(mx, my)
     if #clicked_drawables > 0 then
         table.sort(clicked_drawables, function (a, b) return a.z_index > b.z_index end)
 
-        local top_drawable = clicked_drawables[1].drawable
+        local top_drawable = clicked_drawables[1]
 
         top_drawable:onClickFunc()
     end
@@ -112,32 +112,32 @@ function Scenes:disableSceneClicks(id)
     end
 end
 
----enables clicks for a certain DrawableItem
+---enables clicks for a certain drawable
 ---@param scene_id string
 ---@param id string
 function Scenes:enableItemClicks(scene_id, id)
     for _, scene in ipairs(self.scene_list) do
         if scene.id == scene_id then
 
-            for _, item in ipairs(scene.drawables) do
-                if item.id == id then
-                    item.isClickable = true
+            for _, drawable in ipairs(scene.drawables) do
+                if drawable.id == id then
+                    drawable.isClickable = true
                 end
             end
         end
     end
 end
 
----disables clicks for a certain DrawableItem
+---disables clicks for a certain drawable
 ---@param scene_id string
 ---@param id string
 function Scenes:disableItemClicks(scene_id, id)
     for _, scene in ipairs(self.scene_list) do
         if scene.id == scene_id then
 
-            for _, item in ipairs(scene.drawables) do
-                if item.id == id then
-                    item.isClickable = true
+            for _, drawable in ipairs(scene.drawables) do
+                if drawable.id == id then
+                    drawable.isClickable = true
                 end
             end
         end
@@ -159,14 +159,14 @@ end
 
 ---returns a specific drawable item table with the id
 ---@param id string
----@return DrawableItem
-function Scenes:getDrawableItem(scene_id, id)
+---@return Drawable
+function Scenes:getDrawable(scene_id, id)
     for _, scene in ipairs(self.scene_list) do
         if scene.id == scene_id then
 
-            for _, item in ipairs(scene.drawables) do
-                if item.id == id then
-                    return item
+            for _, drawable in ipairs(scene.drawables) do
+                if drawable.id == id then
+                    return drawable
                 end
             end
         end
@@ -188,14 +188,10 @@ end
 
 ---adds a new drawable to a certain scene
 ---@param scene Scene
----@param id string
----@param shouldDraw boolean
----@param isClickable boolean
----@param z_index number
 ---@param drawable Drawable
-function Scenes:addDrawable(scene, id, shouldDraw, isClickable, z_index, drawable)
+function Scenes:addDrawable(scene, drawable)
     if scene then
-        table.insert(scene.drawables, {id = id, shouldDraw = shouldDraw, isClickable = isClickable, z_index = z_index, drawable = drawable})
+        table.insert(scene.drawables, drawable)
     end
 end
 
