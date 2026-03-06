@@ -195,7 +195,6 @@ function GameState:gameWon()
     GameState:makeNewDeck()
 
     Scenes:enableScene("game-won")
-    Scenes:disableSceneClicks("game-main")
 end
 
 ---checks the current ranking of the selected cards and changes all behaviour accordingly
