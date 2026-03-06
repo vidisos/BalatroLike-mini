@@ -11,6 +11,7 @@
 ---@class Scene
 ---@field id string
 ---@field shouldDraw boolean
+---@field isClickable boolean
 ---@field z_index number
 ---@field drawables DrawableItem[]
 

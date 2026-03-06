@@ -1,13 +1,15 @@
 local Utils = require "src.Utils"
 
 local Scenes = {
+    ---@type Scene[]
     scene_list = {}
 }
 
 ---initializes all the scenes and sorts them by z-index
 function Scenes:init()
-    table.insert(self.scene_list, require("src/scenes/start_menu"))
-    table.insert(self.scene_list, require("src/scenes/game_main"))
+    table.insert(self.scene_list, require("src/scenes/start-menu"))
+    table.insert(self.scene_list, require("src/scenes/game-main"))
+    table.insert(self.scene_list, require("src/scenes/game-over"))
 
     self:sortScenes()
     for _, scene in ipairs(self.scene_list) do
@@ -43,7 +45,7 @@ function Scenes:onClick(mx, my)
     local clicked_drawables = {}
 
     for _, scene in ipairs(self.scene_list) do
-        if scene.shouldDraw then
+        if scene.shouldDraw and scene.isClickable then
 
             for _, item in ipairs(scene.drawables) do
                 if item.drawable:isClicked(mx, my) then
@@ -78,6 +80,26 @@ function Scenes:enableScene(id)
     for _, scene in ipairs(self.scene_list) do
         if scene.id == id then
             scene.shouldDraw = true
+        end
+    end
+end
+
+---enables clicks for a certain scene
+---@param id string
+function Scenes:enableClicks(id)
+    for _, scene in ipairs(self.scene_list) do
+        if scene.id == id then
+            scene.isClickable = true
+        end
+    end
+end
+
+---disables clicks for a certain scene
+---@param id string
+function Scenes:disableClicks(id)
+    for _, scene in ipairs(self.scene_list) do
+        if scene.id == id then
+            scene.isClickable = false
         end
     end
 end
@@ -124,7 +146,11 @@ function Scenes:sortDrawables(scene)
     table.sort(scene.drawables, function (a, b) return a.z_index < b.z_index end)
 end
 
----adds a new drawable to a scene
+---adds a new drawable to a certain scene
+---@param scene Scene
+---@param id string
+---@param z_index number
+---@param drawable Drawable
 function Scenes:addDrawable(scene, id, z_index, drawable)
     if scene then
         table.insert(scene.drawables, {id = id, z_index = z_index, drawable = drawable})

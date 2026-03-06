@@ -36,7 +36,7 @@ local GameState = {
     deck_count = 0
 }
 
----resets everything about the score, curretn cards and stuff
+---resets everything about the score, current cards and stuff
 function GameState:startNewRound()
     self.hands_remaining = 4
     self.discards_remaining = 999
@@ -119,6 +119,10 @@ function GameState:playHand()
     self:discard()
 
     self.hands_remaining = self.hands_remaining - 1
+
+    if self.hands_remaining == 0 and self.score < self.score_requirement then
+        self:gameOver()
+    end
 end
 
 ---discard currently selected cards and moves in new ones from the deck
@@ -172,10 +176,15 @@ function GameState:discard()
     end
 end
 
+---goes to the game over screen and stuff
+function GameState:gameOver()
+    Scenes:enableScene("game-over")
+    Scenes:disableClicks("game-main")
+end
+
 ---checks the current ranking of the selected cards and changes all behaviour accordingly
 function GameState:checkHandRanking()
     local card_items = self:getSelectedHandCards()
-    local card_count = #card_items
     table.sort(card_items, function(a, b) return a.drawable.rank > b.drawable.rank end)
 
     local highest_rank_card_item = {}
@@ -255,10 +264,10 @@ function GameState:checkHandRanking()
 
     self.active_card_items = {}
 
-    if  card_count==5 and is_same_suit and is_consecutive and card_items[1].drawable.rank == 14 then
+    if  #card_items==5 and is_same_suit and is_consecutive and card_items[1].drawable.rank == 14 then
         self.selected_hand = "royal_flush"
         self.active_card_items = card_items
-    elseif card_count==5 and is_same_suit and is_consecutive then
+    elseif #card_items==5 and is_same_suit and is_consecutive then
         self.selected_hand = "straight_flush"
         self.active_card_items = card_items
     elseif #first_pair_items == 4 then
@@ -268,13 +277,13 @@ function GameState:checkHandRanking()
         self.selected_hand = "full_house"
         Utils.insertFromUnpackedTable(self.active_card_items, first_pair_items)
         Utils.insertFromUnpackedTable(self.active_card_items, second_pair_items)
-    elseif card_count==5 and is_same_suit then
+    elseif #card_items==5 and is_same_suit then
         self.selected_hand = "flush"
         self.active_card_items = card_items
-    elseif card_count==5 and is_consecutive then
+    elseif #card_items==5 and is_consecutive then
         self.selected_hand = "straight"
         self.active_card_items = card_items
-    elseif (#first_pair_items == 3 and #second_pair_items == 0) then
+    elseif (#first_pair_items==3 and #second_pair_items==0) then
         self.selected_hand = "three_of_a_kind"
         Utils.insertFromUnpackedTable(self.active_card_items, first_pair_items)
     elseif (#first_pair_items == 2 and #second_pair_items == 2) then
@@ -284,7 +293,7 @@ function GameState:checkHandRanking()
     elseif (#first_pair_items == 2 and #second_pair_items == 0) then
         self.selected_hand = "pair"
         Utils.insertFromUnpackedTable(self.active_card_items, first_pair_items)
-    elseif card_count > 0 then
+    elseif #card_items > 0 then
         self.selected_hand = "high_card"
         table.insert(self.active_card_items, highest_rank_card_item)
     else
@@ -402,7 +411,15 @@ function GameState:getNewDeckBases()
     return card_bases
 end
 
+function GameState:changeLang()
+    if (self.current_lang == "en") then
+        self.current_lang = "sl"
+    else
+        self.current_lang = "en"
+    end
+end
 
+-- card functions
 function GameState.updateCardInHandFunc(self, dt)
     if self.inHand then
         local spacing = ((self.displayIndex-1) * ((CONSTANTS.HAND_WIDTH - CONSTANTS.CARD_WIDTH) / (#GameState:getHandCards() - 1)))
