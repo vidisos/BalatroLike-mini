@@ -82,9 +82,19 @@ function Scenes:enableScene(id)
     end
 end
 
+---disables a scene from being drawn
+---@param id string
+function Scenes:disableScene(id)
+    for _, scene in ipairs(self.scene_list) do
+        if scene.id == id then
+            scene.shouldDraw = false
+        end
+    end
+end
+
 ---enables clicks for a certain scene
 ---@param id string
-function Scenes:enableClicks(id)
+function Scenes:enableSceneClicks(id)
     for _, scene in ipairs(self.scene_list) do
         if scene.id == id then
             scene.isClickable = true
@@ -94,10 +104,42 @@ end
 
 ---disables clicks for a certain scene
 ---@param id string
-function Scenes:disableClicks(id)
+function Scenes:disableSceneClicks(id)
     for _, scene in ipairs(self.scene_list) do
         if scene.id == id then
             scene.isClickable = false
+        end
+    end
+end
+
+---enables clicks for a certain DrawableItem
+---@param scene_id string
+---@param id string
+function Scenes:enableItemClicks(scene_id, id)
+    for _, scene in ipairs(self.scene_list) do
+        if scene.id == scene_id then
+
+            for _, item in ipairs(scene.drawables) do
+                if item.id == id then
+                    item.isClickable = true
+                end
+            end
+        end
+    end
+end
+
+---disables clicks for a certain DrawableItem
+---@param scene_id string
+---@param id string
+function Scenes:disableItemClicks(scene_id, id)
+    for _, scene in ipairs(self.scene_list) do
+        if scene.id == scene_id then
+
+            for _, item in ipairs(scene.drawables) do
+                if item.id == id then
+                    item.isClickable = true
+                end
+            end
         end
     end
 end

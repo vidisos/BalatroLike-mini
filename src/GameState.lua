@@ -178,7 +178,7 @@ end
 ---goes to the game over screen and stuff
 function GameState:gameOver()
     Scenes:enableScene("game-over")
-    Scenes:disableClicks("game-main")
+    Scenes:disableSceneClicks("game-main")
 end
 
 ---checks the current ranking of the selected cards and changes all behaviour accordingly
@@ -427,11 +427,9 @@ function GameState.updateCardInHandFunc(self, dt)
 end
 
 function GameState.cardOnClickFunc(self)
+    -- if its in deck it cant be clicked
     if self.inDeck then
-        self.isClickable = false
         return
-    else
-        self.isClickable = true
     end
 
     if self.selected then
