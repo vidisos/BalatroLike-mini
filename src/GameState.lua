@@ -410,6 +410,7 @@ function GameState:getNewDeckBases()
     return card_bases
 end
 
+---alternates between slovenian and english
 function GameState:changeLang()
     if (self.current_lang == "en") then
         self.current_lang = "sl"
