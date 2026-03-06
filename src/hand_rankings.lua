@@ -7,7 +7,7 @@ local hand_rankings = {
     straight = {chips=30, mult=4},
     flush = {chips=35, mult=4},
     full_house = {chips=40, mult=4},
-    four_of_a_kind = {chips=60, mult=70},
+    four_of_a_kind = {chips=60, mult=7},
     straight_flush = {chips=100, mult=8},
     royal_flush = {chips=100, mult=8},
 }

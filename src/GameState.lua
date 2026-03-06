@@ -37,6 +37,7 @@ local GameState = {
 
 ---resets everything about the score, current cards and stuff
 function GameState:startNewRound()
+    self.score = 0
     self.hands_remaining = 4
     self.discards_remaining = 999
     self.selected_hand = nil
