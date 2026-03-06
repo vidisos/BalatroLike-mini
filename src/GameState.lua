@@ -12,7 +12,7 @@ local GameState = {
 
     --level info
     level = 1,
-    score_requirement = 600,
+    score_requirement = 100,
 
     --dynamic stuff
     current_lang = "en",
@@ -41,10 +41,13 @@ function GameState:startNewRound()
     self.discards_remaining = 999
     self.selected_hand = nil
     self.selected_cards_count = 0
+    self:refreshChipsAndMult()
 
     self:makeNewDeck()
     self:makeNewHand()
     self:refreshHand()
+
+    --Scenes:enableScene("game-won")
 end
 
 ---creates the amount of cards that should be in the whole deck (usually 52) and places them there
@@ -114,7 +117,9 @@ function GameState:playHand()
 
     self.hands_remaining = self.hands_remaining - 1
 
-    if self.hands_remaining == 0 and self.score < self.score_requirement then
+    if self.score >= self.score_requirement then
+        self:gameWon()
+    elseif self.hands_remaining == 0 then
         self:gameOver()
     end
 end
@@ -180,6 +185,15 @@ end
 ---goes to the game over screen and stuff
 function GameState:gameOver()
     Scenes:enableScene("game-over")
+    Scenes:disableSceneClicks("game-main")
+end
+
+---resets the cards and shows the spark select
+function GameState:gameWon()
+    GameState:clearCards()
+    GameState:makeNewDeck()
+
+    Scenes:enableScene("game-won")
     Scenes:disableSceneClicks("game-main")
 end
 

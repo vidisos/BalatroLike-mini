@@ -7,7 +7,34 @@ local FONTS = {
     font_average = love.graphics.newFont(pixel_font, 50),
 }
 
----@type LanguageEntry[]
+---@class LANGTable
+---@field title LanguageEntry
+---@field quit LanguageEntry
+---@field start LanguageEntry
+---@field language LanguageEntry
+---@field level1 LanguageEntry
+---@field level2 LanguageEntry
+---@field level3 LanguageEntry
+---@field score_text LanguageEntry
+---@field round_score LanguageEntry
+---@field hands LanguageEntry
+---@field discards LanguageEntry
+---@field ranking_info LanguageEntry
+---@field play_hand LanguageEntry
+---@field discard_hand LanguageEntry
+---@field to_main_menu LanguageEntry
+---@field new_game LanguageEntry
+---@field you_lose LanguageEntry
+---@field high_card LanguageEntry
+---@field pair LanguageEntry
+---@field two_pair LanguageEntry
+---@field three_of_a_kind LanguageEntry
+---@field straight LanguageEntry
+---@field flush LanguageEntry
+---@field full_house LanguageEntry
+---@field four_of_a_kind LanguageEntry
+---@field straight_flush LanguageEntry
+---@field royal_flush LanguageEntry
 local LANG = {
     -- start menu
     title = {en="Poinker", sl="Poinker"},

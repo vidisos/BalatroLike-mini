@@ -8,6 +8,7 @@ function Scenes:init()
     table.insert(self.scene_list, require("src/scenes/start-menu"))
     table.insert(self.scene_list, require("src/scenes/game-main"))
     table.insert(self.scene_list, require("src/scenes/game-over"))
+    table.insert(self.scene_list, require("src/scenes/game-won"))
 
     self:sortScenes()
     for _, scene in ipairs(self.scene_list) do
@@ -42,26 +43,27 @@ end
 ---@param mx number
 ---@param my number
 function Scenes:onClick(mx, my)
-    local clicked_drawables = {}
+    -- we iterate the scenes by z-index highest to lowest
+    for i = #self.scene_list, 1, -1 do
+        local scene = self.scene_list[i]
 
-    for _, scene in ipairs(self.scene_list) do
         if scene.shouldDraw and scene.isClickable then
+            local scene_clicked_drawables = {}
 
             for _, drawable in ipairs(scene.drawables) do
                 if drawable.shouldDraw and drawable.isClickable and drawable:isClicked(mx, my) then
-                    table.insert(clicked_drawables, drawable)
+                    table.insert(scene_clicked_drawables, drawable)
                 end
             end
+
+            -- if any drawable in this scene is clicked, handle the top one and stop
+            if #scene_clicked_drawables > 0 then
+                table.sort(scene_clicked_drawables, function (a, b) return a.z_index > b.z_index end)
+                local top_drawable = scene_clicked_drawables[1]
+                top_drawable:onClickFunc()
+                return
+            end
         end
-    end
-
-    -- runs the onclick function of the most top layered drawable
-    if #clicked_drawables > 0 then
-        table.sort(clicked_drawables, function (a, b) return a.z_index > b.z_index end)
-
-        local top_drawable = clicked_drawables[1]
-
-        top_drawable:onClickFunc()
     end
 end
 
