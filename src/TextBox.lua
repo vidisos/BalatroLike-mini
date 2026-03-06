@@ -24,7 +24,7 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
     self.font = font
     self.text_color = text_color or {0, 0, 0}
     self.background_color = background_color
-    self.align = alignment or nil
+    self.alignment = alignment or nil
 
     self.drawFunc = function ()
         -- background if needed
@@ -34,7 +34,7 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
         end
 
         -- text
-        local text = ""
+        local text
         local text_type = type(self.text)
         if (text_type == "table") then
             text = self.text[GameState.current_lang]
@@ -45,6 +45,8 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
             end
         elseif text_type == "string" then
             text = self.text
+        else
+            text = ""
         end
 
         local text_width = self.font:getWidth(text)
@@ -64,7 +66,7 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
         Utils.resetColor()
     end
 
-    -- we dont need the onclick for this item, this is just here so it doesnt break
+    -- we dont need the onclick for this drawable, this is just here so it doesnt break
     self.onClickFunc = function () end
     self.isClickedFunc = function (mx, my)
         local isClicked =

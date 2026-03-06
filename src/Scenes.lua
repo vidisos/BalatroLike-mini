@@ -55,7 +55,7 @@ function Scenes:onClick(mx, my)
         end
     end
 
-    -- runs the onclick function of the most top layered item
+    -- runs the onclick function of the most top layered drawable
     if #clicked_drawables > 0 then
         table.sort(clicked_drawables, function (a, b) return a.z_index > b.z_index end)
 
@@ -157,7 +157,7 @@ function Scenes:getScene(id)
     error("Scenes:getScene(id): Bad scene id")
 end
 
----returns a specific drawable item table with the id
+---returns a specific drawable table with the id
 ---@param id string
 ---@return Drawable
 function Scenes:getDrawable(scene_id, id)

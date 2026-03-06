@@ -19,12 +19,13 @@ return {
     isClickable = true,
     z_index = 1,
     drawables = {
-
+        -- red square
         Drawable:new(
             "rect-background", 0,
             500, 500, 500, 500
         ):Rectangle({255, 0, 0}),
 
+        -- language button
         Drawable:new(
             "btn-change-lang", 1,
             1680, 950, 200, 100

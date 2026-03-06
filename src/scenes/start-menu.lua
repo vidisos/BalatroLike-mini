@@ -22,16 +22,19 @@ return {
     isClickable = true,
     z_index = 0,
     drawables = {
+        -- background
         Drawable:new("rect-background", 0,
             0, 0, ww, wh
         ):Rectangle({59, 124, 217}),
 
+        -- title
         Drawable:new(
             "text-title", 1,
             Utils.getCenterAnchorX(0, ww, 1200), Utils.getCenterAnchorY(0, wh, 400),
             1200, 400
         ):TextBox(LANG.title, Utils.resizeFont(pixel_font_bold, 300)),
 
+        -- settings icon
         Drawable:new(
             "img-settings", 1,
             ww-100, 10, 90, 90
@@ -46,6 +49,7 @@ return {
             end
         ),
 
+        -- start button
         Drawable:new(
             "btn-start", 1,
             500, 800, 300, 150
@@ -63,6 +67,7 @@ return {
             {100, 50, 20}
         ),
 
+        -- quit button
         Drawable:new(
             "btn-quit", 1,
             1000, 820, 250, 130
@@ -77,6 +82,7 @@ return {
             {0, 100, 25}
         ),
 
+        -- language button
         Drawable:new(
             "btn-change-lang", 1,
             1680, 950, 200, 100
@@ -89,19 +95,6 @@ return {
             end,
             nil,
             {0, 100, 25}
-        ),
-
-        Drawable:new(
-            "text-dynamic", 1,
-            100, 100, 200, 200,
-            function (self, dt)
-                self.text = string.format("%.2f", GameState.timer)
-            end
-        ):TextBox(
-            tostring(GameState.timer),
-            Utils.resizeFont(pixel_font, 50),
-            nil,
-            {59, 124, 217}
         )
     }
 }

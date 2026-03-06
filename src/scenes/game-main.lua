@@ -106,6 +106,7 @@ return {
             {255,255,255}
         ),
 
+        -- chips and mult
         Drawable:new("text-chips",3,
             40,625,160,100,
             function(self)
@@ -141,7 +142,7 @@ return {
             "left"
         ),
 
-        --hand count
+        -- hand count
         Drawable:new("rect-hand-count-background",10,
             25,780,175,130
         ):Rectangle({113,142,171}),
@@ -205,7 +206,7 @@ return {
             end
         ),
 
-        --play hand
+        -- play hand
         Drawable:new("btn-play-hand",2,
             820,950,230,100
         ):Button(
@@ -220,7 +221,7 @@ return {
             {255,0,0}
         ),
 
-        --discard
+        -- discard
         Drawable:new("btn-discard",2,
             1200,950,230,100
         ):Button(
@@ -235,7 +236,7 @@ return {
             {255,0,0}
         ),
 
-        --deck count
+        -- deck count
         Drawable:new("text-deck-count",1,
             1780,980,50,50,
             function(self)
