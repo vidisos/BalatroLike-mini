@@ -22,7 +22,7 @@ return {
         -- main background
         Drawable:new(
             "rect-background", 0,
-            CONSTANTS.HAND_X-100, 500, CONSTANTS.HAND_WIDTH+100, 800
+            CONSTANTS.HAND_X-100, 500, CONSTANTS.HAND_WIDTH+200, 800
         ):Rectangle({134, 142, 156}, 10)
     }
 }

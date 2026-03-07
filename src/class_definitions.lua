@@ -44,4 +44,5 @@
 ---@field ImageBox fun(self: Drawable, image?: love.Image, onClickFunc?: fun()): ImageBox
 ---@field Rectangle fun(self: Drawable, background_color?: table, border_width?: number, border_color?: table): Rectangle
 ---@field TextBox fun(self: Drawable, text?: table | string, font?: love.Font, text_color?: table, background_color?: table, alignment?: string): TextBox
----@field Card fun(self: Drawable, card_base?: CardBase, onClickFunc?: fun()): Card
+---@field Card fun(self: Drawable, card_base: CardBase, onClickFunc?: fun()): Card
+---@field Spark fun(self: Drawable, spark_base: SparkBase, onClickFunc?: fun()): Spark

@@ -74,5 +74,9 @@ function Drawable:Card(...)
     return Card.Card(self, ...)
 end
 
+function Drawable:Spark(...)
+    local Spark = require("src.Spark")
+    return Spark.Spark(self, ...)
+end
 
 return Drawable

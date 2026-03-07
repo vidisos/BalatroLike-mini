@@ -34,7 +34,7 @@ function Utils.resizeFont(font, size)
     return font
 end
 
----counts the number of new lines in a string (\n)
+---counts the number of lines in a string, including the first line
 ---@param text string 
 function Utils.countLines(text)
     local _, count = text:gsub("\n", "\n")

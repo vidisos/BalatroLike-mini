@@ -2,6 +2,7 @@ local Scenes = require "src.Scenes"
 local Drawable = require "src.Drawable"
 local CONSTANTS = require "src.CONSTANTS"
 local card_list = require "src.card_list"
+local spark_list = require "src.spark_list"
 local Utils     = require "src.Utils"
 local hand_rankings = require "src.hand_rankings"
 
@@ -9,10 +10,11 @@ local GameState = {
     --should be constants but uh ehe
     hand_size = 8,
     deck_size = 52,
+    spark_select_max = 4,
 
     --level info
     level = 1,
-    score_requirement = 100,
+    score_requirement = 1,
 
     --dynamic stuff
     current_lang = "en",
@@ -23,7 +25,10 @@ local GameState = {
     score = 0,
 
     selected_hand = nil;
-    active_card_items = {};
+    active_cards = {};
+
+    active_sparks = {},
+
     chips = 0,
     mult = 0,
 
@@ -37,18 +42,119 @@ local GameState = {
 
 ---resets everything about the score, current cards and stuff
 function GameState:startNewRound()
-    self.score = 0
-    self.hands_remaining = 4
-    self.discards_remaining = 999
-    self.selected_hand = nil
-    self.selected_cards_count = 0
-    self:refreshChipsAndMult()
-
+    self:resetRoundState()
     self:makeNewDeck()
     self:makeNewHand()
     self:refreshHand()
+end
 
-    --Scenes:enableScene("game-won")
+---plays the selected cards
+function GameState:playHand()
+    if self.hands_remaining <= 0 then
+        return
+    end
+
+    for _, card in ipairs(self.active_cards) do
+        self.chips = self.chips + card.chips
+    end
+
+    self.score = self.score + (self.chips * self.mult)
+
+    self:discardCards()
+
+    self.hands_remaining = self.hands_remaining - 1
+
+    if self.score >= self.score_requirement then
+        self:gameWon()
+    elseif self.hands_remaining == 0 then
+        self:gameOver()
+    end
+end
+
+---discards and changes the discard count accordingly
+function GameState:discard()
+    if self.discards_remaining <= 0 then
+        return
+    end
+
+    local discarded_drawables = self:discardCards()
+
+    if #discarded_drawables > 0 then
+        self.discards_remaining = self.discards_remaining - 1
+    end
+end
+
+---goes to the game over screen and stuff
+function GameState:gameOver()
+    Scenes:enableScene("game-over")
+    Scenes:disableSceneClicks("game-main")
+end
+
+---resets the cards and shows the spark select
+function GameState:gameWon()
+    GameState:clearCards()
+    GameState:makeNewDeck()
+
+    -- we dont want two duplicates to show up in the selection, we dont care about duplicates in the active play tho
+    local temp_sparks = self:getNewSparkBases()
+
+    local game_win_background = Scenes:getDrawable("game-won", "rect-background")
+    for i=1, self.spark_select_max do
+        local id = "spark" .. i
+        local z_index = 1
+
+        local x_margin = 100
+        local spacing = x_margin + ((i-1) * (game_win_background.width - CONSTANTS.CARD_WIDTH - 2*x_margin) / (self.spark_select_max - 1))
+        local x = game_win_background.x + spacing
+        local y = game_win_background.y + 200
+        local width = CONSTANTS.CARD_WIDTH
+        local height = CONSTANTS.CARD_HEIGHT
+
+        local rnd = math.random(1, #temp_sparks)
+        local spark_base = temp_sparks[rnd]
+        table.remove(temp_sparks, rnd)
+
+        local spark = Drawable:new(id, z_index, x, y, width, height):Spark(spark_base, self.sparkOnClickFunc)
+        Scenes:addDrawable(Scenes:getScene("game-won"), spark)
+    end
+
+    Scenes:enableScene("game-won")
+end
+
+---resets the score, hand and discard counts and stuff for a new round
+function GameState:resetRoundState()
+    self.score = 0
+    self.hands_remaining = 4
+    self.discards_remaining = 3
+    self.selected_hand = nil
+    self.selected_cards_count = 0
+    self:refreshChipsAndMult()
+end
+
+---refreshes the base chips and mult according to the current hand
+function GameState:refreshChipsAndMult()
+    if not self.selected_hand then
+        self.chips = 0
+        self.mult = 0
+        return
+    end
+
+    local hand_info = hand_rankings[self.selected_hand]
+    self.chips = hand_info.chips
+    self.mult = hand_info.mult
+end
+
+---sorts all the cards in the hand by their rank and changes their display index accordingly
+function GameState:refreshHand()
+    local hand_cards = self:getHandCards()
+    table.sort(hand_cards, function (a, b) return a.rank > b.rank end)
+
+    for i, drawable in ipairs(hand_cards) do
+        drawable.displayIndex = i
+        drawable.z_index = drawable.displayIndex + 10
+    end
+
+    Scenes:sortDrawables(Scenes:getScene("game-main"))
 end
 
 ---creates the amount of cards that should be in the whole deck (usually 52) and places them there
@@ -84,9 +190,7 @@ end
 ---moves cards from the deck to the hand
 function GameState:makeNewHand()
     for i=1, self.hand_size do
-        local id = "card-" .. (self.deck_size - (i-1))
-        ---@type Card|Drawable
-        local card = Scenes:getDrawable("game-main", id)
+        local card = self:getTopCardInDeck()
 
         local spacing = ((i-1) * (CONSTANTS.HAND_WIDTH - CONSTANTS.CARD_WIDTH) / (self.hand_size - 1))
         card.x = CONSTANTS.HAND_X + spacing
@@ -102,43 +206,7 @@ function GameState:makeNewHand()
     end
 end
 
----plays the selected cards
-function GameState:playHand()
-    if self.hands_remaining <= 0 then
-        return
-    end
-
-    for _, card in ipairs(self.active_card_items) do
-        self.chips = self.chips + card.chips
-    end
-
-    self.score = self.score + (self.chips * self.mult)
-
-    self:discardCards()
-
-    self.hands_remaining = self.hands_remaining - 1
-
-    if self.score >= self.score_requirement then
-        self:gameWon()
-    elseif self.hands_remaining == 0 then
-        self:gameOver()
-    end
-end
-
----discards and changes the discard count accordingly
-function GameState:discard()
-    if self.discards_remaining <= 0 then
-        return
-    end
-
-    local discarded_drawables = self:discardCards()
-
-    if #discarded_drawables > 0 then
-        self.discards_remaining = self.discards_remaining - 1
-    end
-end
-
----discard currently selected cards and moves in new ones from the deck
+---discard currently selected cards and moves in new ones from the deck, returns the discarded cards
 ---@return Drawable|Card[]
 function GameState:discardCards()
     -- we need to iterate backwards otherwise it doesnt remove properly(the index moves and stuff)
@@ -181,20 +249,6 @@ function GameState:discardCards()
     self:refreshChipsAndMult()
 
     return discarded_drawables
-end
-
----goes to the game over screen and stuff
-function GameState:gameOver()
-    Scenes:enableScene("game-over")
-    Scenes:disableSceneClicks("game-main")
-end
-
----resets the cards and shows the spark select
-function GameState:gameWon()
-    GameState:clearCards()
-    GameState:makeNewDeck()
-
-    Scenes:enableScene("game-won")
 end
 
 ---checks the current ranking of the selected cards and changes all behaviour accordingly
@@ -274,40 +328,40 @@ function GameState:checkHandRanking()
         end
     end
 
-    self.active_card_items = {}
+    self.active_cards = {}
 
     if  #cards==5 and is_same_suit and is_consecutive and cards[1].rank == 14 then
         self.selected_hand = "royal_flush"
-        self.active_card_items = cards
+        self.active_cards = cards
     elseif #cards==5 and is_same_suit and is_consecutive then
         self.selected_hand = "straight_flush"
-        self.active_card_items = cards
+        self.active_cards = cards
     elseif #first_pair_items == 4 then
         self.selected_hand = "four_of_a_kind"
-        Utils.insertFromUnpackedTable(self.active_card_items, first_pair_items)
+        Utils.insertFromUnpackedTable(self.active_cards, first_pair_items)
     elseif (#first_pair_items == 3 and #second_pair_items == 2) or (#first_pair_items == 2 and #second_pair_items == 3) then
         self.selected_hand = "full_house"
-        Utils.insertFromUnpackedTable(self.active_card_items, first_pair_items)
-        Utils.insertFromUnpackedTable(self.active_card_items, second_pair_items)
+        Utils.insertFromUnpackedTable(self.active_cards, first_pair_items)
+        Utils.insertFromUnpackedTable(self.active_cards, second_pair_items)
     elseif #cards==5 and is_same_suit then
         self.selected_hand = "flush"
-        self.active_card_items = cards
+        self.active_cards = cards
     elseif #cards==5 and is_consecutive then
         self.selected_hand = "straight"
-        self.active_card_items = cards
+        self.active_cards = cards
     elseif (#first_pair_items==3 and #second_pair_items==0) then
         self.selected_hand = "three_of_a_kind"
-        Utils.insertFromUnpackedTable(self.active_card_items, first_pair_items)
+        Utils.insertFromUnpackedTable(self.active_cards, first_pair_items)
     elseif (#first_pair_items == 2 and #second_pair_items == 2) then
         self.selected_hand = "two_pair"
-        Utils.insertFromUnpackedTable(self.active_card_items, first_pair_items)
-        Utils.insertFromUnpackedTable(self.active_card_items, second_pair_items)
+        Utils.insertFromUnpackedTable(self.active_cards, first_pair_items)
+        Utils.insertFromUnpackedTable(self.active_cards, second_pair_items)
     elseif (#first_pair_items == 2 and #second_pair_items == 0) then
         self.selected_hand = "pair"
-        Utils.insertFromUnpackedTable(self.active_card_items, first_pair_items)
+        Utils.insertFromUnpackedTable(self.active_cards, first_pair_items)
     elseif #cards > 0 then
         self.selected_hand = "high_card"
-        table.insert(self.active_card_items, highest_rank_card)
+        table.insert(self.active_cards, highest_rank_card)
     else
         self.selected_hand = nil
     end
@@ -315,31 +369,7 @@ function GameState:checkHandRanking()
     self:refreshChipsAndMult()
 end
 
----refreshes the base chips and mult according to the current hand
-function GameState:refreshChipsAndMult()
-    if not self.selected_hand then
-        self.chips = 0
-        self.mult = 0
-        return
-    end
 
-    local hand_info = hand_rankings[self.selected_hand]
-    self.chips = hand_info.chips
-    self.mult = hand_info.mult
-end
-
----sorts all the cards in the hand by their rank and changes their display index accordingly
-function GameState:refreshHand()
-    local hand_cards = self:getHandCards()
-    table.sort(hand_cards, function (a, b) return a.rank > b.rank end)
-
-    for i, drawable in ipairs(hand_cards) do
-        drawable.displayIndex = i
-        drawable.z_index = drawable.displayIndex + 10
-    end
-
-    Scenes:sortDrawables(Scenes:getScene("game-main"))
-end
 
 ---deletes all the normal cards
 function GameState:clearCards()
@@ -383,8 +413,8 @@ function GameState:getSelectedHandCards()
     return card_list
 end
 
----gets the top card in the deck (highest id / z-index), not a copy
----@return Drawable
+---gets the top card in the deck (z-index), not a copy
+---@return Card|Drawable
 function GameState:getTopCardInDeck()
     local deck_cards = {}
 
@@ -399,7 +429,7 @@ function GameState:getTopCardInDeck()
     return Scenes:getDrawable("game-main", deck_cards[1].id)
 end
 
----returns a random card base from the current deck
+---returns a random card base from the current deck and removes it
 ---@return CardBase
 function GameState:getRandomCardBase()
     local rndIndex = math.random(#self.deck_bases)
@@ -411,7 +441,7 @@ function GameState:getRandomCardBase()
     return card_base
 end
 
----returns a random card base from the current deck
+---returns a full deck of card bases
 ---@return CardBase[]
 function GameState:getNewDeckBases()
     local card_bases = {}
@@ -421,6 +451,18 @@ function GameState:getNewDeckBases()
     end
 
     return card_bases
+end
+
+---returns all spark bases
+---@return SparkBase[]
+function GameState:getNewSparkBases()
+    local spark_bases = {}
+
+    for _, spark_base in pairs(Utils.copyTable(spark_list)) do
+        table.insert(spark_bases, spark_base)
+    end
+
+    return spark_bases
 end
 
 ---alternates between slovenian and english
@@ -459,5 +501,10 @@ function GameState.cardOnClickFunc(self)
     end
 end
 
+function GameState.sparkOnClickFunc(self)
+    Scenes:disableScene("game-won")
+    GameState:resetRoundState()
+    GameState:makeNewHand()
+end
 
 return GameState

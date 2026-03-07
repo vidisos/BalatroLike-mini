@@ -236,6 +236,11 @@ return {
             {255,0,0}
         ),
 
+        -- sparks background
+        Drawable:new("rect-sparks",1,
+            CONSTANTS.SPARKS_X,CONSTANTS.SPARKS_Y,CONSTANTS.SPARKS_WIDTH,CONSTANTS.SPARKS_HEIGHT
+        ):Rectangle({105, 151, 224}),
+
         -- deck count
         Drawable:new("text-deck-count",1,
             1780,980,50,50,
