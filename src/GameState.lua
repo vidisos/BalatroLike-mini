@@ -27,8 +27,6 @@ local GameState = {
     selected_hand = nil,
     active_cards = {},
 
-    active_sparks = {},
-
     chips = 0,
     mult = 0,
 
@@ -114,7 +112,7 @@ function GameState:roundWon()
         local spark_base = temp_sparks[rnd]
         table.remove(temp_sparks, rnd)
 
-        local spark = Drawable:new(id, z_index, x, y, width, height):Spark(spark_base, self.sparkOnClickFunc)
+        local spark = Drawable:new(id, z_index, x, y, width, height, self.updateActiveSparkFunc):Spark(spark_base, self.sparkOnClickFunc)
         Scenes:addDrawable(Scenes:getScene("game-won"), spark)
     end
 
@@ -123,7 +121,6 @@ end
 
 ---resets the score, hand and discard counts and stuff for a new round
 function GameState:resetGameState()
-    self.active_sparks = {}
     self:resetRoundState()
 end
 
@@ -378,24 +375,18 @@ end
 ---deletes the spark choices and insert the chosen one into the active sparks
 ---@param spark Spark|Drawable
 function GameState:insertSpark(spark)
-    spark.updateFunc = GameState.updateActiveSparkFunc
     spark.isActive = true
     spark.y = CONSTANTS.SPARKS_Y + 10
-    spark.z_index = 3
+    spark.z_index = 3 + #GameState:getActiveSparks()
+    spark.displayIndex = #GameState:getActiveSparks() + 1
 
-    table.insert(GameState.active_sparks, spark)
     Scenes:addDrawable(Scenes:getScene("game-main"), spark)
 
-    self:clearInactiveSparks()
-
-    print("-------")
-    for _, spark in ipairs(GameState.active_sparks) do
-        print(spark.id)
-    end
+    self:clearSelectionSparks()
 end
 
 ---deletes all sparks on the win screen
-function GameState:clearInactiveSparks()
+function GameState:clearSelectionSparks()
     local scene = Scenes:getScene("game-won")
 
     -- we need to iterate backwards otherwise it doesnt remove properly(the index moves and stuff)
@@ -406,6 +397,20 @@ function GameState:clearInactiveSparks()
             table.remove(scene.drawables, i)
         end
     end
+end
+
+---return all sparks on game-main
+---@return Spark|Drawable[]
+function GameState:getActiveSparks()
+    local sparks = {}
+
+    for _, drawable in ipairs(Scenes:getScene("game-main").drawables) do
+        if drawable.type == "Spark" then
+            table.insert(sparks, drawable)
+        end
+    end
+
+    return sparks
 end
 
 ---deletes all the normal cards
@@ -539,25 +544,43 @@ function GameState.cardOnClickFunc(self)
 end
 
 function GameState.updateActiveSparkFunc(self, dt)
-    local N = #GameState.active_sparks
-    local SW = CONSTANTS.CARD_WIDTH  -- Width of each spark
-    local W = CONSTANTS.SPARKS_WIDTH  -- Total available width
-    local TW = N * SW  -- Total width needed for all sparks
-    local spacing = 0
-    if N > 1 then
-        spacing = (W - TW) / (N - 1)  -- Gap between sparks
+    if self.isActive then
+        local N = #GameState:getActiveSparks()
+        if N == 0 then
+            return
+        end
+
+        local SW = CONSTANTS.CARD_WIDTH  -- Width of each spark
+        local W = CONSTANTS.SPARKS_WIDTH  -- Total available width
+        local totalWidth = N * SW             -- Total width occupied by sparks
+        local spacing = 0
+        if N > 1 then
+            -- distribute remaining space evenly between sparks
+            spacing = (W - totalWidth) / (N - 1)
+        end
+
+        local x_start
+        if N == 1 then
+            -- single spark should sit centered in the available area
+            x_start = CONSTANTS.SPARKS_X + (W - SW) / 2
+        else
+            -- multiple sparks span the full width, starting at the left edge
+            x_start = CONSTANTS.SPARKS_X
+        end
+
+        self.x = x_start + (self.displayIndex - 1) * (SW + spacing)
     end
-    local leftmost = CONSTANTS.SPARKS_X + (W - TW) / 2  -- Left edge of the first spark (centered)
-    self.x = leftmost + (self.displayIndex - 1) * (SW + spacing)
 end
 
 function GameState.sparkOnClickFunc(self)
-    GameState:resetRoundState()
-    GameState:insertSpark(self)
+    if not self.isActive then
+        GameState:resetRoundState()
+        GameState:insertSpark(self)
 
-    Scenes:disableScene("game-won")
-    GameState:makeNewHand()
-    GameState:refreshHand()
+        Scenes:disableScene("game-won")
+        GameState:makeNewHand()
+        GameState:refreshHand()
+    end
 end
 
 return GameState
