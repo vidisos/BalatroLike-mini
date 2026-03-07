@@ -3,7 +3,7 @@ local Utils = require "src.Utils"
 ---@class Card : Drawable
 local Card = {}
 
----extension of Drawable: an imagebox that can be clicked
+---extension of Drawable: an card that can be clicked, has chips, suit ...
 ---@param card_base CardBase
 ---@param onClickFunc? function
 ---@return Card

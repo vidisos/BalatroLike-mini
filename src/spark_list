@@ -1,0 +1,21 @@
+local image_list = require "src.image_list"
+
+local spark_images = image_list.sparks
+
+---@type SparkBase[]
+local spark_list = {
+    sparks = {
+        controller = {image = spark_images.controller, activation_type = "passive", effect = function ()  end},
+        spark2 = {image = spark_images.spark2, activation_type = "per-card"},
+        spark3 = {image = spark_images.controller, activation_type = "end-of-hand"},
+        spark4 = {image = spark_images.controller, activation_type = "passive"},
+        spark5 = {image = spark_images.controller, activation_type = "passive"},
+        spark6 = {image = spark_images.controller, activation_type = "passive"},
+        spark7 = {image = spark_images.controller, activation_type = "passive"},
+        spark8 = {image = spark_images.controller, activation_type = "passive"},
+        spark9 = {image = spark_images.controller, activation_type = "passive"},
+        spark10 = {image = spark_images.controller, activation_type = "passive"}
+    }
+}
+
+return spark_list

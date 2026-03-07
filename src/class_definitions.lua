@@ -22,6 +22,11 @@
 ---@field rank number
 ---@field chips number
 
+---@class SparkBase
+---@field image love.Image
+---@field activation_type string
+---@field effect fun()
+
 ---@class Drawable
 ---@field id string
 ---@field z_index number

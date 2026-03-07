@@ -145,7 +145,7 @@ return {
         -- hand count
         Drawable:new("rect-hand-count-background",10,
             25,780,175,130
-        ):Rectangle({113,142,171}),
+        ):Rectangle({113,142,171}, 5, {0, 0, 0}),
 
         Drawable:new("text-hand-count-text",11,
             Utils.getCenterAnchorX(25,175,50),790,50,30
@@ -170,7 +170,7 @@ return {
         --discard count
         Drawable:new("rect-discard-count-background",10,
             250,780,175,130
-        ):Rectangle({207,123,116}),
+        ):Rectangle({207,123,116}, 5, {0, 0, 0}),
 
         Drawable:new("text-discard-count-text",11,
             Utils.getCenterAnchorX(250,175,50),790,50,30

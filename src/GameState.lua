@@ -369,7 +369,7 @@ function GameState:getHandCards()
     return card_items
 end
 
----gets all the card drawable items of the selected cards in the hand
+---gets all the selected cards in the hand
 ---@return Card[]
 function GameState:getSelectedHandCards()
     local card_list = {}
@@ -416,7 +416,7 @@ end
 function GameState:getNewDeckBases()
     local card_bases = {}
 
-    for _, card_base in pairs(Utils.copyTable(card_list.cards)) do
+    for _, card_base in pairs(Utils.copyTable(card_list)) do
         table.insert(card_bases, card_base)
     end
 
