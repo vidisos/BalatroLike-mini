@@ -35,6 +35,7 @@ local FONTS = {
 ---@field four_of_a_kind LanguageEntry
 ---@field straight_flush LanguageEntry
 ---@field royal_flush LanguageEntry
+---@field choose_spark LanguageEntry
 local LANG = {
     -- start menu
     title = {en="Poinker", sl="Poinker"},
@@ -56,6 +57,7 @@ local LANG = {
     to_main_menu = {en="Main menu", sl="Glavni meni"},
     new_game = {en="New game", sl="Nova igra"},
     you_lose = {en="You\nlose!", sl="Zgubil\n   si!"},
+    choose_spark = {en="Choose a\n Spark!", sl="Izberi\n Iskro!"},
 
     high_card = {en="High Card", sl="Visoka karta"},
     pair = {en="Pair", sl="En par"},

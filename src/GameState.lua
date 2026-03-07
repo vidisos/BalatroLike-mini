@@ -14,7 +14,7 @@ local GameState = {
 
     --level info
     level = 1,
-    score_requirement = 1,
+    score_requirement = 50,
 
     --dynamic stuff
     current_lang = "en",
@@ -24,8 +24,8 @@ local GameState = {
 
     score = 0,
 
-    selected_hand = nil;
-    active_cards = {};
+    selected_hand = nil,
+    active_cards = {},
 
     active_sparks = {},
 
@@ -65,7 +65,7 @@ function GameState:playHand()
     self.hands_remaining = self.hands_remaining - 1
 
     if self.score >= self.score_requirement then
-        self:gameWon()
+        self:roundWon()
     elseif self.hands_remaining == 0 then
         self:gameOver()
     end
@@ -91,9 +91,9 @@ function GameState:gameOver()
 end
 
 ---resets the cards and shows the spark select
-function GameState:gameWon()
-    GameState:clearCards()
-    GameState:makeNewDeck()
+function GameState:roundWon()
+    self:clearCards()
+    self:makeNewDeck()
 
     -- we dont want two duplicates to show up in the selection, we dont care about duplicates in the active play tho
     local temp_sparks = self:getNewSparkBases()
@@ -119,6 +119,12 @@ function GameState:gameWon()
     end
 
     Scenes:enableScene("game-won")
+end
+
+---resets the score, hand and discard counts and stuff for a new round
+function GameState:resetGameState()
+    self.active_sparks = {}
+    self:resetRoundState()
 end
 
 ---resets the score, hand and discard counts and stuff for a new round
@@ -369,7 +375,38 @@ function GameState:checkHandRanking()
     self:refreshChipsAndMult()
 end
 
+---deletes the spark choices and insert the chosen one into the active sparks
+---@param spark Spark|Drawable
+function GameState:insertSpark(spark)
+    spark.updateFunc = GameState.updateActiveSparkFunc
+    spark.isActive = true
+    spark.y = CONSTANTS.SPARKS_Y + 10
+    spark.z_index = 3
 
+    table.insert(GameState.active_sparks, spark)
+    Scenes:addDrawable(Scenes:getScene("game-main"), spark)
+
+    self:clearInactiveSparks()
+
+    print("-------")
+    for _, spark in ipairs(GameState.active_sparks) do
+        print(spark.id)
+    end
+end
+
+---deletes all sparks on the win screen
+function GameState:clearInactiveSparks()
+    local scene = Scenes:getScene("game-won")
+
+    -- we need to iterate backwards otherwise it doesnt remove properly(the index moves and stuff)
+    for i = #scene.drawables, 1, -1 do
+
+        local drawable = scene.drawables[i]
+        if drawable.type == "Spark" then
+            table.remove(scene.drawables, i)
+        end
+    end
+end
 
 ---deletes all the normal cards
 function GameState:clearCards()
@@ -501,10 +538,26 @@ function GameState.cardOnClickFunc(self)
     end
 end
 
+function GameState.updateActiveSparkFunc(self, dt)
+    local N = #GameState.active_sparks
+    local SW = CONSTANTS.CARD_WIDTH  -- Width of each spark
+    local W = CONSTANTS.SPARKS_WIDTH  -- Total available width
+    local TW = N * SW  -- Total width needed for all sparks
+    local spacing = 0
+    if N > 1 then
+        spacing = (W - TW) / (N - 1)  -- Gap between sparks
+    end
+    local leftmost = CONSTANTS.SPARKS_X + (W - TW) / 2  -- Left edge of the first spark (centered)
+    self.x = leftmost + (self.displayIndex - 1) * (SW + spacing)
+end
+
 function GameState.sparkOnClickFunc(self)
-    Scenes:disableScene("game-won")
     GameState:resetRoundState()
+    GameState:insertSpark(self)
+
+    Scenes:disableScene("game-won")
     GameState:makeNewHand()
+    GameState:refreshHand()
 end
 
 return GameState

@@ -10,6 +10,7 @@ local Spark = {}
 function Spark:Spark(spark_base, onClickFunc)
     self.type = "Spark"
     self.image = spark_base.image
+    self.isActive = false
     self.activation_type = spark_base.activation_type
     self.effect = spark_base.effect
 
