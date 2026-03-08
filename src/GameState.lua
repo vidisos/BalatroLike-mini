@@ -10,15 +10,16 @@ local GameState = {
     --should be constants but uh ehe
     hand_size = 8,
     deck_size = 52,
-    spark_select_max = 4,
+    spark_active_max = 5,
 
     --level info
     level = 1,
-    score_requirement = 50,
+    score_requirement = 1,
 
     --dynamic stuff
     current_lang = "en",
     timer = 0,
+    time_elapsed = 0,
 
     deck_bases = {},
 
@@ -97,12 +98,12 @@ function GameState:roundWon()
     local temp_sparks = self:getNewSparkBases()
 
     local game_win_background = Scenes:getDrawable("game-won", "rect-background")
-    for i=1, self.spark_select_max do
+    for i=1, self.spark_active_max do
         local id = "spark" .. i
         local z_index = 1
 
         local x_margin = 100
-        local spacing = x_margin + ((i-1) * (game_win_background.width - CONSTANTS.CARD_WIDTH - 2*x_margin) / (self.spark_select_max - 1))
+        local spacing = x_margin + ((i-1) * (game_win_background.width - CONSTANTS.CARD_WIDTH - 2*x_margin) / (self.spark_active_max - 1))
         local x = game_win_background.x + spacing
         local y = game_win_background.y + 200
         local width = CONSTANTS.CARD_WIDTH
@@ -374,9 +375,9 @@ end
 
 ---deletes the spark choices and insert the chosen one into the active sparks
 ---@param spark Spark|Drawable
-function GameState:insertSpark(spark)
+function GameState:selectSpark(spark)
     spark.isActive = true
-    spark.y = CONSTANTS.SPARKS_Y + 10
+    spark.y = CONSTANTS.SPARKS_Y
     spark.z_index = 3 + #GameState:getActiveSparks()
     spark.displayIndex = #GameState:getActiveSparks() + 1
 
@@ -546,36 +547,24 @@ end
 function GameState.updateActiveSparkFunc(self, dt)
     if self.isActive then
         local N = #GameState:getActiveSparks()
-        if N == 0 then
-            return
-        end
+        local SW = CONSTANTS.CARD_WIDTH
+        local W = CONSTANTS.SPARKS_WIDTH
 
-        local SW = CONSTANTS.CARD_WIDTH  -- Width of each spark
-        local W = CONSTANTS.SPARKS_WIDTH  -- Total available width
-        local totalWidth = N * SW             -- Total width occupied by sparks
-        local spacing = 0
-        if N > 1 then
-            -- distribute remaining space evenly between sparks
-            spacing = (W - totalWidth) / (N - 1)
-        end
-
-        local x_start
-        if N == 1 then
-            -- single spark should sit centered in the available area
-            x_start = CONSTANTS.SPARKS_X + (W - SW) / 2
+        if N <= 5 then
+            local total_sparks_width = N * SW
+            local start_x = CONSTANTS.SPARKS_X + (W - total_sparks_width) / 2
+            self.x = start_x + (self.displayIndex - 1) * SW
         else
-            -- multiple sparks span the full width, starting at the left edge
-            x_start = CONSTANTS.SPARKS_X
+            local spacing = (W - SW) / (N - 1)
+            self.x = CONSTANTS.SPARKS_X + (self.displayIndex - 1) * spacing
         end
-
-        self.x = x_start + (self.displayIndex - 1) * (SW + spacing)
     end
 end
 
 function GameState.sparkOnClickFunc(self)
     if not self.isActive then
         GameState:resetRoundState()
-        GameState:insertSpark(self)
+        GameState:selectSpark(self)
 
         Scenes:disableScene("game-won")
         GameState:makeNewHand()
