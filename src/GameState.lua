@@ -549,11 +549,12 @@ function GameState.updateActiveSparkFunc(self, dt)
         local N = #GameState:getActiveSparks()
         local SW = CONSTANTS.CARD_WIDTH
         local W = CONSTANTS.SPARKS_WIDTH
+        local spark_margin = CONSTANTS.SPARKS_MARGIN
+        local total_sparks_width = N * SW
 
         if N <= 5 then
-            local total_sparks_width = N * SW
             local start_x = CONSTANTS.SPARKS_X + (W - total_sparks_width) / 2
-            self.x = start_x + (self.displayIndex - 1) * SW
+            self.x = start_x + (self.displayIndex - 1) * (SW + spark_margin)
         else
             local spacing = (W - SW) / (N - 1)
             self.x = CONSTANTS.SPARKS_X + (self.displayIndex - 1) * spacing
