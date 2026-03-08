@@ -92,9 +92,7 @@ return {
             {255, 0, 0},
             function(self)
                 GameState:changeLang()
-            end,
-            nil,
-            {0, 100, 25}
+            end
         )
     }
 }

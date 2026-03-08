@@ -39,7 +39,7 @@ function Scenes:draw()
     end
 end
 
----checks if items are clicked, accounts for z-index
+---checks if an items is hovered and activates it onclick function, accounts for z-index
 ---@param mx number
 ---@param my number
 function Scenes:onClick(mx, my)
@@ -51,7 +51,7 @@ function Scenes:onClick(mx, my)
             local scene_clicked_drawables = {}
 
             for _, drawable in ipairs(scene.drawables) do
-                if drawable.shouldDraw and drawable.isClickable and drawable:isClicked(mx, my) then
+                if drawable.shouldDraw and drawable.isClickable and drawable:isHoveredFunc(mx, my) then
                     table.insert(scene_clicked_drawables, drawable)
                 end
             end
@@ -61,6 +61,34 @@ function Scenes:onClick(mx, my)
                 table.sort(scene_clicked_drawables, function (a, b) return a.z_index > b.z_index end)
                 local top_drawable = scene_clicked_drawables[1]
                 top_drawable:onClickFunc()
+                return
+            end
+        end
+    end
+end
+
+---checks if a drawable is clicked and activates the hover func, accounts for z-index
+---@param mx number
+---@param my number
+function Scenes:onHover(mx, my)
+    -- we iterate the scenes by z-index highest to lowest
+    for i = #self.scene_list, 1, -1 do
+        local scene = self.scene_list[i]
+
+        if scene.shouldDraw and scene.isClickable then
+            local scene_hovered_drawables = {}
+
+            for _, drawable in ipairs(scene.drawables) do
+                if drawable.shouldDraw and drawable.isHoverable and drawable:isHoveredFunc(mx, my) then
+                    table.insert(scene_hovered_drawables, drawable)
+                end
+            end
+
+            -- if any drawable in this scene is hovered, handle the top one and stop
+            if #scene_hovered_drawables > 0 then
+                table.sort(scene_hovered_drawables, function (a, b) return a.z_index > b.z_index end)
+                local top_drawable = scene_hovered_drawables[1]
+                top_drawable:onHoverFunc()
                 return
             end
         end

@@ -26,13 +26,6 @@ function Spark:Spark(spark_base, onClickFunc)
         Utils.resetColor()
     end
 
-    self.isClickedFunc = function (mx, my)
-        local isClicked =
-            self.x <= mx and mx <= self.x + self.width and
-            self.y <= my and my <= self.y + self.height
-        return isClicked
-    end
-
     return self
 end
 

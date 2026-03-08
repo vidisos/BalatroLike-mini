@@ -10,28 +10,39 @@ Drawable.__index = Drawable
 ---@param width? number
 ---@param height? number
 ---@param updateFunc? fun(self: Drawable, dt)
+---@param onHoverFunc? fun(self: Drawable)
 ---@return Drawable
-function Drawable:new(id, z_index, x, y, width, height, updateFunc)
+function Drawable:new(id, z_index, x, y, width, height, updateFunc, onHoverFunc)
     local self = setmetatable({}, Drawable) -- {} is basically a created object that you add stuff to wowza (setmetatable() returns a table)
 
     self.id = id
     self.z_index = z_index
     self.isClickable = true
+    self.isHoverable = true
     self.shouldDraw = true
+    self.isHovered = false
 
     self.x = x or 0
     self.y = y or 0
     self.width = width or 300
     self.height = height or 300
     self.updateFunc = updateFunc or function () end
+    self.onHoverFunc = onHoverFunc or function () end
 
     return self
 end
 
----defined in Drawable, empty by default
+---activates the update function of the drawable and checks if its hovered
 ---@param dt number
 function Drawable:update(dt)
     self.updateFunc(self, dt)
+
+    local isHovered = self:isHoveredFunc(love.mouse.getPosition())
+    if not self.isHovered and isHovered then
+        self.isHovered = true
+    elseif self.isHovered and not isHovered then
+        self.isHovered = false
+    end
 end
 
 ---from the specific drawable
@@ -39,12 +50,16 @@ function Drawable:draw()
     self.drawFunc(self)
 end
 
----from the specific drawable, empty by default
+---checks if the mouse is over the drawable
 ---@param mx number
 ---@param my number
 ---@return boolean
-function Drawable:isClicked(mx, my)
-    return self.isClickedFunc(mx, my)
+function Drawable:isHoveredFunc(mx, my)
+    local isHovered =
+        self.x <= mx and mx <= self.x + self.width and
+        self.y <= my and my <= self.y + self.height
+
+    return isHovered
 end
 
 

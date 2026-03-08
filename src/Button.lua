@@ -12,7 +12,7 @@ local normalButtonDraw, borderedButtonDraw
 ---@param font? love.Font
 ---@param text_color? table
 ---@param button_color? table
----@param onClickFunc? function
+---@param onClickFunc? fun(self)
 ---@param border_width? number
 ---@param border_color? table
 ---@return Button
@@ -42,14 +42,6 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
         end
 
         Utils.resetColor()
-    end
-
-    self.isClickedFunc = function (mx, my)
-        local isClicked =
-            self.x <= mx and mx <= self.x + self.width and
-            self.y <= my and my <= self.y + self.height
-
-        return isClicked
     end
 
     return self

@@ -5,9 +5,10 @@ local Card = {}
 
 ---extension of Drawable: an card that can be clicked, has chips, suit ...
 ---@param card_base CardBase
----@param onClickFunc? function
+---@param onClickFunc? fun(self)
+---@param onHoverFunc? fun(self)
 ---@return Card
-function Card:Card(card_base, onClickFunc)
+function Card:Card(card_base, onClickFunc, onHoverFunc)
     self.type = "Card"
     self.baseImage = card_base.baseImage
     self.backImage = card_base.backImage
@@ -36,13 +37,6 @@ function Card:Card(card_base, onClickFunc)
         love.graphics.draw(self.image, self.x, self.y, 0, scaleX, scaleY)
 
         Utils.resetColor()
-    end
-
-    self.isClickedFunc = function (mx, my)
-        local isClicked =
-            self.x <= mx and mx <= self.x + self.width and
-            self.y <= my and my <= self.y + self.height
-        return isClicked
     end
 
     return self

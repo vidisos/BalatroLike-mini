@@ -25,6 +25,9 @@ end
 function love.update(dt)
     GameState.timer = GameState.timer + dt
     Scenes:update(dt)
+
+    local mx, my = love.mouse.getPosition()
+    Scenes:onHover(mx, my)
 end
 
 function love.draw()

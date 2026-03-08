@@ -6,7 +6,7 @@ local ImageBox = {}
 
 ---extension of Drawable: an imagebox that can be clicked
 ---@param image? love.Image
----@param onClickFunc? function
+---@param onClickFunc? fun(self)
 ---@return ImageBox
 function ImageBox:ImageBox(image, onClickFunc)
     self.type = "ImageBox"
@@ -19,14 +19,6 @@ function ImageBox:ImageBox(image, onClickFunc)
         love.graphics.draw(self.image, self.x, self.y, 0, scaleX, scaleY)
 
         Utils.resetColor()
-    end
-
-    self.isClickedFunc = function (mx, my)
-        local isClicked =
-            self.x <= mx and mx <= self.x + self.width and
-            self.y <= my and my <= self.y + self.height
-
-        return isClicked
     end
 
     return self
