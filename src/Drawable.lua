@@ -28,6 +28,8 @@ function Drawable:new(id, z_index, x, y, width, height, updateFunc, onHoverFunc)
     self.height = height or 300
     self.updateFunc = updateFunc or function () end
     self.onHoverFunc = onHoverFunc or function () end
+    self.onEnterHoverFunc = function () end
+    self.onExitHoverFunc = function () end
 
     return self
 end
@@ -36,13 +38,6 @@ end
 ---@param dt number
 function Drawable:update(dt)
     self.updateFunc(self, dt)
-
-    local isHovered = self:isHoveredFunc(love.mouse.getPosition())
-    if not self.isHovered and isHovered then
-        self.isHovered = true
-    elseif self.isHovered and not isHovered then
-        self.isHovered = false
-    end
 end
 
 ---from the specific drawable

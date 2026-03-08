@@ -1,6 +1,7 @@
 local Scenes = {
     ---@type Scene[]
-    scene_list = {}
+    scene_list = {},
+    last_hovered_drawable = nil
 }
 
 ---initializes all the scenes and sorts them by z-index
@@ -67,7 +68,7 @@ function Scenes:onClick(mx, my)
     end
 end
 
----checks if a drawable is clicked and activates the hover func, accounts for z-index
+---checks if a drawable is hovered and activates the hover func, contains hover exit and enter logic, accounts for z-index
 ---@param mx number
 ---@param my number
 function Scenes:onHover(mx, my)
@@ -88,10 +89,33 @@ function Scenes:onHover(mx, my)
             if #scene_hovered_drawables > 0 then
                 table.sort(scene_hovered_drawables, function (a, b) return a.z_index > b.z_index end)
                 local top_drawable = scene_hovered_drawables[1]
+
+                if self.last_hovered_drawable ~= top_drawable then
+                    if self.last_hovered_drawable then
+                        self.last_hovered_drawable.isHovered = false
+                        self.last_hovered_drawable:onExitHoverFunc()
+                    end
+
+                    if not top_drawable.isHovered then
+                        top_drawable.isHovered = true
+                        top_drawable:onEnterHoverFunc()
+                    end
+
+                    self.last_hovered_drawable = top_drawable
+                end
+
                 top_drawable:onHoverFunc()
+
                 return
             end
         end
+    end
+
+    -- if no hovered drawables in any scene, exit the last hovered
+    if self.last_hovered_drawable then
+        self.last_hovered_drawable.isHovered = false
+        self.last_hovered_drawable:onExitHoverFunc()
+        self.last_hovered_drawable = nil
     end
 end
 

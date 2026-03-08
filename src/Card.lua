@@ -6,9 +6,8 @@ local Card = {}
 ---extension of Drawable: an card that can be clicked, has chips, suit ...
 ---@param card_base CardBase
 ---@param onClickFunc? fun(self)
----@param onHoverFunc? fun(self)
 ---@return Card
-function Card:Card(card_base, onClickFunc, onHoverFunc)
+function Card:Card(card_base, onClickFunc)
     self.type = "Card"
     self.baseImage = card_base.baseImage
     self.backImage = card_base.backImage

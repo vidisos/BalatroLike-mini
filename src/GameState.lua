@@ -177,13 +177,16 @@ function GameState:makeNewDeck()
         local height = CONSTANTS.CARD_HEIGHT
         local onClickFunc = self.cardOnClickFunc
         local updateFunc = self.updateCardInHandFunc
+        local onHoverFunc = self.hoverCardInHandFunc
 
         local card_base = self:getRandomCardBase()
 
-        local card = Drawable:new(id, z_index, x, y, width, height, updateFunc):Card(card_base, onClickFunc)
+        local card = Drawable:new(id, z_index, x, y, width, height, updateFunc, onHoverFunc):Card(card_base, onClickFunc)
         card.inDeck = true
         card.inHand = false
         card.flipped = true
+        card.onEnterHoverFunc = self.onEnterHoverCardFunc
+        card.onExitHoverFunc = self.onExitHoverCardFunc
 
         Scenes:addDrawable(Scenes:getScene("game-main"), card)
 
@@ -522,6 +525,29 @@ function GameState.updateCardInHandFunc(self, dt)
     if self.inHand then
         local spacing = ((self.displayIndex-1) * ((CONSTANTS.HAND_WIDTH - CONSTANTS.CARD_WIDTH) / (#GameState:getHandCards() - 1)))
         self.x = CONSTANTS.HAND_X + spacing
+    end
+end
+
+function GameState.hoverCardInHandFunc(self, dt)
+
+end
+
+function GameState.onEnterHoverCardFunc(self)
+    if self.inHand then
+        self.x = self.x - 5
+        self.y = self.y - 5
+        self.width = self.width + 10
+        self.height = self.height + 10
+    end
+end
+
+function GameState.onExitHoverCardFunc(self)
+    if self.inHand then
+        self.x = self.x + 5
+        self.y = self.y + 5
+        self.width = self.width - 10
+        self.height = self.height - 10
+        print(self.id)
     end
 end
 

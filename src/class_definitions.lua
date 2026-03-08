@@ -41,6 +41,8 @@
 ---@field height number
 ---@field updateFunc fun(self: Drawable, dt: number)
 ---@field onHoverFunc fun(self: Drawable, dt: number)
+---@field onEnterHoverFunc fun(self: Drawable)
+---@field onExitHoverFunc fun(self: Drawable)
 ---@field drawFunc fun(self: Drawable)
 ---@field isHoveredFunc fun(self: Drawable, mx: number, my: number): boolean
 ---@field Button fun(self: Drawable, text?: table | string, font?: love.Font, text_color?: table, button_color?: table, onClickFunc?: fun(self), border_width?: number, border_color?: table): Button
