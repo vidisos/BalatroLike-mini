@@ -33,6 +33,41 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
             love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
         end
 
+        --[[
+        love.graphics.print( coloredtext, x, y, angle, sx, sy, ox, oy, kx, ky )
+Arguments
+table coloredtext
+A table containing colors and strings to add to the object, in the form of {color1, string1, color2, string2, ...}.
+table color1
+A table containing red, green, blue, and optional alpha components to use as a color for the next string in the table, in the form of {red, green, blue, alpha}.
+string string1
+A string of text which has a color specified by the previous color.
+table color2
+A table containing red, green, blue, and optional alpha components to use as a color for the next string in the table, in the form of {red, green, blue, alpha}.
+string string2
+A string of text which has a color specified by the previous color.
+tables and strings ...
+Additional colors and strings.
+number x (0)
+The position of the text on the x-axis.
+number y (0)
+The position of the text on the y-axis.
+number angle (0)
+The orientation of the text in radians.
+number sx (1)
+Scale factor on the x-axis.
+number sy (sx)
+Scale factor on the y-axis.
+number ox (0)
+Origin offset on the x-axis.
+number oy (0)
+Origin offset on the y-axis.
+number kx (0)
+Shearing / skew factor on the x-axis.
+number ky (0)
+Shearing / skew factor on the y-axis.
+]]
+
         -- text
         local text
         local text_type = type(self.text)
