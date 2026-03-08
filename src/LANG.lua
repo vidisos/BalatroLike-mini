@@ -1,42 +1,13 @@
-local GameState = require "src.GameState"
+local FONTS = {}
+FONTS.pixel_font_link = "src/fonts/Karma Suture.otf"
+FONTS.pixel_font_bold_link = "src/fonts/Karma Future.otf"
+FONTS.font_small = love.graphics.newFont(FONTS.pixel_font_link, 40)
+FONTS.font_average = love.graphics.newFont(FONTS.pixel_font_bold_link, 50)
 
-local pixel_font = "src/fonts/Karma Suture.otf"
-local pixel_font_bold = "src/fonts/Karma Future.otf"
-local FONTS = {
-    font_small = love.graphics.newFont(pixel_font, 40),
-    font_average = love.graphics.newFont(pixel_font, 50),
-}
-
----@class LANGTable
----@field title LanguageEntry
----@field quit LanguageEntry
----@field start LanguageEntry
----@field language LanguageEntry
----@field level1 LanguageEntry
----@field level2 LanguageEntry
----@field level3 LanguageEntry
----@field score_text LanguageEntry
----@field round_score LanguageEntry
----@field hands LanguageEntry
----@field discards LanguageEntry
----@field ranking_info LanguageEntry
----@field play_hand LanguageEntry
----@field discard_hand LanguageEntry
----@field to_main_menu LanguageEntry
----@field new_game LanguageEntry
----@field you_lose LanguageEntry
----@field high_card LanguageEntry
----@field pair LanguageEntry
----@field two_pair LanguageEntry
----@field three_of_a_kind LanguageEntry
----@field straight LanguageEntry
----@field flush LanguageEntry
----@field full_house LanguageEntry
----@field four_of_a_kind LanguageEntry
----@field straight_flush LanguageEntry
----@field royal_flush LanguageEntry
----@field choose_spark LanguageEntry
+---@type LanguageEntry[]
 local LANG = {
+    FONTS = FONTS,
+
     -- start menu
     title = {en="Poinker", sl="Poinker"},
     quit = {en="Quit", sl="Zapusti"},
@@ -59,6 +30,8 @@ local LANG = {
     you_lose = {en="You\nlose!", sl="Zgubil\n   si!"},
     choose_spark = {en="Choose a\n Spark!", sl="Izberi\n Iskro!"},
 
+    chips = {en="chips", sl="žetonov"},
+
     high_card = {en="High Card", sl="Visoka karta"},
     pair = {en="Pair", sl="En par"},
     two_pair = {en="Two Pair", sl="Dva para"},
@@ -69,20 +42,63 @@ local LANG = {
     four_of_a_kind = {en="Four of a Kind", sl="Poker", font=FONTS.font_average},
     straight_flush = {en="Straight Flush", sl="Barvna lestvica", font=FONTS.font_average},
     royal_flush = {en="Royal Flush", sl="Kraljeva\nbarvna lestvica", font=FONTS.font_small},
-}
 
----returns the language entry for the current level 
----@return LanguageEntry
-function LANG:getCurrentLevelText()
-    if GameState.level == 1 then
-        return self.level1
-    elseif GameState.level == 2 then
-        return self.level2
-    elseif GameState.level == 3 then
-        return self.level3
-    else
-        error("No current level text found")
-    end
-end
+    -- cards
+    card_ace_clubs = {en="Ace of Clubs", sl="As križev"},
+    card_2_clubs = {en="2 of Clubs", sl="2 križev"},
+    card_3_clubs = {en="3 of Clubs", sl="3 križev"},
+    card_4_clubs = {en="4 of Clubs", sl="4 križev"},
+    card_5_clubs = {en="5 of Clubs", sl="5 križev"},
+    card_6_clubs = {en="6 of Clubs", sl="6 križev"},
+    card_7_clubs = {en="7 of Clubs", sl="7 križev"},
+    card_8_clubs = {en="8 of Clubs", sl="8 križev"},
+    card_9_clubs = {en="9 of Clubs", sl="9 križev"},
+    card_10_clubs = {en="10 of Clubs", sl="10 križev"},
+    card_jack_clubs = {en="Jack of Clubs", sl="Fant križev"},
+    card_queen_clubs = {en="Queen of Clubs", sl="Dama križev"},
+    card_king_clubs = {en="King of Clubs", sl="Kralj križev"},
+
+    card_ace_diamonds = {en="Ace of Diamonds", sl="As karo"},
+    card_2_diamonds = {en="2 of Diamonds", sl="2 karo"},
+    card_3_diamonds = {en="3 of Diamonds", sl="3 karo"},
+    card_4_diamonds = {en="4 of Diamonds", sl="4 karo"},
+    card_5_diamonds = {en="5 of Diamonds", sl="5 karo"},
+    card_6_diamonds = {en="6 of Diamonds", sl="6 karo"},
+    card_7_diamonds = {en="7 of Diamonds", sl="7 karo"},
+    card_8_diamonds = {en="8 of Diamonds", sl="8 karo"},
+    card_9_diamonds = {en="9 of Diamonds", sl="9 karo"},
+    card_10_diamonds = {en="10 of Diamonds", sl="10 karo"},
+    card_jack_diamonds = {en="Jack of Diamonds", sl="Fant karo"},
+    card_queen_diamonds = {en="Queen of Diamonds", sl="Dama karo"},
+    card_king_diamonds = {en="King of Diamonds", sl="Kralj karo"},
+
+    card_ace_hearts = {en="Ace of Hearts", sl="As src"},
+    card_2_hearts = {en="2 of Hearts", sl="2 src"},
+    card_3_hearts = {en="3 of Hearts", sl="3 src"},
+    card_4_hearts = {en="4 of Hearts", sl="4 src"},
+    card_5_hearts = {en="5 of Hearts", sl="5 src"},
+    card_6_hearts = {en="6 of Hearts", sl="6 src"},
+    card_7_hearts = {en="7 of Hearts", sl="7 src"},
+    card_8_hearts = {en="8 of Hearts", sl="8 src"},
+    card_9_hearts = {en="9 of Hearts", sl="9 src"},
+    card_10_hearts = {en="10 of Hearts", sl="10 src"},
+    card_jack_hearts = {en="Jack of Hearts", sl="Fant src"},
+    card_queen_hearts = {en="Queen of Hearts", sl="Dama src"},
+    card_king_hearts = {en="King of Hearts", sl="Kralj src"},
+
+    card_ace_spades = {en="Ace of Spades", sl="As pik"},
+    card_2_spades = {en="2 of Spades", sl="2 pik"},
+    card_3_spades = {en="3 of Spades", sl="3 pik"},
+    card_4_spades = {en="4 of Spades", sl="4 pik"},
+    card_5_spades = {en="5 of Spades", sl="5 pik"},
+    card_6_spades = {en="6 of Spades", sl="6 pik"},
+    card_7_spades = {en="7 of Spades", sl="7 pik"},
+    card_8_spades = {en="8 of Spades", sl="8 pik"},
+    card_9_spades = {en="9 of Spades", sl="9 pik"},
+    card_10_spades = {en="10 of Spades", sl="10 pik"},
+    card_jack_spades = {en="Jack of Spades", sl="Fant pik"},
+    card_queen_spades = {en="Queen of Spades", sl="Dama pik"},
+    card_king_spades = {en="King of Spades", sl="Kralj pik"}
+}
 
 return LANG

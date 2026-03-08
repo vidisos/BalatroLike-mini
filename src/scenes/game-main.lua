@@ -33,7 +33,7 @@ return {
         Drawable:new("text-level-title", 2,
             Utils.getCenterAnchorX(0,450,400), 50, 400,120
         ):TextBox(
-            LANG:getCurrentLevelText(),
+            GameState:getCurrentLevelText(),
             Utils.resizeFont(pixel_font,80),
             nil,{255,255,0}
         ),

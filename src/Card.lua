@@ -15,6 +15,7 @@ function Card:Card(card_base, onClickFunc)
     self.suit = card_base.suit or ""
     self.rank = card_base.rank or 0
     self.chips = card_base.chips or 0
+    self.title = card_base.title or "no title"
 
     self.selected = false
     self.flipped = false

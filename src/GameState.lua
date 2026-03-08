@@ -5,6 +5,7 @@ local card_list = require "src.card_list"
 local spark_list = require "src.spark_list"
 local Utils     = require "src.Utils"
 local hand_rankings = require "src.hand_rankings"
+local LANG          = require "src.LANG"
 
 local GameState = {
     --should be constants but uh ehe
@@ -42,6 +43,7 @@ local GameState = {
 ---resets everything about the score, current cards and stuff
 function GameState:startNewRound()
     self:resetRoundState()
+    self:clearSparks()
     self:makeNewDeck()
     self:makeNewHand()
     self:refreshHand()
@@ -185,8 +187,8 @@ function GameState:makeNewDeck()
         card.inDeck = true
         card.inHand = false
         card.flipped = true
-        card.onEnterHoverFunc = self.onEnterHoverCardFunc
-        card.onExitHoverFunc = self.onExitHoverCardFunc
+        card.onEnterHoverFunc = self.showCardInfo
+        card.onExitHoverFunc = self.disableCardInfo
 
         Scenes:addDrawable(Scenes:getScene("game-main"), card)
 
@@ -389,6 +391,20 @@ function GameState:selectSpark(spark)
     self:clearSelectionSparks()
 end
 
+---deletes all sparks on the main scene
+function GameState:clearSparks()
+    local scene = Scenes:getScene("game-main")
+
+    -- we need to iterate backwards otherwise it doesnt remove properly(the index moves and stuff)
+    for i = #scene.drawables, 1, -1 do
+
+        local drawable = scene.drawables[i]
+        if drawable.type == "Spark" then
+            table.remove(scene.drawables, i)
+        end
+    end
+end
+
 ---deletes all sparks on the win screen
 function GameState:clearSelectionSparks()
     local scene = Scenes:getScene("game-won")
@@ -520,6 +536,20 @@ function GameState:changeLang()
     end
 end
 
+---returns the language entry for the current level 
+---@return LanguageEntry
+function GameState:getCurrentLevelText()
+    if GameState.level == 1 then
+        return LANG.level1
+    elseif GameState.level == 2 then
+        return LANG.level2
+    elseif GameState.level == 3 then
+        return LANG.level3
+    else
+        error("No current level text found")
+    end
+end
+
 -- card functions
 function GameState.updateCardInHandFunc(self, dt)
     if self.inHand then
@@ -532,23 +562,65 @@ function GameState.hoverCardInHandFunc(self, dt)
 
 end
 
-function GameState.onEnterHoverCardFunc(self)
+---@param self Card|Drawable
+function GameState.showCardInfo(self)
     if self.inHand then
-        self.x = self.x - 5
-        self.y = self.y - 5
-        self.width = self.width + 10
-        self.height = self.height + 10
+        local card_id = self.id
+        local info_x = self.x
+        local info_y = self.y - 120
+        local info_width = self.width
+        local info_height = 100
+
+        ---@type Drawable
+        local background = Drawable:new(
+            self.id.."infoBoxBack", self.z_index,
+            info_x, info_y, info_width, info_height,
+            function (self)
+                local card = Scenes:getDrawable("game-main", card_id)
+                self.x = card.x
+                self.y = card.y - 120
+            end
+        ):Rectangle({145, 143, 137}, 3, {255, 255, 255})
+
+        ---@type Drawable
+        local title = Drawable:new(
+            self.id.."infoBoxTitle", self.z_index + 1,
+            info_x+7, info_y+7, info_width-14, info_height - 62,
+            function (self)
+                local infoBox = Scenes:getDrawable("game-main", card_id.."infoBoxBack")
+                self.x = infoBox.x+7
+                self.y = infoBox.y+7
+            end
+        ):TextBox(
+            self.title, Utils.resizeFont(LANG.FONTS.pixel_font_link, 14),
+            nil, {255, 255, 255}
+        )
+
+        ---@type Drawable
+        local desc = Drawable:new(
+            self.id.."infoBoxDesc", self.z_index + 1,
+            info_x+7, info_y-7 + 60, info_width-14, info_height - 60,
+            function (self)
+                local infoBox = Scenes:getDrawable("game-main", card_id.."infoBoxBack")
+                self.x = infoBox.x +7
+                self.y = infoBox.y + 60 -7
+            end
+        ):TextBox(
+            "+" .. self.chips .. " " .. LANG.chips[GameState.current_lang], Utils.resizeFont(LANG.FONTS.pixel_font_link, 15),
+            nil, {255, 255, 255}
+        )
+
+        Scenes:addDrawable(Scenes:getScene("game-main"), background)
+        Scenes:addDrawable(Scenes:getScene("game-main"), title)
+        Scenes:addDrawable(Scenes:getScene("game-main"), desc)
+        Scenes:sortDrawables(Scenes:getScene("game-main"))
     end
 end
 
-function GameState.onExitHoverCardFunc(self)
-    if self.inHand then
-        self.x = self.x + 5
-        self.y = self.y + 5
-        self.width = self.width - 10
-        self.height = self.height - 10
-        print(self.id)
-    end
+function GameState.disableCardInfo(self)
+    Scenes:removeDrawable(Scenes:getScene("game-main"), self.id.."infoBoxBack")
+    Scenes:removeDrawable(Scenes:getScene("game-main"), self.id.."infoBoxTitle")
+    Scenes:removeDrawable(Scenes:getScene("game-main"), self.id.."infoBoxDesc")
 end
 
 function GameState.cardOnClickFunc(self)

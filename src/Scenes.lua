@@ -132,6 +132,7 @@ function Scenes:enableScene(id)
     for _, scene in ipairs(self.scene_list) do
         if scene.id == id then
             scene.shouldDraw = true
+            return
         end
     end
 end
@@ -142,6 +143,7 @@ function Scenes:disableScene(id)
     for _, scene in ipairs(self.scene_list) do
         if scene.id == id then
             scene.shouldDraw = false
+            return
         end
     end
 end
@@ -152,6 +154,7 @@ function Scenes:enableSceneClicks(id)
     for _, scene in ipairs(self.scene_list) do
         if scene.id == id then
             scene.isClickable = true
+            return
         end
     end
 end
@@ -162,6 +165,7 @@ function Scenes:disableSceneClicks(id)
     for _, scene in ipairs(self.scene_list) do
         if scene.id == id then
             scene.isClickable = false
+            return
         end
     end
 end
@@ -176,6 +180,7 @@ function Scenes:enableItemClicks(scene_id, id)
             for _, drawable in ipairs(scene.drawables) do
                 if drawable.id == id then
                     drawable.isClickable = true
+                    return
                 end
             end
         end
@@ -192,6 +197,7 @@ function Scenes:disableItemClicks(scene_id, id)
             for _, drawable in ipairs(scene.drawables) do
                 if drawable.id == id then
                     drawable.isClickable = true
+                    return
                 end
             end
         end
@@ -209,6 +215,27 @@ function Scenes:getScene(id)
     end
 
     error("Scenes:getScene(id): Bad scene id")
+end
+
+---adds a new drawable to a certain scene
+---@param scene Scene
+---@param drawable Drawable
+function Scenes:addDrawable(scene, drawable)
+    if scene then
+        table.insert(scene.drawables, drawable)
+    end
+end
+
+---removes a drawable from a certain scene
+---@param scene Scene
+---@param id string
+function Scenes:removeDrawable(scene, id)
+    for i, drawable in ipairs(scene.drawables) do
+        if drawable.id == id then
+            table.remove(scene.drawables, i)
+            return
+        end
+    end
 end
 
 ---returns a specific drawable table with the id
@@ -238,15 +265,6 @@ end
 ---@param scene Scene
 function Scenes:sortDrawables(scene)
     table.sort(scene.drawables, function (a, b) return a.z_index < b.z_index end)
-end
-
----adds a new drawable to a certain scene
----@param scene Scene
----@param drawable Drawable
-function Scenes:addDrawable(scene, drawable)
-    if scene then
-        table.insert(scene.drawables, drawable)
-    end
 end
 
 return Scenes

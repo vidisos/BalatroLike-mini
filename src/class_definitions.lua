@@ -21,6 +21,7 @@
 ---@field suit string
 ---@field rank number
 ---@field chips number
+---@field title LanguageEntry
 
 ---@class SparkBase
 ---@field image love.Image
