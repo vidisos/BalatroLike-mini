@@ -34,9 +34,39 @@ function Utils.resizeFont(font, size)
     return font
 end
 
----counts the number of lines in a string, including the first line
----@param text string 
+---gets plain text string from a languauge entry, colored text table or just normal text
+---@param val any
+---@return string
+function Utils.plainTextFrom(val)
+    if type(val) ~= "table" then
+        return tostring(val)
+    end
+
+    local buf = {}
+    for _, v in ipairs(val) do
+        if type(v) == "string" then
+            buf[#buf+1] = v
+        end
+    end
+
+    return table.concat(buf)
+end
+
+---counts the number of lines in a string or colored-text table, including the first line
+---@param text string|table 
 function Utils.countLines(text)
+    -- in case of a colored text table
+    if type(text) == "table" then
+        local text_concatenated = {}
+        for _, v in ipairs(text) do
+            if type(v) == "string" then
+                table.insert(text_concatenated, v)
+            end
+        end
+
+        text = table.concat(text_concatenated)
+    end
+
     local _, count = text:gsub("\n", "\n")
     return count + 1
 end

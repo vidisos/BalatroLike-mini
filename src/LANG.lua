@@ -2,7 +2,7 @@ local FONTS = {}
 FONTS.pixel_font_link = "src/fonts/Karma Suture.otf"
 FONTS.pixel_font_bold_link = "src/fonts/Karma Future.otf"
 FONTS.font_small = love.graphics.newFont(FONTS.pixel_font_link, 40)
-FONTS.font_average = love.graphics.newFont(FONTS.pixel_font_bold_link, 50)
+FONTS.font_average = love.graphics.newFont(FONTS.pixel_font_link, 50)
 
 ---@type LanguageEntry[]
 local LANG = {

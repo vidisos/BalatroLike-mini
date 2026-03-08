@@ -562,6 +562,7 @@ function GameState.hoverCardInHandFunc(self, dt)
 
 end
 
+---creates new drawables that represent the hovered card
 ---@param self Card|Drawable
 function GameState.showCardInfo(self)
     if self.inHand then
@@ -573,7 +574,7 @@ function GameState.showCardInfo(self)
 
         ---@type Drawable
         local background = Drawable:new(
-            self.id.."infoBoxBack", self.z_index,
+            self.id.."infoBoxBack", self.z_index + GameState.hand_size,
             info_x, info_y, info_width, info_height,
             function (self)
                 local card = Scenes:getDrawable("game-main", card_id)
@@ -584,7 +585,7 @@ function GameState.showCardInfo(self)
 
         ---@type Drawable
         local title = Drawable:new(
-            self.id.."infoBoxTitle", self.z_index + 1,
+            self.id.."infoBoxTitle", self.z_index + GameState.hand_size + 1,
             info_x+7, info_y+7, info_width-14, info_height - 62,
             function (self)
                 local infoBox = Scenes:getDrawable("game-main", card_id.."infoBoxBack")
@@ -598,7 +599,7 @@ function GameState.showCardInfo(self)
 
         ---@type Drawable
         local desc = Drawable:new(
-            self.id.."infoBoxDesc", self.z_index + 1,
+            self.id.."infoBoxDesc", self.z_index + GameState.hand_size + 1,
             info_x+7, info_y-7 + 60, info_width-14, info_height - 60,
             function (self)
                 local infoBox = Scenes:getDrawable("game-main", card_id.."infoBoxBack")
@@ -606,7 +607,7 @@ function GameState.showCardInfo(self)
                 self.y = infoBox.y + 60 -7
             end
         ):TextBox(
-            "+" .. self.chips .. " " .. LANG.chips[GameState.current_lang], Utils.resizeFont(LANG.FONTS.pixel_font_link, 15),
+            {{0, 0, 255}, "+"..self.chips, {0, 0, 0}, " "..LANG.chips[GameState.current_lang]}, Utils.resizeFont(LANG.FONTS.pixel_font_link, 15),
             nil, {255, 255, 255}
         )
 

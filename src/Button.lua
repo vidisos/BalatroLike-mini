@@ -18,16 +18,9 @@ local normalButtonDraw, borderedButtonDraw
 ---@return Button
 function Button:Button(text, font, text_color, button_color, onClickFunc, border_width, border_color)
     self.type = "Button"
-
+    self.text = text or ""
     self.baseFont = font or love.graphics.getFont()
-    self.font = font
-
-    if (type(text) == "table") then
-        self.text = text or {"", ""}
-    else
-        self.text = text or ""
-    end
-
+    self.font = font or self.baseFont
     self.text_color = text_color or {0, 0, 0}
     self.button_color = button_color or {255, 255, 255}
     self.onClickFunc = onClickFunc or function () end
@@ -42,6 +35,44 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
         end
 
         Utils.resetColor()
+
+        -- TEXT 
+        -- we detect if its a colored table, otherwise language table or plain string
+        local display
+        local isColoredTable = type(self.text) == "table" and type(self.text[1]) == "table" and type(self.text[2]) == "string"
+
+        if isColoredTable then
+            -- colored text table
+            display = self.text
+        elseif type(self.text) == "table" then
+            -- language table
+            display = self.text[GameState.current_lang] or ""
+            if self.text.font then
+                self.font = self.text.font
+            else
+                self.font = self.baseFont
+            end
+        else
+            -- plain string
+            display = self.text or ""
+        end
+
+        local plain_text = Utils.plainTextFrom(display)
+        local text_width = self.font:getWidth(plain_text)
+        local text_height = self.font:getHeight() * Utils.countLines(plain_text)
+        local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)
+        local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
+
+        love.graphics.setFont(self.font)
+
+        -- only color whole text when not using a colored sequence
+        if not isColoredTable then
+            Utils.setColorRGB(self.text_color)
+        end
+
+        love.graphics.print(display, text_x, text_y)
+
+        Utils.resetColor()
     end
 
     return self
@@ -53,31 +84,6 @@ normalButtonDraw = function(self)
     -- button
     Utils.setColorRGB(self.button_color)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-
-    -- text
-    local text
-    local text_type = type(self.text)
-    if (text_type == "table") then
-        text = self.text[GameState.current_lang]
-        if self.text["font"] then
-            self.font = self.text["font"]
-        else
-            self.font = self.baseFont
-        end
-    elseif text_type == "string" then
-        text = self.text
-    else
-        text = ""
-    end
-
-    local text_width = self.font:getWidth(text)
-    local text_height = self.font:getHeight() * Utils.countLines(text)
-    local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)
-    local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
-
-    love.graphics.setFont(self.font)
-    Utils.setColorRGB(self.text_color)
-    love.graphics.print(text, text_x, text_y)
 end
 
 ---drawing a button that basically makes the border part of it in terms of width and such
@@ -94,31 +100,6 @@ borderedButtonDraw = function(self)
     local button_width = self.width - 2*self.border_width
     local button_height = self.height - 2*self.border_width
     love.graphics.rectangle("fill", button_x, button_y, button_width, button_height)
-
-    -- text
-    local text
-    local text_type = type(self.text)
-    if (text_type == "table") then
-        text = self.text[GameState.current_lang]
-        if self.text["font"] then
-            self.font = self.text["font"]
-        else
-            self.font = self.baseFont
-        end
-    elseif text_type == "string" then
-        text = self.text
-    else
-        text = ""
-    end
-
-    local text_width = self.font:getWidth(text)
-    local text_height = self.font:getHeight() * Utils.countLines(text)
-    local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)
-    local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
-
-    love.graphics.setFont(self.font)
-    Utils.setColorRGB(self.text_color)
-    love.graphics.print(text, text_x, text_y)
 end
 
 return Button

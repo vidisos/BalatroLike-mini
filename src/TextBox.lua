@@ -4,8 +4,13 @@ local GameState = require "src.GameState"
 ---@class TextBox : Drawable
 local TextBox = {}
 
----extension of Drawable: displays text on an optional background rectangle
----@param text? LanguageEntry|string
+---extension of Drawable: displays text on an optional background rectangle, text can be aligned
+---
+---Supported `text` formats:
+---  * **string** – plain text
+---  * **language table** – indexed by `GameState.current_lang`
+---  * **colored table** – alternating color tables and strings like `{ {255,0,0}, "Red", {0,255,0}, "Green" }`
+---@param text? table|LanguageEntry|string
 ---@param font? love.Font
 ---@param text_color? table
 ---@param background_color? table
@@ -13,96 +18,65 @@ local TextBox = {}
 ---@return TextBox
 function TextBox:TextBox(text, font, text_color, background_color, alignment)
     self.type = "TextBox"
-
-    if (type(text) == "table") then
-        self.text = text or {"", ""}
-    else
-        self.text = text or ""
-    end
-
+    self.text = text or ""
     self.baseFont = font or love.graphics.getFont()
-    self.font = font
+    self.font = font or self.baseFont
     self.text_color = text_color or {0, 0, 0}
     self.background_color = background_color
-    self.alignment = alignment or nil
+    self.alignment = alignment
+
+    -- we dont need the onclick for this drawable, this is just here so it doesnt break
+    self.onClickFunc = function () end
 
     self.drawFunc = function ()
-        -- background if needed
+        --background rectangle
         if background_color then
             Utils.setColorRGB(self.background_color)
             love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
         end
 
-        --[[
-        love.graphics.print( coloredtext, x, y, angle, sx, sy, ox, oy, kx, ky )
-Arguments
-table coloredtext
-A table containing colors and strings to add to the object, in the form of {color1, string1, color2, string2, ...}.
-table color1
-A table containing red, green, blue, and optional alpha components to use as a color for the next string in the table, in the form of {red, green, blue, alpha}.
-string string1
-A string of text which has a color specified by the previous color.
-table color2
-A table containing red, green, blue, and optional alpha components to use as a color for the next string in the table, in the form of {red, green, blue, alpha}.
-string string2
-A string of text which has a color specified by the previous color.
-tables and strings ...
-Additional colors and strings.
-number x (0)
-The position of the text on the x-axis.
-number y (0)
-The position of the text on the y-axis.
-number angle (0)
-The orientation of the text in radians.
-number sx (1)
-Scale factor on the x-axis.
-number sy (sx)
-Scale factor on the y-axis.
-number ox (0)
-Origin offset on the x-axis.
-number oy (0)
-Origin offset on the y-axis.
-number kx (0)
-Shearing / skew factor on the x-axis.
-number ky (0)
-Shearing / skew factor on the y-axis.
-]]
+        -- TEXT 
+        -- we detect if its a colored table, otherwise language table or plain string
+        local display
+        local isColoredTable = type(self.text) == "table" and type(self.text[1]) == "table" and type(self.text[2]) == "string"
 
-        -- text
-        local text
-        local text_type = type(self.text)
-        if (text_type == "table") then
-            text = self.text[GameState.current_lang]
-            if self.text["font"] then
-                self.font = self.text["font"]
+        if isColoredTable then
+            -- colored text table
+            display = self.text
+        elseif type(self.text) == "table" then
+            -- language table
+            display = self.text[GameState.current_lang] or ""
+            if self.text.font then
+                self.font = self.text.font
             else
                 self.font = self.baseFont
             end
-        elseif text_type == "string" then
-            text = self.text
         else
-            text = ""
+            -- plain string
+            display = self.text or ""
         end
 
-        local text_width = self.font:getWidth(text)
-        local text_height = self.font:getHeight() * Utils.countLines(text)
+        local plain_text = Utils.plainTextFrom(display)
+        local text_width = self.font:getWidth(plain_text)
+        local text_height = self.font:getHeight() * Utils.countLines(plain_text)
         local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)
         local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
 
         love.graphics.setFont(self.font)
-        Utils.setColorRGB(self.text_color)
 
-        if alignment then
-            love.graphics.printf(text, self.x+5, text_y, self.width-5*2, alignment)
+        -- only color whole text when not using a colored sequence
+        if not isColoredTable then
+            Utils.setColorRGB(self.text_color)
+        end
+
+        if self.alignment then
+            love.graphics.printf(display, self.x + 5, text_y, self.width - 10, self.alignment)
         else
-            love.graphics.print(text, text_x, text_y)
+            love.graphics.print(display, text_x, text_y)
         end
 
         Utils.resetColor()
     end
-
-    -- we dont need the onclick for this drawable, this is just here so it doesnt break
-    self.onClickFunc = function () end
 
     return self
 end
