@@ -116,7 +116,7 @@ function GameState:roundWon()
         table.remove(temp_sparks, rnd)
 
         local spark = Drawable:new(id, z_index, x, y, width, height, self.updateActiveSparkFunc):Spark(spark_base, self.sparkOnClickFunc)
-        Scenes:addDrawable(Scenes:getScene("game-won"), spark)
+        Scenes:addDrawable("game-won", spark)
     end
 
     Scenes:enableScene("game-won")
@@ -160,7 +160,7 @@ function GameState:refreshHand()
         drawable.z_index = drawable.displayIndex + 10
     end
 
-    Scenes:sortDrawables(Scenes:getScene("game-main"))
+    Scenes:sortDrawables("game-main")
 end
 
 ---creates the amount of cards that should be in the whole deck (usually 52) and places them there
@@ -190,7 +190,7 @@ function GameState:makeNewDeck()
         card.onEnterHoverFunc = self.showCardInfo
         card.onExitHoverFunc = self.disableCardInfo
 
-        Scenes:addDrawable(Scenes:getScene("game-main"), card)
+        Scenes:addDrawable("game-main", card)
 
         self.deck_count = self.deck_count + 1
     end
@@ -386,7 +386,7 @@ function GameState:selectSpark(spark)
     spark.z_index = 3 + #GameState:getActiveSparks()
     spark.displayIndex = #GameState:getActiveSparks() + 1
 
-    Scenes:addDrawable(Scenes:getScene("game-main"), spark)
+    Scenes:addDrawable("game-main", spark)
 
     self:clearSelectionSparks()
 end
@@ -611,17 +611,17 @@ function GameState.showCardInfo(self)
             nil, {255, 255, 255}
         )
 
-        Scenes:addDrawable(Scenes:getScene("game-main"), background)
-        Scenes:addDrawable(Scenes:getScene("game-main"), title)
-        Scenes:addDrawable(Scenes:getScene("game-main"), desc)
-        Scenes:sortDrawables(Scenes:getScene("game-main"))
+        Scenes:addDrawable("game-main", background)
+        Scenes:addDrawable("game-main", title)
+        Scenes:addDrawable("game-main", desc)
+        Scenes:sortDrawables("game-main")
     end
 end
 
 function GameState.disableCardInfo(self)
-    Scenes:removeDrawable(Scenes:getScene("game-main"), self.id.."infoBoxBack")
-    Scenes:removeDrawable(Scenes:getScene("game-main"), self.id.."infoBoxTitle")
-    Scenes:removeDrawable(Scenes:getScene("game-main"), self.id.."infoBoxDesc")
+    Scenes:removeDrawable("game-main", self.id.."infoBoxBack")
+    Scenes:removeDrawable("game-main", self.id.."infoBoxTitle")
+    Scenes:removeDrawable("game-main", self.id.."infoBoxDesc")
 end
 
 function GameState.cardOnClickFunc(self)

@@ -61,7 +61,7 @@ return {
                 Scenes:disableScenes()
                 Scenes:enableScene("game-main")
                 GameState:startNewRound()
-                Scenes:sortDrawables(Scenes:getScene("game-main"))
+                Scenes:sortDrawables("game-main")
             end,
             15,
             {100, 50, 20}

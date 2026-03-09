@@ -13,7 +13,7 @@ function Scenes:init()
 
     self:sortScenes()
     for _, scene in ipairs(self.scene_list) do
-        self:sortDrawables(scene)
+        self:sortDrawables(scene.id)
     end
 end
 
@@ -126,110 +126,92 @@ function Scenes:disableScenes()
     end
 end
 
----allows one scene to be drawn
+---returns a specific scene table with the id
 ---@param id string
-function Scenes:enableScene(id)
-    for _, scene in ipairs(self.scene_list) do
+---@return Scene
+function Scenes:getScene(id)
+    for _, scene in ipairs(Scenes.scene_list) do
         if scene.id == id then
-            scene.shouldDraw = true
-            return
+            return scene
         end
     end
+
+    print("Scenes:getScene(id): Bad scene id")
+end
+
+---returns a specific drawable table with the id
+---@param id string
+---@return Drawable
+function Scenes:getDrawable(scene_id, id)
+    local scene = Scenes:getScene(scene_id)
+    for _, drawable in ipairs(scene.drawables) do
+        if drawable.id == id then
+            return drawable
+        end
+    end
+
+    error("Scenes:getDrawableItem(scene_id, id): smth wrong idk lel")
+end
+
+---allows one scene to be drawn
+---@param scene_id string
+function Scenes:enableScene(scene_id)
+    local scene = Scenes:getScene(scene_id)
+    scene.shouldDraw = true
 end
 
 ---disables a scene from being drawn
----@param id string
-function Scenes:disableScene(id)
-    for _, scene in ipairs(self.scene_list) do
-        if scene.id == id then
-            scene.shouldDraw = false
-            return
-        end
-    end
+---@param scene_id string
+function Scenes:disableScene(scene_id)
+    local scene = Scenes:getScene(scene_id)
+    scene.shouldDraw = false
 end
 
 ---enables clicks for a certain scene
----@param id string
-function Scenes:enableSceneClicks(id)
-    for _, scene in ipairs(self.scene_list) do
-        if scene.id == id then
-            scene.isClickable = true
-            return
-        end
-    end
+---@param scene_id string
+function Scenes:enableSceneClicks(scene_id)
+    local scene = Scenes:getScene(scene_id)
+    scene.isClickable = true
 end
 
 ---disables clicks for a certain scene
----@param id string
-function Scenes:disableSceneClicks(id)
-    for _, scene in ipairs(self.scene_list) do
-        if scene.id == id then
-            scene.isClickable = false
-            return
-        end
-    end
+---@param scene_id string
+function Scenes:disableSceneClicks(scene_id)
+    local scene = Scenes:getScene(scene_id)
+    scene.isClickable = false
 end
 
 ---enables clicks for a certain drawable
 ---@param scene_id string
 ---@param id string
 function Scenes:enableItemClicks(scene_id, id)
-    for _, scene in ipairs(self.scene_list) do
-        if scene.id == scene_id then
-
-            for _, drawable in ipairs(scene.drawables) do
-                if drawable.id == id then
-                    drawable.isClickable = true
-                    return
-                end
-            end
-        end
-    end
+    local drawable = Scenes:getDrawable(scene_id, id)
+    drawable.isClickable = true
 end
 
 ---disables clicks for a certain drawable
 ---@param scene_id string
 ---@param id string
 function Scenes:disableItemClicks(scene_id, id)
-    for _, scene in ipairs(self.scene_list) do
-        if scene.id == scene_id then
-
-            for _, drawable in ipairs(scene.drawables) do
-                if drawable.id == id then
-                    drawable.isClickable = true
-                    return
-                end
-            end
-        end
-    end
-end
-
----returns a specific scene table with the id
----@param id string
----@return Scene
-function Scenes:getScene(id)
-    for _, scene in ipairs(self.scene_list) do
-        if scene.id == id then
-            return scene
-        end
-    end
-
-    error("Scenes:getScene(id): Bad scene id")
+    local drawable = Scenes:getDrawable(scene_id, id)
+    drawable.isClickable = false
 end
 
 ---adds a new drawable to a certain scene
----@param scene Scene
+---@param scene_id string
 ---@param drawable Drawable
-function Scenes:addDrawable(scene, drawable)
+function Scenes:addDrawable(scene_id, drawable)
+    local scene = Scenes:getScene(scene_id)
     if scene then
         table.insert(scene.drawables, drawable)
     end
 end
 
 ---removes a drawable from a certain scene
----@param scene Scene
+---@param scene_id string
 ---@param id string
-function Scenes:removeDrawable(scene, id)
+function Scenes:removeDrawable(scene_id, id)
+    local scene = Scenes:getScene(scene_id)
     for i, drawable in ipairs(scene.drawables) do
         if drawable.id == id then
             table.remove(scene.drawables, i)
@@ -238,32 +220,15 @@ function Scenes:removeDrawable(scene, id)
     end
 end
 
----returns a specific drawable table with the id
----@param id string
----@return Drawable
-function Scenes:getDrawable(scene_id, id)
-    for _, scene in ipairs(self.scene_list) do
-        if scene.id == scene_id then
-
-            for _, drawable in ipairs(scene.drawables) do
-                if drawable.id == id then
-                    return drawable
-                end
-            end
-        end
-    end
-
-    error("Scenes:getDrawableItem(scene_id, id): smth wrong idk lel")
-end
-
 ---sorts all scenes by z-index
 function Scenes:sortScenes()
     table.sort(self.scene_list, function (a, b) return a.z_index < b.z_index end)
 end
 
 ---sorts all drawables of a scene by z-index
----@param scene Scene
-function Scenes:sortDrawables(scene)
+---@param scene_id string
+function Scenes:sortDrawables(scene_id)
+    local scene = Scenes:getScene(scene_id)
     table.sort(scene.drawables, function (a, b) return a.z_index < b.z_index end)
 end
 
