@@ -136,7 +136,7 @@ function Scenes:getScene(id)
         end
     end
 
-    print("Scenes:getScene(id): Bad scene id")
+    error("Scenes:getScene(id): Bad scene id")
 end
 
 ---returns a specific drawable table with the id
