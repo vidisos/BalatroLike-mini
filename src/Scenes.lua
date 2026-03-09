@@ -17,8 +17,6 @@ function Scenes:init()
     end
 end
 
---test
-
 ---activates the update function of every drawable
 ---@param dt number
 function Scenes:update(dt)
