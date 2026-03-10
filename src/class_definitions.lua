@@ -30,11 +30,26 @@
 ---@field effect fun()
 
 ---@class Drawable
+---@field id string
+---@field z_index number
+---@field isClickable boolean
+---@field isHoverable boolean
+---@field isHovered boolean
+---@field shouldDraw boolean
+---@field type string
+---@field x number
+---@field y number
+---@field width number
+---@field height number
+---@field updateFunc fun(self: Drawable, dt: number)
+---@field onHoverFunc fun(self: Drawable, dt: number)
+---@field onEnterHoverFunc fun(self: Drawable)
+---@field onExitHoverFunc fun(self: Drawable)
 ---@field drawFunc fun(self: Drawable)
 ---@field isHoveredFunc fun(self: Drawable, mx: number, my: number): boolean
----@field Button fun(self: Drawable, text?: table | string, font?: love.Font, text_color?: table, button_color?: table, onClickFunc?: fun(self), border_width?: number, border_color?: table): Drawable|Button
----@field ImageBox fun(self: Drawable, image?: love.Image, onClickFunc?: fun(self)): Drawable|ImageBox
----@field Rectangle fun(self: Drawable, background_color?: table, border_width?: number, border_color?: table): Drawable|Rectangle
----@field TextBox fun(self: Drawable, text?: table | string, font?: love.Font, text_color?: table, background_color?: table, alignment?: string): Drawable|TextBox
----@field Card fun(self: Drawable, card_base: CardBase, onClickFunc?: fun(self)): Drawable|Card
----@field Spark fun(self: Drawable, spark_base: SparkBase, onClickFunc?: fun(self)): Drawable|Spark
+---@field Button fun(self: Drawable, text?: table | string, font?: love.Font, text_color?: table, button_color?: table, onClickFunc?: fun(self), border_width?: number, border_color?: table): Button
+---@field ImageBox fun(self: Drawable, image?: love.Image, onClickFunc?: fun(self)): ImageBox
+---@field Rectangle fun(self: Drawable, background_color?: table, border_width?: number, border_color?: table): Rectangle
+---@field TextBox fun(self: Drawable, text?: table | string, font?: love.Font, text_color?: table, background_color?: table, alignment?: string): TextBox
+---@field Card fun(self: Drawable, card_base: CardBase, onClickFunc?: fun(self)): Card
+---@field Spark fun(self: Drawable, spark_base: SparkBase, onClickFunc?: fun(self)): Spark
