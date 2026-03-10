@@ -1,4 +1,4 @@
-local CONSTANTS = require "src.CONSTANTS"
+local CONSTANTS = require "src.constants"
 local GameState = require "src.GameState"
 local Scenes = require "src.Scenes"
 local audio_list = require "src.audio_list"

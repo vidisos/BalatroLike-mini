@@ -1,6 +1,6 @@
 local Scenes = require "src.Scenes"
 local Drawable = require "src.Drawable"
-local CONSTANTS = require "src.CONSTANTS"
+local CONSTANTS = require "src.constants"
 local card_list = require "src.card_list"
 local spark_list = require "src.spark_list"
 local Utils = require "src.Utils"

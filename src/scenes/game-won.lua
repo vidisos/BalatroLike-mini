@@ -1,4 +1,4 @@
-local CONSTANTS = require "src.CONSTANTS"
+local CONSTANTS = require "src.constants"
 local Scenes = require "src.Scenes"
 local Drawable  = require "src.Drawable"
 local Utils = require "src.Utils"
