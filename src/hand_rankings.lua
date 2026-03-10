@@ -1,4 +1,3 @@
----@type HandRanking[]
 local hand_rankings = {
     high_card = {chips=5, mult=1},
     pair = {chips=10, mult=2},

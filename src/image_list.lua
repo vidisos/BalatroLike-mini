@@ -97,7 +97,7 @@ local image_list = {
     },
 
     -- Sparks (Balatro jokers but renamed hihi)
-    sparks = {   
+    sparks = {
         controller = newImage(sparks_folder .. "controller.png"),
         spark2 = newImage(sparks_folder .. "spark2.png"),
         spark3 = newImage(sparks_folder .. "spark3.png"),

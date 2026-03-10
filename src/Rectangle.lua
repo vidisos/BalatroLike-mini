@@ -6,9 +6,9 @@ local Rectangle = {}
 local normalRectDraw, borderedRectDraw
 
 ---extension of Drawable: a colored rectangle
----@param background_color? table
+---@param background_color? RGB
 ---@param border_width? number
----@param border_color? table
+---@param border_color? RGB
 ---@return Rectangle
 function Rectangle:Rectangle(background_color, border_width, border_color)
     self.type = "Rectangle"

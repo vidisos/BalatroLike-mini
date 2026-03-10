@@ -1,6 +1,8 @@
 local Scenes = {
     ---@type Scene[]
     scene_list = {},
+
+    ---@type Drawable
     last_hovered_drawable = nil
 }
 

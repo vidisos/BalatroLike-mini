@@ -1,9 +1,9 @@
 local Utils = {}
 
 ---sets the color with an rgb table
----@param rgb table
-function Utils.setColorRGB(rgb)
-    love.graphics.setColor(love.math.colorFromBytes(rgb[1], rgb[2], rgb[3]))
+---@param RGB RGB
+function Utils.setColorRGB(RGB)
+    love.graphics.setColor(love.math.colorFromBytes(RGB[1], RGB[2], RGB[3]))
 end
 
 ---resets the color so images and such dont inherit color from previous calls

@@ -8,13 +8,18 @@ local Button = {}
 local normalButtonDraw, borderedButtonDraw
 
 ---extension of Drawable: a colored rectangle with optional text that can be clicked, optional border
+---
+---Supported `text` formats:
+---  * **string** – plain text
+---  * **language table** – indexed by `GameState.current_lang`
+---  * **colored table** – alternating color tables and strings like `{ {255,0,0}, "Red", {0,255,0}, "Green" }`
 ---@param text? LanguageEntry|string
 ---@param font? love.Font
----@param text_color? table
----@param button_color? table
+---@param text_color? RGB
+---@param button_color? RGB
 ---@param onClickFunc? fun(self)
 ---@param border_width? number
----@param border_color? table
+---@param border_color? RGB
 ---@return Button
 function Button:Button(text, font, text_color, button_color, onClickFunc, border_width, border_color)
     self.type = "Button"

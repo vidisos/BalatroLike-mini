@@ -12,8 +12,8 @@ local TextBox = {}
 ---  * **colored table** – alternating color tables and strings like `{ {255,0,0}, "Red", {0,255,0}, "Green" }`
 ---@param text? table|LanguageEntry|string
 ---@param font? love.Font
----@param text_color? table
----@param background_color? table
+---@param text_color? RGB
+---@param background_color? RGB
 ---@param alignment? string
 ---@return TextBox
 function TextBox:TextBox(text, font, text_color, background_color, alignment)

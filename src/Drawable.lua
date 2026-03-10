@@ -59,31 +59,38 @@ end
 
 
 -- had to do this instead of requires since circular dependencies
+
+---@return Drawable|Button
 function Drawable:Button(...)
     local Button = require("src.Button")
     return Button.Button(self, ...)
 end
 
+---@return Drawable|ImageBox
 function Drawable:ImageBox(...)
     local ImageBox = require("src.ImageBox")
     return ImageBox.ImageBox(self, ...)
 end
 
+---@return Drawable|Rectangle
 function Drawable:Rectangle(...)
     local Rectangle = require("src.Rectangle")
     return Rectangle.Rectangle(self, ...)
 end
 
+---@return Drawable|TextBox
 function Drawable:TextBox(...)
     local TextBox = require("src.TextBox")
     return TextBox.TextBox(self, ...)
 end
 
+---@return Drawable|Card
 function Drawable:Card(...)
     local Card = require("src.Card")
     return Card.Card(self, ...)
 end
 
+---@return Drawable|Spark
 function Drawable:Spark(...)
     local Spark = require("src.Spark")
     return Spark.Spark(self, ...)
