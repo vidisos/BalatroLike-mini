@@ -3,7 +3,7 @@ local Font = {}
 ---@class FontLinks
 ---@field pixel_font string
 ---@field pixel_font_bold string
-Font.font_links = {
+Font.font_paths = {
     pixel_font = "src/fonts/Karma Suture.otf",
     pixel_font_bold = "src/fonts/Karma Future.otf"
 }
@@ -12,8 +12,8 @@ Font.font_links = {
 ---@field font_small love.Font
 ---@field font_average love.Font
 Font.fonts = {
-    font_small = love.graphics.newFont(Font.font_links.pixel_font, 40),
-    font_average = love.graphics.newFont(Font.font_links.pixel_font, 50)
+    font_small = love.graphics.newFont(Font.font_paths.pixel_font, 40),
+    font_average = love.graphics.newFont(Font.font_paths.pixel_font, 50)
 }
 
 ---returns a new resized font of your choosing

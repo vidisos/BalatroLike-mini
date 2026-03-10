@@ -9,7 +9,7 @@ local LANG = require "src.LANG"
 local Font = require "src.Font"
 
 local GameState = {
-    --should be constants but uh ehe
+    --should be CONSTANTS but uh ehe
     hand_size = 8,
     deck_size = 52,
     spark_active_max = 5,
@@ -594,7 +594,7 @@ function GameState.showCardInfo(self)
                 self.y = infoBox.y+7
             end
         ):TextBox(
-            self.title, Font:resizeFont(Font.font_links.pixel_font, 14),
+            self.title, Font:resizeFont(Font.font_paths.pixel_font, 14),
             nil, {255, 255, 255}
         )
 
@@ -608,7 +608,7 @@ function GameState.showCardInfo(self)
                 self.y = infoBox.y + 60 -7
             end
         ):TextBox(
-            {{0, 0, 255}, "+"..self.chips, {0, 0, 0}, " "..LANG.chips[GameState.current_lang]}, Font:resizeFont(Font.font_links.pixel_font, 15),
+            {{0, 0, 255}, "+"..self.chips, {0, 0, 0}, " "..LANG.chips[GameState.current_lang]}, Font:resizeFont(Font.font_paths.pixel_font, 15),
             nil, {255, 255, 255}
         )
 

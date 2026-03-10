@@ -32,7 +32,7 @@ return {
             "text-choose-sparks", 1,
             Utils.getCenterAnchorX(left_column.x, left_column.width, left_column.width-50), 20, left_column.width-50, 375
         ):TextBox(
-            LANG.choose_spark, Font:resizeFont(Font.font_links.pixel_font_bold, 90),
+            LANG.choose_spark, Font:resizeFont(Font.font_paths.pixel_font_bold, 90),
             nil,
             {134, 142, 156}
         )

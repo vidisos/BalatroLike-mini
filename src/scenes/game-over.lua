@@ -31,7 +31,7 @@ return {
             Utils.getCenterAnchorX(860, 400, 370), 300, 370, 100
         ):TextBox(
             LANG.you_lose,
-            Font:resizeFont(Font.font_links.pixel_font_bold, 110)
+            Font:resizeFont(Font.font_paths.pixel_font_bold, 110)
         ),
 
         -- start new game
@@ -40,7 +40,7 @@ return {
             Utils.getCenterAnchorX(860, 400, 330), 650, 330, 100
         ):Button(
             LANG.new_game,
-            Font:resizeFont(Font.font_links.pixel_font, 30),
+            Font:resizeFont(Font.font_paths.pixel_font, 30),
             {0, 0, 100},
             {255, 0, 0},
             function(self)
@@ -58,7 +58,7 @@ return {
             Utils.getCenterAnchorX(860, 400, 330), 780, 330, 100
         ):Button(
             LANG.to_main_menu,
-            Font:resizeFont(Font.font_links.pixel_font, 30),
+            Font:resizeFont(Font.font_paths.pixel_font, 30),
             {0, 0, 100},
             {255, 0, 0},
             function(self)
