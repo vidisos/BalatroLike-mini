@@ -1,4 +1,5 @@
 local Utils = require "src.Utils"
+local Color = require "src.Color"
 local GameState = require "src.GameState"
 
 ---@class TextBox : Drawable
@@ -31,7 +32,7 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
     self.drawFunc = function ()
         --background rectangle
         if background_color then
-            Utils.setColorRGB(self.background_color)
+            Color:setColorRGB(self.background_color)
             love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
         end
 
@@ -66,7 +67,7 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
 
         -- only color whole text when not using a colored sequence
         if not isColoredTable then
-            Utils.setColorRGB(self.text_color)
+            Color:setColorRGB(self.text_color)
         end
 
         if self.alignment then
@@ -75,7 +76,7 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
             love.graphics.print(display, text_x, text_y)
         end
 
-        Utils.resetColor()
+        Color:resetColor()
     end
 
     return self

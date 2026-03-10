@@ -5,10 +5,10 @@ local Utils = require "src.Utils"
 local audio_list = require "src.audio_list"
 local image_list = require "src.image_list"
 local GameState = require "src.GameState"
-local LANG = require "src.LANG"
 
-local pixel_font = "src/fonts/Karma Suture.otf"
-local pixel_font_bold = "src/fonts/Karma Future.otf"
+local LANG = require "src.LANG"
+local Font = require "src.Font"
+
 local ww = CONSTANTS.BASE_WIDTH
 local wh = CONSTANTS.BASE_HEIGHT
 
@@ -32,7 +32,7 @@ return {
             "text-choose-sparks", 1,
             Utils.getCenterAnchorX(left_column.x, left_column.width, left_column.width-50), 20, left_column.width-50, 375
         ):TextBox(
-            LANG.choose_spark, Utils.resizeFont(pixel_font_bold, 90),
+            LANG.choose_spark, Font:resizeFont(Font.font_links.pixel_font_bold, 90),
             nil,
             {134, 142, 156}
         )

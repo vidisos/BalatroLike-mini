@@ -5,10 +5,10 @@ local Utils = require "src.Utils"
 local audio_list = require "src.audio_list"
 local image_list = require "src.image_list"
 local GameState = require "src.GameState"
-local LANG = require "src.LANG"
 
-local pixel_font = "src/fonts/Karma Suture.otf"
-local pixel_font_bold = "src/fonts/Karma Future.otf"
+local LANG = require "src.LANG"
+local Font = require "src.Font"
+
 local ww = CONSTANTS.BASE_WIDTH
 local wh = CONSTANTS.BASE_HEIGHT
 
@@ -34,7 +34,7 @@ return {
             Utils.getCenterAnchorX(0,450,400), 50, 400,120
         ):TextBox(
             GameState:getCurrentLevelText(),
-            Utils.resizeFont(pixel_font,80),
+            Font:resizeFont(Font.font_links.pixel_font,80),
             nil,{255,255,0}
         ),
 
@@ -47,7 +47,7 @@ return {
             Utils.getCenterAnchorX(0,450,400),200,400,100
         ):TextBox(
             LANG.score_text,
-            Utils.resizeFont(pixel_font,35)
+            Font:resizeFont(Font.font_links.pixel_font,35)
         ),
 
         Drawable:new("text-level-requirement-score",3,
@@ -57,7 +57,7 @@ return {
             end
         ):TextBox(
             tostring(GameState.score_requirement),
-            Utils.resizeFont(pixel_font,80),
+            Font:resizeFont(Font.font_links.pixel_font,80),
             {240,67,67}
         ),
 
@@ -70,7 +70,7 @@ return {
             40,400,100,100
         ):TextBox(
             LANG.round_score,
-            Utils.resizeFont(pixel_font,30),
+            Font:resizeFont(Font.font_links.pixel_font,30),
             {255,255,255}
         ),
 
@@ -85,7 +85,7 @@ return {
             end
         ):TextBox(
             tostring(GameState.score),
-            Utils.resizeFont(pixel_font,60),
+            Font:resizeFont(Font.font_links.pixel_font,60),
             {255,255,255}
         ),
 
@@ -102,7 +102,7 @@ return {
             end
         ):TextBox(
             GameState.selected_hand,
-            Utils.resizeFont(pixel_font,60),
+            Font:resizeFont(Font.font_links.pixel_font,60),
             {255,255,255}
         ),
 
@@ -114,7 +114,7 @@ return {
             end
         ):TextBox(
             tostring(GameState.chips),
-            Utils.resizeFont(pixel_font,60),
+            Font:resizeFont(Font.font_links.pixel_font,60),
             {255,255,255},
             {0,0,255},
             "right"
@@ -125,7 +125,7 @@ return {
             650,50,50
         ):TextBox(
             "X",
-            Utils.resizeFont(pixel_font,60),
+            Font:resizeFont(Font.font_links.pixel_font,60),
             {255,0,0}
         ),
 
@@ -136,7 +136,7 @@ return {
             end
         ):TextBox(
             tostring(GameState.mult),
-            Utils.resizeFont(pixel_font,60),
+            Font:resizeFont(Font.font_links.pixel_font,60),
             {255,255,255},
             {255,0,0},
             "left"
@@ -151,7 +151,7 @@ return {
             Utils.getCenterAnchorX(25,175,50),790,50,30
         ):TextBox(
             LANG.hands,
-            Utils.resizeFont(pixel_font,30),
+            Font:resizeFont(Font.font_links.pixel_font,30),
             {255,255,255}
         ),
 
@@ -162,7 +162,7 @@ return {
             end
         ):TextBox(
             tostring(GameState.hands_remaining),
-            Utils.resizeFont(pixel_font,60),
+            Font:resizeFont(Font.font_links.pixel_font,60),
             {255,255,255},
             {70,79,84}
         ),
@@ -176,7 +176,7 @@ return {
             Utils.getCenterAnchorX(250,175,50),790,50,30
         ):TextBox(
             LANG.discards,
-            Utils.resizeFont(pixel_font,30),
+            Font:resizeFont(Font.font_links.pixel_font,30),
             {255,255,255}
         ),
 
@@ -187,7 +187,7 @@ return {
             end
         ):TextBox(
             tostring(GameState.discards_remaining),
-            Utils.resizeFont(pixel_font,60),
+            Font:resizeFont(Font.font_links.pixel_font,60),
             {255,255,255},
             {70,79,84}
         ),
@@ -197,7 +197,7 @@ return {
             Utils.getCenterAnchorX(0,450,200),940,200,115
         ):Button(
             LANG.ranking_info,
-            Utils.resizeFont(pixel_font,40),
+            Font:resizeFont(Font.font_links.pixel_font,40),
             {237,164,74},
             {212,198,182},
             function()
@@ -211,7 +211,7 @@ return {
             820,950,230,100
         ):Button(
             LANG.play_hand,
-            Utils.resizeFont(pixel_font,40),
+            Font:resizeFont(Font.font_links.pixel_font,40),
             {237,164,74},
             {212,198,182},
             function()
@@ -226,7 +226,7 @@ return {
             1200,950,230,100
         ):Button(
             LANG.discard_hand,
-            Utils.resizeFont(pixel_font,40),
+            Font:resizeFont(Font.font_links.pixel_font,40),
             {237,164,74},
             {212,198,182},
             function()
@@ -249,7 +249,7 @@ return {
             end
         ):TextBox(
             nil,
-            Utils.resizeFont(pixel_font,40),
+            Font:resizeFont(Font.font_links.pixel_font,40),
             {255,255,255}
         ),
 

@@ -1,4 +1,5 @@
 local Utils = require "src.Utils"
+local Color = require "src.Color"
 
 ---@class Spark : Drawable
 local Spark = {}
@@ -23,7 +24,7 @@ function Spark:Spark(spark_base, onClickFunc)
 
         love.graphics.draw(self.image, self.x, self.y, 0, scaleX, scaleY)
 
-        Utils.resetColor()
+        Color:resetColor()
     end
 
     return self

@@ -3,9 +3,10 @@ local Drawable = require "src.Drawable"
 local CONSTANTS = require "src.CONSTANTS"
 local card_list = require "src.card_list"
 local spark_list = require "src.spark_list"
-local Utils     = require "src.Utils"
+local Utils = require "src.Utils"
 local hand_rankings = require "src.hand_rankings"
-local LANG          = require "src.LANG"
+local LANG = require "src.LANG"
+local Font = require "src.Font"
 
 local GameState = {
     --should be constants but uh ehe
@@ -593,7 +594,7 @@ function GameState.showCardInfo(self)
                 self.y = infoBox.y+7
             end
         ):TextBox(
-            self.title, Utils.resizeFont(LANG.FONTS.pixel_font_link, 14),
+            self.title, Font:resizeFont(Font.font_links.pixel_font, 14),
             nil, {255, 255, 255}
         )
 
@@ -607,7 +608,7 @@ function GameState.showCardInfo(self)
                 self.y = infoBox.y + 60 -7
             end
         ):TextBox(
-            {{0, 0, 255}, "+"..self.chips, {0, 0, 0}, " "..LANG.chips[GameState.current_lang]}, Utils.resizeFont(LANG.FONTS.pixel_font_link, 15),
+            {{0, 0, 255}, "+"..self.chips, {0, 0, 0}, " "..LANG.chips[GameState.current_lang]}, Font:resizeFont(Font.font_links.pixel_font, 15),
             nil, {255, 255, 255}
         )
 

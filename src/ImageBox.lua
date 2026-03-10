@@ -1,4 +1,5 @@
 local Utils = require "src.Utils"
+local Color = require "src.Color"
 local image_list = require "src.image_list"
 
 ---@class ImageBox : Drawable
@@ -18,7 +19,7 @@ function ImageBox:ImageBox(image, onClickFunc)
         local scaleY = self.height / self.image:getHeight()
         love.graphics.draw(self.image, self.x, self.y, 0, scaleX, scaleY)
 
-        Utils.resetColor()
+        Color:resetColor()
     end
 
     return self

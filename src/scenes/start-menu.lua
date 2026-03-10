@@ -8,10 +8,9 @@ local card_list = require "src.card_list"
 local GameState = require "src.GameState"
 
 local LANG = require "src.LANG"
+local Font = require "src.Font"
 local current_lang = GameState.current_lang
 
-local pixel_font = "src/fonts/Karma Suture.otf"
-local pixel_font_bold = "src/fonts/Karma Future.otf"
 local ww = CONSTANTS.BASE_WIDTH
 local wh = CONSTANTS.BASE_HEIGHT
 
@@ -32,7 +31,7 @@ return {
             "text-title", 1,
             Utils.getCenterAnchorX(0, ww, 1200), Utils.getCenterAnchorY(0, wh, 400),
             1200, 400
-        ):TextBox(LANG.title, Utils.resizeFont(pixel_font_bold, 300)),
+        ):TextBox(LANG.title, Font:resizeFont(Font.font_links.pixel_font_bold, 300)),
 
         -- settings icon
         Drawable:new(
@@ -54,7 +53,7 @@ return {
             "btn-start", 1,
             560, 800, 300, 150
         ):Button(
-            LANG.start, Utils.resizeFont(pixel_font, 90),
+            LANG.start, Font:resizeFont(Font.font_links.pixel_font, 90),
             {237, 164, 74},
             {212, 198, 182},
             function (self)
@@ -72,7 +71,7 @@ return {
             "btn-quit", 1,
             1060, 810, 250, 130
         ):Button(
-            LANG.quit, Utils.resizeFont(pixel_font, 50),
+            LANG.quit, Font:resizeFont(Font.font_links.pixel_font, 50),
             {0, 0, 100},
             {255, 0, 0},
             function()
@@ -87,7 +86,7 @@ return {
             "btn-change-lang", 1,
             1680, 950, 200, 100
         ):Button(
-            LANG.language, Utils.resizeFont(pixel_font, 30),
+            LANG.language, Font:resizeFont(Font.font_links.pixel_font, 30),
             {0, 0, 100},
             {255, 0, 0},
             function(self)

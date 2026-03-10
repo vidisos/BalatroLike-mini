@@ -1,16 +1,5 @@
 local Utils = {}
 
----sets the color with an rgb table
----@param RGB RGB
-function Utils.setColorRGB(RGB)
-    love.graphics.setColor(love.math.colorFromBytes(RGB[1], RGB[2], RGB[3]))
-end
-
----resets the color so images and such dont inherit color from previous calls
-function Utils.resetColor()
-    Utils.setColorRGB({255, 255, 255})
-end
-
 ---returns the x to center an inner item inside an outer item
 ---@return number
 function Utils.getCenterAnchorX(x, outer_width, inner_width)
@@ -23,15 +12,6 @@ end
 function Utils.getCenterAnchorY(y, outer_height, inner_height)
     local y = y + outer_height / 2 - inner_height / 2
     return y
-end
-
----returns a new resized font of your choosing
----@param font string
----@param size number
----@return love.Font
-function Utils.resizeFont(font, size)
-    local font = love.graphics.newFont(font, size)
-    return font
 end
 
 ---gets plain text string from a languauge entry, colored text table or just normal text

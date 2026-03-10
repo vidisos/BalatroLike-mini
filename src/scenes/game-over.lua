@@ -5,10 +5,10 @@ local Utils = require "src.Utils"
 local audio_list = require "src.audio_list"
 local image_list = require "src.image_list"
 local GameState = require "src.GameState"
-local LANG = require "src.LANG"
 
-local pixel_font = "src/fonts/Karma Suture.otf"
-local pixel_font_bold = "src/fonts/Karma Future.otf"
+local LANG = require "src.LANG"
+local Font = require "src.Font"
+
 local ww = CONSTANTS.BASE_WIDTH
 local wh = CONSTANTS.BASE_HEIGHT
 
@@ -31,7 +31,7 @@ return {
             Utils.getCenterAnchorX(860, 400, 370), 300, 370, 100
         ):TextBox(
             LANG.you_lose,
-            Utils.resizeFont(pixel_font_bold, 110)
+            Font:resizeFont(Font.font_links.pixel_font_bold, 110)
         ),
 
         -- start new game
@@ -40,7 +40,7 @@ return {
             Utils.getCenterAnchorX(860, 400, 330), 650, 330, 100
         ):Button(
             LANG.new_game,
-            Utils.resizeFont(pixel_font, 30),
+            Font:resizeFont(Font.font_links.pixel_font, 30),
             {0, 0, 100},
             {255, 0, 0},
             function(self)
@@ -58,7 +58,7 @@ return {
             Utils.getCenterAnchorX(860, 400, 330), 780, 330, 100
         ):Button(
             LANG.to_main_menu,
-            Utils.resizeFont(pixel_font, 30),
+            Font:resizeFont(Font.font_links.pixel_font, 30),
             {0, 0, 100},
             {255, 0, 0},
             function(self)

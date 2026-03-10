@@ -1,4 +1,5 @@
 local Utils = require "src.Utils"
+local Color = require "src.Color"
 
 ---@class Rectangle : Drawable
 local Rectangle = {}
@@ -23,7 +24,7 @@ function Rectangle:Rectangle(background_color, border_width, border_color)
             normalRectDraw(self)
         end
 
-        Utils.resetColor()
+        Color:resetColor()
     end
 
     -- we dont need the onclick for this drawable, this is just here so it doesnt break
@@ -35,7 +36,7 @@ end
 ---drawing rectangle normally without border
 ---@param self Rectangle|Drawable
 normalRectDraw = function (self)
-    Utils.setColorRGB(self.background_color)
+    Color:setColorRGB(self.background_color)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 end
 
@@ -43,11 +44,11 @@ end
 ---@param self Rectangle|Drawable
 borderedRectDraw = function (self)
     -- border
-    Utils.setColorRGB(self.border_color)
+    Color:setColorRGB(self.border_color)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 
     -- rect
-    Utils.setColorRGB(self.background_color)
+    Color:setColorRGB(self.background_color)
     local button_x = self.x + self.border_width
     local button_y = self.y + self.border_width
     local button_width = self.width - 2*self.border_width

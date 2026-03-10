@@ -1,13 +1,7 @@
-local FONTS = {}
-FONTS.pixel_font_link = "src/fonts/Karma Suture.otf"
-FONTS.pixel_font_bold_link = "src/fonts/Karma Future.otf"
-FONTS.font_small = love.graphics.newFont(FONTS.pixel_font_link, 40)
-FONTS.font_average = love.graphics.newFont(FONTS.pixel_font_link, 50)
+local Font = require "src.Font"
 
 ---@type LanguageEntry[]
 local LANG = {
-    FONTS = FONTS,
-
     -- start menu
     title = {en="Poinker", sl="Poinker"},
     quit = {en="Quit", sl="Zapusti"},
@@ -35,13 +29,13 @@ local LANG = {
     high_card = {en="High Card", sl="Visoka karta"},
     pair = {en="Pair", sl="En par"},
     two_pair = {en="Two Pair", sl="Dva para"},
-    three_of_a_kind = {en="Three of a Kind", sl="Tris", font=FONTS.font_average},
+    three_of_a_kind = {en="Three of a Kind", sl="Tris", font = Font.fonts.font_average},
     straight = {en="Straight", sl="Lestvica"},
     flush = {en="Flush", sl="Barva"},
     full_house = {en="Full House", sl="Polna hiša"},
-    four_of_a_kind = {en="Four of a Kind", sl="Poker", font=FONTS.font_average},
-    straight_flush = {en="Straight Flush", sl="Barvna lestvica", font=FONTS.font_average},
-    royal_flush = {en="Royal Flush", sl="Kraljeva\nbarvna lestvica", font=FONTS.font_small},
+    four_of_a_kind = {en="Four of a Kind", sl="Poker", font=Font.fonts.font_average},
+    straight_flush = {en="Straight Flush", sl="Barvna lestvica", font=Font.fonts.font_average},
+    royal_flush = {en="Royal Flush", sl="Kraljeva\nbarvna lestvica", font=Font.fonts.font_small},
 
     -- cards
     card_ace_clubs = {en="Ace of Clubs", sl="As križev"},

@@ -1,4 +1,5 @@
 local Utils = require "src.Utils"
+local Color = require "src.Color"
 local GameState = require "src.GameState"
 
 ---@class Button : Drawable
@@ -39,7 +40,7 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
             normalButtonDraw(self)
         end
 
-        Utils.resetColor()
+        Color:resetColor()
 
         -- TEXT 
         -- we detect if its a colored table, otherwise language table or plain string
@@ -72,12 +73,12 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
 
         -- only color whole text when not using a colored sequence
         if not isColoredTable then
-            Utils.setColorRGB(self.text_color)
+            Color:setColorRGB(self.text_color)
         end
 
         love.graphics.print(display, text_x, text_y)
 
-        Utils.resetColor()
+        Color:resetColor()
     end
 
     return self
@@ -87,7 +88,7 @@ end
 ---@param self Button|Drawable
 normalButtonDraw = function(self)
     -- button
-    Utils.setColorRGB(self.button_color)
+    Color:setColorRGB(self.button_color)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 end
 
@@ -95,11 +96,11 @@ end
 ---@param self Button|Drawable
 borderedButtonDraw = function(self)
     -- border
-    Utils.setColorRGB(self.border_color)
+    Color:setColorRGB(self.border_color)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 
     -- button
-    Utils.setColorRGB(self.button_color)
+    Color:setColorRGB(self.button_color)
     local button_x = self.x + self.border_width
     local button_y = self.y + self.border_width
     local button_width = self.width - 2*self.border_width
