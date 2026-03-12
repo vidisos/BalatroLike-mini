@@ -14,6 +14,7 @@ function Spark:Spark(spark_base, onClickFunc)
     self.title = spark_base.title
     self.desc = spark_base.desc
     self.isActive = false
+    self.selected = false
     self.activation_type = spark_base.activation_type
     self.effect = spark_base.effect
 

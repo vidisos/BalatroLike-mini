@@ -25,7 +25,9 @@ local LANG = {
     choose_spark = {en="Choose a\n Spark!", sl="Izberi\n Iskro!"},
 
     chips = {en="chips", sl="žetonov"},
+    delete_spark = {en="Remove", sl="Odstrani"},
 
+    -- hands
     high_card = {en="High Card", sl="Visoka karta"},
     pair = {en="Pair", sl="En par"},
     two_pair = {en="Two Pair", sl="Dva para"},

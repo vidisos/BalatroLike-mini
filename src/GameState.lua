@@ -399,17 +399,15 @@ function GameState:selectSpark(spark)
     self:clearSelectionSparks()
 end
 
----deletes all sparks on the main scene
+---deletes all sparks on the main scene (and their delete buttons if needed)
 function GameState:clearSparks()
     local scene = Scenes:getScene("game-main")
-
-    Scenes:removeDrawable("game-main", e)
 
     -- we need to iterate backwards otherwise it doesnt remove properly(the index moves and stuff)
     for i = #scene.drawables, 1, -1 do
 
         local drawable = scene.drawables[i]
-        if drawable.type == "Spark" then
+        if drawable.type == "Spark" or string.sub(drawable.id, -3) == "btn" then
             table.remove(scene.drawables, i)
         end
     end
@@ -441,6 +439,15 @@ function GameState:getActiveSparks()
     end
 
     return sparks
+end
+
+---refreshes the display and z indexes of the active sparks (in case of deletion)
+function GameState:refreshActiveSparks()
+    local active_sparks = self:getActiveSparks()
+    for i, spark in ipairs(active_sparks) do
+        spark.displayIndex = i
+        spark.z_index = 3 + i
+    end
 end
 
 ---deletes all the normal cards
@@ -584,10 +591,6 @@ function GameState.updateCardInHandFunc(self, dt)
     end
 end
 
-function GameState.hoverCardInHandFunc(self, dt)
-
-end
-
 ---creates new drawables that represent the hovered card
 ---@param self Card|Drawable
 function GameState.showCardInfo(self)
@@ -690,12 +693,6 @@ function GameState.showSparkInfo(self)
     local info_width = self.width
     local info_height = 200
 
-    local current_scene = "game-won"
-
-    if self.isActive then
-        current_scene = "game-main"
-    end
-
     ---@type Drawable
     local background = Drawable:new(
         self.id.."infoBoxBack", self.z_index + GameState.active_sparks_count,
@@ -737,6 +734,12 @@ function GameState.showSparkInfo(self)
         nil, {255, 255, 255}
     )
 
+    local current_scene = "game-won"
+
+    if self.isActive then
+        current_scene = "game-main"
+    end
+
     Scenes:addDrawable(current_scene, background)
     Scenes:addDrawable(current_scene, title)
     Scenes:addDrawable(current_scene, desc)
@@ -751,27 +754,34 @@ end
 
 function GameState.updateActiveSparkFunc(self, dt)
     if self.isActive then
-        local N = #GameState:getActiveSparks()
+        local active_sparks = GameState:getActiveSparks()
+        local N = #active_sparks
         local SW = CONSTANTS.CARD_WIDTH
         local W = CONSTANTS.SPARKS_WIDTH
         local spark_margin = CONSTANTS.SPARKS_MARGIN
-        local total_sparks_width = N * SW + 4*CONSTANTS.SPARKS_MARGIN
+
+        GameState:refreshActiveSparks()
+        local display_index = self.displayIndex
+
+        local total_sparks_width = N * SW + 4 * CONSTANTS.SPARKS_MARGIN
 
         if N <= 5 then
-            if self.displayIndex == 1 and N == 5 then
+            if display_index == 1 and N == 5 then
                 spark_margin = 0
             end
 
             local start_x = CONSTANTS.SPARKS_X + (W - total_sparks_width) / 2
-            self.x = start_x + (self.displayIndex - 1) * (SW + spark_margin)
+            self.x = start_x + (display_index - 1) * (SW + spark_margin)
         else
             local spacing = (W - SW) / (N - 1)
-            self.x = CONSTANTS.SPARKS_X + (self.displayIndex - 1) * spacing
+            self.x = CONSTANTS.SPARKS_X + (display_index - 1) * spacing
         end
     end
 end
 
+---@param self Spark|Drawable
 function GameState.sparkOnClickFunc(self)
+    --for then the spark is in selection screen
     if not self.isActive then
         GameState:resetRoundState()
         GameState:selectSpark(self)
@@ -779,7 +789,50 @@ function GameState.sparkOnClickFunc(self)
         Scenes:disableScene("game-won")
         GameState:makeNewHand()
         GameState:refreshHand()
+        return
     end
+
+    if not self.selected then
+        local active_sparks = GameState:getActiveSparks()
+        for _, spark in ipairs(active_sparks) do
+            spark.selected = false
+            Scenes:removeDrawable("game-main", spark.id.."btn")
+        end
+
+        -- making a spark delete button
+        local spark_id = self.id -- so we can use it in the function for the button
+        local id = self.id.."btn"
+        local z_index = self.z_index
+        local width = 100
+        local height = 80
+        local x = self.x - width
+        local y = self.height/2
+
+        local button = Drawable:new(id, z_index, x, y, width, height,
+                function (self, dt)
+                    local spark_id = string.sub(self.id, 1, -4)
+                    local spark = Scenes:getDrawable("game-main", spark_id)
+                    self.z_index = spark.z_index
+                    self.x = spark.x - width
+                end
+            ):Button(
+            LANG.delete_spark, Font:resizeFont(Font.font_paths.pixel_font, 20),
+            nil, nil,
+            function (self)
+                Scenes:removeDrawable("game-main", spark_id)
+                Scenes:removeDrawable("game-main", self.id)
+                GameState:refreshActiveSparks()
+            end,
+            5, {255, 0, 0}
+        )
+
+        Scenes:addDrawable("game-main", button)
+    else
+        Scenes:removeDrawable("game-main", self.id.."btn")
+    end
+
+    Scenes:sortDrawables("game-main")
+    self.selected = not self.selected
 end
 
 return GameState
