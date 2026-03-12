@@ -29,6 +29,7 @@ local GameState = {
 
     selected_hand = nil,
     active_cards = {},
+    active_sparks_count = 0,
 
     chips = 0,
     mult = 0,
@@ -102,7 +103,6 @@ function GameState:roundWon()
 
     local game_win_background = Scenes:getDrawable("game-won", "rect-background")
     for i=1, self.spark_active_max do
-        local id = "spark" .. i
         local z_index = 1
 
         local x_margin = 100
@@ -116,7 +116,12 @@ function GameState:roundWon()
         local spark_base = temp_sparks[rnd]
         table.remove(temp_sparks, rnd)
 
+        local id = spark_base.title[self.current_lang] .. i
+
         local spark = Drawable:new(id, z_index, x, y, width, height, self.updateActiveSparkFunc):Spark(spark_base, self.sparkOnClickFunc)
+        spark.onEnterHoverFunc = self.showSparkInfo
+        spark.onExitHoverFunc = self.disableSparkInfo
+
         Scenes:addDrawable("game-won", spark)
     end
 
@@ -546,8 +551,6 @@ function GameState:getCurrentLevelText()
         return LANG.level2
     elseif GameState.level == 3 then
         return LANG.level3
-    else
-        error("No current level text found")
     end
 end
 
@@ -642,6 +645,89 @@ function GameState.cardOnClickFunc(self)
         GameState.selected_cards_count = GameState.selected_cards_count + 1
         GameState:checkHandRanking()
     end
+end
+
+---creates new drawables that represent the hovered spark
+---@param self Spark|Drawable
+function GameState.showSparkInfo(self)
+    local spark_id = self.id
+
+    local margin_x, margin_y
+
+    if self.isActive then
+        margin_x = 0
+        margin_y = CONSTANTS.CARD_HEIGHT + 10
+    else
+        margin_x = 0
+        margin_y = -120
+    end
+
+    local info_x = self.x + margin_x
+    local info_y = self.y + margin_y
+    local info_width = self.width
+    local info_height = 100
+
+    local current_scene = "game-won"
+
+    if self.isActive then
+        current_scene = "game-main"
+    end
+
+    ---@type Drawable
+    local background = Drawable:new(
+        self.id.."infoBoxBack", self.z_index + GameState.active_sparks_count,
+        info_x, info_y, info_width, info_height,
+        function (self)
+            local spark = Scenes:getDrawableGlobal(spark_id)
+            self.x = spark.x + margin_x
+            self.y = spark.y + margin_y
+        end
+    ):Rectangle({145, 143, 137}, 3, {255, 255, 255})
+
+    ---@type Drawable
+    local title = Drawable:new(
+        self.id.."infoBoxTitle", self.z_index + GameState.active_sparks_count + 1,
+        info_x+7, info_y+7, info_width-14, info_height - 62,
+        function (self)
+            local infoBox = Scenes:getDrawableGlobal(spark_id.."infoBoxBack")
+            self.x = infoBox.x+7
+            self.y = infoBox.y+7
+        end
+    ):TextBox(
+        self.title, Font:resizeFont(Font.font_paths.pixel_font, 14),
+        nil, {255, 255, 255}
+    )
+
+    ---@type Drawable
+    local desc = Drawable:new(
+        self.id.."infoBoxDesc", self.z_index + GameState.active_sparks_count + 1,
+        info_x+7, info_y-7 + 60, info_width-14, info_height - 60,
+        function (self)
+            local infoBox = Scenes:getDrawableGlobal(spark_id.."infoBoxBack")
+            self.x = infoBox.x +7
+            self.y = infoBox.y + 60 -7
+        end
+    ):TextBox(
+        self.desc, Font:resizeFont(Font.font_paths.pixel_font, 15),
+        nil, {255, 255, 255}
+    )
+
+    Scenes:addDrawable(current_scene, background)
+    Scenes:addDrawable(current_scene, title)
+    Scenes:addDrawable(current_scene, desc)
+    Scenes:sortDrawables(current_scene)
+end
+
+function GameState.disableSparkInfo(self)
+    local current_scene = "game-won"
+
+    if self.isActive then
+        current_scene = "game-main"
+    end
+
+    Scenes:removeDrawable(current_scene, self.id.."infoBoxBack")
+    Scenes:removeDrawable(current_scene, self.id.."infoBoxTitle")
+    Scenes:removeDrawable(current_scene, self.id.."infoBoxDesc")
 end
 
 function GameState.updateActiveSparkFunc(self, dt)

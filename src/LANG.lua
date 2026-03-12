@@ -92,7 +92,38 @@ local LANG = {
     card_10_spades = {en="10 of Spades", sl="10 pik"},
     card_jack_spades = {en="Jack of Spades", sl="Fant pik"},
     card_queen_spades = {en="Queen of Spades", sl="Dama pik"},
-    card_king_spades = {en="King of Spades", sl="Kralj pik"}
+    card_king_spades = {en="King of Spades", sl="Kralj pik"},
+
+    --sparks
+    spark_1_title = {en="Spark 1", sl="Iskra 1"},
+    spark_1_desc = {en="Description of Spark 1", sl="Opis Iskre 1"},
+
+    spark_2_title = {en="Spark 2", sl="Iskra 2"},
+    spark_2_desc = {en="Description of Spark 2", sl="Opis Iskre 2"},
+
+    spark_3_title = {en="Spark 3", sl="Iskra 3"},
+    spark_3_desc = {en="Description of Spark 3", sl="Opis Iskre 3"},
+
+    spark_4_title = {en="Spark 4", sl="Iskra 4"},
+    spark_4_desc = {en="Description of Spark 4", sl="Opis Iskre 4"},
+
+    spark_5_title = {en="Spark 5", sl="Iskra 5"},
+    spark_5_desc = {en="Description of Spark 5", sl="Opis Iskre 5"},
+
+    spark_6_title = {en="Spark 6", sl="Iskra 6"},
+    spark_6_desc = {en="Description of Spark 6", sl="Opis Iskre 6"},
+
+    spark_7_title = {en="Spark 7", sl="Iskra 7"},
+    spark_7_desc = {en="Description of Spark 7", sl="Opis Iskre 7"},
+
+    spark_8_title = {en="Spark 8", sl="Iskra 8"},
+    spark_8_desc = {en="Description of Spark 8", sl="Opis Iskre 8"},
+
+    spark_9_title = {en="Spark 9", sl="Iskra 9"},
+    spark_9_desc = {en="Description of Spark 9", sl="Opis Iskre 9"},
+
+    spark_10_title = {en="Spark 10", sl="Iskra 10"},
+    spark_10_desc = {en="Description of Spark 10", sl="Opis Iskre 10"},
 }
 
 return LANG

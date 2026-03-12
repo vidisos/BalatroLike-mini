@@ -137,11 +137,22 @@ function Scenes:getScene(id)
             return scene
         end
     end
+end
 
-    error("Scenes:getScene(id): Bad scene id")
+---returns a specific drawable table with the id, goes through all scenes in case of drawable movement between scenes
+---@return Drawable
+function Scenes:getDrawableGlobal(id)
+    for _, scene in ipairs(Scenes.scene_list) do
+        for _, drawable in ipairs(scene.drawables) do
+            if drawable.id == id then
+                return drawable
+            end
+        end
+    end
 end
 
 ---returns a specific drawable table with the id
+---@param scene_id string
 ---@param id string
 ---@return Drawable
 function Scenes:getDrawable(scene_id, id)
@@ -151,8 +162,6 @@ function Scenes:getDrawable(scene_id, id)
             return drawable
         end
     end
-
-    error("Scenes:getDrawableItem(scene_id, id): smth wrong idk lel")
 end
 
 ---allows one scene to be drawn
