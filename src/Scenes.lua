@@ -132,7 +132,7 @@ end
 ---@param id string
 ---@return Scene
 function Scenes:getScene(id)
-    for _, scene in ipairs(Scenes.scene_list) do
+    for _, scene in ipairs(self.scene_list) do
         if scene.id == id then
             return scene
         end
@@ -142,7 +142,7 @@ end
 ---returns a specific drawable table with the id, goes through all scenes in case of drawable movement between scenes
 ---@return Drawable
 function Scenes:getDrawableGlobal(id)
-    for _, scene in ipairs(Scenes.scene_list) do
+    for _, scene in ipairs(self.scene_list) do
         for _, drawable in ipairs(scene.drawables) do
             if drawable.id == id then
                 return drawable
@@ -215,6 +215,17 @@ function Scenes:addDrawable(scene_id, drawable)
     local scene = Scenes:getScene(scene_id)
     if scene then
         table.insert(scene.drawables, drawable)
+    end
+end
+
+---removes a drawable with the id in any scene, in case the drawable is moved around and such
+function Scenes:removeDrawableGlobal(id)
+    for _, scene in ipairs(self.scene_list) do
+        for i, drawable in ipairs(scene.drawables) do
+            if drawable.id == id then
+                table.remove(scene.drawables, i)
+            end
+        end
     end
 end
 

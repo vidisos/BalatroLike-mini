@@ -26,6 +26,7 @@
 
 ---@class SparkBase
 ---@field image love.Image
+---@field id string
 ---@field title LanguageEntry
 ---@field desc LanguageEntry
 ---@field activation_type string
