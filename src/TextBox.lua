@@ -15,16 +15,18 @@ local TextBox = {}
 ---@param font? love.Font
 ---@param text_color? RGB
 ---@param background_color? RGB
----@param alignment? string
+---@param text_alignment? string
+---@param text_margin? number
 ---@return TextBox
-function TextBox:TextBox(text, font, text_color, background_color, alignment)
+function TextBox:TextBox(text, font, text_color, background_color, text_alignment, text_margin)
     self.type = "TextBox"
     self.text = text or ""
     self.baseFont = font or love.graphics.getFont()
     self.font = font or self.baseFont
     self.text_color = text_color or Color.white
     self.background_color = background_color
-    self.alignment = alignment or "center"
+    self.text_alignment = text_alignment or "center"
+    self.text_margin = text_margin or 0
 
     -- we dont need the onclick for this drawable, this is just here so it doesnt break
     self.onClickFunc = function () end
@@ -36,43 +38,7 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
             love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
         end
 
-        -- TEXT 
-        -- we detect if its a colored table, otherwise language table or plain string
-        local display
-        local isColoredTable = type(self.text) == "table" and type(self.text[1]) == "table" and type(self.text[2]) == "string"
-
-        if isColoredTable then
-            -- colored text table
-            display = self.text
-        elseif type(self.text) == "table" then
-            -- language table
-            display = self.text[GameState.current_lang] or ""
-            if self.text.font then
-                self.font = self.text.font
-            else
-                self.font = self.baseFont
-            end
-        else
-            -- plain string
-            display = self.text or ""
-        end
-
-        local plain_text = Utils.plainTextFrom(display)
-        local wrap_width = self.alignment and (self.width - 10) or self.width
-        local _, lines = self.font:getWrap(plain_text, wrap_width)
-        local text_height = self.font:getHeight() * #lines
-        local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
-
-        love.graphics.setFont(self.font)
-
-        -- only color whole text when not using a colored sequence
-        if not isColoredTable then
-            Color:setColorRGB(self.text_color)
-        end
-
-        love.graphics.printf(display, self.x + 5, text_y, self.width - 10, self.alignment)
-
-        Color:resetColor()
+        Utils.drawText(self.text, self.font, self.text_color, GameState.current_lang, self.x, self.y, self.width, self.height, self.text_alignment, self.text_margin)
     end
 
     return self

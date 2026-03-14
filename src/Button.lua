@@ -17,21 +17,25 @@ local normalButtonDraw, borderedButtonDraw
 ---@param text? LanguageEntry|string
 ---@param font? love.Font
 ---@param text_color? RGB
----@param button_color? RGB
+---@param background_color? RGB
 ---@param onClickFunc? fun(self)
 ---@param border_width? number
 ---@param border_color? RGB
+---@param text_alignment? "left"|"center"|"right"
+---@param text_margin? number
 ---@return Button
-function Button:Button(text, font, text_color, button_color, onClickFunc, border_width, border_color)
+function Button:Button(text, font, text_color, background_color, onClickFunc, border_width, border_color, text_alignment, text_margin)
     self.type = "Button"
     self.text = text or ""
     self.baseFont = font or love.graphics.getFont()
     self.font = font or self.baseFont
     self.text_color = text_color or Color.white
-    self.button_color = button_color or {255, 255, 255}
+    self.button_color = background_color or {255, 255, 255}
     self.onClickFunc = onClickFunc or function () end
     self.border_width = border_width or 0
     self.border_color = border_color or Color.white
+    self.text_alignment = text_alignment or "center"
+    self.text_margin = text_margin or 0
 
     self.drawFunc = function ()
         -- BUTTON
@@ -43,42 +47,7 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
 
         Color:resetColor()
 
-        -- TEXT 
-        -- we detect if its a colored table, otherwise language table or plain string
-        local display
-        local isColoredTable = type(self.text) == "table" and type(self.text[1]) == "table" and type(self.text[2]) == "string"
-
-        if isColoredTable then
-            -- colored text table
-            display = self.text
-        elseif type(self.text) == "table" then
-            -- language table
-            display = self.text[GameState.current_lang] or ""
-            if self.text.font then
-                self.font = self.text.font
-            else
-                self.font = self.baseFont
-            end
-        else
-            -- plain string
-            display = self.text or ""
-        end
-
-        local plain_text = Utils.plainTextFrom(display)
-        local _, lines = self.font:getWrap(plain_text, self.width)
-        local text_height = self.font:getHeight() * #lines
-        local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
-
-        love.graphics.setFont(self.font)
-
-        -- only color whole text when not using a colored sequence
-        if not isColoredTable then
-            Color:setColorRGB(self.text_color)
-        end
-
-        love.graphics.printf(display, self.x, text_y, self.width, "center")
-
-        Color:resetColor()
+        Utils.drawText(self.text, self.font, self.text_color, GameState.current_lang, self.x, self.y, self.width, self.height, self.text_alignment, self.text_margin)
     end
 
     return self

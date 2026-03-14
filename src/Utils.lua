@@ -1,4 +1,5 @@
 local Utils = {}
+local Color = require "src.Color"
 
 ---returns the x to center an inner item inside an outer item
 ---@return number
@@ -14,8 +15,79 @@ function Utils.getCenterAnchorY(y, outer_height, inner_height)
     return y
 end
 
+---draws text (preventing button and textbox code duplication for text)
+---@param text string|LanguageEntry|table
+---@param base_font love.Font
+---@param text_color RGB
+---@param lang string
+---@param x number
+---@param y number
+---@param width number
+---@param height number
+---@param alignment? string
+---@param x_margin? number
+function Utils.drawText(text, base_font, text_color, lang, x, y, width, height, alignment, x_margin)
+    alignment = alignment or "center"
+    x_margin = x_margin or 0
+
+    local display = Utils.resolveText(text, lang)
+
+    local font = base_font
+    -- if its a language entry with an added font then we use that instead
+    if type(text) == "table" and text.font then
+        font = text.font
+    end
+
+    local isColored = type(display) == "table"
+    local plain
+    if isColored then
+        plain = Utils.plainTextFrom(display)
+    else
+        plain = display
+    end
+
+    local _, lines = font:getWrap(plain, width)
+    local text_y = Utils.getCenterAnchorY(y, height, font:getHeight() * #lines)
+
+    love.graphics.setFont(font)
+    if not isColored then
+        Color:setColorRGB(text_color)
+    end
+    love.graphics.printf(display, x + x_margin, text_y, width, alignment)
+    Color:resetColor()
+end
+
+---returns a string(can be from language entry) or a colored table from any input
+---@param text string|LanguageEntry|table
+---@param lang string
+---@return table|string  -- colored table or plain string
+function Utils.resolveText(text, lang)
+    if type(text) == "string" then
+        return text  -- plain string, let caller set color
+    end
+
+    if type(text) == "table" then
+        -- colored table: { {r,g,b}, "str", {r,g,b}, "str", ... }
+        if type(text[1]) == "table" then
+            return text
+        end
+
+        -- language table: { en="...", sl="...", font=..., colored={...} }
+        local entry = text[lang] or text.en or ""
+
+        -- language entry can itself be a colored table
+        if type(entry) == "table" and type(entry[1]) == "table" then
+            return entry
+        end
+
+        return entry  -- plain string from lang table
+    end
+
+    return ""
+end
+
 ---gets plain text string from a languauge entry, colored text table or just normal text
----@param val any
+---@param val string|LanguageEntry|table
 ---@return string
 function Utils.plainTextFrom(val)
     if type(val) ~= "table" then
@@ -30,25 +102,6 @@ function Utils.plainTextFrom(val)
     end
 
     return table.concat(buf)
-end
-
----counts the number of lines in a string or colored-text table, including the first line
----@param text string|table 
-function Utils.countLines(text)
-    -- in case of a colored text table
-    if type(text) == "table" then
-        local text_concatenated = {}
-        for _, v in ipairs(text) do
-            if type(v) == "string" then
-                table.insert(text_concatenated, v)
-            end
-        end
-
-        text = table.concat(text_concatenated)
-    end
-
-    local _, count = text:gsub("\n", "\n")
-    return count + 1
 end
 
 ---clears all elements from the given table

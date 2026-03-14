@@ -65,13 +65,13 @@ return {
             {240,67,67}
         ),
 
-        --current score
+        -- current score
         Drawable:new("rect-current-score-base-background",2,
             Utils.getCenterAnchorX(0,450,400),400,400,100
         ):Rectangle({0,0,0}),
 
         Drawable:new("text-current-score-text",3,
-            40,400,110,100
+            30,400,120,100
         ):TextBox(
             LANG.round_score,
             Font:resizeFont(Font.font_paths.pixel_font,30),
@@ -99,8 +99,8 @@ return {
         ):Rectangle({154,162,173}),
 
         Drawable:new("text-selected-hand",4,
-            Utils.getCenterAnchorX(Utils.getCenterAnchorX(0,450,400),400,350),
-            525,350,100,
+            Utils.getCenterAnchorX(Utils.getCenterAnchorX(0,450,400),400,380),
+            525,380,100,
             function(self)
                 self.text = LANG[GameState.selected_hand]
             end
@@ -121,7 +121,8 @@ return {
             Font:resizeFont(Font.font_paths.pixel_font,60),
             {255,255,255},
             {0,0,255},
-            "right"
+            "right",
+            -5
         ),
 
         Drawable:new("text-multiply-sign",3,
@@ -143,7 +144,8 @@ return {
             Font:resizeFont(Font.font_paths.pixel_font,60),
             {255,255,255},
             {255,0,0},
-            "left"
+            "left",
+            5
         ),
 
         -- hand count

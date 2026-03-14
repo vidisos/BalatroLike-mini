@@ -50,9 +50,9 @@
 ---@field onExitHoverFunc fun(self: Drawable)
 ---@field drawFunc fun(self: Drawable)
 ---@field isHoveredFunc fun(self: Drawable, mx: number, my: number): boolean
----@field Button fun(self: Drawable, text?: table | string, font?: love.Font, text_color?: table, button_color?: table, onClickFunc?: fun(self), border_width?: number, border_color?: table): Button
+---@field Button fun(self: Drawable, text?: LanguageEntry | string, font?: love.Font, text_color?: RGB, background_color?: RGB, onClickFunc?: fun(self), border_width?: number, border_color?: RGB, text_alignment?: "left"|"center"|"right", text_margin?: number): Button
 ---@field ImageBox fun(self: Drawable, image?: love.Image, onClickFunc?: fun(self)): ImageBox
 ---@field Rectangle fun(self: Drawable, background_color?: table, border_width?: number, border_color?: table): Rectangle
----@field TextBox fun(self: Drawable, text?: table | string, font?: love.Font, text_color?: table, background_color?: table, alignment?: string): TextBox
+---@field TextBox fun(self: Drawable, text?: table | LanguageEntry | string, font?: love.Font, text_color?: RGB, background_color?: RGB, text_alignment?: "left"|"center"|"right", text_margin?: number): TextBox
 ---@field Card fun(self: Drawable, card_base: CardBase, onClickFunc?: fun(self)): Card
 ---@field Spark fun(self: Drawable, spark_base: SparkBase, onClickFunc?: fun(self)): Spark|Drawable

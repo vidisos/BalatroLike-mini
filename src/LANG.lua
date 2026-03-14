@@ -96,39 +96,80 @@ local LANG = {
 
     --sparks
     spark_1_title = {en="Zany Joker", sl="Nori Joker"},
-    spark_1_desc = {en="+8 Mult if played hand contains a Pair", sl="+8 mult, če igrana roka vsebuje Par"},
+    spark_1_desc = {
+        en={ {1,0.196,0.196},"+8 Mult", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Pair" },
+        sl={ {1,0.196,0.196},"+8 mult", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Par" }
+    },
     spark_2_title = {en="Zany Joker", sl="Nori Joker"},
-    spark_2_desc = {en="+12 Mult if played hand contains a Three of a Kind", sl="+12 mult, če igrana roka vsebuje Tris"},
+    spark_2_desc = {
+        en={ {1,0.196,0.196},"+12 Mult", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Three of a Kind" },
+        sl={ {1,0.196,0.196},"+12 mult", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Tris" }
+    },
     spark_3_title = {en="Mad Joker", sl="Blazni Joker"},
-    spark_3_desc = {en="+10 Mult if played hand contains a Two Pair", sl="+10 mult, če igrana roka vsebuje Dva para"},
+    spark_3_desc = {
+        en={ {1,0.196,0.196},"+10 Mult", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Two Pair" },
+        sl={ {1,0.196,0.196},"+10 mult", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Dva para" }
+    },
     spark_4_title = {en="Crazy Joker", sl="Nor Joker"},
-    spark_4_desc = {en="+12 Mult if played hand contains a Straight", sl="+12 mult, če igrana roka vsebuje Lestvico"},
+    spark_4_desc = {
+        en={ {1,0.196,0.196},"+12 Mult", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Straight" },
+        sl={ {1,0.196,0.196},"+12 mult", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Lestvico" }
+    },
     spark_5_title = {en="Droll Joker", sl="Zabaven Joker"},
-    spark_5_desc = {en="+10 Mult if played hand contains a Flush", sl="+10 mult, če igrana roka vsebuje Barvo"},
+    spark_5_desc = {
+        en={ {1,0.196,0.196},"+10 Mult", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Flush" },
+        sl={ {1,0.196,0.196},"+10 mult", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Barvo" }
+    },
 
     spark_6_title = {en="Sly Joker", sl="Prekanjen Joker"},
-    spark_6_desc = {en="+50 Chips if played hand contains a Pair", sl="+50 žetonov, če igrana roka vsebuje Par"},
+    spark_6_desc = {
+        en={ {0.392,0.588,1},"+50 Chips", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Pair" },
+        sl={ {0.392,0.588,1},"+50 žetonov", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Par" }
+    },
     spark_7_title = {en="Wily Joker", sl="Hiter Joker"},
-    spark_7_desc = {en="+100 Chips if played hand contains a Three of a Kind", sl="+100 žetonov, če igrana roka vsebuje Tris"},
+    spark_7_desc = {
+        en={ {0.392,0.588,1},"+100 Chips", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Three of a Kind" },
+        sl={ {0.392,0.588,1},"+100 žetonov", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Tris" }
+    },
     spark_8_title = {en="Clever Joker", sl="Pameten Joker"},
-    spark_8_desc = {en="+80 Chips if played hand contains a Two Pair", sl="+80 žetonov, če igrana roka vsebuje Dva para"},
+    spark_8_desc = {
+        en={ {0.392,0.588,1},"+80 Chips", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Two Pair" },
+        sl={ {0.392,0.588,1},"+80 žetonov", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Dva para" }
+    },
     spark_9_title = {en="Devious Joker", sl="Zloben Joker"},
-    spark_9_desc = {en="+100 Chips if played hand contains a Straight", sl="+100 žetonov, če igrana roka vsebuje Lestvico"},
+    spark_9_desc = {
+        en={ {0.392,0.588,1},"+100 Chips", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Straight" },
+        sl={ {0.392,0.588,1},"+100 žetonov", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Lestvico" }
+    },
     spark_10_title = {en="Crafty Joker", sl="Spreten Joker"},
-    spark_10_desc = {en="+80 Chips if played hand contains a Flush", sl="+80 žetonov, če igrana roka vsebuje Barvo"},
-
+    spark_10_desc = {
+        en={ {0.392,0.588,1},"+80 Chips", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Flush" },
+        sl={ {0.392,0.588,1},"+80 žetonov", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Barvo" }
+    },
 
     spark_11_title = {en="Spark 1", sl="Iskra 1"},
-    spark_11_desc = {en="+1 Hand", sl="+1 Roka"},
+    spark_11_desc = {
+        en={ {1,0.863,0.196},"+1", {0,0,0}," Hand" },
+        sl={ {1,0.863,0.196},"+1", {0,0,0}," Roka" }
+    },
 
     spark_12_title = {en="Spark", sl="Iskra"},
-    spark_12_desc = {en="Get 2 more sparks as choices after winning a round", sl="2 dodatni izbiri isker po zmagi runde"},
+    spark_12_desc = {
+        en={ {1,0.863,0.196},"2", {0,0,0}," more spark choices after winning a round" },
+        sl={ {1,0.863,0.196},"2", {0,0,0}," dodatni izbiri isker po zmagi runde" }
+    },
 
     spark_13_title = {en="Spark 3", sl="Iskra 3"},
-    spark_13_desc = {en="All played aces give x1.5 mult", sl="Vsi igrani as-i ponudijo x1.5 mult"},
+    spark_13_desc = {
+        en={ {0,0,0},"All played ", {1,0.588,0.196},"Aces", {0,0,0}," give ", {1,0.314,0.314},"x1.5 Mult" },
+        sl={ {0,0,0},"Vsi igrani ", {1,0.588,0.196},"as-i", {0,0,0}," ponudijo ", {1,0.314,0.314},"x1.5 mult" }
+    },
 
     spark_14_title = {en="Trash can", sl="Smetnjak"},
-    spark_14_desc = {en="+2 discards", sl="+2 zavržka"}
+    spark_14_desc = {
+        en={ {1,0.863,0.196},"+2", {0,0,0}," Discards" },
+        sl={ {1,0.863,0.196},"+2", {0,0,0}," zavržka" }
+    }
 }
 
 return LANG

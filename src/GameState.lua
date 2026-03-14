@@ -16,7 +16,7 @@ local GameState = {
     deck_size = 52,
     spark_active_max = 5,
     base_hands_remaining_max = 4,
-    base_discards_remaining_max = 999,
+    base_discards_remaining_max = 3,
 
     --level info
     level = 1,
@@ -705,7 +705,7 @@ function GameState.showSparkInfo(self)
     local info_x = self.x
     local info_y = self.y + CONSTANTS.CARD_HEIGHT + 10
     local info_width = self.width
-    local info_height = 200
+    local info_height = 140
 
     ---@type Drawable
     local background = Drawable:new(
