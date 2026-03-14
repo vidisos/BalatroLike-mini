@@ -11,16 +11,16 @@ local LANG = {
     -- main game
     level = {en="Level", sl="Stopnja"},
     score_text = {en="Score at least:", sl="Doseži vsaj:"},
-    round_score = {en="Round\nScore", sl="Točke\nstopnje"},
+    round_score = {en="Round Score", sl="Točke stopnje"},
     hands = {en="Hands", sl="Roke"},
     discards = {en="Discards", sl="Zavržki"},
-    ranking_info = {en="Ranking\ninfo", sl="Info\nrok"},
+    ranking_info = {en="Ranking info", sl="Info rok"},
     play_hand = {en="Play hand", sl="Igraj roko"},
     discard_hand = {en="Discard", sl="Zavrži"},
     to_main_menu = {en="Main menu", sl="Glavni meni"},
     new_game = {en="New game", sl="Nova igra"},
-    you_lose = {en="You\nlose!", sl="Zgubil\n   si!"},
-    choose_spark = {en="Choose a\n Spark!", sl="Izberi\n Iskro!"},
+    you_lose = {en="You lose!", sl="Zgubil si!"},
+    choose_spark = {en="Choose a Spark!", sl="Izberi Iskro!"},
 
     chips = {en="chips", sl="žetonov"},
     delete_spark = {en="Remove", sl="Odstrani"},
@@ -35,7 +35,7 @@ local LANG = {
     full_house = {en="Full House", sl="Polna hiša"},
     four_of_a_kind = {en="Four of a Kind", sl="Poker", font=Font.fonts.font_average},
     straight_flush = {en="Straight Flush", sl="Barvna lestvica", font=Font.fonts.font_average},
-    royal_flush = {en="Royal Flush", sl="Kraljeva\nbarvna lestvica", font=Font.fonts.font_small},
+    royal_flush = {en="Royal Flush", sl="Kraljeva barvna lestvica", font=Font.fonts.font_small},
 
     -- cards
     card_ace_clubs = {en="Ace of Clubs", sl="As križev"},
@@ -95,35 +95,40 @@ local LANG = {
     card_king_spades = {en="King of Spades", sl="Kralj pik"},
 
     --sparks
-    spark_1_title = {en="Spark 1", sl="Iskra 1"},
-    spark_1_desc = {en="+1 Hand", sl="+1 Roka"},
+    spark_1_title = {en="Zany Joker", sl="Nori Joker"},
+    spark_1_desc = {en="+8 Mult if played hand contains a Pair", sl="+8 mult, če igrana roka vsebuje Par"},
+    spark_2_title = {en="Zany Joker", sl="Nori Joker"},
+    spark_2_desc = {en="+12 Mult if played hand contains a Three of a Kind", sl="+12 mult, če igrana roka vsebuje Tris"},
+    spark_3_title = {en="Mad Joker", sl="Blazni Joker"},
+    spark_3_desc = {en="+10 Mult if played hand contains a Two Pair", sl="+10 mult, če igrana roka vsebuje Dva para"},
+    spark_4_title = {en="Crazy Joker", sl="Nor Joker"},
+    spark_4_desc = {en="+12 Mult if played hand contains a Straight", sl="+12 mult, če igrana roka vsebuje Lestvico"},
+    spark_5_title = {en="Droll Joker", sl="Zabaven Joker"},
+    spark_5_desc = {en="+10 Mult if played hand contains a Flush", sl="+10 mult, če igrana roka vsebuje Barvo"},
 
-    spark_2_title = {en="Spark 2", sl="Iskra 2"},
-    spark_2_desc = {en="+50 chips if\nplayed hand\nis flush", sl="+50 žetonov, če\nje izbrana\nroka Barva"},
+    spark_6_title = {en="Sly Joker", sl="Prekanjen Joker"},
+    spark_6_desc = {en="+50 Chips if played hand contains a Pair", sl="+50 žetonov, če igrana roka vsebuje Par"},
+    spark_7_title = {en="Wily Joker", sl="Hiter Joker"},
+    spark_7_desc = {en="+100 Chips if played hand contains a Three of a Kind", sl="+100 žetonov, če igrana roka vsebuje Tris"},
+    spark_8_title = {en="Clever Joker", sl="Pameten Joker"},
+    spark_8_desc = {en="+80 Chips if played hand contains a Two Pair", sl="+80 žetonov, če igrana roka vsebuje Dva para"},
+    spark_9_title = {en="Devious Joker", sl="Zloben Joker"},
+    spark_9_desc = {en="+100 Chips if played hand contains a Straight", sl="+100 žetonov, če igrana roka vsebuje Lestvico"},
+    spark_10_title = {en="Crafty Joker", sl="Spreten Joker"},
+    spark_10_desc = {en="+80 Chips if played hand contains a Flush", sl="+80 žetonov, če igrana roka vsebuje Barvo"},
 
-    spark_3_title = {en="Spark 3", sl="Iskra 3"},
-    spark_3_desc = {en="All played aces\ngive x1.5 mult", sl="Vsi igrani as-i\nponudijo x1.5 mult"},
 
-    spark_4_title = {en="Spark 4", sl="Iskra 4"},
-    spark_4_desc = {en="All 3, ace and 4\ncards give 2 mult\nwhen played", sl="Vse 3, as in 4\nkarte dodajo\n2 mult, ko so\nigrane"},
+    spark_11_title = {en="Spark 1", sl="Iskra 1"},
+    spark_11_desc = {en="+1 Hand", sl="+1 Roka"},
 
-    spark_5_title = {en="Trash can", sl="Smetnjak"},
-    spark_5_desc = {en="+2 discards", sl="+2 zavržka"},
+    spark_12_title = {en="Spark", sl="Iskra"},
+    spark_12_desc = {en="Get 2 more sparks as choices after winning a round", sl="2 dodatni izbiri isker po zmagi runde"},
 
-    spark_6_title = {en="Spark", sl="Iskra"},
-    spark_6_desc = {en="Get 2 more sparks\nas choices after\nwinning a round", sl="2 dodatni izbiri\nisker po zmagi\nrunde"},
+    spark_13_title = {en="Spark 3", sl="Iskra 3"},
+    spark_13_desc = {en="All played aces give x1.5 mult", sl="Vsi igrani as-i ponudijo x1.5 mult"},
 
-    spark_7_title = {en="Spark 7", sl="Iskra 7"},
-    spark_7_desc = {en="Description of\n Spark 7", sl="Opis Iskre 7"},
-
-    spark_8_title = {en="Spark 8", sl="Iskra 8"},
-    spark_8_desc = {en="Description of\n Spark 8", sl="Opis Iskre 8"},
-
-    spark_9_title = {en="Spark 9", sl="Iskra 9"},
-    spark_9_desc = {en="Description of\n Spark 9", sl="Opis Iskre 9"},
-
-    spark_10_title = {en="Spark 10", sl="Iskra 10"},
-    spark_10_desc = {en="Description of\n Spark 10", sl="Opis Iskre 10"},
+    spark_14_title = {en="Trash can", sl="Smetnjak"},
+    spark_14_desc = {en="+2 discards", sl="+2 zavržka"}
 }
 
 return LANG

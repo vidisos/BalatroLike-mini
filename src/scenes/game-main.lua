@@ -71,7 +71,7 @@ return {
         ):Rectangle({0,0,0}),
 
         Drawable:new("text-current-score-text",3,
-            40,400,100,100
+            40,400,110,100
         ):TextBox(
             LANG.round_score,
             Font:resizeFont(Font.font_paths.pixel_font,30),
@@ -93,14 +93,14 @@ return {
             {255,255,255}
         ),
 
-        --selected hand
+        -- selected hand
         Drawable:new("rect-selected-hand-background",2,
             Utils.getCenterAnchorX(0,450,400),525,400,220
         ):Rectangle({154,162,173}),
 
-        Drawable:new("text-selected-hand",3,
-            Utils.getCenterAnchorX(Utils.getCenterAnchorX(0,450,400),400,200),
-            525,200,100,
+        Drawable:new("text-selected-hand",4,
+            Utils.getCenterAnchorX(Utils.getCenterAnchorX(0,450,400),400,350),
+            525,350,100,
             function(self)
                 self.text = LANG[GameState.selected_hand]
             end
@@ -152,7 +152,7 @@ return {
         ):Rectangle({113,142,171}, 5, Color.white),
 
         Drawable:new("text-hand-count-text",11,
-            Utils.getCenterAnchorX(25,175,50),790,50,30
+            Utils.getCenterAnchorX(25,175,100),790,100,30
         ):TextBox(
             LANG.hands,
             Font:resizeFont(Font.font_paths.pixel_font,30),
@@ -171,13 +171,13 @@ return {
             {70,79,84}
         ),
 
-        --discard count
+        -- discard count
         Drawable:new("rect-discard-count-background",10,
             250,780,175,130
         ):Rectangle({207,123,116}, 5, Color.white),
 
         Drawable:new("text-discard-count-text",11,
-            Utils.getCenterAnchorX(250,175,50),790,50,30
+            Utils.getCenterAnchorX(250,175,140),790,140,30
         ):TextBox(
             LANG.discards,
             Font:resizeFont(Font.font_paths.pixel_font,30),
@@ -247,7 +247,7 @@ return {
 
         -- deck count
         Drawable:new("text-deck-count",1,
-            1780,980,50,50,
+            1730,980,140,50,
             function(self)
                 self.text = GameState.deck_count .. "/" .. GameState.deck_size
             end
@@ -257,7 +257,7 @@ return {
             {255,255,255}
         ),
 
-        --settings
+        -- settings
         Drawable:new("img-settings",1,
             ww-100,10,90,90
         ):ImageBox(

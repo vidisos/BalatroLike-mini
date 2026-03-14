@@ -24,7 +24,7 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
     self.font = font or self.baseFont
     self.text_color = text_color or Color.white
     self.background_color = background_color
-    self.alignment = alignment
+    self.alignment = alignment or "center"
 
     -- we dont need the onclick for this drawable, this is just here so it doesnt break
     self.onClickFunc = function () end
@@ -58,9 +58,9 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
         end
 
         local plain_text = Utils.plainTextFrom(display)
-        local text_width = self.font:getWidth(plain_text)
-        local text_height = self.font:getHeight() * Utils.countLines(plain_text)
-        local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)
+        local wrap_width = self.alignment and (self.width - 10) or self.width
+        local _, lines = self.font:getWrap(plain_text, wrap_width)
+        local text_height = self.font:getHeight() * #lines
         local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
 
         love.graphics.setFont(self.font)
@@ -70,11 +70,7 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
             Color:setColorRGB(self.text_color)
         end
 
-        if self.alignment then
-            love.graphics.printf(display, self.x + 5, text_y, self.width - 10, self.alignment)
-        else
-            love.graphics.print(display, text_x, text_y)
-        end
+        love.graphics.printf(display, self.x + 5, text_y, self.width - 10, self.alignment)
 
         Color:resetColor()
     end

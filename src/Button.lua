@@ -65,9 +65,8 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
         end
 
         local plain_text = Utils.plainTextFrom(display)
-        local text_width = self.font:getWidth(plain_text)
-        local text_height = self.font:getHeight() * Utils.countLines(plain_text)
-        local text_x = Utils.getCenterAnchorX(self.x, self.width, text_width)
+        local _, lines = self.font:getWrap(plain_text, self.width)
+        local text_height = self.font:getHeight() * #lines
         local text_y = Utils.getCenterAnchorY(self.y, self.height, text_height)
 
         love.graphics.setFont(self.font)
@@ -77,7 +76,7 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
             Color:setColorRGB(self.text_color)
         end
 
-        love.graphics.print(display, text_x, text_y)
+        love.graphics.printf(display, self.x, text_y, self.width, "center")
 
         Color:resetColor()
     end
