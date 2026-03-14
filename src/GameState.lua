@@ -624,7 +624,7 @@ function GameState.showCardInfo(self)
                 self.x = card.x
                 self.y = card.y - 120
             end
-        ):Rectangle({145/255, 143/255, 137/255}, 3, {1, 1, 1})
+        ):Rectangle(Color.dark_grey, 3, {1, 1, 1})
 
         ---@type Drawable
         local title = Drawable:new(
@@ -718,7 +718,7 @@ function GameState.showSparkInfo(self)
             self.x = spark.x
             self.y = spark.y + CONSTANTS.CARD_HEIGHT + 10
         end
-    ):Rectangle({145/255, 143/255, 137/255}, 3, {1, 1, 1})
+    ):Rectangle(Color.dark_grey, 3, {1, 1, 1})
 
     ---@type Drawable
     local title = Drawable:new(

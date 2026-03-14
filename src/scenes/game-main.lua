@@ -23,12 +23,12 @@ return {
         --background
         Drawable:new("rect-background", 0,
             0, 0, ww, wh
-        ):Rectangle({96/255,168/255,209/255}),
+        ):Rectangle(Color.background_blue),
 
         --background left column
         Drawable:new("rect-left", 1,
             0, 0, 450, wh
-        ):Rectangle({50/255,100/255,200/255}),
+        ):Rectangle(Color.blue),
 
         --title of level
         Drawable:new("text-level-title", 2,
@@ -45,7 +45,7 @@ return {
         --level requirement
         Drawable:new("rect-level-requirement-background",2,
             Utils.getCenterAnchorX(0,450,310),200,310,190
-        ):Rectangle({111/255,123/255,143/255}),
+        ):Rectangle(Color.dark_grey),
 
         Drawable:new("text-level-requirement-text",3,
             Utils.getCenterAnchorX(0,450,400),200,400,100
