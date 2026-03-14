@@ -15,7 +15,7 @@ function Rectangle:Rectangle(background_color, border_width, border_color)
     self.type = "Rectangle"
     self.background_color = background_color or {255, 255, 255}
     self.border_width = border_width or nil
-    self.border_color = border_color or {0, 0, 0}
+    self.border_color = border_color or Color.white
 
     self.drawFunc = function ()
         if border_width then

@@ -5,6 +5,7 @@ local Utils = require "src.Utils"
 local audio_list = require "src.audio_list"
 local image_list = require "src.image_list"
 local GameState = require "src.GameState"
+local Color     = require "src.Color"
 
 local LANG = require "src.LANG"
 local Font = require "src.Font"
@@ -31,9 +32,12 @@ return {
 
         --title of level
         Drawable:new("text-level-title", 2,
-            Utils.getCenterAnchorX(0,450,400), 50, 400,120
+            Utils.getCenterAnchorX(0,450,400), 50, 400,120,
+            function (self, dt)
+                self.text = LANG.level[GameState.current_lang] .. " " .. GameState.level
+            end
         ):TextBox(
-            GameState:getCurrentLevelText(),
+            nil,
             Font:resizeFont(Font.font_paths.pixel_font,80),
             nil,{255,255,0}
         ),
@@ -145,7 +149,7 @@ return {
         -- hand count
         Drawable:new("rect-hand-count-background",10,
             25,780,175,130
-        ):Rectangle({113,142,171}, 5, {0, 0, 0}),
+        ):Rectangle({113,142,171}, 5, Color.white),
 
         Drawable:new("text-hand-count-text",11,
             Utils.getCenterAnchorX(25,175,50),790,50,30
@@ -170,7 +174,7 @@ return {
         --discard count
         Drawable:new("rect-discard-count-background",10,
             250,780,175,130
-        ):Rectangle({207,123,116}, 5, {0, 0, 0}),
+        ):Rectangle({207,123,116}, 5, Color.white),
 
         Drawable:new("text-discard-count-text",11,
             Utils.getCenterAnchorX(250,175,50),790,50,30

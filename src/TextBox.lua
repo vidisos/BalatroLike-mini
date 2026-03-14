@@ -22,7 +22,7 @@ function TextBox:TextBox(text, font, text_color, background_color, alignment)
     self.text = text or ""
     self.baseFont = font or love.graphics.getFont()
     self.font = font or self.baseFont
-    self.text_color = text_color or {0, 0, 0}
+    self.text_color = text_color or Color.white
     self.background_color = background_color
     self.alignment = alignment
 

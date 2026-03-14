@@ -7,12 +7,16 @@ local Utils = require "src.Utils"
 local hand_rankings = require "src.hand_rankings"
 local LANG = require "src.LANG"
 local Font = require "src.Font"
+local Color= require "src.Color"
 
+---@class GameState
 local GameState = {
     --should be CONSTANTS but uh ehe
     hand_size = 8,
     deck_size = 52,
     spark_active_max = 5,
+    base_hands_remaining_max = 4,
+    base_discards_remaining_max = 3,
 
     --level info
     level = 1,
@@ -31,22 +35,33 @@ local GameState = {
     active_cards = {},
 
     active_sparks_count = 0,
+    spark_select_max = 5,
     spark_type_counts = {}, --counts the number of a specific type of spark, so we can have duplicates
 
     chips = 0,
     mult = 0,
 
-    hands_remaining = 4,
-    discards_remaining = 3,
+    active_hands_remaining_max = 0,
+    hands_remaining = 0,
+    active_discards_remaining_max = 0,
+    discards_remaining = 0,
     selected_cards_count = 0,
     selected_max = 5,
 
     deck_count = 0
 }
 
+function GameState:startNewGame()
+    self.active_hands_remaining_max = self.base_hands_remaining_max
+    self.active_discards_remaining_max = self.base_discards_remaining_max
+
+    self:startNewRound()
+end
+
 ---resets everything about the score, current cards and stuff
 function GameState:startNewRound()
     self:resetRoundState()
+    self:clearSelectionSparks()
     self:clearSparks()
     self:makeNewDeck()
     self:makeNewHand()
@@ -58,6 +73,8 @@ function GameState:playHand()
     if self.hands_remaining <= 0 then
         return
     end
+
+    GameState:checkHandRanking()
 
     for _, card in ipairs(self.active_cards) do
         self.chips = self.chips + card.chips
@@ -84,6 +101,9 @@ function GameState:discard()
 
     local discarded_drawables = self:discardCards()
 
+    self.selected_hand = nil
+    self:refreshChipsAndMult()
+
     if #discarded_drawables > 0 then
         self.discards_remaining = self.discards_remaining - 1
     end
@@ -97,6 +117,12 @@ end
 
 ---resets the cards and shows the spark select
 function GameState:roundWon()
+    self.level = self.level + 1
+
+    -- we dont want the max counts to show only after selecting a spark, so they can more easily see if they need certain sparks and stuff
+    self.hands_remaining = self.active_hands_remaining_max
+    self.discards_remaining = self.active_discards_remaining_max
+
     self:clearCards()
     self:makeNewDeck()
 
@@ -104,11 +130,11 @@ function GameState:roundWon()
     local temp_sparks = self:getNewSparkBases()
 
     local game_win_background = Scenes:getDrawable("game-won", "rect-background")
-    for i=1, self.spark_active_max do
-        local z_index = 1
+    for i=1, self.spark_select_max do
+        local z_index = i
 
         local x_margin = 100
-        local spacing = x_margin + ((i-1) * (game_win_background.width - CONSTANTS.CARD_WIDTH - 2*x_margin) / (self.spark_active_max - 1))
+        local spacing = x_margin + ((i-1) * (game_win_background.width - CONSTANTS.CARD_WIDTH - 2*x_margin) / (self.spark_select_max - 1))
         local x = game_win_background.x + spacing
         local y = game_win_background.y + 100
         local width = CONSTANTS.CARD_WIDTH
@@ -132,14 +158,16 @@ end
 
 ---resets the score, hand and discard counts and stuff for a new round
 function GameState:resetGameState()
+    self.hands_remaining = self.base_hands_remaining_max
+    self.discards_remaining = self.base_discards_remaining_max
     self:resetRoundState()
 end
 
 ---resets the score, hand and discard counts and stuff for a new round
 function GameState:resetRoundState()
     self.score = 0
-    self.hands_remaining = 4
-    self.discards_remaining = 3
+    self.hands_remaining = self.active_hands_remaining_max
+    self.discards_remaining = self.active_discards_remaining_max
     self.selected_hand = nil
     self.selected_cards_count = 0
     self:refreshChipsAndMult()
@@ -262,8 +290,6 @@ function GameState:discardCards()
 
     self:refreshHand()
     self.selected_cards_count = 0
-    self.selected_hand = nil
-    self:refreshChipsAndMult()
 
     return discarded_drawables
 end
@@ -553,18 +579,6 @@ function GameState:changeLang()
     end
 end
 
----returns the language entry for the current level 
----@return LanguageEntry
-function GameState:getCurrentLevelText()
-    if GameState.level == 1 then
-        return LANG.level1
-    elseif GameState.level == 2 then
-        return LANG.level2
-    elseif GameState.level == 3 then
-        return LANG.level3
-    end
-end
-
 ---returns the number of items that use the spark base
 ---@param spark_base SparkBase
 ---@return number
@@ -636,7 +650,7 @@ function GameState.showCardInfo(self)
                 self.y = infoBox.y + 60 -7
             end
         ):TextBox(
-            {{0, 0, 255}, "+"..self.chips, {0, 0, 0}, " "..LANG.chips[GameState.current_lang]}, Font:resizeFont(Font.font_paths.pixel_font, 15),
+            {{0, 0, 255}, "+"..self.chips, Color.white, " "..LANG.chips[GameState.current_lang]}, Font:resizeFont(Font.font_paths.pixel_font, 15),
             nil, {255, 255, 255}
         )
 

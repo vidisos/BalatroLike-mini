@@ -27,13 +27,14 @@ function Button:Button(text, font, text_color, button_color, onClickFunc, border
     self.text = text or ""
     self.baseFont = font or love.graphics.getFont()
     self.font = font or self.baseFont
-    self.text_color = text_color or {0, 0, 0}
+    self.text_color = text_color or Color.white
     self.button_color = button_color or {255, 255, 255}
     self.onClickFunc = onClickFunc or function () end
     self.border_width = border_width or 0
-    self.border_color = border_color or {0, 0, 0}
+    self.border_color = border_color or Color.white
 
     self.drawFunc = function ()
+        -- BUTTON
         if border_width then
             borderedButtonDraw(self)
         else

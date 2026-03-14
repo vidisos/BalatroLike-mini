@@ -1,8 +1,6 @@
-local Color = {}
-
----@type table<string, RGB>
-Color.colors = {
-    black = {255, 255, 255}
+local Color = {
+    black = {255, 255, 255},
+    white = {0, 0, 0}
 }
 
 ---sets the color with an rgb table
@@ -13,7 +11,7 @@ end
 
 ---resets the color so images and such dont inherit color from previous calls
 function Color:resetColor()
-    self:setColorRGB(self.colors.black)
+    self:setColorRGB(self.black)
 end
 
 

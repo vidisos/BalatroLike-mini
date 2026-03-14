@@ -5,10 +5,14 @@ local spark_images = image_list.sparks
 
 ---@type SparkBase[]
 local spark_list = {
-    controller = {image = spark_images.controller, id = "controller", title = LANG.spark_1_title, desc = LANG.spark_1_desc, activation_type = "passive", effect = function () end},
-    spark2 = {image = spark_images.spark2, id = "leguana", title = LANG.spark_2_title, desc = LANG.spark_2_desc, activation_type = "per-card", effect = function () end},
-    spark3 = {image = spark_images.spark3, id = "americatime", title = LANG.spark_3_title, desc = LANG.spark_3_desc, activation_type = "end-of-hand", effect = function () end},
-    spark4 = {image = spark_images.spark4, id = "banana", title = LANG.spark_4_title, desc = LANG.spark_4_desc, activation_type = "passive", effect = function () end},
+    controller = {image = spark_images.controller, id = "controller", title = LANG.spark_1_title, desc = LANG.spark_1_desc, activation_type = "passive",
+        effect = function ()
+
+
+            end},
+    spark2 = {image = spark_images.spark2, id = "leguana", title = LANG.spark_2_title, desc = LANG.spark_2_desc, activation_type = "end-of-hand", effect = function () end},
+    spark3 = {image = spark_images.spark3, id = "americatime", title = LANG.spark_3_title, desc = LANG.spark_3_desc, activation_type = "per-card", effect = function () end},
+    spark4 = {image = spark_images.spark4, id = "banana", title = LANG.spark_4_title, desc = LANG.spark_4_desc, activation_type = "per-card", effect = function () end},
     spark5 = {image = spark_images.spark5, id = "man", title = LANG.spark_5_title, desc = LANG.spark_5_desc, activation_type = "passive", effect = function () end},
     spark6 = {image = spark_images.spark6, id = "hello", title = LANG.spark_6_title, desc = LANG.spark_6_desc, activation_type = "passive", effect = function () end},
     spark7 = {image = spark_images.spark7, id = "everynyan", title = LANG.spark_7_title, desc = LANG.spark_7_desc, activation_type = "passive", effect = function () end},

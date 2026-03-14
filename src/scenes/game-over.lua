@@ -44,7 +44,7 @@ return {
             {0, 0, 100},
             {255, 0, 0},
             function(self)
-                GameState:startNewRound()
+                GameState:startNewGame()
                 Scenes:disableScene("game-over")
                 Scenes:enableSceneClicks("game-main")
             end,

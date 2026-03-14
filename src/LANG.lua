@@ -9,9 +9,7 @@ local LANG = {
     language = {en="Language", sl="Jezik"},
 
     -- main game
-    level1 = {en="Level 1", sl="Stopnja 1"},
-    level2 = {en="Level 2", sl="Stopnja 2"},
-    level3 = {en="Level 3", sl="Stopnja 3"},
+    level = {en="Level", sl="Stopnja"},
     score_text = {en="Score at least:", sl="Doseži vsaj:"},
     round_score = {en="Round\nScore", sl="Točke\nstopnje"},
     hands = {en="Hands", sl="Roke"},
@@ -98,22 +96,22 @@ local LANG = {
 
     --sparks
     spark_1_title = {en="Spark 1", sl="Iskra 1"},
-    spark_1_desc = {en="Description of\n Spark 1", sl="Opis Iskre 1"},
+    spark_1_desc = {en="+1 Hand", sl="+1 Roka"},
 
     spark_2_title = {en="Spark 2", sl="Iskra 2"},
-    spark_2_desc = {en="Description of\n Spark 2", sl="Opis Iskre 2"},
+    spark_2_desc = {en="+50 chips if\nplayed hand\nis flush", sl="+50 žetonov, če\nje izbrana\nroka Barva"},
 
     spark_3_title = {en="Spark 3", sl="Iskra 3"},
-    spark_3_desc = {en="Description of\n Spark 3", sl="Opis Iskre 3"},
+    spark_3_desc = {en="All played aces\ngive x1.5 mult", sl="Vsi igrani as-i\nponudijo x1.5 mult"},
 
     spark_4_title = {en="Spark 4", sl="Iskra 4"},
-    spark_4_desc = {en="Description of\n Spark 4", sl="Opis Iskre 4"},
+    spark_4_desc = {en="All 3, ace and 4\ncards give 2 mult\nwhen played", sl="Vse 3, as in 4\nkarte dodajo\n2 mult, ko so\nigrane"},
 
-    spark_5_title = {en="Spark 5", sl="Iskra 5"},
-    spark_5_desc = {en="Description of\n Spark 5", sl="Opis Iskre 5"},
+    spark_5_title = {en="Trash can", sl="Smetnjak"},
+    spark_5_desc = {en="+2 discards", sl="+2 zavržka"},
 
-    spark_6_title = {en="Spark 6", sl="Iskra 6"},
-    spark_6_desc = {en="Description of\n Spark 6", sl="Opis Iskre 6"},
+    spark_6_title = {en="Spark", sl="Iskra"},
+    spark_6_desc = {en="Get 2 more sparks\nas choices after\nwinning a round", sl="2 dodatni izbiri\nisker po zmagi\nrunde"},
 
     spark_7_title = {en="Spark 7", sl="Iskra 7"},
     spark_7_desc = {en="Description of\n Spark 7", sl="Opis Iskre 7"},
