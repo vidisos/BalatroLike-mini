@@ -162,7 +162,7 @@ local LANG = {
     spark_13_title = {en="Spark 3", sl="Iskra 3"},
     spark_13_desc = {
         en={ {0,0,0},"All played ", {1,0.588,0.196},"Aces", {0,0,0}," give ", {1,0.314,0.314},"x1.5 Mult" },
-        sl={ {0,0,0},"Vsi igrani ", {1,0.588,0.196},"as-i", {0,0,0}," ponudijo ", {1,0.314,0.314},"x1.5 mult" }
+        sl={ {0,0,0},"Vsi igrani ", {1,0.588,0.196},"As-i", {0,0,0}," ponudijo ", {1,0.314,0.314},"x1.5 mult" }
     },
 
     spark_14_title = {en="Trash can", sl="Smetnjak"},
