@@ -45,7 +45,7 @@ return {
         --level requirement
         Drawable:new("rect-level-requirement-background",2,
             Utils.getCenterAnchorX(0,450,310),200,310,190
-        ):Rectangle(Color.dark_grey),
+        ):Rectangle(Color.light_grey),
 
         Drawable:new("text-level-requirement-text",3,
             Utils.getCenterAnchorX(0,450,400),200,400,100
@@ -62,7 +62,7 @@ return {
         ):TextBox(
             tostring(GameState.score_requirement),
             Font:resizeFont(Font.font_paths.pixel_font,80),
-            {240/255,67/255,67/255}
+            Color.red
         ),
 
         -- current score

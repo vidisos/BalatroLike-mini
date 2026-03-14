@@ -730,7 +730,7 @@ function GameState.showSparkInfo(self)
             self.y = infoBox.y+7
         end
     ):TextBox(
-        self.title, Font:resizeFont(Font.font_paths.pixel_font, 14),
+        self.title, Font:resizeFont(Font.font_paths.pixel_font, 17),
         nil, {1, 1, 1}
     )
 

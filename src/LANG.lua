@@ -98,28 +98,28 @@ local LANG = {
     --sparks
     spark_1_title = {en="HORHOR Joker", sl="HORHOR Joker"},
     spark_1_desc = {
-        en={ Color.mult_text,"+8 Mult", Color.black," if played hand contains a ", Color.hand_text,"Pair" },
-        sl={ Color.mult_text,"+8 mult", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Par" }
+        en={ Color.red,"+8 Mult", Color.black," if played hand contains a ", Color.hand_text,"Pair" },
+        sl={ Color.red,"+8 mult", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Par" }
     },
     spark_2_title = {en="Zany Joker", sl="Nori Joker"},
     spark_2_desc = {
-        en={ Color.mult_text,"+12 Mult", Color.black," if played hand contains a ", Color.hand_text,"Three of a Kind" },
-        sl={ Color.mult_text,"+12 mult", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Tris" }
+        en={ Color.red,"+12 Mult", Color.black," if played hand contains a ", Color.hand_text,"Three of a Kind" },
+        sl={ Color.red,"+12 mult", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Tris" }
     },
     spark_3_title = {en="Mad Joker", sl="Blazni Joker"},
     spark_3_desc = {
-        en={ Color.mult_text,"+10 Mult", Color.black," if played hand contains a ", Color.hand_text,"Two Pair" },
-        sl={ Color.mult_text,"+10 mult", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Dva para" }
+        en={ Color.red,"+10 Mult", Color.black," if played hand contains a ", Color.hand_text,"Two Pair" },
+        sl={ Color.red,"+10 mult", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Dva para" }
     },
     spark_4_title = {en="Crazy Joker", sl="Nor Joker"},
     spark_4_desc = {
-        en={ Color.mult_text,"+12 Mult", Color.black," if played hand contains a ", Color.hand_text,"Straight" },
-        sl={ Color.mult_text,"+12 mult", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Lestvico" }
+        en={ Color.red,"+12 Mult", Color.black," if played hand contains a ", Color.hand_text,"Straight" },
+        sl={ Color.red,"+12 mult", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Lestvico" }
     },
     spark_5_title = {en="Droll Joker", sl="Zabaven Joker"},
     spark_5_desc = {
-        en={ Color.mult_text,"+10 Mult", Color.black," if played hand contains a ", Color.hand_text,"Flush" },
-        sl={ Color.mult_text,"+10 mult", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Barvo" }
+        en={ Color.red,"+10 Mult", Color.black," if played hand contains a ", Color.hand_text,"Flush" },
+        sl={ Color.red,"+10 mult", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Barvo" }
     },
 
     spark_6_title = {en="Sly Joker", sl="Prekanjen Joker"},
@@ -162,8 +162,8 @@ local LANG = {
 
     spark_13_title = {en="Spark 3", sl="Iskra 3"},
     spark_13_desc = {
-        en={ Color.black,"All played ", Color.hand_text,"Aces", Color.black," give ", Color.mult_text,"x1.5 Mult" },
-        sl={ Color.black,"Vsi igrani ", Color.hand_text,"As-i", Color.black," ponudijo ", Color.mult_text,"x1.5 mult" }
+        en={ Color.black,"All played ", Color.hand_text,"Aces", Color.black," give ", Color.red,"x1.5 Mult" },
+        sl={ Color.black,"Vsi igrani ", Color.hand_text,"As-i", Color.black," ponudijo ", Color.red,"x1.5 mult" }
     },
 
     spark_14_title = {en="Trash can", sl="Smetnjak"},
