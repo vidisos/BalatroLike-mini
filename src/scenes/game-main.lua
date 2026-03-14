@@ -23,12 +23,12 @@ return {
         --background
         Drawable:new("rect-background", 0,
             0, 0, ww, wh
-        ):Rectangle({96,168,209}),
+        ):Rectangle({96/255,168/255,209/255}),
 
         --background left column
         Drawable:new("rect-left", 1,
             0, 0, 450, wh
-        ):Rectangle({50,100,200}),
+        ):Rectangle({50/255,100/255,200/255}),
 
         --title of level
         Drawable:new("text-level-title", 2,
@@ -39,13 +39,13 @@ return {
         ):TextBox(
             nil,
             Font:resizeFont(Font.font_paths.pixel_font,80),
-            nil,{255,255,0}
+            nil,{1,1,0}
         ),
 
         --level requirement
         Drawable:new("rect-level-requirement-background",2,
             Utils.getCenterAnchorX(0,450,310),200,310,190
-        ):Rectangle({111,123,143}),
+        ):Rectangle({111/255,123/255,143/255}),
 
         Drawable:new("text-level-requirement-text",3,
             Utils.getCenterAnchorX(0,450,400),200,400,100
@@ -62,7 +62,7 @@ return {
         ):TextBox(
             tostring(GameState.score_requirement),
             Font:resizeFont(Font.font_paths.pixel_font,80),
-            {240,67,67}
+            {240/255,67/255,67/255}
         ),
 
         -- current score
@@ -75,12 +75,12 @@ return {
         ):TextBox(
             LANG.round_score,
             Font:resizeFont(Font.font_paths.pixel_font,30),
-            {255,255,255}
+            {1,1,1}
         ),
 
         Drawable:new("rect-current-score-background",3,
             160,410,250,80
-        ):Rectangle({154,162,173}),
+        ):Rectangle({154/255,162/255,173/255}),
 
         Drawable:new("text-current-score",4,
             100,400,400,100,
@@ -90,13 +90,13 @@ return {
         ):TextBox(
             tostring(GameState.score),
             Font:resizeFont(Font.font_paths.pixel_font,60),
-            {255,255,255}
+            {1,1,1}
         ),
 
         -- selected hand
         Drawable:new("rect-selected-hand-background",2,
             Utils.getCenterAnchorX(0,450,400),525,400,220
-        ):Rectangle({154,162,173}),
+        ):Rectangle({154/255,162/255,173/255}),
 
         Drawable:new("text-selected-hand",4,
             Utils.getCenterAnchorX(Utils.getCenterAnchorX(0,450,400),400,380),
@@ -107,7 +107,7 @@ return {
         ):TextBox(
             GameState.selected_hand,
             Font:resizeFont(Font.font_paths.pixel_font,60),
-            {255,255,255}
+            {1,1,1}
         ),
 
         -- chips and mult
@@ -119,8 +119,8 @@ return {
         ):TextBox(
             tostring(GameState.chips),
             Font:resizeFont(Font.font_paths.pixel_font,60),
-            {255,255,255},
-            {0,0,255},
+            {1,1,1},
+            {0,0,1},
             "right",
             -5
         ),
@@ -131,7 +131,7 @@ return {
         ):TextBox(
             "X",
             Font:resizeFont(Font.font_paths.pixel_font,60),
-            {255,0,0}
+            {1,0,0}
         ),
 
         Drawable:new("text-mult",3,
@@ -142,8 +142,8 @@ return {
         ):TextBox(
             tostring(GameState.mult),
             Font:resizeFont(Font.font_paths.pixel_font,60),
-            {255,255,255},
-            {255,0,0},
+            {1,1,1},
+            {1,0,0},
             "left",
             5
         ),
@@ -151,14 +151,14 @@ return {
         -- hand count
         Drawable:new("rect-hand-count-background",10,
             25,780,175,130
-        ):Rectangle({113,142,171}, 5, Color.white),
+        ):Rectangle({113/255,142/255,171/255}, 5, Color.black),
 
         Drawable:new("text-hand-count-text",11,
             Utils.getCenterAnchorX(25,175,100),790,100,30
         ):TextBox(
             LANG.hands,
             Font:resizeFont(Font.font_paths.pixel_font,30),
-            {255,255,255}
+            {1,1,1}
         ),
 
         Drawable:new("text-hand-count",11,
@@ -169,21 +169,21 @@ return {
         ):TextBox(
             tostring(GameState.hands_remaining),
             Font:resizeFont(Font.font_paths.pixel_font,60),
-            {255,255,255},
-            {70,79,84}
+            {1,1,1},
+            {70/255,79/255,84/255}
         ),
 
         -- discard count
         Drawable:new("rect-discard-count-background",10,
             250,780,175,130
-        ):Rectangle({207,123,116}, 5, Color.white),
+        ):Rectangle({207/255,123/255,116/255}, 5, Color.black),
 
         Drawable:new("text-discard-count-text",11,
             Utils.getCenterAnchorX(250,175,140),790,140,30
         ):TextBox(
             LANG.discards,
             Font:resizeFont(Font.font_paths.pixel_font,30),
-            {255,255,255}
+            {1,1,1}
         ),
 
         Drawable:new("text-discard-count",11,
@@ -194,8 +194,8 @@ return {
         ):TextBox(
             tostring(GameState.discards_remaining),
             Font:resizeFont(Font.font_paths.pixel_font,60),
-            {255,255,255},
-            {70,79,84}
+            {1,1,1},
+            {70/255,79/255,84/255}
         ),
 
         --hand rankings info
@@ -204,8 +204,8 @@ return {
         ):Button(
             LANG.ranking_info,
             Font:resizeFont(Font.font_paths.pixel_font,40),
-            {237,164,74},
-            {212,198,182},
+            {237/255,164/255,74/255},
+            {212/255,198/255,182/255},
             function()
                 Scenes:disableScenes()
                 Scenes:enableScene("start-menu")
@@ -218,13 +218,13 @@ return {
         ):Button(
             LANG.play_hand,
             Font:resizeFont(Font.font_paths.pixel_font,40),
-            {237,164,74},
-            {212,198,182},
+            {237/255,164/255,74/255},
+            {212/255,198/255,182/255},
             function()
                 GameState:playHand()
             end,
             10,
-            {255,0,0}
+            {1,0,0}
         ),
 
         -- discard
@@ -233,19 +233,19 @@ return {
         ):Button(
             LANG.discard_hand,
             Font:resizeFont(Font.font_paths.pixel_font,40),
-            {237,164,74},
-            {212,198,182},
+            {237/255,164/255,74/255},
+            {212/255,198/255,182/255},
             function()
                 GameState:discard()
             end,
             10,
-            {255,0,0}
+            {1,0,0}
         ),
 
         -- sparks background
         Drawable:new("rect-sparks",1,
             CONSTANTS.SPARKS_X - 30,CONSTANTS.SPARKS_Y - 10,CONSTANTS.SPARKS_WIDTH + 60,CONSTANTS.SPARKS_HEIGHT + 20
-        ):Rectangle({105, 151, 224}),
+        ):Rectangle({105/255, 151/255, 224/255}),
 
         -- deck count
         Drawable:new("text-deck-count",1,
@@ -256,7 +256,7 @@ return {
         ):TextBox(
             nil,
             Font:resizeFont(Font.font_paths.pixel_font,40),
-            {255,255,255}
+            {1,1,1}
         ),
 
         -- settings

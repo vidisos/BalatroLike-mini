@@ -25,7 +25,7 @@ return {
         Drawable:new(
             "rect-background", 0,
             CONSTANTS.HAND_X-100, 500, CONSTANTS.HAND_WIDTH+200, 800
-        ):Rectangle({134, 142, 156}, 10),
+        ):Rectangle({134/255, 142/255, 156/255}, 10),
 
         -- level overlay
         Drawable:new(
@@ -34,7 +34,7 @@ return {
         ):TextBox(
             LANG.choose_spark, Font:resizeFont(Font.font_paths.pixel_font_bold, 90),
             nil,
-            {134, 142, 156}
+            {134/255, 142/255, 156/255}
         )
     }
 }

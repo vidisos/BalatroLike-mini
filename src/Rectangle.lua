@@ -13,9 +13,9 @@ local normalRectDraw, borderedRectDraw
 ---@return Rectangle
 function Rectangle:Rectangle(background_color, border_width, border_color)
     self.type = "Rectangle"
-    self.background_color = background_color or {255, 255, 255}
+    self.background_color = background_color or Color.black
     self.border_width = border_width or nil
-    self.border_color = border_color or Color.white
+    self.border_color = border_color or Color.black
 
     self.drawFunc = function ()
         if border_width then
@@ -36,7 +36,7 @@ end
 ---drawing rectangle normally without border
 ---@param self Rectangle|Drawable
 normalRectDraw = function (self)
-    Color:setColorRGB(self.background_color)
+    Color:setColor(self.background_color)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 end
 
@@ -44,11 +44,11 @@ end
 ---@param self Rectangle|Drawable
 borderedRectDraw = function (self)
     -- border
-    Color:setColorRGB(self.border_color)
+    Color:setColor(self.border_color)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 
     -- rect
-    Color:setColorRGB(self.background_color)
+    Color:setColor(self.background_color)
     local button_x = self.x + self.border_width
     local button_y = self.y + self.border_width
     local button_width = self.width - 2*self.border_width

@@ -24,7 +24,7 @@ return {
         -- background
         Drawable:new("rect-background", 0,
             0, 0, ww, wh
-        ):Rectangle({59, 124, 217}),
+        ):Rectangle({59/255, 124/255, 217/255}),
 
         -- title
         Drawable:new(
@@ -54,8 +54,8 @@ return {
             560, 800, 300, 150
         ):Button(
             LANG.start, Font:resizeFont(Font.font_paths.pixel_font, 90),
-            {237, 164, 74},
-            {212, 198, 182},
+            {237/255, 164/255, 74/255},
+            {212/255, 198/255, 182/255},
             function (self)
                 Scenes:disableScenes()
                 Scenes:enableScene("game-main")
@@ -63,7 +63,7 @@ return {
                 Scenes:sortDrawables("game-main")
             end,
             15,
-            {100, 50, 20}
+            {100/255, 50/255, 20/255}
         ),
 
         -- quit button
@@ -72,13 +72,13 @@ return {
             1060, 810, 250, 130
         ):Button(
             LANG.quit, Font:resizeFont(Font.font_paths.pixel_font, 50),
-            {0, 0, 100},
-            {255, 0, 0},
+            {0, 0, 100/255},
+            {1, 0, 0},
             function()
                 love.event.quit()
             end,
             10,
-            {0, 100, 25}
+            {0, 100/255, 25/255}
         ),
 
         -- language button
@@ -87,8 +87,8 @@ return {
             1680, 950, 200, 100
         ):Button(
             LANG.language, Font:resizeFont(Font.font_paths.pixel_font, 30),
-            {0, 0, 100},
-            {255, 0, 0},
+            {0, 0, 100/255},
+            {1, 0, 0},
             function(self)
                 GameState:changeLang()
             end

@@ -23,7 +23,7 @@ return {
         Drawable:new(
             "rect-background", 0,
             860, 120, 400, 800
-        ):Rectangle({134, 142, 156}, 10),
+        ):Rectangle({134/255, 142/255, 156/255}, 10),
 
         -- u lose
         Drawable:new(
@@ -41,15 +41,15 @@ return {
         ):Button(
             LANG.new_game,
             Font:resizeFont(Font.font_paths.pixel_font, 30),
-            {0, 0, 100},
-            {255, 0, 0},
+            {0, 0, 100/255},
+            {1, 0, 0},
             function(self)
                 GameState:startNewGame()
                 Scenes:disableScene("game-over")
                 Scenes:enableSceneClicks("game-main")
             end,
             10,
-            {0, 100, 25}
+            {0, 100/255, 25/255}
         ),
 
         -- to main menu
@@ -59,15 +59,15 @@ return {
         ):Button(
             LANG.to_main_menu,
             Font:resizeFont(Font.font_paths.pixel_font, 30),
-            {0, 0, 100},
-            {255, 0, 0},
+            {0, 0, 100/255},
+            {1, 0, 0},
             function(self)
                 Scenes:disableScenes()
                 Scenes:enableSceneClicks("game-main")
                 Scenes:enableScene("start-menu")
             end,
             10,
-            {0, 100, 25}
+            {0, 100/255, 25/255}
         ),
     }
 }

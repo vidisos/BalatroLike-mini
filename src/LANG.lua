@@ -1,4 +1,5 @@
 local Font = require "src.Font"
+local Color= require "src.Color"
 
 ---@type LanguageEntry[]
 local LANG = {
@@ -95,80 +96,80 @@ local LANG = {
     card_king_spades = {en="King of Spades", sl="Kralj pik"},
 
     --sparks
-    spark_1_title = {en="Zany Joker", sl="Nori Joker"},
+    spark_1_title = {en="HORHOR Joker", sl="HORHOR Joker"},
     spark_1_desc = {
-        en={ {1,0.196,0.196},"+8 Mult", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Pair" },
-        sl={ {1,0.196,0.196},"+8 mult", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Par" }
+        en={ Color.mult_text,"+8 Mult", Color.black," if played hand contains a ", Color.hand_text,"Pair" },
+        sl={ Color.mult_text,"+8 mult", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Par" }
     },
     spark_2_title = {en="Zany Joker", sl="Nori Joker"},
     spark_2_desc = {
-        en={ {1,0.196,0.196},"+12 Mult", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Three of a Kind" },
-        sl={ {1,0.196,0.196},"+12 mult", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Tris" }
+        en={ Color.mult_text,"+12 Mult", Color.black," if played hand contains a ", Color.hand_text,"Three of a Kind" },
+        sl={ Color.mult_text,"+12 mult", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Tris" }
     },
     spark_3_title = {en="Mad Joker", sl="Blazni Joker"},
     spark_3_desc = {
-        en={ {1,0.196,0.196},"+10 Mult", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Two Pair" },
-        sl={ {1,0.196,0.196},"+10 mult", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Dva para" }
+        en={ Color.mult_text,"+10 Mult", Color.black," if played hand contains a ", Color.hand_text,"Two Pair" },
+        sl={ Color.mult_text,"+10 mult", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Dva para" }
     },
     spark_4_title = {en="Crazy Joker", sl="Nor Joker"},
     spark_4_desc = {
-        en={ {1,0.196,0.196},"+12 Mult", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Straight" },
-        sl={ {1,0.196,0.196},"+12 mult", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Lestvico" }
+        en={ Color.mult_text,"+12 Mult", Color.black," if played hand contains a ", Color.hand_text,"Straight" },
+        sl={ Color.mult_text,"+12 mult", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Lestvico" }
     },
     spark_5_title = {en="Droll Joker", sl="Zabaven Joker"},
     spark_5_desc = {
-        en={ {1,0.196,0.196},"+10 Mult", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Flush" },
-        sl={ {1,0.196,0.196},"+10 mult", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Barvo" }
+        en={ Color.mult_text,"+10 Mult", Color.black," if played hand contains a ", Color.hand_text,"Flush" },
+        sl={ Color.mult_text,"+10 mult", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Barvo" }
     },
 
     spark_6_title = {en="Sly Joker", sl="Prekanjen Joker"},
     spark_6_desc = {
-        en={ {0.392,0.588,1},"+50 Chips", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Pair" },
-        sl={ {0.392,0.588,1},"+50 žetonov", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Par" }
+        en={ Color.chips_text,"+50 Chips", Color.black," if played hand contains a ", Color.hand_text,"Pair" },
+        sl={ Color.chips_text,"+50 žetonov", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Par" }
     },
     spark_7_title = {en="Wily Joker", sl="Hiter Joker"},
     spark_7_desc = {
-        en={ {0.392,0.588,1},"+100 Chips", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Three of a Kind" },
-        sl={ {0.392,0.588,1},"+100 žetonov", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Tris" }
+        en={ Color.chips_text,"+100 Chips", Color.black," if played hand contains a ", Color.hand_text,"Three of a Kind" },
+        sl={ Color.chips_text,"+100 žetonov", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Tris" }
     },
     spark_8_title = {en="Clever Joker", sl="Pameten Joker"},
     spark_8_desc = {
-        en={ {0.392,0.588,1},"+80 Chips", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Two Pair" },
-        sl={ {0.392,0.588,1},"+80 žetonov", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Dva para" }
+        en={ Color.chips_text,"+80 Chips", Color.black," if played hand contains a ", Color.hand_text,"Two Pair" },
+        sl={ Color.chips_text,"+80 žetonov", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Dva para" }
     },
     spark_9_title = {en="Devious Joker", sl="Zloben Joker"},
     spark_9_desc = {
-        en={ {0.392,0.588,1},"+100 Chips", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Straight" },
-        sl={ {0.392,0.588,1},"+100 žetonov", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Lestvico" }
+        en={ Color.chips_text,"+100 Chips", Color.black," if played hand contains a ", Color.hand_text,"Straight" },
+        sl={ Color.chips_text,"+100 žetonov", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Lestvico" }
     },
     spark_10_title = {en="Crafty Joker", sl="Spreten Joker"},
     spark_10_desc = {
-        en={ {0.392,0.588,1},"+80 Chips", {0,0,0}," if played hand contains a ", {1,0.588,0.196},"Flush" },
-        sl={ {0.392,0.588,1},"+80 žetonov", {0,0,0},", če igrana roka vsebuje ", {1,0.588,0.196},"Barvo" }
+        en={ Color.chips_text,"+80 Chips", Color.black," if played hand contains a ", Color.hand_text,"Flush" },
+        sl={ Color.chips_text,"+80 žetonov", Color.black,", če igrana roka vsebuje ", Color.hand_text,"Barvo" }
     },
 
     spark_11_title = {en="Spark 1", sl="Iskra 1"},
     spark_11_desc = {
-        en={ {1,0.863,0.196},"+1", {0,0,0}," Hand" },
-        sl={ {1,0.863,0.196},"+1", {0,0,0}," Roka" }
+        en={ Color.light_orange,"+1", Color.black," Hand" },
+        sl={ Color.light_orange,"+1", Color.black," Roka" }
     },
 
     spark_12_title = {en="Spark", sl="Iskra"},
     spark_12_desc = {
-        en={ {1,0.863,0.196},"2", {0,0,0}," more spark choices after winning a round" },
-        sl={ {1,0.863,0.196},"2", {0,0,0}," dodatni izbiri isker po zmagi runde" }
+        en={ Color.light_orange,"2", Color.black," more spark choices after winning a round" },
+        sl={ Color.light_orange,"2", Color.black," dodatni izbiri isker po zmagi runde" }
     },
 
     spark_13_title = {en="Spark 3", sl="Iskra 3"},
     spark_13_desc = {
-        en={ {0,0,0},"All played ", {1,0.588,0.196},"Aces", {0,0,0}," give ", {1,0.314,0.314},"x1.5 Mult" },
-        sl={ {0,0,0},"Vsi igrani ", {1,0.588,0.196},"As-i", {0,0,0}," ponudijo ", {1,0.314,0.314},"x1.5 mult" }
+        en={ Color.black,"All played ", Color.hand_text,"Aces", Color.black," give ", Color.mult_text,"x1.5 Mult" },
+        sl={ Color.black,"Vsi igrani ", Color.hand_text,"As-i", Color.black," ponudijo ", Color.mult_text,"x1.5 mult" }
     },
 
     spark_14_title = {en="Trash can", sl="Smetnjak"},
     spark_14_desc = {
-        en={ {1,0.863,0.196},"+2", {0,0,0}," Discards" },
-        sl={ {1,0.863,0.196},"+2", {0,0,0}," zavržka" }
+        en={ Color.light_orange,"+2", Color.black," Discards" },
+        sl={ Color.light_orange,"+2", Color.black," zavržka" }
     }
 }
 

@@ -624,7 +624,7 @@ function GameState.showCardInfo(self)
                 self.x = card.x
                 self.y = card.y - 120
             end
-        ):Rectangle({145, 143, 137}, 3, {255, 255, 255})
+        ):Rectangle({145/255, 143/255, 137/255}, 3, {1, 1, 1})
 
         ---@type Drawable
         local title = Drawable:new(
@@ -637,7 +637,7 @@ function GameState.showCardInfo(self)
             end
         ):TextBox(
             self.title, Font:resizeFont(Font.font_paths.pixel_font, 14),
-            nil, {255, 255, 255}
+            nil, {1, 1, 1}
         )
 
         ---@type Drawable
@@ -650,8 +650,8 @@ function GameState.showCardInfo(self)
                 self.y = infoBox.y + 60 -7
             end
         ):TextBox(
-            {{0, 0, 255}, "+"..self.chips, Color.white, " "..LANG.chips[GameState.current_lang]}, Font:resizeFont(Font.font_paths.pixel_font, 15),
-            nil, {255, 255, 255}
+            {{0, 0, 1}, "+"..self.chips, Color.black, " "..LANG.chips[GameState.current_lang]}, Font:resizeFont(Font.font_paths.pixel_font, 15),
+            nil, {1, 1, 1}
         )
 
         Scenes:addDrawable("game-main", background)
@@ -718,7 +718,7 @@ function GameState.showSparkInfo(self)
             self.x = spark.x
             self.y = spark.y + CONSTANTS.CARD_HEIGHT + 10
         end
-    ):Rectangle({145, 143, 137}, 3, {255, 255, 255})
+    ):Rectangle({145/255, 143/255, 137/255}, 3, {1, 1, 1})
 
     ---@type Drawable
     local title = Drawable:new(
@@ -731,7 +731,7 @@ function GameState.showSparkInfo(self)
         end
     ):TextBox(
         self.title, Font:resizeFont(Font.font_paths.pixel_font, 14),
-        nil, {255, 255, 255}
+        nil, {1, 1, 1}
     )
 
     ---@type Drawable
@@ -745,7 +745,7 @@ function GameState.showSparkInfo(self)
         end
     ):TextBox(
         self.desc, Font:resizeFont(Font.font_paths.pixel_font, 15),
-        nil, {255, 255, 255}
+        nil, {1, 1, 1}
     )
 
     local current_scene = "game-won"
@@ -837,7 +837,7 @@ function GameState.sparkOnClickFunc(self)
                 Scenes:removeDrawable("game-main", self.id)
                 GameState:refreshActiveSparks()
             end,
-            5, {255, 0, 0}
+            5, {1, 0, 0}
         )
 
         Scenes:addDrawable("game-main", button)

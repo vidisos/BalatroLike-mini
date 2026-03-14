@@ -10,7 +10,7 @@ local TextBox = {}
 ---Supported `text` formats:
 ---  * **string** – plain text
 ---  * **language table** – indexed by `GameState.current_lang`
----  * **colored table** – alternating color tables and strings like `{ {255,0,0}, "Red", {0,255,0}, "Green" }`
+---  * **colored table** – alternating color tables and strings like `{ {1,0,0}, "Red", {0,1,0}, "Green" }`
 ---@param text? table|LanguageEntry|string
 ---@param font? love.Font
 ---@param text_color? RGB
@@ -23,7 +23,7 @@ function TextBox:TextBox(text, font, text_color, background_color, text_alignmen
     self.text = text or ""
     self.baseFont = font or love.graphics.getFont()
     self.font = font or self.baseFont
-    self.text_color = text_color or Color.white
+    self.text_color = text_color or Color.black
     self.background_color = background_color
     self.text_alignment = text_alignment or "center"
     self.text_margin = text_margin or 0
@@ -34,7 +34,7 @@ function TextBox:TextBox(text, font, text_color, background_color, text_alignmen
     self.drawFunc = function ()
         --background rectangle
         if background_color then
-            Color:setColorRGB(self.background_color)
+            Color:setColor(self.background_color)
             love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
         end
 
