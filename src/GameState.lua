@@ -33,6 +33,7 @@ local GameState = {
     score = 0,
 
     selected_hand = nil,
+    selected_hand_contains = {},
     active_cards = {},
 
     active_sparks_count = 0,
@@ -74,15 +75,23 @@ function GameState:playHand()
     end
 
     GameState:checkHandRanking()
+    local sparks = self:getActiveSparks()
 
     for _, card in ipairs(self.active_cards) do
         self.chips = self.chips + card.chips
 
         --per card spark activations
-        for _, spark in ipairs(self:getActiveSparks()) do
+        for _, spark in ipairs(sparks) do
             if spark.activation_type == "per-card" then
                 spark:effect(GameState, card)
             end
+        end
+    end
+
+    -- per hand hand spark activations
+    for _, spark in ipairs(sparks) do
+        if spark.activation_type == "end-of-hand" then
+            spark:effect(GameState)
         end
     end
 
@@ -108,6 +117,7 @@ function GameState:discard()
     local discarded_drawables = self:discardCards()
 
     self.selected_hand = nil
+    self.selected_hand_contains = {}
     self:refreshChipsAndMult()
 
     if #discarded_drawables > 0 then
@@ -182,6 +192,7 @@ function GameState:resetRoundState()
     self.score = 0
     self:resetHandDiscardCount()
     self.selected_hand = nil
+    self.selected_hand_contains = {}
     self.selected_cards_count = 0
     self:refreshChipsAndMult()
 end
@@ -391,43 +402,85 @@ function GameState:checkHandRanking()
 
     self.active_cards = {}
 
-    if  #cards==5 and is_same_suit and is_consecutive and cards[1].rank == 14 then
+    if #cards==5 and is_same_suit and is_consecutive and cards[1].rank == 14 then
         self.selected_hand = "royal_flush"
         self.active_cards = cards
+
+        table.insert(self.selected_hand_contains, "flush")
+        table.insert(self.selected_hand_contains, "straight")
     elseif #cards==5 and is_same_suit and is_consecutive then
         self.selected_hand = "straight_flush"
         self.active_cards = cards
+
+        table.insert(self.selected_hand_contains, "flush")
+        table.insert(self.selected_hand_contains, "straight")
     elseif #first_pair_items == 4 then
         self.selected_hand = "four_of_a_kind"
         Utils.insertFromUnpackedTable(self.active_cards, first_pair_items)
+
+        table.insert(self.selected_hand_contains, "four_of_a_kind")
+        table.insert(self.selected_hand_contains, "three_of_a_kind")
+        table.insert(self.selected_hand_contains, "pair")
     elseif (#first_pair_items == 3 and #second_pair_items == 2) or (#first_pair_items == 2 and #second_pair_items == 3) then
         self.selected_hand = "full_house"
         Utils.insertFromUnpackedTable(self.active_cards, first_pair_items)
         Utils.insertFromUnpackedTable(self.active_cards, second_pair_items)
+
+        table.insert(self.selected_hand_contains, "full_house")
+        table.insert(self.selected_hand_contains, "three_of_a_kind")
+        table.insert(self.selected_hand_contains, "pair")
     elseif #cards==5 and is_same_suit then
         self.selected_hand = "flush"
         self.active_cards = cards
+
+        table.insert(self.selected_hand_contains, "flush")
     elseif #cards==5 and is_consecutive then
         self.selected_hand = "straight"
         self.active_cards = cards
-    elseif (#first_pair_items==3 and #second_pair_items==0) then
+
+        table.insert(self.selected_hand_contains, "straight")
+    elseif #first_pair_items==3 and #second_pair_items==0 then
         self.selected_hand = "three_of_a_kind"
         Utils.insertFromUnpackedTable(self.active_cards, first_pair_items)
-    elseif (#first_pair_items == 2 and #second_pair_items == 2) then
+
+        table.insert(self.selected_hand_contains, "three_of_a_kind")
+        table.insert(self.selected_hand_contains, "pair")
+    elseif #first_pair_items == 2 and #second_pair_items == 2 then
         self.selected_hand = "two_pair"
         Utils.insertFromUnpackedTable(self.active_cards, first_pair_items)
         Utils.insertFromUnpackedTable(self.active_cards, second_pair_items)
-    elseif (#first_pair_items == 2 and #second_pair_items == 0) then
+
+        table.insert(self.selected_hand_contains, "two_pair")
+        table.insert(self.selected_hand_contains, "pair")
+    elseif #first_pair_items == 2 and #second_pair_items == 0 then
         self.selected_hand = "pair"
         Utils.insertFromUnpackedTable(self.active_cards, first_pair_items)
+
+        table.insert(self.selected_hand_contains, "pair")
     elseif #cards > 0 then
         self.selected_hand = "high_card"
         table.insert(self.active_cards, highest_rank_card)
+
+        table.insert(self.selected_hand_contains, "high_card")
     else
         self.selected_hand = nil
+        self.selected_hand_contains = {}
     end
 
     self:refreshChipsAndMult()
+end
+
+---checks if teh curretn selected hand contains an input hand
+---@param hand_input string
+---@return boolean
+function GameState:handContains(hand_input)
+    for _, hand in ipairs(self.selected_hand_contains) do
+        if hand == hand_input then
+            return true
+        end
+    end
+
+    return false
 end
 
 ---deletes the spark choices and insert the chosen one into the active sparks
@@ -832,6 +885,10 @@ end
 function GameState.sparkOnClickFunc(self)
     -- if the spark is in selection screen
     if not self.isActive then
+        if #GameState:getActiveSparks() == GameState.spark_active_max then
+            return
+        end
+
         GameState:selectSpark(self)
         GameState:resetRoundState()
 
