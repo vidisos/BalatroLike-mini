@@ -35,9 +35,16 @@ return {
             LANG.choose_spark, Font:resizeFont(Font.font_paths.pixel_font_bold, 90),
             nil,
             {134/255, 142/255, 156/255}
-        )
+        ),
 
         -- skip jokers
-        
+        Drawable:new(
+            "btn-skip-jokers", 1,
+            Utils.getCenterAnchorX(CONSTANTS.HAND_X-100, CONSTANTS.HAND_WIDTH+200, 200), 900, 200, 100
+        ):Button("Skip", Font:resizeFont(Font.font_paths.pixel_font, 20), nil, nil,
+            function (self)
+                GameState:moveToNextRound()
+            end
+        ),
     }
 }

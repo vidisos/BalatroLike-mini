@@ -173,6 +173,16 @@ function GameState:roundWon()
     Scenes:enableScene("game-won")
 end
 
+--deletes all sparks on win screen and gets rid of win screen overlay
+function GameState:moveToNextRound()
+    self:clearSelectionSparks()
+    self:resetRoundState()
+
+    Scenes:disableScene("game-won")
+    self:makeNewHand()
+    self:refreshHand()
+end
+
 ---resets the hand and discard counts to base values for a new game
 function GameState:resetGameState()
     self.player_on_win_screen = false
@@ -483,7 +493,7 @@ function GameState:handContains(hand_input)
     return false
 end
 
----deletes the spark choices and insert the chosen one into the active sparks
+---inserts the chosen spark into the active sparks
 ---@param spark Spark|Drawable
 function GameState:selectSpark(spark)
     spark.isActive = true
@@ -496,8 +506,6 @@ function GameState:selectSpark(spark)
     if spark.activation_type == "passive" then
         spark:effect(GameState)
     end
-
-    self:clearSelectionSparks()
 end
 
 ---deletes all sparks on the main scene (and their delete buttons if needed)
@@ -890,11 +898,7 @@ function GameState.sparkOnClickFunc(self)
         end
 
         GameState:selectSpark(self)
-        GameState:resetRoundState()
-
-        Scenes:disableScene("game-won")
-        GameState:makeNewHand()
-        GameState:refreshHand()
+        GameState:moveToNextRound()
         return
     end
 
