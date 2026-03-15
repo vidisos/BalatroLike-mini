@@ -26,6 +26,7 @@ local GameState = {
     current_lang = "en",
     timer = 0,
     time_elapsed = 0,
+    player_on_win_screen = false;
 
     deck_bases = {},
 
@@ -116,6 +117,7 @@ end
 ---resets the cards and shows the spark select
 function GameState:roundWon()
     self.level = self.level + 1
+    self.player_on_win_screen = true
 
     -- we dont want the max counts to show only after selecting a spark, so they can more easily see if they need certain sparks and stuff
     self.hands_remaining = self.active_hands_remaining_max
@@ -156,6 +158,8 @@ end
 
 ---resets the hand and discard counts to base values for a new game
 function GameState:resetGameState()
+    self.player_on_win_screen = false
+
     self.active_hands_remaining_max = self.base_hands_remaining_max
     self.active_discards_remaining_max = self.base_discards_remaining_max
 
@@ -167,12 +171,18 @@ end
 
 ---resets the score, hand and discard counts and stuff for a new round
 function GameState:resetRoundState()
+    self.player_on_win_screen = false
     self.score = 0
-    self.hands_remaining = self.active_hands_remaining_max
-    self.discards_remaining = self.active_discards_remaining_max
+    self:resetHandDiscardCount()
     self.selected_hand = nil
     self.selected_cards_count = 0
     self:refreshChipsAndMult()
+end
+
+---resets the hand and discard counts
+function GameState:resetHandDiscardCount()
+    self.hands_remaining = self.active_hands_remaining_max
+    self.discards_remaining = self.active_discards_remaining_max
 end
 
 ---refreshes the base chips and mult according to the current hand
@@ -217,11 +227,10 @@ function GameState:makeNewDeck()
         local height = CONSTANTS.CARD_HEIGHT
         local onClickFunc = self.cardOnClickFunc
         local updateFunc = self.updateCardInHandFunc
-        local onHoverFunc = self.hoverCardInHandFunc
 
         local card_base = self:getRandomCardBase()
 
-        local card = Drawable:new(id, z_index, x, y, width, height, updateFunc, onHoverFunc):Card(card_base, onClickFunc)
+        local card = Drawable:new(id, z_index, x, y, width, height, updateFunc):Card(card_base, onClickFunc)
         card.inDeck = true
         card.inHand = false
         card.flipped = true
@@ -439,7 +448,9 @@ function GameState:clearSparks()
     for i = #scene.drawables, 1, -1 do
 
         local drawable = scene.drawables[i]
-        if drawable.type == "Spark" or string.sub(drawable.id, -3) == "btn" then
+        if drawable.type == "Spark" then
+            self:removeSpark(drawable)
+        elseif string.sub(drawable.id, -3) == "btn" then
             table.remove(scene.drawables, i)
         end
     end
@@ -480,6 +491,17 @@ function GameState:refreshActiveSparks()
         spark.displayIndex = i
         spark.z_index = 3 + i
     end
+end
+
+---removes a spark and reverts any passive effects
+function GameState:removeSpark(spark)
+    if spark.isActive and spark.deactivate then
+        spark:deactivate(GameState)
+        self:resetHandDiscardCount()
+    end
+
+    Scenes:removeDrawable("game-main", spark.id)
+    GameState:refreshActiveSparks()
 end
 
 ---deletes all the normal cards
@@ -812,7 +834,7 @@ function GameState.sparkOnClickFunc(self)
         return
     end
 
-    if not self.selected then
+    if not self.selected and GameState.player_on_win_screen then
         local active_sparks = GameState:getActiveSparks()
         for _, spark in ipairs(active_sparks) do
             spark.selected = false
@@ -839,9 +861,11 @@ function GameState.sparkOnClickFunc(self)
             LANG.delete_spark, Font:resizeFont(Font.font_paths.pixel_font, 20),
             nil, nil,
             function (self)
-                Scenes:removeDrawable("game-main", spark_id)
+                local spark = Scenes:getDrawable("game-main", spark_id)
+                if spark then
+                    GameState:removeSpark(spark)
+                end
                 Scenes:removeDrawable("game-main", self.id)
-                GameState:refreshActiveSparks()
             end,
             5, {1, 0, 0}
         )
@@ -851,8 +875,10 @@ function GameState.sparkOnClickFunc(self)
         Scenes:removeDrawable("game-main", self.id.."btn")
     end
 
+    if GameState.player_on_win_screen then
+        self.selected = not self.selected
+    end
     Scenes:sortDrawables("game-main")
-    self.selected = not self.selected
 end
 
 return GameState

@@ -31,6 +31,7 @@
 ---@field desc LanguageEntry
 ---@field activation_type string
 ---@field effect fun(self, gamestate)
+---@field deactivate fun(self, gamestate)
 
 ---@class Drawable
 ---@field id string
