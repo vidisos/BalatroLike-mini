@@ -20,7 +20,7 @@ local GameState = {
 
     --level info
     level = 1,
-    score_requirement = 1,
+    score_requirement = 50,
 
     --dynamic stuff
     current_lang = "en",
@@ -52,13 +52,11 @@ local GameState = {
 }
 
 function GameState:startNewGame()
-    self.active_hands_remaining_max = self.base_hands_remaining_max
-    self.active_discards_remaining_max = self.base_discards_remaining_max
-
+    self:resetGameState()
     self:startNewRound()
 end
 
----resets everything about the score, current cards and stuff
+---resets everything about the score, current cards and stuff, clears all the elements and makes new ones
 function GameState:startNewRound()
     self:resetRoundState()
     self:clearSelectionSparks()
@@ -156,10 +154,14 @@ function GameState:roundWon()
     Scenes:enableScene("game-won")
 end
 
----resets the score, hand and discard counts and stuff for a new round
+---resets the hand and discard counts to base values for a new game
 function GameState:resetGameState()
-    self.hands_remaining = self.base_hands_remaining_max
-    self.discards_remaining = self.base_discards_remaining_max
+    self.active_hands_remaining_max = self.base_hands_remaining_max
+    self.active_discards_remaining_max = self.base_discards_remaining_max
+
+    self.hands_remaining = self.active_hands_remaining_max
+    self.discards_remaining = self.active_discards_remaining_max
+
     self:resetRoundState()
 end
 
@@ -421,6 +423,10 @@ function GameState:selectSpark(spark)
     spark.displayIndex = #GameState:getActiveSparks() + 1
 
     Scenes:addDrawable("game-main", spark)
+
+    if spark.activation_type == "passive" then
+        spark:effect(GameState)
+    end
 
     self:clearSelectionSparks()
 end
@@ -795,10 +801,10 @@ end
 
 ---@param self Spark|Drawable
 function GameState.sparkOnClickFunc(self)
-    --for then the spark is in selection screen
+    -- if the spark is in selection screen
     if not self.isActive then
-        GameState:resetRoundState()
         GameState:selectSpark(self)
+        GameState:resetRoundState()
 
         Scenes:disableScene("game-won")
         GameState:makeNewHand()

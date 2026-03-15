@@ -30,7 +30,7 @@
 ---@field title LanguageEntry
 ---@field desc LanguageEntry
 ---@field activation_type string
----@field effect fun()
+---@field effect fun(self, gamestate)
 
 ---@class Drawable
 ---@field id string

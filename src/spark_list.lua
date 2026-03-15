@@ -5,7 +5,12 @@ local spark_images = image_list.sparks
 
 ---@type SparkBase[]
 local spark_list = {
-    spark1 = {image = spark_images.spark1, id = "spark1", title = LANG.spark_1_title, desc = LANG.spark_1_desc, activation_type = "end-of-hand", effect = function () end},
+    spark1 = {image = spark_images.spark1, id = "spark1", title = LANG.spark_1_title, desc = LANG.spark_1_desc, activation_type = "passive", effect = 
+        ---@param gamestate GameState
+        function(self, gamestate)
+            gamestate.active_hands_remaining_max = gamestate.active_hands_remaining_max + 1
+        end
+    },
     spark2 = {image = spark_images.spark2, id = "spark2", title = LANG.spark_2_title, desc = LANG.spark_2_desc, activation_type = "end-of-hand", effect = function () end},
     spark3 = {image = spark_images.spark3, id = "spark3", title = LANG.spark_3_title, desc = LANG.spark_3_desc, activation_type = "end-of-hand", effect = function () end},
     spark4 = {image = spark_images.spark4, id = "spark4", title = LANG.spark_4_title, desc = LANG.spark_4_desc, activation_type = "end-of-hand", effect = function () end},
