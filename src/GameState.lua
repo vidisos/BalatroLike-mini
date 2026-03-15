@@ -77,6 +77,13 @@ function GameState:playHand()
 
     for _, card in ipairs(self.active_cards) do
         self.chips = self.chips + card.chips
+
+        --per card spark activations
+        for _, spark in ipairs(self:getActiveSparks()) do
+            if spark.activation_type == "per-card" then
+                spark:effect(GameState, card)
+            end
+        end
     end
 
     self.score = self.score + (self.chips * self.mult)
