@@ -106,6 +106,9 @@ function GameState:playHand()
     elseif self.hands_remaining == 0 then
         self:gameOver()
     end
+
+    self.selected_hand = nil
+    self:refreshChipsAndMult()
 end
 
 ---discards and changes the discard count accordingly
