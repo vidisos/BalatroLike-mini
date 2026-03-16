@@ -109,8 +109,7 @@ function GameState:playHand()
         return
     end
 
-    self.selected_hand = nil
-    self:refreshChipsAndMult()
+    GameState:checkHandRanking()
 end
 
 ---discards and changes the discard count accordingly
