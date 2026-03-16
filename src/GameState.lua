@@ -103,8 +103,10 @@ function GameState:playHand()
 
     if self.score >= self.score_requirement then
         self:roundWon()
+        return
     elseif self.hands_remaining == 0 then
         self:gameOver()
+        return
     end
 
     self.selected_hand = nil
