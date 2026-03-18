@@ -37,9 +37,9 @@ return {
             {134/255, 142/255, 156/255}
         ),
 
-        -- skip jokers
+        -- skip sparks
         Drawable:new(
-            "btn-skip-jokers", 1,
+            "btn-skip-sparks", 1,
             Utils.getCenterAnchorX(CONSTANTS.HAND_X-100, CONSTANTS.HAND_WIDTH+200, 200), 900, 200, 100
         ):Button("Skip", Font:resizeFont(Font.font_paths.pixel_font, 20), nil, nil,
             function (self)

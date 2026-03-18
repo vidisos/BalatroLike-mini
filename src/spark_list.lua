@@ -116,13 +116,13 @@ local spark_list = {
             ---@param self Spark|Drawable
             ---@param gamestate GameState
             function(self, gamestate)
-                gamestate.spark_select_max = gamestate.spark_select_max + 2
+                gamestate.spark_select_max = gamestate.spark_select_max + 1
             end,
         deactivate =
             ---@param self Spark|Drawable
             ---@param gamestate GameState
             function(self, gamestate)
-                gamestate.spark_select_max = gamestate.spark_select_max - 2
+                gamestate.spark_select_max = gamestate.spark_select_max - 1
             end
     },
     spark13 = {image = spark_images.spark13, id = "americatime", title = LANG.spark_13_title, desc = LANG.spark_13_desc, activation_type = "per-card", effect =

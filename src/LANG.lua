@@ -156,8 +156,8 @@ local LANG = {
 
     spark_12_title = {en="Spark", sl="Iskra"},
     spark_12_desc = {
-        en={ Color.dark_orange,"2", Color.black," more spark choices after winning a round" },
-        sl={ Color.dark_orange,"2", Color.black," dodatni izbiri isker po zmagi runde" }
+        en={ Color.dark_orange,"1", Color.black," more spark choice after winning a round" },
+        sl={ Color.dark_orange,"1", Color.black," dodatna izbira isker po zmagi runde" }
     },
 
     spark_13_title = {en="Spark 3", sl="Iskra 3"},

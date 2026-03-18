@@ -200,7 +200,7 @@ return {
 
         --hand rankings info
         Drawable:new("btn-hand-rankings-info",2,
-            Utils.getCenterAnchorX(0,450,200),940,200,115
+            25,940,200,115
         ):Button(
             LANG.ranking_info,
             Font:resizeFont(Font.font_paths.pixel_font,40),
@@ -209,7 +209,9 @@ return {
             function()
                 Scenes:disableScenes()
                 Scenes:enableScene("start-menu")
-            end
+            end,
+            8,
+            Color.black
         ),
 
         -- play hand

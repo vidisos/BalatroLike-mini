@@ -182,7 +182,7 @@ function GameState:moveToNextRound()
     self:clearSelectionSparks()
     self:resetRoundState()
 
-    -- we delete the remove joker buttons in case the player exits the win screen without clicking to remove it
+    -- we delete the remove spark buttons in case the player exits the win screen without clicking to remove it
     for _, spark in ipairs(self:getActiveSparks()) do
         Scenes:removeDrawable("game-main", spark.id.."btn")
     end
