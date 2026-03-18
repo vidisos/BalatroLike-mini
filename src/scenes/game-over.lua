@@ -17,7 +17,7 @@ return {
     id = "game-over",
     shouldDraw = false,
     isClickable = true,
-    z_index = 1,
+    z_index = 2,
     drawables = {
         -- main background
         Drawable:new(
@@ -68,6 +68,20 @@ return {
             end,
             10,
             {0, 100/255, 25/255}
+        ),
+
+        -- settings
+        Drawable:new("img-settings",1,
+            ww-100,10,90,90
+        ):ImageBox(
+            image_list.settings_icon,
+            function()
+                if audio_list.background_music:isPlaying() then
+                    audio_list.background_music:pause()
+                else
+                    audio_list.background_music:play()
+                end
+            end
         ),
     }
 }

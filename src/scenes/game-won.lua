@@ -12,38 +12,96 @@ local Font = require "src.Font"
 local ww = CONSTANTS.BASE_WIDTH
 local wh = CONSTANTS.BASE_HEIGHT
 
-local left_column = Scenes:getDrawable("game-main", "rect-left")
-
 ---@type Scene
 return {
     id = "game-won",
     shouldDraw = false,
     isClickable = true,
-    z_index = 1,
+    z_index = 2,
     drawables = {
         -- main background
         Drawable:new(
             "rect-background", 0,
-            CONSTANTS.HAND_X-100, 500, CONSTANTS.HAND_WIDTH+200, 800
+            860, 120, 400, 800
         ):Rectangle({134/255, 142/255, 156/255}, 10),
 
-        -- round overlay
+        -- u lose
         Drawable:new(
-            "text-choose-sparks", 1,
-            Utils.getCenterAnchorX(left_column.x, left_column.width, left_column.width-50), 20, left_column.width-50, 320
+            "text-you-win", 1,
+            Utils.getCenterAnchorX(860, 400, 370), 300, 370, 100
         ):TextBox(
-            LANG.choose_spark, Font:resizeFont(Font.font_paths.pixel_font_bold, 90),
-            nil,
-            {134/255, 142/255, 156/255}
+            LANG.you_win,
+            Font:resizeFont(Font.font_paths.pixel_font_bold, 110)
         ),
 
-        -- skip sparks
+        -- continue game
         Drawable:new(
-            "btn-skip-sparks", 1,
-            Utils.getCenterAnchorX(CONSTANTS.HAND_X-100, CONSTANTS.HAND_WIDTH+200, 200), 900, 200, 100
-        ):Button(LANG.skip, Font:resizeFont(Font.font_paths.pixel_font, 20), nil, nil,
-            function (self)
-                GameState:moveToNextRound()
+            "btn-continue-game", 1,
+            Utils.getCenterAnchorX(860, 400, 330), 520, 330, 100
+        ):Button(
+            LANG.continue,
+            Font:resizeFont(Font.font_paths.pixel_font, 30),
+            {0, 0, 100/255},
+            {1, 0, 0},
+            function(self)
+                Scenes:disableScene("game-won")
+                Scenes:enableSceneClicks("game-main")
+                Scenes:enableSceneClicks("round-won")
+            end,
+            10,
+            {0, 100/255, 25/255}
+        ),
+
+        -- start new game
+        Drawable:new(
+            "btn-new-game", 1,
+            Utils.getCenterAnchorX(860, 400, 330), 650, 330, 100
+        ):Button(
+            LANG.new_game,
+            Font:resizeFont(Font.font_paths.pixel_font, 30),
+            {0, 0, 100/255},
+            {1, 0, 0},
+            function(self)
+                GameState:startNewGame()
+                Scenes:disableScene("game-won")
+                Scenes:disableScene("round-won")
+                Scenes:enableSceneClicks("game-main")
+                Scenes:enableSceneClicks("round-won")
+            end,
+            10,
+            {0, 100/255, 25/255}
+        ),
+
+        -- to main menu
+        Drawable:new(
+            "btn-to-main-menu", 1,
+            Utils.getCenterAnchorX(860, 400, 330), 780, 330, 100
+        ):Button(
+            LANG.to_main_menu,
+            Font:resizeFont(Font.font_paths.pixel_font, 30),
+            {0, 0, 100/255},
+            {1, 0, 0},
+            function(self)
+                Scenes:disableScenes()
+                Scenes:enableScene("start-menu")
+                Scenes:enableSceneClicks("game-main")
+                Scenes:enableSceneClicks("round-won")
+            end,
+            10,
+            {0, 100/255, 25/255}
+        ),
+
+        -- settings
+        Drawable:new("img-settings",1,
+            ww-100,10,90,90
+        ):ImageBox(
+            image_list.settings_icon,
+            function()
+                if audio_list.background_music:isPlaying() then
+                    audio_list.background_music:pause()
+                else
+                    audio_list.background_music:play()
+                end
             end
         ),
     }

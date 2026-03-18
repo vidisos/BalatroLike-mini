@@ -10,7 +10,7 @@ local LANG = {
     language = {en="Language", sl="Jezik"},
 
     -- main game
-    round = {en="Round", sl="Stopnja"},
+    chips = {en="chips", sl="žetonov"},
     score_text = {en="Score at least:", sl="Doseži vsaj:"},
     round_score = {en="Round Score", sl="Točke stopnje"},
     hands = {en="Hands", sl="Roke"},
@@ -20,14 +20,16 @@ local LANG = {
     discard_hand = {en="Discard", sl="Zavrži"},
     to_main_menu = {en="Main menu", sl="Glavni meni"},
     new_game = {en="New game", sl="Nova igra"},
+    continue = {en="Continue", sl="Nadaljuj"},
     you_lose = {en="You lose!", sl="Zgubil si!"},
-    choose_spark = {en="Choose a Spark!", sl="Izberi Iskro!"},
+    you_win = {en="You win!", sl="Zmagal si!"},
+    skip = {en="Skip", sl="Preskoči"},
+
     round = {en="Round", sl="Stopnja"},
     ante = {en="Ante", sl="Ante"},
 
-    chips = {en="chips", sl="žetonov"},
     delete_spark = {en="Remove", sl="Odstrani"},
-    skip = {en="Skip", sl="Preskoči"},
+    choose_spark = {en="Choose a Spark!", sl="Izberi Iskro!"},
 
     -- hands
     high_card = {en="High Card", sl="Visoka karta"},
@@ -38,7 +40,7 @@ local LANG = {
     flush = {en="Flush", sl="Barva"},
     full_house = {en="Full House", sl="Polna hiša"},
     four_of_a_kind = {en="Four of a Kind", sl="Poker", font=Font.fonts.font_average},
-    straight_flush = {en="Straight Flush", sl="Barvna lestvica", font=Font.fonts.font_average},
+    straight_flush = {en="Straight Flush", sl="Barvna lestvica", font=Font.fonts.font_small},
     royal_flush = {en="Royal Flush", sl="Kraljeva barvna lestvica", font=Font.fonts.font_small},
 
     -- cards

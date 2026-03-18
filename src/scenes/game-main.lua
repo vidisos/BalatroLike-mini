@@ -299,6 +299,18 @@ return {
             CONSTANTS.SPARKS_X - 30,CONSTANTS.SPARKS_Y - 10,CONSTANTS.SPARKS_WIDTH + 60,CONSTANTS.SPARKS_HEIGHT + 20
         ):Rectangle({105/255, 151/255, 224/255}),
 
+        -- sparks count
+        Drawable:new("text-sparks-count",1,
+            CONSTANTS.SPARKS_X - 30,CONSTANTS.SPARKS_Y + CONSTANTS.SPARKS_HEIGHT + 20,100,50,
+            function(self)
+                self.text = #GameState:getActiveSparks() .. "/" .. GameState.spark_active_max
+            end
+        ):TextBox(
+            nil,
+            Font:resizeFont(Font.font_paths.pixel_font,40),
+            {1,1,1}
+        ),
+
         -- deck count
         Drawable:new("text-deck-count",1,
             1730,980,140,50,

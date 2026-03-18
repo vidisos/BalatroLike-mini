@@ -11,6 +11,7 @@ function Scenes:init()
     table.insert(self.scene_list, require("src/scenes/start-menu"))
     table.insert(self.scene_list, require("src/scenes/game-main"))
     table.insert(self.scene_list, require("src/scenes/game-over"))
+    table.insert(self.scene_list, require("src/scenes/round-won"))
     table.insert(self.scene_list, require("src/scenes/game-won"))
 
     self:sortScenes()

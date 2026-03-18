@@ -22,7 +22,7 @@ local GameState = {
     --round info
     ante = 1,
     round = 0,
-    score_requirement = 50,
+    score_requirement = 0,
 
     --dynamic stuff
     current_lang = "en",
@@ -63,6 +63,8 @@ end
 ---resets everything about the score, current cards and stuff, clears all the elements and makes new ones
 function GameState:startNewRound()
     self.round = self.round + 1
+    self:updateScoreRequirement()
+
     self:resetRoundState()
     self:clearSelectionSparks()
     self:clearSparks()
@@ -133,6 +135,13 @@ function GameState:discard()
 end
 
 ---goes to the game over screen and stuff
+function GameState:gameWon()
+    Scenes:enableScene("game-won")
+    Scenes:disableSceneClicks("game-main")
+    Scenes:disableSceneClicks("round-won")
+end
+
+---goes to the game over screen and stuff
 function GameState:gameOver()
     Scenes:enableScene("game-over")
     Scenes:disableSceneClicks("game-main")
@@ -140,7 +149,16 @@ end
 
 ---resets the cards and shows the spark select
 function GameState:roundWon()
+    if self.round % 3 == 0 then
+        self.ante = self.ante + 1
+    end
+    if self.ante > self.ante_win then
+        self:gameWon()
+    end
+
     self.round = self.round + 1
+    self:updateScoreRequirement()
+
     self.player_on_win_screen = true
 
     -- we dont want the max counts to show only after selecting a spark, so they can more easily see if they need certain sparks and stuff
@@ -153,7 +171,7 @@ function GameState:roundWon()
     -- we dont want two duplicates to show up in the selection, we dont care about duplicates in the active play tho
     local temp_sparks = self:getNewSparkBases()
 
-    local game_win_background = Scenes:getDrawable("game-won", "rect-background")
+    local game_win_background = Scenes:getDrawable("round-won", "rect-background")
     for i=1, self.spark_select_max do
         local z_index = i
 
@@ -174,10 +192,10 @@ function GameState:roundWon()
         spark.onEnterHoverFunc = self.showSparkInfo
         spark.onExitHoverFunc = self.disableSparkInfo
 
-        Scenes:addDrawable("game-won", spark)
+        Scenes:addDrawable("round-won", spark)
     end
 
-    Scenes:enableScene("game-won")
+    Scenes:enableScene("round-won")
 end
 
 --deletes all sparks on win screen and gets rid of win screen overlay
@@ -190,7 +208,7 @@ function GameState:moveToNextRound()
         Scenes:removeDrawable("game-main", spark.id.."btn")
     end
 
-    Scenes:disableScene("game-won")
+    Scenes:disableScene("round-won")
     self:makeNewHand()
     self:refreshHand()
 end
@@ -239,6 +257,13 @@ function GameState:refreshChipsAndMult()
     local hand_info = hand_rankings[self.selected_hand]
     self.chips = hand_info.chips
     self.mult = hand_info.mult
+end
+
+---updates the score requirement depending on round and ante
+function GameState:updateScoreRequirement()
+    local base = 200
+    local multiplier = 1.5
+    self.score_requirement = math.floor(base * multiplier ^ (self.round - 1))
 end
 
 ---sorts all the cards in the hand by their rank and changes their display index accordingly
@@ -541,7 +566,7 @@ end
 
 ---deletes all sparks on the win screen
 function GameState:clearSelectionSparks()
-    local scene = Scenes:getScene("game-won")
+    local scene = Scenes:getScene("round-won")
 
     -- we need to iterate backwards otherwise it doesnt remove properly(the index moves and stuff)
     for i = #scene.drawables, 1, -1 do
@@ -859,7 +884,7 @@ function GameState.showSparkInfo(self)
         nil, {1, 1, 1}
     )
 
-    local current_scene = "game-won"
+    local current_scene = "round-won"
 
     if self.isActive then
         current_scene = "game-main"
