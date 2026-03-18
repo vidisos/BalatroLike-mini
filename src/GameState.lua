@@ -17,9 +17,11 @@ local GameState = {
     spark_active_max = 5,
     base_hands_remaining_max = 4,
     base_discards_remaining_max = 3,
+    ante_win = 3,
 
-    --level info
-    level = 1,
+    --round info
+    ante = 1,
+    round = 0,
     score_requirement = 50,
 
     --dynamic stuff
@@ -60,6 +62,7 @@ end
 
 ---resets everything about the score, current cards and stuff, clears all the elements and makes new ones
 function GameState:startNewRound()
+    self.round = self.round + 1
     self:resetRoundState()
     self:clearSelectionSparks()
     self:clearSparks()
@@ -137,7 +140,7 @@ end
 
 ---resets the cards and shows the spark select
 function GameState:roundWon()
-    self.level = self.level + 1
+    self.round = self.round + 1
     self.player_on_win_screen = true
 
     -- we dont want the max counts to show only after selecting a spark, so they can more easily see if they need certain sparks and stuff
@@ -195,6 +198,9 @@ end
 ---resets the hand and discard counts to base values for a new game
 function GameState:resetGameState()
     self.player_on_win_screen = false
+
+    self.ante = 1
+    self.round = 0
 
     self.active_hands_remaining_max = self.base_hands_remaining_max
     self.active_discards_remaining_max = self.base_discards_remaining_max

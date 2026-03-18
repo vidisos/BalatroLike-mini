@@ -10,7 +10,7 @@ local LANG = {
     language = {en="Language", sl="Jezik"},
 
     -- main game
-    level = {en="Level", sl="Stopnja"},
+    round = {en="Round", sl="Stopnja"},
     score_text = {en="Score at least:", sl="Doseži vsaj:"},
     round_score = {en="Round Score", sl="Točke stopnje"},
     hands = {en="Hands", sl="Roke"},
@@ -22,9 +22,12 @@ local LANG = {
     new_game = {en="New game", sl="Nova igra"},
     you_lose = {en="You lose!", sl="Zgubil si!"},
     choose_spark = {en="Choose a Spark!", sl="Izberi Iskro!"},
+    round = {en="Round", sl="Stopnja"},
+    ante = {en="Ante", sl="Ante"},
 
     chips = {en="chips", sl="žetonov"},
     delete_spark = {en="Remove", sl="Odstrani"},
+    skip = {en="Skip", sl="Preskoči"},
 
     -- hands
     high_card = {en="High Card", sl="Visoka karta"},

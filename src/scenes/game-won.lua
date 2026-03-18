@@ -27,10 +27,10 @@ return {
             CONSTANTS.HAND_X-100, 500, CONSTANTS.HAND_WIDTH+200, 800
         ):Rectangle({134/255, 142/255, 156/255}, 10),
 
-        -- level overlay
+        -- round overlay
         Drawable:new(
             "text-choose-sparks", 1,
-            Utils.getCenterAnchorX(left_column.x, left_column.width, left_column.width-50), 20, left_column.width-50, 375
+            Utils.getCenterAnchorX(left_column.x, left_column.width, left_column.width-50), 20, left_column.width-50, 320
         ):TextBox(
             LANG.choose_spark, Font:resizeFont(Font.font_paths.pixel_font_bold, 90),
             nil,
@@ -41,7 +41,7 @@ return {
         Drawable:new(
             "btn-skip-sparks", 1,
             Utils.getCenterAnchorX(CONSTANTS.HAND_X-100, CONSTANTS.HAND_WIDTH+200, 200), 900, 200, 100
-        ):Button("Skip", Font:resizeFont(Font.font_paths.pixel_font, 20), nil, nil,
+        ):Button(LANG.skip, Font:resizeFont(Font.font_paths.pixel_font, 20), nil, nil,
             function (self)
                 GameState:moveToNextRound()
             end
