@@ -150,26 +150,26 @@ local LANG = {
 
     spark_11_title = {en="Spark 1", sl="Iskra 1"},
     spark_11_desc = {
-        en={ Color.light_orange,"+1", Color.black," Hand" },
-        sl={ Color.light_orange,"+1", Color.black," Roka" }
+        en={ Color.dark_orange,"+1", Color.black," Hand" },
+        sl={ Color.dark_orange,"+1", Color.black," Roka" }
     },
 
     spark_12_title = {en="Spark", sl="Iskra"},
     spark_12_desc = {
-        en={ Color.light_orange,"2", Color.black," more spark choices after winning a round" },
-        sl={ Color.light_orange,"2", Color.black," dodatni izbiri isker po zmagi runde" }
+        en={ Color.dark_orange,"2", Color.black," more spark choices after winning a round" },
+        sl={ Color.dark_orange,"2", Color.black," dodatni izbiri isker po zmagi runde" }
     },
 
     spark_13_title = {en="Spark 3", sl="Iskra 3"},
     spark_13_desc = {
-        en={ Color.black,"All played ", Color.hand_text,"Aces", Color.black," give ", Color.red,"x1.5 Mult" },
-        sl={ Color.black,"Vsi igrani ", Color.hand_text,"As-i", Color.black," ponudijo ", Color.red,"x1.5 mult" }
+        en={ Color.black,"All played ", Color.hand_text,"Aces", Color.black," give ", Color.red,"+2 Mult" },
+        sl={ Color.black,"Vsi igrani ", Color.hand_text,"As-i", Color.black," ponudijo ", Color.red,"+2 mult" }
     },
 
     spark_14_title = {en="Trash can", sl="Smetnjak"},
     spark_14_desc = {
-        en={ Color.light_orange,"+2", Color.black," Discards" },
-        sl={ Color.light_orange,"+2", Color.black," zavržka" }
+        en={ Color.dark_orange,"+2", Color.black," Discards" },
+        sl={ Color.dark_orange,"+2", Color.black," zavržka" }
     }
 }
 

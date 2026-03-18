@@ -131,7 +131,7 @@ local spark_list = {
         ---@param card Card|Drawable
         function(self, gamestate, card)
             if card.rank == 14 then
-                gamestate.mult = gamestate.mult * 1.5
+                gamestate.mult = gamestate.mult + 2
             end
         end
     },
