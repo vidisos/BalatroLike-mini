@@ -25,6 +25,8 @@ local GameState = {
     score_requirement = 0,
 
     --dynamic stuff
+    mx = 0,
+    my = 0,
     current_lang = "en",
     timer = 0,
     time_elapsed = 0,

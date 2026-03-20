@@ -21,10 +21,17 @@ end
 
 function love.update(dt)
     GameState.timer = GameState.timer + dt
-    Scenes:update(dt)
+
+    local ww, wh = love.graphics.getDimensions()
+    local sx = ww / CONSTANTS.BASE_WIDTH
+    local sy = wh / CONSTANTS.BASE_HEIGHT
 
     local mx, my = love.mouse.getPosition()
-    Scenes:onHover(mx, my)
+    GameState.mx = mx / sx
+    GameState.my = my / sy
+
+    Scenes:update(dt)
+    Scenes:onHover(GameState.mx, GameState.my)
 end
 
 function love.draw()

@@ -1,3 +1,4 @@
+local GameState = require "src.GameState"
 --[[
 Copyright (c) 2016 George Prosser
 
@@ -52,7 +53,7 @@ function Slider:Slider(value, min, max, setter, orientation, track, knob)
     self.oy = 0
 
     self.updateFunc = function(self, dt)
-        local x = love.mouse.getX()
+        local x = GameState.mx
         local y = love.mouse.getY()
         local down = love.mouse.isDown(1)
 
