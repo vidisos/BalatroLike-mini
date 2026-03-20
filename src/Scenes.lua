@@ -13,7 +13,7 @@ function Scenes:init()
     table.insert(self.scene_list, require("src/scenes/game-over"))
     table.insert(self.scene_list, require("src/scenes/round-won"))
     table.insert(self.scene_list, require("src/scenes/game-won"))
-    table.insert(self.scene_list, require("src/scenes/options"))
+    table.insert(self.scene_list, require("src/Options"))
 
     self:sortScenes()
     for _, scene in ipairs(self.scene_list) do

@@ -16,6 +16,16 @@
 ---@field z_index number
 ---@field drawables Drawable[]
 
+---@class Options
+---@field id string
+---@field shouldDraw boolean
+---@field isClickable boolean
+---@field z_index number
+---@field drawables Drawable[]
+---@field open fun(self, source: string)
+---@field close fun(self)
+---@field source string
+
 ---@class CardBase
 ---@field baseImage love.Image
 ---@field backImage love.Image

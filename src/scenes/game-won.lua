@@ -5,6 +5,7 @@ local Utils = require "src.Utils"
 local audio_list = require "src.audio_list"
 local image_list = require "src.image_list"
 local GameState = require "src.GameState"
+local Options   = require "src.Options"
 
 local LANG = require "src.LANG"
 local Font = require "src.Font"
@@ -92,7 +93,7 @@ return {
         ):ImageBox(
             image_list.settings_icon,
             function()
-                GameState:openOptions()
+                Options:open("game-won")
             end
         ),
     }

@@ -148,19 +148,6 @@ function GameState:gameOver()
     Scenes:enableSceneClicks("game-over")
 end
 
----opens the options menu and disables clicks elsewhere
-function GameState:openOptions()
-    Scenes:disableAllSceneClicks()
-    Scenes:enableScene("options")
-    Scenes:enableSceneClicks("options")
-end
-
----closes the options menu and enables clicks
-function GameState:closeOptions()
-    Scenes:enableAllSceneClicks()
-    Scenes:disableScene("options")
-end
-
 ---resets the cards and shows the spark select
 function GameState:roundWon()
     if self.round % 3 == 0 then
