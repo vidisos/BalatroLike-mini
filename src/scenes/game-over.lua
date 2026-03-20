@@ -45,8 +45,8 @@ return {
             {1, 0, 0},
             function(self)
                 GameState:startNewGame()
-                Scenes:disableScene("game-over")
-                Scenes:enableSceneClicks("game-main")
+                Scenes:resetScenes()
+                Scenes:enableScene("game-main")
             end,
             10,
             {0, 100/255, 25/255}
@@ -62,8 +62,7 @@ return {
             {0, 0, 100/255},
             {1, 0, 0},
             function(self)
-                Scenes:disableScenes()
-                Scenes:enableSceneClicks("game-main")
+                Scenes:resetScenes()
                 Scenes:enableScene("start-menu")
             end,
             10,
@@ -76,11 +75,7 @@ return {
         ):ImageBox(
             image_list.settings_icon,
             function()
-                if audio_list.background_music:isPlaying() then
-                    audio_list.background_music:pause()
-                else
-                    audio_list.background_music:play()
-                end
+                GameState:openOptions()
             end
         ),
     }

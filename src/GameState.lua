@@ -137,14 +137,28 @@ end
 ---goes to the game over screen and stuff
 function GameState:gameWon()
     Scenes:enableScene("game-won")
-    Scenes:disableSceneClicks("game-main")
-    Scenes:disableSceneClicks("round-won")
+    Scenes:disableAllSceneClicks()
+    Scenes:enableSceneClicks("game-won")
 end
 
 ---goes to the game over screen and stuff
 function GameState:gameOver()
     Scenes:enableScene("game-over")
-    Scenes:disableSceneClicks("game-main")
+    Scenes:disableAllSceneClicks()
+    Scenes:enableSceneClicks("game-over")
+end
+
+---opens the options menu and disables clicks elsewhere
+function GameState:openOptions()
+    Scenes:disableAllSceneClicks()
+    Scenes:enableScene("options")
+    Scenes:enableSceneClicks("options")
+end
+
+---closes the options menu and enables clicks
+function GameState:closeOptions()
+    Scenes:enableAllSceneClicks()
+    Scenes:disableScene("options")
 end
 
 ---resets the cards and shows the spark select
@@ -261,7 +275,7 @@ end
 
 ---updates the score requirement depending on round and ante
 function GameState:updateScoreRequirement()
-    local base = 200
+    local base = 1
     local multiplier = 1.5
     self.score_requirement = math.floor(base * multiplier ^ (self.round - 1))
 end

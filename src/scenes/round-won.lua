@@ -46,5 +46,15 @@ return {
                 GameState:moveToNextRound()
             end
         ),
+
+        -- settings
+        Drawable:new("img-settings",1,
+            ww-100,10,90,90
+        ):ImageBox(
+            image_list.settings_icon,
+            function()
+                GameState:openOptions()
+            end
+        ),
     }
 }

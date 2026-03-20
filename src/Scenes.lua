@@ -13,6 +13,7 @@ function Scenes:init()
     table.insert(self.scene_list, require("src/scenes/game-over"))
     table.insert(self.scene_list, require("src/scenes/round-won"))
     table.insert(self.scene_list, require("src/scenes/game-won"))
+    table.insert(self.scene_list, require("src/scenes/options"))
 
     self:sortScenes()
     for _, scene in ipairs(self.scene_list) do
@@ -122,10 +123,11 @@ function Scenes:onHover(mx, my)
     end
 end
 
----prevents all scenes from being drawn
-function Scenes:disableScenes()
+---prevents all scenes from being drawn and allows clicks on all of them
+function Scenes:resetScenes()
     for _, scene in ipairs(self.scene_list) do
         scene.shouldDraw = false
+        scene.isClickable = true
     end
 end
 
@@ -179,11 +181,25 @@ function Scenes:disableScene(scene_id)
     scene.shouldDraw = false
 end
 
+---enables clicks for all scenes
+function Scenes:enableAllSceneClicks()
+    for _, scene in ipairs(self.scene_list) do
+        scene.isClickable = true
+    end
+end
+
 ---enables clicks for a certain scene
 ---@param scene_id string
 function Scenes:enableSceneClicks(scene_id)
     local scene = Scenes:getScene(scene_id)
     scene.isClickable = true
+end
+
+---disables clicks for all scenes
+function Scenes:disableAllSceneClicks()
+    for _, scene in ipairs(self.scene_list) do
+        scene.isClickable = false
+    end
 end
 
 ---disables clicks for a certain scene

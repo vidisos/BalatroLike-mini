@@ -207,7 +207,7 @@ return {
             {237/255,164/255,74/255},
             {212/255,198/255,182/255},
             function()
-                Scenes:disableScenes()
+                Scenes:resetScenes()
                 Scenes:enableScene("start-menu")
             end,
             8,
@@ -329,11 +329,7 @@ return {
         ):ImageBox(
             image_list.settings_icon,
             function()
-                if audio_list.background_music:isPlaying() then
-                    audio_list.background_music:pause()
-                else
-                    audio_list.background_music:play()
-                end
+                GameState:openOptions()
             end
         ),
     }

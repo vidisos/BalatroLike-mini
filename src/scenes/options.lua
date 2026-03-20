@@ -16,22 +16,15 @@ local wh = CONSTANTS.BASE_HEIGHT
 
 ---@type Scene
 return {
-    id = "start-menu",
-    shouldDraw = true,
+    id = "options",
+    shouldDraw = false,
     isClickable = true,
-    z_index = 0,
+    z_index = 3,
     drawables = {
         -- background
         Drawable:new("rect-background", 0,
-            0, 0, ww, wh
+            Utils.getCenterAnchorX(0, ww, 600), Utils.getCenterAnchorY(0, wh, 800), 600, 800
         ):Rectangle({59/255, 124/255, 217/255}),
-
-        -- title
-        Drawable:new(
-            "text-title", 1,
-            Utils.getCenterAnchorX(0, ww, 1200), Utils.getCenterAnchorY(0, wh, 400),
-            1200, 400
-        ):TextBox(LANG.title, Font:resizeFont(Font.font_paths.pixel_font_bold, 300)),
 
         -- settings icon
         Drawable:new(
@@ -40,10 +33,10 @@ return {
         ):ImageBox(
             image_list.settings_icon,
             function ()
-                GameState:openOptions()
+                GameState:closeOptions()
             end
         ),
-
+        --[[
         -- start button
         Drawable:new(
             "btn-start", 1,
@@ -88,6 +81,6 @@ return {
             function(self)
                 GameState:changeLang()
             end
-        )
+        )]]
     }
 }
