@@ -6,6 +6,7 @@ local audio_list = require "src.audio_list"
 local image_list = require "src.image_list"
 local card_list = require "src.card_list"
 local GameState = require "src.GameState"
+local Color     = require "src.Color"
 
 local LANG = require "src.LANG"
 local Font = require "src.Font"
@@ -13,6 +14,9 @@ local current_lang = GameState.current_lang
 
 local ww = CONSTANTS.BASE_WIDTH
 local wh = CONSTANTS.BASE_HEIGHT
+
+local start_menu_height = 400
+local game_main_height = 1000
 
 ---@type Options
 local Options = {}
@@ -23,15 +27,15 @@ Options.z_index = 3
 Options.drawables = {
     -- background
     Drawable:new("rect-background", 0,
-        Utils.getCenterAnchorX(0, ww, 600), Utils.getCenterAnchorY(0, wh, 800), 600, 800
-    ):Rectangle({59/255, 124/255, 217/255}),
+        Utils.getCenterAnchorX(0, ww, 600), Utils.getCenterAnchorY(0, wh, game_main_height), 600, game_main_height
+    ):Rectangle(Color.light_grey),
 
     -- new game
     Drawable:new(
         "btn-start", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 300), Utils.getCenterAnchorY(0, wh, 800) + 200, 300, 150
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 520, 400, 100
     ):Button(
-        LANG.start, Font:resizeFont(Font.font_paths.pixel_font, 90),
+        LANG.new_game, Font:resizeFont(Font.font_paths.pixel_font, 50),
         {237/255, 164/255, 74/255},
         {212/255, 198/255, 182/255},
         function (self)
@@ -40,29 +44,31 @@ Options.drawables = {
             GameState:startNewGame()
             Scenes:sortDrawables("game-main")
         end,
-        15,
+        10,
         {100/255, 50/255, 20/255}
     ),
 
-    -- quit button
+    -- main menu
     Drawable:new(
-        "btn-quit", 1,
-        1060, 810, 250, 130
+        "btn-start-menu", 1,
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 630, 400, 100
     ):Button(
-        LANG.quit, Font:resizeFont(Font.font_paths.pixel_font, 50),
-        {0, 0, 100/255},
-        {1, 0, 0},
-        function()
-            love.event.quit()
+        LANG.to_main_menu, Font:resizeFont(Font.font_paths.pixel_font, 50),
+        {237/255, 164/255, 74/255},
+        {212/255, 198/255, 182/255},
+        function (self)
+            Scenes:resetScenes()
+            Scenes:enableScene("start-menu")
         end,
         10,
-        {0, 100/255, 25/255}
+        {100/255, 50/255, 20/255}
     ),
+
 
     -- language button
     Drawable:new(
         "btn-change-lang", 1,
-        1680, 950, 200, 100
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 740, 400, 100
     ):Button(
         LANG.language, Font:resizeFont(Font.font_paths.pixel_font, 30),
         {0, 0, 100/255},
@@ -70,6 +76,21 @@ Options.drawables = {
         function(self)
             GameState:changeLang()
         end
+    ),
+
+    -- quit
+    Drawable:new(
+        "btn-quit", 1,
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 850, 400, 100
+    ):Button(
+        LANG.quit, Font:resizeFont(Font.font_paths.pixel_font, 50),
+        {237/255, 164/255, 74/255},
+        {212/255, 198/255, 182/255},
+        function (self)
+            love.event.quit()
+        end,
+        10,
+        {100/255, 50/255, 20/255}
     ),
 
     -- settings icon
@@ -94,9 +115,21 @@ function Options:open(source)
     Scenes:enableSceneClicks("options")
 
     if self.source == "start-menu" then
+        local background = Scenes:getDrawable("options", "rect-background")
+        background.height = start_menu_height
+
         Scenes:getDrawable("options", "btn-quit").shouldDraw = false
+        Scenes:getDrawable("options", "btn-start-menu").shouldDraw = false
+        Scenes:getDrawable("options", "btn-start").shouldDraw = false
+        Scenes:getDrawable("options", "btn-change-lang").shouldDraw = false
     else
+        local background = Scenes:getDrawable("options", "rect-background")
+        background.height = game_main_height
+
         Scenes:getDrawable("options", "btn-quit").shouldDraw = true
+        Scenes:getDrawable("options", "btn-start-menu").shouldDraw = true
+        Scenes:getDrawable("options", "btn-start").shouldDraw = true
+        Scenes:getDrawable("options", "btn-change-lang").shouldDraw = true
     end
 end
 
