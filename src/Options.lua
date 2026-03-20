@@ -30,6 +30,17 @@ Options.drawables = {
         Utils.getCenterAnchorX(0, ww, 600), Utils.getCenterAnchorY(0, wh, game_main_height), 600, game_main_height
     ):Rectangle(Color.light_grey),
 
+    -- background music volume
+    Drawable:new(
+        "slider-background-volume", 1,
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 100, 400, 100
+    ):Slider(
+        1, 0, 0.1,
+        function(v)
+            audio_list.background_music:setVolume(v)
+        end
+    ),
+
     -- new game
     Drawable:new(
         "btn-start", 1,

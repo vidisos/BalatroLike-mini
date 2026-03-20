@@ -15,7 +15,7 @@ local TextBox = {}
 ---@param font? love.Font
 ---@param text_color? RGB
 ---@param background_color? RGB
----@param text_alignment? string
+---@param text_alignment? "left"|"center"|"right"
 ---@param text_margin? number
 ---@return TextBox
 function TextBox:TextBox(text, font, text_color, background_color, text_alignment, text_margin)

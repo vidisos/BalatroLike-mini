@@ -67,3 +67,18 @@
 ---@field TextBox fun(self: Drawable, text?: table | LanguageEntry | string, font?: love.Font, text_color?: RGB, background_color?: RGB, text_alignment?: "left"|"center"|"right", text_margin?: number): TextBox
 ---@field Card fun(self: Drawable, card_base: CardBase, onClickFunc?: fun(self)): Card
 ---@field Spark fun(self: Drawable, spark_base: SparkBase, onClickFunc?: fun(self)): Spark|Drawable
+---@field Slider fun(self: Drawable, value: number, min: number, max: number, setter?: fun(value: number), orientation?: "horizontal"|"vertical", track?: "rectangle"|"line"|"roundrect", knob?: "rectangle"|"circle"): Slider
+
+---@class Button : Drawable
+
+---@class Rectangle : Drawable
+
+---@class TextBox : Drawable
+
+---@class ImageBox : Drawable
+
+---@class Card : Drawable
+
+---@class Spark : Drawable
+
+---@class Slider : Drawable

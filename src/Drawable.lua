@@ -95,5 +95,9 @@ function Drawable:Spark(...)
     local Spark = require("src.Spark")
     return Spark.Spark(self, ...)
 end
-
+---@return Drawable|Slider
+function Drawable:Slider(...)
+    local Slider = require("src.Slider")
+    return Slider.Slider(self, ...)
+end
 return Drawable
