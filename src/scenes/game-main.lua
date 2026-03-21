@@ -329,7 +329,7 @@ return {
         ):ImageBox(
             image_list.settings_icon,
             function()
-                Options:open("game-main")
+                Options:toggle("game-main")
             end
         ),
     }

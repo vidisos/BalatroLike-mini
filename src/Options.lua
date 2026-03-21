@@ -146,7 +146,8 @@ end
 
 ---closes the options
 function Options:close()
-    Scenes:enableAllSceneClicks()
+    print(self.source)
+    Scenes:enableAllSceneInteractions()
     Scenes:disableScene("options")
     self.source = ""
 end
