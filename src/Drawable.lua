@@ -11,8 +11,10 @@ Drawable.__index = Drawable
 ---@param height? number
 ---@param updateFunc? fun(self: Drawable, dt)
 ---@param onHoverFunc? fun(self: Drawable)
+---@param onEnterHoverFunc? fun(self: Drawable)
+---@param onExitHoverFunc? fun(self: Drawable)
 ---@return Drawable
-function Drawable:new(id, z_index, x, y, width, height, updateFunc, onHoverFunc)
+function Drawable:new(id, z_index, x, y, width, height, updateFunc, onHoverFunc, onEnterHoverFunc, onExitHoverFunc)
     local self = setmetatable({}, Drawable) -- {} is basically a created object that you add stuff to wowza (setmetatable() returns a table)
 
     self.id = id
@@ -28,8 +30,8 @@ function Drawable:new(id, z_index, x, y, width, height, updateFunc, onHoverFunc)
     self.height = height or 300
     self.updateFunc = updateFunc or function () end
     self.onHoverFunc = onHoverFunc or function () end
-    self.onEnterHoverFunc = function () end
-    self.onExitHoverFunc = function () end
+    self.onEnterHoverFunc = onEnterHoverFunc or function () end
+    self.onExitHoverFunc = onExitHoverFunc or function () end
 
     return self
 end

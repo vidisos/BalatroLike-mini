@@ -3,6 +3,7 @@ local Scenes = require "src.Scenes"
 local Drawable  = require "src.Drawable"
 local Utils = require "src.Utils"
 local GameState = require "src.GameState"
+local Color = require "src.Color"
 
 local LANG = require "src.LANG"
 local Font = require "src.Font"
@@ -34,7 +35,11 @@ return {
         -- skip sparks
         Drawable:new(
             "btn-skip-sparks", 1,
-            Utils.getCenterAnchorX(CONSTANTS.HAND_X-100, CONSTANTS.HAND_WIDTH+200, 200), 900, 200, 100
+            Utils.getCenterAnchorX(CONSTANTS.HAND_X-100, CONSTANTS.HAND_WIDTH+200, 200), 900, 200, 100,
+            nil,
+            nil,
+            function (self) self.background_color = Color.dark_grey end,
+            function (self) self.background_color = self.base_color end
         ):Button(LANG.skip, Font:resizeFont(Font.font_paths.pixel_font, 20), nil, nil,
             function (self)
                 GameState:moveToNextRound()

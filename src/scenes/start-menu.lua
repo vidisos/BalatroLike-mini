@@ -5,6 +5,7 @@ local Utils = require "src.Utils"
 local image_list = require "src.image_list"
 local GameState = require "src.GameState"
 local Options   = require "src.Options"
+local Color = require "src.Color"
 
 local LANG = require "src.LANG"
 local Font = require "src.Font"
@@ -44,7 +45,11 @@ return {
         -- start button
         Drawable:new(
             "btn-start", 1,
-            560, 800, 300, 150
+            560, 800, 300, 150,
+            nil,
+            nil,
+            function (self) self.background_color = Color.dark_grey end,
+            function (self) self.background_color = self.base_color end
         ):Button(
             LANG.start, Font:resizeFont(Font.font_paths.pixel_font, 90),
             {237/255, 164/255, 74/255},
@@ -62,7 +67,11 @@ return {
         -- quit button
         Drawable:new(
             "btn-quit", 1,
-            1060, 810, 250, 130
+            1060, 810, 250, 130,
+            nil,
+            nil,
+            function (self) self.background_color = Color.dark_grey end,
+            function (self) self.background_color = self.base_color end
         ):Button(
             LANG.quit, Font:resizeFont(Font.font_paths.pixel_font, 50),
             {0, 0, 100/255},
@@ -77,7 +86,11 @@ return {
         -- language button
         Drawable:new(
             "btn-change-lang", 1,
-            1680, 950, 200, 100
+            1680, 950, 200, 100,
+            nil,
+            nil,
+            function (self) self.background_color = Color.dark_grey end,
+            function (self) self.background_color = self.base_color end
         ):Button(
             LANG.language, Font:resizeFont(Font.font_paths.pixel_font, 30),
             {0, 0, 100/255},

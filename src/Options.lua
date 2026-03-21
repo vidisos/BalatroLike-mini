@@ -47,8 +47,13 @@ Options.drawables = {
     ),
     Drawable:new(
         "slider-background-volume", 1,
-        Utils.getCenterAnchorX(0, ww, 600)+310, Utils.getCenterAnchorY(0, wh, game_main_height) + 100, 240, 50
+        Utils.getCenterAnchorX(0, ww, 600)+310, Utils.getCenterAnchorY(0, wh, game_main_height) + 100, 240, 50,
+        nil,
+        nil,
+        function (self) self.background_color = Color.dark_grey end,
+        function (self) self.background_color = self.base_color end
     ):Slider(
+        nil,
         1, 0, 0.1,
         function(v)
             audio_list.background_music:setVolume(v)
@@ -66,8 +71,13 @@ Options.drawables = {
     ),
     Drawable:new(
         "slider-sound-effects-volume", 1,
-        Utils.getCenterAnchorX(0, ww, 600)+280, Utils.getCenterAnchorY(0, wh, game_main_height) + 200, 270, 50
+        Utils.getCenterAnchorX(0, ww, 600)+280, Utils.getCenterAnchorY(0, wh, game_main_height) + 200, 270, 50,
+        nil,
+        nil,
+        function (self) self.background_color = Color.dark_grey end,
+        function (self) self.background_color = self.base_color end
     ):Slider(
+        nil,
         1, 0, 0.1,
         function(v)
             audio_list.background_music:setVolume(v)
@@ -77,7 +87,11 @@ Options.drawables = {
     -- back
     Drawable:new(
         "btn-back", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 500), Utils.getCenterAnchorY(0, wh, game_main_height) + 300, 500, 60
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 500), Utils.getCenterAnchorY(0, wh, game_main_height) + 300, 500, 60,
+        nil,
+        nil,
+        function (self) self.background_color = Color.dark_grey end,
+        function (self) self.background_color = self.base_color end
     ):Button(
         LANG.back, Font:resizeFont(Font.font_paths.pixel_font, 20),
         Color.black,
@@ -92,7 +106,11 @@ Options.drawables = {
     -- new game
     Drawable:new(
         "btn-start", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 270, 400, 100
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 270, 400, 100,
+        nil,
+        nil,
+        function (self) self.background_color = Color.dark_grey end,
+        function (self) self.background_color = self.base_color end
     ):Button(
         LANG.new_game, Font:resizeFont(Font.font_paths.pixel_font, 50),
         {237/255, 164/255, 74/255},
@@ -110,7 +128,11 @@ Options.drawables = {
     -- main menu
     Drawable:new(
         "btn-start-menu", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 380, 400, 100
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 380, 400, 100,
+        nil,
+        nil,
+        function (self) self.background_color = Color.dark_grey end,
+        function (self) self.background_color = self.base_color end
     ):Button(
         LANG.to_main_menu, Font:resizeFont(Font.font_paths.pixel_font, 50),
         {237/255, 164/255, 74/255},
@@ -128,7 +150,11 @@ Options.drawables = {
     -- language button
     Drawable:new(
         "btn-change-lang", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 490, 400, 100
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 490, 400, 100,
+        nil,
+        nil,
+        function (self) self.background_color = Color.dark_grey end,
+        function (self) self.background_color = self.base_color end
     ):Button(
         LANG.language, Font:resizeFont(Font.font_paths.pixel_font, 30),
         {0, 0, 100/255},
@@ -181,7 +207,6 @@ end
 
 ---closes the options
 function Options:close()
-    print(self.source)
     Scenes:enableAllSceneInteractions()
     Scenes:disableScene("options")
     self.source = ""

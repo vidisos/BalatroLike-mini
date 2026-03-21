@@ -30,7 +30,8 @@ function Button:Button(text, font, text_color, background_color, onClickFunc, bo
     self.baseFont = font or love.graphics.getFont()
     self.font = font or self.baseFont
     self.text_color = text_color or Color.black
-    self.button_color = background_color or Color.white
+    self.base_color = background_color or Color.white
+    self.background_color = self.base_color
     self.onClickFunc = onClickFunc or function () end
     self.border_width = border_width or 0
     self.border_color = border_color or Color.white
@@ -57,7 +58,7 @@ end
 ---@param self Button|Drawable
 normalButtonDraw = function(self)
     -- button
-    Color:setColor(self.button_color)
+    Color:setColor(self.background_color)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 end
 
@@ -69,7 +70,7 @@ borderedButtonDraw = function(self)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 
     -- button
-    Color:setColor(self.button_color)
+    Color:setColor(self.background_color)
     local button_x = self.x + self.border_width
     local button_y = self.y + self.border_width
     local button_width = self.width - 2*self.border_width

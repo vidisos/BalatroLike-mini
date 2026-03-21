@@ -1,4 +1,5 @@
 local GameState = require "src.GameState"
+local Color     = require "src.Color"
 --[[
 Copyright (c) 2016 George Prosser
 
@@ -28,6 +29,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 local Slider = {}
 
 ---extension of Drawable: a slider for selecting values within a range
+---@param background_color RGB 
 ---@param value number
 ---@param min number
 ---@param max number
@@ -36,7 +38,9 @@ local Slider = {}
 ---@param track? "rectangle"|"line"|"roundrect"
 ---@param knob? "rectangle"|"circle"
 ---@return Slider
-function Slider:Slider(value, min, max, setter, orientation, track, knob)
+function Slider:Slider(background_color, value, min, max, setter, orientation, track, knob)
+    self.base_color = background_color or Color.white
+    self.background_color = self.base_color
     self.type = "Slider"
     self.value = (value - min) / (max - min)
     self.min = min
@@ -54,7 +58,7 @@ function Slider:Slider(value, min, max, setter, orientation, track, knob)
 
     self.updateFunc = function(self, dt)
         local x = GameState.mx
-        local y = love.mouse.getY()
+        local y = GameState.my
         local down = love.mouse.isDown(1)
 
         local cx = self.x + self.width/2
@@ -100,6 +104,7 @@ function Slider:Slider(value, min, max, setter, orientation, track, knob)
     end
 
     self.drawFunc = function()
+        Color:setColor(self.background_color)
         local cx = self.x + self.width/2
         local cy = self.y + self.height/2
 
@@ -135,6 +140,26 @@ function Slider:Slider(value, min, max, setter, orientation, track, knob)
             love.graphics.rectangle('fill', knobX - self.height/2, knobY - self.height/2, self.height, self.height)
         elseif self.knob == 'circle' then
             love.graphics.circle('fill', knobX, knobY, self.height/2)
+        end
+    end
+
+    self.isHoveredFunc = function(self, mx, my)
+        local cx = self.x + self.width/2
+        local cy = self.y + self.height/2
+
+        if self.orientation == 'horizontal' then
+            local left   = cx - self.width/2 - self.height/2
+            local right  = cx + self.width/2 + self.height/2
+            local top    = cy - self.height/2
+            local bottom = cy + self.height/2
+            return mx >= left and mx <= right and my >= top and my <= bottom
+
+        elseif self.orientation == 'vertical' then
+            local left   = cx - self.height/2
+            local right  = cx + self.height/2
+            local top    = cy - self.width/2 - self.height/2
+            local bottom = cy + self.width/2 + self.height/2
+            return mx >= left and mx <= right and my >= top and my <= bottom
         end
     end
 

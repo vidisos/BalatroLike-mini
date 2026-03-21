@@ -2,6 +2,7 @@ local Scenes = require "src.Scenes"
 local Drawable  = require "src.Drawable"
 local Utils = require "src.Utils"
 local GameState = require "src.GameState"
+local Color = require "src.Color"
 
 local LANG = require "src.LANG"
 local Font = require "src.Font"
@@ -30,7 +31,11 @@ return {
         -- start new game
         Drawable:new(
             "btn-new-game", 1,
-            Utils.getCenterAnchorX(860, 400, 330), 650, 330, 100
+            Utils.getCenterAnchorX(860, 400, 330), 650, 330, 100,
+            nil,
+            nil,
+            function (self) self.background_color = Color.dark_grey end,
+            function (self) self.background_color = self.base_color end
         ):Button(
             LANG.new_game,
             Font:resizeFont(Font.font_paths.pixel_font, 30),
@@ -48,7 +53,11 @@ return {
         -- to main menu
         Drawable:new(
             "btn-to-main-menu", 1,
-            Utils.getCenterAnchorX(860, 400, 330), 780, 330, 100
+            Utils.getCenterAnchorX(860, 400, 330), 780, 330, 100,
+            nil,
+            nil,
+            function (self) self.background_color = Color.dark_grey end,
+            function (self) self.background_color = self.base_color end
         ):Button(
             LANG.to_main_menu,
             Font:resizeFont(Font.font_paths.pixel_font, 30),

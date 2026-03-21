@@ -199,7 +199,11 @@ return {
 
         --hand rankings info
         Drawable:new("btn-hand-rankings-info",2,
-            35,890,150,150
+            35,890,150,150,
+            nil,
+            nil,
+            function (self) self.background_color = Color.dark_grey end,
+            function (self) self.background_color = self.base_color end
         ):Button(
             LANG.ranking_info,
             Font:resizeFont(Font.font_paths.pixel_font,30),
@@ -265,7 +269,11 @@ return {
 
         -- play hand
         Drawable:new("btn-play-hand",2,
-            820,950,230,100
+            820,950,230,100,
+            nil,
+            nil,
+            function (self) self.background_color = Color.dark_grey end,
+            function (self) self.background_color = self.base_color end
         ):Button(
             LANG.play_hand,
             Font:resizeFont(Font.font_paths.pixel_font,40),
@@ -280,7 +288,11 @@ return {
 
         -- discard
         Drawable:new("btn-discard",2,
-            1200,950,230,100
+            1200,950,230,100,
+            nil,
+            nil,
+            function (self) self.background_color = Color.dark_grey end,
+            function (self) self.background_color = self.base_color end
         ):Button(
             LANG.discard_hand,
             Font:resizeFont(Font.font_paths.pixel_font,40),
@@ -324,7 +336,11 @@ return {
 
         -- settings
         Drawable:new("img-settings",1,
-            ww-100,10,90,90
+            ww-100,10,90,90,
+            nil,
+            nil,
+            function (self)  end,
+            function (self)  end
         ):ImageBox(
             image_list.settings_icon,
             function()
