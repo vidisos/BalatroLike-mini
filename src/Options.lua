@@ -15,8 +15,8 @@ local current_lang = GameState.current_lang
 local ww = CONSTANTS.BASE_WIDTH
 local wh = CONSTANTS.BASE_HEIGHT
 
-local start_menu_height = 400
-local game_main_height = 900
+local start_menu_height = 350
+local game_main_height = 700
 
 ---@type Options
 local Options = {}
@@ -61,12 +61,12 @@ Options.drawables = {
         "slider-sound-effects-volume-text", 1,
         Utils.getCenterAnchorX(0, ww, 600), Utils.getCenterAnchorY(0, wh, game_main_height) + 200, 300, 50
     ):TextBox(
-        "sound effects:", Font:resizeFont(Font.font_paths.pixel_font, 25),
+        LANG.sound_effects, Font:resizeFont(Font.font_paths.pixel_font, 25),
         nil, nil, "left", 20
     ),
     Drawable:new(
         "slider-sound-effects-volume", 1,
-        Utils.getCenterAnchorX(0, ww, 600)+310, Utils.getCenterAnchorY(0, wh, game_main_height) + 200, 240, 50
+        Utils.getCenterAnchorX(0, ww, 600)+280, Utils.getCenterAnchorY(0, wh, game_main_height) + 200, 270, 50
     ):Slider(
         1, 0, 0.1,
         function(v)
@@ -92,7 +92,7 @@ Options.drawables = {
     -- new game
     Drawable:new(
         "btn-start", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 320, 400, 100
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 270, 400, 100
     ):Button(
         LANG.new_game, Font:resizeFont(Font.font_paths.pixel_font, 50),
         {237/255, 164/255, 74/255},
@@ -110,7 +110,7 @@ Options.drawables = {
     -- main menu
     Drawable:new(
         "btn-start-menu", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 430, 400, 100
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 380, 400, 100
     ):Button(
         LANG.to_main_menu, Font:resizeFont(Font.font_paths.pixel_font, 50),
         {237/255, 164/255, 74/255},
@@ -127,7 +127,7 @@ Options.drawables = {
     -- language button
     Drawable:new(
         "btn-change-lang", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 540, 400, 100
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 490, 400, 100
     ):Button(
         LANG.language, Font:resizeFont(Font.font_paths.pixel_font, 30),
         {0, 0, 100/255},
@@ -135,21 +135,6 @@ Options.drawables = {
         function(self)
             GameState:changeLang()
         end
-    ),
-
-    -- quit
-    Drawable:new(
-        "btn-quit", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 650, 400, 100
-    ):Button(
-        LANG.quit, Font:resizeFont(Font.font_paths.pixel_font, 50),
-        {237/255, 164/255, 74/255},
-        {212/255, 198/255, 182/255},
-        function (self)
-            love.event.quit()
-        end,
-        10,
-        {100/255, 50/255, 20/255}
     )
 }
 Options.source = ""
@@ -179,20 +164,19 @@ function Options:open(source)
     if self.source == "start-menu" then
         background.height = start_menu_height
 
-        Scenes:getDrawable("options", "btn-quit").shouldDraw = false
         Scenes:getDrawable("options", "btn-start-menu").shouldDraw = false
         Scenes:getDrawable("options", "btn-start").shouldDraw = false
         Scenes:getDrawable("options", "btn-change-lang").shouldDraw = false
     else
         background.height = game_main_height
 
-        Scenes:getDrawable("options", "btn-quit").shouldDraw = true
         Scenes:getDrawable("options", "btn-start-menu").shouldDraw = true
         Scenes:getDrawable("options", "btn-start").shouldDraw = true
         Scenes:getDrawable("options", "btn-change-lang").shouldDraw = true
     end
 
-    Scenes:getDrawable("options", "btn-back").y = background.height - 10
+    local back_button = Scenes:getDrawable("options", "btn-back")
+    back_button.y = (background.y + background.height - 20) - back_button.height
 end
 
 ---closes the options

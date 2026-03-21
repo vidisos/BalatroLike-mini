@@ -12,6 +12,7 @@ local LANG = {
     -- options
     settings = {en="SETTINGS", sl="NASTAVITVE"},
     background_music = {en="Background music:", sl="Volumen glasbe:"},
+    sound_effects = {en="Sound effects:", sl="Zvočni učinki:"},
     back = {en="Back", sl="Nazaj"},
 
     -- main game
