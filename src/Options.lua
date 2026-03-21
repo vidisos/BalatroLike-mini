@@ -16,7 +16,7 @@ local ww = CONSTANTS.BASE_WIDTH
 local wh = CONSTANTS.BASE_HEIGHT
 
 local start_menu_height = 400
-local game_main_height = 1000
+local game_main_height = 900
 
 ---@type Options
 local Options = {}
@@ -27,12 +27,27 @@ Options.drawables = {
     -- background
     Drawable:new("rect-background", 0,
         Utils.getCenterAnchorX(0, ww, 600), Utils.getCenterAnchorY(0, wh, game_main_height), 600, game_main_height
-    ):Rectangle(Color.light_grey),
+    ):Rectangle(Color.light_grey, 10),
 
-    -- background music volume
+    -- Setting text
+    Drawable:new(
+        "text-settings-title", 1,
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 300), Utils.getCenterAnchorY(0, wh, game_main_height) + 20, 300, 50
+    ):TextBox(
+        LANG.settings, Font:resizeFont(Font.font_paths.pixel_font, 50)
+    ),
+
+    -- background music volume slider
+    Drawable:new(
+        "slider-background-volume-text", 1,
+        Utils.getCenterAnchorX(0, ww, 600), Utils.getCenterAnchorY(0, wh, game_main_height) + 100, 300, 50
+    ):TextBox(
+        LANG.background_music, Font:resizeFont(Font.font_paths.pixel_font, 25),
+        nil, nil, "left", 20
+    ),
     Drawable:new(
         "slider-background-volume", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 100, 400, 100
+        Utils.getCenterAnchorX(0, ww, 600)+310, Utils.getCenterAnchorY(0, wh, game_main_height) + 100, 240, 50
     ):Slider(
         1, 0, 0.1,
         function(v)
@@ -40,10 +55,44 @@ Options.drawables = {
         end
     ),
 
+    --TODO mek sound effect work and stuff
+    -- sound effects volume slider
+    Drawable:new(
+        "slider-sound-effects-volume-text", 1,
+        Utils.getCenterAnchorX(0, ww, 600), Utils.getCenterAnchorY(0, wh, game_main_height) + 200, 300, 50
+    ):TextBox(
+        "sound effects:", Font:resizeFont(Font.font_paths.pixel_font, 25),
+        nil, nil, "left", 20
+    ),
+    Drawable:new(
+        "slider-sound-effects-volume", 1,
+        Utils.getCenterAnchorX(0, ww, 600)+310, Utils.getCenterAnchorY(0, wh, game_main_height) + 200, 240, 50
+    ):Slider(
+        1, 0, 0.1,
+        function(v)
+            audio_list.background_music:setVolume(v)
+        end
+    ),
+
+    -- back
+    Drawable:new(
+        "btn-back", 1,
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 500), Utils.getCenterAnchorY(0, wh, game_main_height) + 300, 500, 60
+    ):Button(
+        LANG.back, Font:resizeFont(Font.font_paths.pixel_font, 20),
+        Color.black,
+        Color.dark_orange,
+        function (self)
+            Options:close()
+        end,
+        2,
+        {100/255, 50/255, 20/255}
+    ),
+
     -- new game
     Drawable:new(
         "btn-start", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 520, 400, 100
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 320, 400, 100
     ):Button(
         LANG.new_game, Font:resizeFont(Font.font_paths.pixel_font, 50),
         {237/255, 164/255, 74/255},
@@ -61,7 +110,7 @@ Options.drawables = {
     -- main menu
     Drawable:new(
         "btn-start-menu", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 630, 400, 100
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 430, 400, 100
     ):Button(
         LANG.to_main_menu, Font:resizeFont(Font.font_paths.pixel_font, 50),
         {237/255, 164/255, 74/255},
@@ -78,7 +127,7 @@ Options.drawables = {
     -- language button
     Drawable:new(
         "btn-change-lang", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 740, 400, 100
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 540, 400, 100
     ):Button(
         LANG.language, Font:resizeFont(Font.font_paths.pixel_font, 30),
         {0, 0, 100/255},
@@ -91,7 +140,7 @@ Options.drawables = {
     -- quit
     Drawable:new(
         "btn-quit", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 850, 400, 100
+        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 650, 400, 100
     ):Button(
         LANG.quit, Font:resizeFont(Font.font_paths.pixel_font, 50),
         {237/255, 164/255, 74/255},
@@ -142,6 +191,8 @@ function Options:open(source)
         Scenes:getDrawable("options", "btn-start").shouldDraw = true
         Scenes:getDrawable("options", "btn-change-lang").shouldDraw = true
     end
+
+    Scenes:getDrawable("options", "btn-back").y = background.height - 10
 end
 
 ---closes the options

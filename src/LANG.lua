@@ -9,6 +9,11 @@ local LANG = {
     start = {en="Start", sl="Začni"},
     language = {en="Language", sl="Jezik"},
 
+    -- options
+    settings = {en="SETTINGS", sl="NASTAVITVE"},
+    background_music = {en="Background music:", sl="Volumen glasbe:"},
+    back = {en="Back", sl="Nazaj"},
+
     -- main game
     chips = {en="chips", sl="žetonov"},
     score_text = {en="Score at least:", sl="Doseži vsaj:"},
