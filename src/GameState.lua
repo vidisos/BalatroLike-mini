@@ -57,6 +57,7 @@ local GameState = {
     deck_count = 0
 }
 
+---resets the gamestate and starts a new round
 function GameState:startNewGame()
     self:resetGameState()
     self:startNewRound()

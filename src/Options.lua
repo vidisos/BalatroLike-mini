@@ -101,7 +101,7 @@ Options.drawables = {
             Scenes:resetScenes()
             Scenes:enableScene("game-main")
             GameState:startNewGame()
-            Scenes:sortDrawables("game-main")
+            Options:close()
         end,
         10,
         {100/255, 50/255, 20/255}
@@ -118,6 +118,7 @@ Options.drawables = {
         function (self)
             Scenes:resetScenes()
             Scenes:enableScene("start-menu")
+            Options:close()
         end,
         10,
         {100/255, 50/255, 20/255}
@@ -142,11 +143,10 @@ Options.source = ""
 ---toggles between opened and closed options
 ---@param source? string
 function Options:toggle(source)
-    if self.source ~= "" then
-        self:close()
-        return
-    else
+    if self.source == "" then
         self:open(source)
+    else
+        self:close()
     end
 end
 

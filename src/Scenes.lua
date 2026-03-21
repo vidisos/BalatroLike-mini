@@ -127,7 +127,6 @@ end
 function Scenes:resetScenes()
     for _, scene in ipairs(self.scene_list) do
         scene.shouldDraw = false
-        self:enableSceneClicks(scene.id)
         self:enableSceneInteractions(scene.id)
     end
 end
