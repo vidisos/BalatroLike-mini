@@ -13,12 +13,10 @@ function Scenes:init()
     table.insert(self.scene_list, require("src/scenes/game-over"))
     table.insert(self.scene_list, require("src/scenes/round-won"))
     table.insert(self.scene_list, require("src/scenes/game-won"))
+    table.insert(self.scene_list, require("src/scenes/hand-rankings"))
     table.insert(self.scene_list, require("src.Options"))
 
-    self:sortScenes()
-    for _, scene in ipairs(self.scene_list) do
-        self:sortDrawables(scene.id)
-    end
+    self:sortAll()
 end
 
 ---activates the update function of every drawable
@@ -368,6 +366,14 @@ function Scenes:removeDrawable(scene_id, id)
 end
 
 --------------SORTING-----------------
+
+---sorts all scenes and their drawables by z-index
+function Scenes:sortAll()
+    self:sortScenes()
+    for _, scene in ipairs(self.scene_list) do
+        self:sortDrawables(scene.id)
+    end
+end
 
 ---sorts all scenes by z-index
 function Scenes:sortScenes()
