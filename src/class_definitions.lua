@@ -12,16 +12,15 @@
 ---@class Scene
 ---@field id string
 ---@field shouldDraw boolean
----@field isClickable boolean
 ---@field z_index number
 ---@field drawables Drawable[]
 
 ---@class Options
 ---@field id string
 ---@field shouldDraw boolean
----@field isClickable boolean
 ---@field z_index number
 ---@field drawables Drawable[]
+---@field toggle fun(self, source: string)
 ---@field open fun(self, source: string)
 ---@field close fun(self)
 ---@field source string

@@ -18,7 +18,6 @@ local wh = CONSTANTS.BASE_HEIGHT
 return {
     id = "game-main",
     shouldDraw = false,
-    isClickable = true,
     z_index = 0,
     drawables = {
         --background

@@ -19,7 +19,6 @@ local wh = CONSTANTS.BASE_HEIGHT
 return {
     id = "start-menu",
     shouldDraw = true,
-    isClickable = true,
     z_index = 0,
     drawables = {
         -- background
@@ -41,7 +40,7 @@ return {
         ):ImageBox(
             image_list.settings_icon,
             function ()
-                Options:open("start-menu")
+                Options:toggle("start-menu")
             end
         ),
 

@@ -17,7 +17,6 @@ local wh = CONSTANTS.BASE_HEIGHT
 return {
     id = "game-won",
     shouldDraw = false,
-    isClickable = true,
     z_index = 2,
     drawables = {
         -- main background
@@ -85,16 +84,6 @@ return {
             end,
             10,
             {0, 100/255, 25/255}
-        ),
-
-        -- settings
-        Drawable:new("img-settings",1,
-            ww-100,10,90,90
-        ):ImageBox(
-            image_list.settings_icon,
-            function()
-                Options:open("game-won")
-            end
-        ),
+        )
     }
 }

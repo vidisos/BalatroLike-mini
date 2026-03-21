@@ -52,7 +52,7 @@ function Scenes:onClick(mx, my)
     for i = #self.scene_list, 1, -1 do
         local scene = self.scene_list[i]
 
-        if scene.shouldDraw and scene.isClickable then
+        if scene.shouldDraw then
             local scene_clicked_drawables = {}
 
             for _, drawable in ipairs(scene.drawables) do
@@ -80,7 +80,7 @@ function Scenes:onHover(mx, my)
     for i = #self.scene_list, 1, -1 do
         local scene = self.scene_list[i]
 
-        if scene.shouldDraw and scene.isClickable then
+        if scene.shouldDraw then
             local scene_hovered_drawables = {}
 
             for _, drawable in ipairs(scene.drawables) do
@@ -123,14 +123,16 @@ function Scenes:onHover(mx, my)
     end
 end
 
----prevents all scenes from being drawn and allows clicks on all of them
+---prevents all scenes from being drawn and allows clicks and hovers on all of them
 function Scenes:resetScenes()
     for _, scene in ipairs(self.scene_list) do
         scene.shouldDraw = false
-        scene.isClickable = true
+        self:enableSceneClicks(scene.id)
+        self:enableSceneInteractions(scene.id)
     end
 end
 
+--------------GET-ers-----------------
 ---returns a specific scene table with the id
 ---@param id string
 ---@return Scene
@@ -167,6 +169,8 @@ function Scenes:getDrawable(scene_id, id)
     end
 end
 
+--------------GENERAL SCENES-----------------
+
 ---allows one scene to be drawn
 ---@param scene_id string
 function Scenes:enableScene(scene_id)
@@ -181,24 +185,66 @@ function Scenes:disableScene(scene_id)
     scene.shouldDraw = false
 end
 
----enables clicks for all scenes
-function Scenes:enableAllSceneClicks()
+--------------INTERACTIONS-----------------
+
+---disables clicks for all scenes
+function Scenes:disableAllSceneInteractions()
     for _, scene in ipairs(self.scene_list) do
-        scene.isClickable = true
+        self:disableSceneInteractions(scene.id)
     end
 end
 
----enables clicks for a certain scene
----@param scene_id string
-function Scenes:enableSceneClicks(scene_id)
-    local scene = Scenes:getScene(scene_id)
-    scene.isClickable = true
+---enables clicks for all scenes
+function Scenes:enableAllSceneInteractions()
+    for _, scene in ipairs(self.scene_list) do
+        self:enableSceneInteractions(scene.id)
+    end
 end
+
+---disables hovers and clicks on a scene
+---@param scene_id string
+function Scenes:disableSceneInteractions(scene_id)
+    self:disableSceneClicks(scene_id)
+    self:disableSceneHover(scene_id)
+end
+
+---enables hovers and clicks on a scene
+---@param scene_id string
+function Scenes:enableSceneInteractions(scene_id)
+    self:enableSceneClicks(scene_id)
+    self:enableSceneHover(scene_id)
+end
+
+---disables hovers and clicks on a drawable
+---@param scene_id string
+---@param id string
+function Scenes:disableItemInteractions(scene_id, id)
+    self:disableItemClicks(scene_id, id)
+    self:disableItemHover(scene_id, id)
+end
+
+---disables hovers and clicks on a scene
+---@param scene_id string
+---@param id string
+function Scenes:enableItemInteractions(scene_id, id)
+    self:enableItemClicks(scene_id, id)
+    self:enableItemHover(scene_id, id)
+end
+
+
+--------------CLICKING-----------------
 
 ---disables clicks for all scenes
 function Scenes:disableAllSceneClicks()
     for _, scene in ipairs(self.scene_list) do
-        scene.isClickable = false
+        self:disableSceneClicks(scene.id)
+    end
+end
+
+---enables clicks for all scenes
+function Scenes:enableAllSceneClicks()
+    for _, scene in ipairs(self.scene_list) do
+        self:enableSceneClicks(scene.id)
     end
 end
 
@@ -206,7 +252,26 @@ end
 ---@param scene_id string
 function Scenes:disableSceneClicks(scene_id)
     local scene = Scenes:getScene(scene_id)
-    scene.isClickable = false
+    for _, drawable in ipairs(scene.drawables) do
+        drawable.isClickable = false
+    end
+end
+
+---enables clicks for a certain scene
+---@param scene_id string
+function Scenes:enableSceneClicks(scene_id)
+    local scene = Scenes:getScene(scene_id)
+    for _, drawable in ipairs(scene.drawables) do
+        drawable.isClickable = true
+    end
+end
+
+---disables clicks for a certain drawable
+---@param scene_id string
+---@param id string
+function Scenes:disableItemClicks(scene_id, id)
+    local drawable = Scenes:getDrawable(scene_id, id)
+    drawable.isClickable = false
 end
 
 ---enables clicks for a certain drawable
@@ -217,13 +282,57 @@ function Scenes:enableItemClicks(scene_id, id)
     drawable.isClickable = true
 end
 
----disables clicks for a certain drawable
+--------------HOVERS-----------------
+
+---disables hovering for all scenes
+function Scenes:disableAllSceneHover()
+    for _, scene in ipairs(self.scene_list) do
+        self:disableSceneHover(scene.id)
+    end
+end
+
+---enables hovering for all scenes
+function Scenes:enableAllSceneHover()
+    for _, scene in ipairs(self.scene_list) do
+        self:enableSceneHover(scene.id)
+    end
+end
+
+---disables hovering for a certain scene
+---@param scene_id string
+function Scenes:disableSceneHover(scene_id)
+    local scene = Scenes:getScene(scene_id)
+    for _, drawable in ipairs(scene.drawables) do
+        drawable.isHoverable = false
+    end
+end
+
+---enables hovering for a certain scene
+---@param scene_id string
+function Scenes:enableSceneHover(scene_id)
+    local scene = Scenes:getScene(scene_id)
+    for _, drawable in ipairs(scene.drawables) do
+        drawable.isHoverable = true
+    end
+end
+
+---disables hovering for a certain drawable
 ---@param scene_id string
 ---@param id string
-function Scenes:disableItemClicks(scene_id, id)
+function Scenes:disableItemHover(scene_id, id)
     local drawable = Scenes:getDrawable(scene_id, id)
-    drawable.isClickable = false
+    drawable.isHoverable = false
 end
+
+---enables hovering for a certain drawable
+---@param scene_id string
+---@param id string
+function Scenes:enableItemHover(scene_id, id)
+    local drawable = Scenes:getDrawable(scene_id, id)
+    drawable.isHoverable = true
+end
+
+--------------DRAWABLES-----------------
 
 ---adds a new drawable to a certain scene
 ---@param scene_id string
@@ -258,6 +367,8 @@ function Scenes:removeDrawable(scene_id, id)
         end
     end
 end
+
+--------------SORTING-----------------
 
 ---sorts all scenes by z-index
 function Scenes:sortScenes()

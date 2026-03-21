@@ -22,7 +22,6 @@ local game_main_height = 1000
 local Options = {}
 Options.id = "options"
 Options.shouldDraw = false
-Options.isClickable = true
 Options.z_index = 3
 Options.drawables = {
     -- background
@@ -102,31 +101,33 @@ Options.drawables = {
         end,
         10,
         {100/255, 50/255, 20/255}
-    ),
-
-    -- settings icon
-    Drawable:new(
-        "img-settings", 1,
-        ww-100, 10, 90, 90
-    ):ImageBox(
-        image_list.settings_icon,
-        function ()
-            Options:close()
-        end
     )
 }
 Options.source = ""
+
+---toggles between opened and closed options
+---@param source? string
+function Options:toggle(source)
+    if self.source ~= "" then
+        self:close()
+        return
+    else
+        self:open(source)
+    end
+end
 
 ---opens the options menu and changes depending on if its on start menu
 ---@param source string
 function Options:open(source)
     self.source = source
-    Scenes:disableAllSceneClicks()
+    Scenes:disableAllSceneInteractions()
     Scenes:enableScene("options")
-    Scenes:enableSceneClicks("options")
+    Scenes:enableSceneInteractions("options")
+    Scenes:enableItemClicks(source, "img-settings")
+
+    local background = Scenes:getDrawable("options", "rect-background")
 
     if self.source == "start-menu" then
-        local background = Scenes:getDrawable("options", "rect-background")
         background.height = start_menu_height
 
         Scenes:getDrawable("options", "btn-quit").shouldDraw = false
@@ -134,7 +135,6 @@ function Options:open(source)
         Scenes:getDrawable("options", "btn-start").shouldDraw = false
         Scenes:getDrawable("options", "btn-change-lang").shouldDraw = false
     else
-        local background = Scenes:getDrawable("options", "rect-background")
         background.height = game_main_height
 
         Scenes:getDrawable("options", "btn-quit").shouldDraw = true

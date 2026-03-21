@@ -19,7 +19,6 @@ local left_column = Scenes:getDrawable("game-main", "rect-left")
 return {
     id = "round-won",
     shouldDraw = false,
-    isClickable = true,
     z_index = 1,
     drawables = {
         -- main background
@@ -46,16 +45,6 @@ return {
             function (self)
                 GameState:moveToNextRound()
             end
-        ),
-
-        -- settings
-        Drawable:new("img-settings",1,
-            ww-100,10,90,90
-        ):ImageBox(
-            image_list.settings_icon,
-            function()
-                Options:open("round-won")
-            end
-        ),
+        )
     }
 }
