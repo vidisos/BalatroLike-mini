@@ -38,8 +38,8 @@ return {
             Utils.getCenterAnchorX(CONSTANTS.HAND_X-100, CONSTANTS.HAND_WIDTH+200, 200), 900, 200, 100,
             nil,
             nil,
-            function (self) self.background_color = Color.dark_grey end,
-            function (self) self.background_color = self.base_color end
+            function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
+            function (self) self.color = self.base_color end
         ):Button(LANG.skip, Font:resizeFont(Font.font_paths.pixel_font, 20), nil, nil,
             function (self)
                 GameState:moveToNextRound()

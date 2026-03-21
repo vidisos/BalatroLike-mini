@@ -15,15 +15,20 @@ local Color = {
     hand_text = {1, 0.5882, 0.1961}
 }
 
----sets the color with an rgb table
----@param RGB RGB
-function Color:setColor(RGB)
-    love.graphics.setColor(RGB[1], RGB[2], RGB[3], RGB[4] or 1)
+---sets the color with an RGBA table
+---@param RGBA RGBA
+function Color:setColor(RGBA)
+    love.graphics.setColor(RGBA[1], RGBA[2], RGBA[3], RGBA[4] or 1)
 end
 
 ---resets the color so images and such dont inherit color from previous calls
 function Color:resetColor()
     love.graphics.setColor(self.white[1], self.white[2], self.white[3], 1)
+end
+
+---make the input color as transparent as the input alpha value
+function Color:tintColor(RGBA, A)
+    return {RGBA[1], RGBA[2], RGBA[3], A}
 end
 
 

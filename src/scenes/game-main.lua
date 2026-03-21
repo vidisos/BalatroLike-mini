@@ -202,8 +202,8 @@ return {
             35,890,150,150,
             nil,
             nil,
-            function (self) self.background_color = Color.dark_grey end,
-            function (self) self.background_color = self.base_color end
+            function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
+            function (self) self.color = self.base_color end
         ):Button(
             LANG.ranking_info,
             Font:resizeFont(Font.font_paths.pixel_font,30),
@@ -272,8 +272,8 @@ return {
             820,950,230,100,
             nil,
             nil,
-            function (self) self.background_color = Color.dark_grey end,
-            function (self) self.background_color = self.base_color end
+            function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
+            function (self) self.color = self.base_color end
         ):Button(
             LANG.play_hand,
             Font:resizeFont(Font.font_paths.pixel_font,40),
@@ -291,8 +291,8 @@ return {
             1200,950,230,100,
             nil,
             nil,
-            function (self) self.background_color = Color.dark_grey end,
-            function (self) self.background_color = self.base_color end
+            function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
+            function (self) self.color = self.base_color end
         ):Button(
             LANG.discard_hand,
             Font:resizeFont(Font.font_paths.pixel_font,40),
@@ -339,8 +339,8 @@ return {
             ww-100,10,90,90,
             nil,
             nil,
-            function (self)  end,
-            function (self)  end
+            function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
+            function (self) self.color = self.base_color end
         ):ImageBox(
             image_list.settings_icon,
             function()

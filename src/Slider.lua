@@ -29,7 +29,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 local Slider = {}
 
 ---extension of Drawable: a slider for selecting values within a range
----@param background_color RGB 
+---@param color RGBA 
 ---@param value number
 ---@param min number
 ---@param max number
@@ -38,9 +38,9 @@ local Slider = {}
 ---@param track? "rectangle"|"line"|"roundrect"
 ---@param knob? "rectangle"|"circle"
 ---@return Slider
-function Slider:Slider(background_color, value, min, max, setter, orientation, track, knob)
-    self.base_color = background_color or Color.white
-    self.background_color = self.base_color
+function Slider:Slider(color, value, min, max, setter, orientation, track, knob)
+    self.base_color = color or Color.white
+    self.color = self.base_color
     self.type = "Slider"
     self.value = (value - min) / (max - min)
     self.min = min
@@ -104,7 +104,7 @@ function Slider:Slider(background_color, value, min, max, setter, orientation, t
     end
 
     self.drawFunc = function()
-        Color:setColor(self.background_color)
+        Color:setColor(self.color)
         local cx = self.x + self.width/2
         local cy = self.y + self.height/2
 

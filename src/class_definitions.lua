@@ -4,7 +4,7 @@
 ---@field en string
 ---@field sl string
 
----@class RGB
+---@class RGBA
 ---@field [1] number  Red (0-255)
 ---@field [2] number  Green (0-255)
 ---@field [3] number  Blue (0-255)
@@ -60,13 +60,13 @@
 ---@field onExitHoverFunc fun(self: Drawable)
 ---@field drawFunc fun(self: Drawable)
 ---@field isHoveredFunc fun(self: Drawable, mx: number, my: number): boolean
----@field Button fun(self: Drawable, text?: LanguageEntry | string, font?: love.Font, text_color?: RGB, background_color?: RGB, onClickFunc?: fun(self), border_width?: number, border_color?: RGB, text_alignment?: "left"|"center"|"right", text_margin?: number): Button
+---@field Button fun(self: Drawable, text?: LanguageEntry | string, font?: love.Font, text_color?: RGBA, color?: RGBA, onClickFunc?: fun(self), border_width?: number, border_color?: RGBA, text_alignment?: "left"|"center"|"right", text_margin?: number): Button
 ---@field ImageBox fun(self: Drawable, image?: love.Image, onClickFunc?: fun(self)): ImageBox
----@field Rectangle fun(self: Drawable, background_color?: table, border_width?: number, border_color?: table): Rectangle
----@field TextBox fun(self: Drawable, text?: table | LanguageEntry | string, font?: love.Font, text_color?: RGB, background_color?: RGB, text_alignment?: "left"|"center"|"right", text_margin?: number): TextBox
+---@field Rectangle fun(self: Drawable, color?: table, border_width?: number, border_color?: table): Rectangle
+---@field TextBox fun(self: Drawable, text?: table | LanguageEntry | string, font?: love.Font, text_color?: RGBA, color?: RGBA, text_alignment?: "left"|"center"|"right", text_margin?: number): TextBox
 ---@field Card fun(self: Drawable, card_base: CardBase, onClickFunc?: fun(self)): Card
 ---@field Spark fun(self: Drawable, spark_base: SparkBase, onClickFunc?: fun(self)): Spark|Drawable
----@field Slider fun(self: Drawable, background_color?: RGB, value: number, min: number, max: number, setter?: fun(value: number), orientation?: "horizontal"|"vertical", track?: "rectangle"|"line"|"roundrect", knob?: "rectangle"|"circle"): Slider
+---@field Slider fun(self: Drawable, color?: RGBA, value: number, min: number, max: number, setter?: fun(value: number), orientation?: "horizontal"|"vertical", track?: "rectangle"|"line"|"roundrect", knob?: "rectangle"|"circle"): Slider
 
 ---@class Button : Drawable
 

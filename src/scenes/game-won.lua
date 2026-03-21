@@ -34,8 +34,8 @@ return {
             Utils.getCenterAnchorX(860, 400, 330), 520, 330, 100,
             nil,
             nil,
-            function (self) self.background_color = Color.dark_grey end,
-            function (self) self.background_color = self.base_color end
+            function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
+            function (self) self.color = self.base_color end
         ):Button(
             LANG.continue,
             Font:resizeFont(Font.font_paths.pixel_font, 30),
@@ -55,8 +55,8 @@ return {
             Utils.getCenterAnchorX(860, 400, 330), 650, 330, 100,
             nil,
             nil,
-            function (self) self.background_color = Color.dark_grey end,
-            function (self) self.background_color = self.base_color end
+            function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
+            function (self) self.color = self.base_color end
         ):Button(
             LANG.new_game,
             Font:resizeFont(Font.font_paths.pixel_font, 30),
@@ -77,8 +77,8 @@ return {
             Utils.getCenterAnchorX(860, 400, 330), 780, 330, 100,
             nil,
             nil,
-            function (self) self.background_color = Color.dark_grey end,
-            function (self) self.background_color = self.base_color end
+            function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
+            function (self) self.color = self.base_color end
         ):Button(
             LANG.to_main_menu,
             Font:resizeFont(Font.font_paths.pixel_font, 30),

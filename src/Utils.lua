@@ -18,7 +18,7 @@ end
 ---draws text (preventing button and textbox code duplication for text)
 ---@param text string|LanguageEntry|table
 ---@param base_font love.Font
----@param text_color RGB
+---@param text_color RGBA
 ---@param lang string
 ---@param x number
 ---@param y number

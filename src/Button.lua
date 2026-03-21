@@ -16,22 +16,22 @@ local normalButtonDraw, borderedButtonDraw
 ---  * **colored table** – alternating color tables and strings like `{ {1,0,0}, "Red", {0,1,0}, "Green" }`
 ---@param text? LanguageEntry|string
 ---@param font? love.Font
----@param text_color? RGB
----@param background_color? RGB
+---@param text_color? RGBA
+---@param color? RGBA
 ---@param onClickFunc? fun(self)
 ---@param border_width? number
----@param border_color? RGB
+---@param border_color? RGBA
 ---@param text_alignment? "left"|"center"|"right"
 ---@param text_margin? number
 ---@return Button
-function Button:Button(text, font, text_color, background_color, onClickFunc, border_width, border_color, text_alignment, text_margin)
+function Button:Button(text, font, text_color, color, onClickFunc, border_width, border_color, text_alignment, text_margin)
     self.type = "Button"
     self.text = text or ""
     self.baseFont = font or love.graphics.getFont()
     self.font = font or self.baseFont
     self.text_color = text_color or Color.black
-    self.base_color = background_color or Color.white
-    self.background_color = self.base_color
+    self.base_color = color or Color.white
+    self.color = self.base_color
     self.onClickFunc = onClickFunc or function () end
     self.border_width = border_width or 0
     self.border_color = border_color or Color.white
@@ -58,7 +58,7 @@ end
 ---@param self Button|Drawable
 normalButtonDraw = function(self)
     -- button
-    Color:setColor(self.background_color)
+    Color:setColor(self.color)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 end
 
@@ -70,7 +70,7 @@ borderedButtonDraw = function(self)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 
     -- button
-    Color:setColor(self.background_color)
+    Color:setColor(self.color)
     local button_x = self.x + self.border_width
     local button_y = self.y + self.border_width
     local button_width = self.width - 2*self.border_width

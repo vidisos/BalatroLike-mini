@@ -48,8 +48,8 @@ return {
             560, 800, 300, 150,
             nil,
             nil,
-            function (self) self.background_color = Color.dark_grey end,
-            function (self) self.background_color = self.base_color end
+            function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
+            function (self) self.color = self.base_color end
         ):Button(
             LANG.start, Font:resizeFont(Font.font_paths.pixel_font, 90),
             {237/255, 164/255, 74/255},
@@ -70,8 +70,8 @@ return {
             1060, 810, 250, 130,
             nil,
             nil,
-            function (self) self.background_color = Color.dark_grey end,
-            function (self) self.background_color = self.base_color end
+            function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
+            function (self) self.color = self.base_color end
         ):Button(
             LANG.quit, Font:resizeFont(Font.font_paths.pixel_font, 50),
             {0, 0, 100/255},
@@ -89,8 +89,8 @@ return {
             1680, 950, 200, 100,
             nil,
             nil,
-            function (self) self.background_color = Color.dark_grey end,
-            function (self) self.background_color = self.base_color end
+            function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
+            function (self) self.color = self.base_color end
         ):Button(
             LANG.language, Font:resizeFont(Font.font_paths.pixel_font, 30),
             {0, 0, 100/255},

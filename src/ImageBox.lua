@@ -8,7 +8,7 @@ local ImageBox = {}
 ---extension of Drawable: an imagebox that can be clicked
 ---@param image? love.Image
 ---@param onClickFunc? fun(self)
----@param color? RGB
+---@param color? RGBA
 ---@return ImageBox
 function ImageBox:ImageBox(image, onClickFunc, color)
     self.type = "ImageBox"
