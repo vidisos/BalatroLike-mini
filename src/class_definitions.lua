@@ -31,6 +31,9 @@
 ---@field z_index number
 ---@field drawables Drawable[]
 ---@field drawRankings fun(self)
+---@field makeRankingInfo fun(background_drawable, ranking)
+---@field showRankingInfo fun(drawable)
+---@field closeRankingInfo fun(drawable)
 
 ---@class CardBase
 ---@field baseImage love.Image

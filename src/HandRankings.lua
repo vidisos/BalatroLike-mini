@@ -167,15 +167,9 @@ end
 
 function HandRankings.makeRankingInfo(background_drawable, ranking)
     local background_width = 600
-    local background_height = 300
+    local background_height = 250
     local background_y = background_drawable.y + background_drawable.height
-    local cards_info = {
-        {},
-        {},
-        {},
-        {},
-        {}
-    }
+    local cards_info = {}
 
     -- switching y coords if the ranking is lower down
     if ranking.key == "straight" or ranking.key == "three_of_a_kind" or ranking.key == "two_pair" or ranking.key == "pair" or ranking.key == "high_card" then
