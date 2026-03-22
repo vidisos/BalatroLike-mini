@@ -77,7 +77,10 @@ function HandRankings:drawRankings()
     for _, ranking in ipairs(rankings_arrays) do
         local background = Drawable:new(
             "rect-"..ranking.key, 1,
-            rankings_x, rankings_y + ranking_count*(ranking_height + ranking_margin), ranking_width, ranking_height
+            rankings_x, rankings_y + ranking_count*(ranking_height + ranking_margin), ranking_width, ranking_height,
+            nil, nil,
+            function(self) self.color = Color:tintColor(self.base_color, 0.8) end,
+            function(self) self.color = self.base_color end
         ):Rectangle(
             Color.light_grey,
             5, Color.dark_grey
@@ -85,14 +88,14 @@ function HandRankings:drawRankings()
 
         local hand_text = Drawable:new(
             "text-"..ranking.key, 2,
-            background.x, background.y, 200, background.height
+            background.x, background.y, 350, background.height
         ):TextBox(
             ranking.title, nil,
             Color.white, nil, "left", 10
         )
         -- we need to reapply the font since it would normally take the font size of the lanugae entry
-        hand_text.font = Font:resizeFont(Font.font_paths.pixel_font, 20)
-
+        hand_text.font = Font:resizeFont(Font.font_paths.pixel_font, 23)
+        hand_text.forceDisableHover = true
         Scenes:addDrawable("hand-rankings", background)
         Scenes:addDrawable("hand-rankings", hand_text)
         --[[

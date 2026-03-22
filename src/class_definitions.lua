@@ -54,6 +54,7 @@
 ---@field z_index number
 ---@field isClickable boolean
 ---@field isHoverable boolean
+---@field forceDisableHover boolean
 ---@field isHovered boolean
 ---@field shouldDraw boolean
 ---@field type string

@@ -33,7 +33,7 @@ return {
         Drawable:new("text-level-title", 2,
             Utils.getCenterAnchorX(0,450,400), 30, 400,120,
             function (self, dt)
-                self.text = LANG.round[GameState.current_lang] .. " " .. GameState.round
+                self.text = GameState:getStageTitleText()
             end
         ):TextBox(
             nil,

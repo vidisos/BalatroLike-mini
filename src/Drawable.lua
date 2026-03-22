@@ -21,6 +21,7 @@ function Drawable:new(id, z_index, x, y, width, height, updateFunc, onHoverFunc,
     self.z_index = z_index
     self.isClickable = true
     self.isHoverable = true
+    self.forceDisableHover = false
     self.shouldDraw = true
     self.isHovered = false
 

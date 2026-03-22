@@ -15,6 +15,11 @@ local LANG = {
     sound_effects = {en="Sound effects:", sl="Zvočni učinki:"},
     back = {en="Back", sl="Nazaj"},
 
+    -- stages
+    small = {en="Small", sl="Majhni"},
+    medium = {en="Medium", sl="Srednji"},
+    big = {en="Big", sl="Veliki"},
+
     -- main game
     chips = {en="chips", sl="žetonov"},
     score_text = {en="Score at least:", sl="Doseži vsaj:"},

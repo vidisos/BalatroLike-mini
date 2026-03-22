@@ -13,7 +13,8 @@ local normalRectDraw, borderedRectDraw
 ---@return Rectangle
 function Rectangle:Rectangle(color, border_width, border_color)
     self.type = "Rectangle"
-    self.color = color or Color.black
+    self.base_color = color or Color.black
+    self.color = self.base_color
     self.border_width = border_width or nil
     self.border_color = border_color or Color.black
 

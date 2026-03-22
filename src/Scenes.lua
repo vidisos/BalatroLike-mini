@@ -312,7 +312,9 @@ end
 function Scenes:enableSceneHover(scene_id)
     local scene = Scenes:getScene(scene_id)
     for _, drawable in ipairs(scene.drawables) do
-        drawable.isHoverable = true
+        if not drawable.forceDisableHover then
+            drawable.isHoverable = true
+        end
     end
 end
 

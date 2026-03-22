@@ -202,6 +202,21 @@ function GameState:roundWon()
     Scenes:enableScene("round-won")
 end
 
+function GameState:getStageTitleText()
+    local text = {}
+    -- 1, 2 or 3
+    local round_stage = self.round%3
+    if round_stage == 1 then
+        text = LANG.small
+    elseif round_stage == 2 then
+        text = LANG.medium
+    elseif round_stage == 0 then
+        text = LANG.big
+    end
+
+    return text
+end
+
 --deletes all sparks on win screen and gets rid of win screen overlay
 function GameState:moveToNextRound()
     self:clearSelectionSparks()
