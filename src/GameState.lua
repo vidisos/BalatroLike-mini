@@ -78,7 +78,7 @@ end
 
 ---plays the selected cards
 function GameState:playHand()
-    if self.hands_remaining <= 0 then
+    if self.hands_remaining <= 0 or #self:getSelectedHandCards() == 0 then
         return
     end
 
@@ -122,7 +122,7 @@ end
 
 ---discards and changes the discard count accordingly
 function GameState:discard()
-    if self.discards_remaining <= 0 then
+    if self.discards_remaining <= 0 or #self:getSelectedHandCards() == 0 then
         return
     end
 
@@ -280,7 +280,7 @@ end
 
 ---updates the score requirement depending on round and ante
 function GameState:updateScoreRequirement()
-    local base = 1
+    local base = 200
     local multiplier = 1.5
     self.score_requirement = math.floor(base * multiplier ^ (self.round - 1))
 end

@@ -54,6 +54,17 @@ local LANG = {
     straight_flush = {en="Straight Flush", sl="Barvna lestvica", font=Font.fonts.font_small},
     royal_flush = {en="Royal Flush", sl="Kraljeva barvna lestvica", font=Font.fonts.font_small},
 
+    -- hand ranking descriptions
+    high_card_desc = {en="The highest card in your hand plays.", sl="Najvišja karta v roki igra."},
+    pair_desc = {en="Two cards of the same rank.", sl="Dve karti enake vrednosti."},
+    two_pair_desc = {en="Two different pairs of matching cards.", sl="Dva različna para ujemajočih se kart."},
+    three_of_a_kind_desc = {en="Three cards of the same rank.", sl="Tri karte enake vrednosti."},
+    straight_desc = {en="Five cards in sequential rank.", sl="Pet kart v zaporednem rangu."},
+    flush_desc = {en="Five cards of the same suit.", sl="Pet kart enake barve."},
+    full_house_desc = {en="A pair combined with three of a kind.", sl="En par skupaj s trisom."},
+    four_of_a_kind_desc = {en="Four cards of the same rank.", sl="Štiri karte enake vrednosti."},
+    straight_flush_desc = {en="Five sequential cards of the same suit.", sl="Pet zaporednih kart enake barve."},
+
     -- cards
     card_ace_clubs = {en="Ace of Clubs", sl="As križev"},
     card_2_clubs = {en="2 of Clubs", sl="2 križev"},
