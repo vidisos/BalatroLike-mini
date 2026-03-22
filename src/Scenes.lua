@@ -13,8 +13,11 @@ function Scenes:init()
     table.insert(self.scene_list, require("src/scenes/game-over"))
     table.insert(self.scene_list, require("src/scenes/round-won"))
     table.insert(self.scene_list, require("src/scenes/game-won"))
-    table.insert(self.scene_list, require("src/scenes/hand-rankings"))
+    table.insert(self.scene_list, require("src.HandRankings"))
     table.insert(self.scene_list, require("src.Options"))
+
+    local HandRankings = Scenes:getScene("hand-rankings")
+    HandRankings:drawRankings()
 
     self:sortAll()
 end

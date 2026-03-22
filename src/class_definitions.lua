@@ -25,6 +25,13 @@
 ---@field close fun(self)
 ---@field source string
 
+---@class HandRankings
+---@field id string
+---@field shouldDraw boolean
+---@field z_index number
+---@field drawables Drawable[]
+---@field drawRankings fun(self)
+
 ---@class CardBase
 ---@field baseImage love.Image
 ---@field backImage love.Image

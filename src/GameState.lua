@@ -4,7 +4,7 @@ local CONSTANTS = require "src.constants"
 local card_list = require "src.card_list"
 local spark_list = require "src.spark_list"
 local Utils = require "src.Utils"
-local hand_rankings = require "src.hand_rankings"
+local hand_rankings_list = require "src.hand_rankings_list"
 local LANG = require "src.LANG"
 local Font = require "src.Font"
 local Color= require "src.Color"
@@ -258,7 +258,7 @@ function GameState:refreshChipsAndMult()
         return
     end
 
-    local hand_info = hand_rankings[self.selected_hand]
+    local hand_info = hand_rankings_list[self.selected_hand]
     self.chips = hand_info.chips
     self.mult = hand_info.mult
 end

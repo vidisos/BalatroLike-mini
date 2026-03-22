@@ -210,8 +210,9 @@ return {
             {237/255,164/255,74/255},
             {212/255,198/255,182/255},
             function()
-                Scenes:resetScenes()
-                Scenes:enableScene("start-menu")
+                Scenes:disableAllSceneInteractions()
+                Scenes:enableSceneInteractions("hand-rankings")
+                Scenes:enableScene("hand-rankings")
             end,
             8,
             Color.black

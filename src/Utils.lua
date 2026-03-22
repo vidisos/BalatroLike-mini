@@ -127,6 +127,18 @@ function Utils.copyTable(original)
     return copy
 end
 
+---returns an array {key, value1, value1} from the input key,table table
+---@param key_table table
+---@return table
+function Utils.getArray(key_table)
+    local array = {}
+    for key, value in pairs(key_table) do
+        value.key = key
+        table.insert(array, value)
+    end
+    return array
+end
+
 ---insert the values of the input table into the original and returns the table with now unpacked values
 ---@param original table
 ---@param input_table table

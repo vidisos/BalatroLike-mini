@@ -28,6 +28,7 @@ end
 
 ---make the input color as transparent as the input alpha value
 function Color:tintColor(RGBA, A)
+    local A = A or 1
     return {RGBA[1], RGBA[2], RGBA[3], A}
 end
 
