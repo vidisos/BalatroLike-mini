@@ -83,7 +83,7 @@ function HandRankings:drawRankings()
             function(self) self.color = self.base_color end
         ):Rectangle(
             Color.light_grey,
-            5, Color.dark_grey
+            3, Color.dark_grey
         )
 
         local hand_text = Drawable:new(
@@ -95,16 +95,57 @@ function HandRankings:drawRankings()
         )
         -- we need to reapply the font since it would normally take the font size of the lanugae entry
         hand_text.font = Font:resizeFont(Font.font_paths.pixel_font, 23)
+
+        local scoring_background = Drawable:new(
+            "rect"..ranking.key, 2,
+            background.x + ranking_width - 210,
+            Utils.getCenterAnchorY(background.y, background.height, background.height-13),
+            200,
+            background.height - 13
+        ):Rectangle(
+            Color.black
+        )
+
+        local chips_mult_height = scoring_background.height - 8
+        local chips_mult_y = Utils.getCenterAnchorY(scoring_background.y, scoring_background.height, chips_mult_height)
+
+        local chips_text = Drawable:new(
+            "text-chips-"..ranking.key, 3,
+            scoring_background.x + 5, chips_mult_y, 80, chips_mult_height
+        ):TextBox(
+            tostring(ranking.chips), Font:resizeFont(Font.font_paths.pixel_font, 30),
+            Color.white, Color.blue,
+            "right", -5
+        )
+
+        local multiply_sign = Drawable:new(
+            "text-multiply-sign"..ranking.key, 3,
+            chips_text.x+chips_text.width, chips_mult_y, 30, chips_mult_height
+        ):TextBox(
+            "X", Font:resizeFont(Font.font_paths.pixel_font, 30),
+            Color.white
+        )
+
+        local mult_text = Drawable:new(
+            "text-mult-"..ranking.key, 3,
+            multiply_sign.x+multiply_sign.width, chips_mult_y, 80, chips_mult_height
+        ):TextBox(
+            tostring(ranking.mult), Font:resizeFont(Font.font_paths.pixel_font, 30),
+            Color.white, Color.red,
+            "left", 5
+        )
+
         hand_text.forceDisableHover = true
+        scoring_background.forceDisableHover = true
+        chips_text.forceDisableHover = true
+        multiply_sign.forceDisableHover = true
+        mult_text.forceDisableHover = true
         Scenes:addDrawable("hand-rankings", background)
         Scenes:addDrawable("hand-rankings", hand_text)
-        --[[
-        Scenes:addDrawable("hand-rankings", mult_back)
-        Scenes:addDrawable("hand-rankings", mult_text)
-        Scenes:addDrawable("hand-rankings", chips_back)
+        Scenes:addDrawable("hand-rankings", scoring_background)
         Scenes:addDrawable("hand-rankings", chips_text)
         Scenes:addDrawable("hand-rankings", multiply_sign)
-        ]]
+        Scenes:addDrawable("hand-rankings", mult_text)
 
         ranking_count = ranking_count + 1
     end
