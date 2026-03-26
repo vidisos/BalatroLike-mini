@@ -61,6 +61,7 @@ Options.drawables = {
     ),
 
     --TODO mek sound effect work and stuff
+    --TODO sliders style and 0-10 text for them
     -- sound effects volume slider
     Drawable:new(
         "slider-sound-effects-volume-text", 1,
