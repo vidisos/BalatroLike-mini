@@ -17,6 +17,7 @@ local image_list = {
         cardBack1 = newImage(cards_folder .. "Card_Back_1.png"),
         cardBack2 = newImage(cards_folder .. "Card_Back_2.png"),
         cardBack3 = newImage(cards_folder .. "Card_Back_3.png"),
+        cardBackMain = newImage(cards_folder .. "Card_Back_Main.png"),
 
         -- Clubs
         club1  = newImage(cards_folder .. "Clubs_1.png"),

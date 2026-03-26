@@ -1,5 +1,6 @@
 local Utils = require "src.Utils"
 local Color = require "src.Color"
+local image_list = require "src.image_list"
 
 ---@class Card : Drawable
 local Card = {}
@@ -11,7 +12,7 @@ local Card = {}
 function Card:Card(card_base, onClickFunc)
     self.type = "Card"
     self.baseImage = card_base.baseImage
-    self.backImage = card_base.backImage
+    self.backImage = card_base.backImage or image_list.cards.cardBackMain
     self.image = self.baseImage
     self.suit = card_base.suit or ""
     self.rank = card_base.rank or 0
