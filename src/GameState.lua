@@ -41,7 +41,7 @@ local GameState = {
     active_cards = {},
 
     active_sparks_count = 0,
-    spark_select_max = 5,
+    spark_select_max = 3,
     spark_type_counts = {}, --counts the number of a specific type of spark, so we can have duplicates
 
     chips = 0,
@@ -178,13 +178,29 @@ function GameState:roundWon()
     local game_win_background = Scenes:getDrawable("round-won", "rect-background")
     for i=1, self.spark_select_max do
         local z_index = i
-
-        local x_margin = 100
-        local spacing = x_margin + ((i-1) * (game_win_background.width - CONSTANTS.CARD_WIDTH - 2*x_margin) / (self.spark_select_max - 1))
-        local x = game_win_background.x + spacing
+        local x
         local y = game_win_background.y + 100
         local width = CONSTANTS.CARD_WIDTH
         local height = CONSTANTS.CARD_HEIGHT
+
+        local N = self.spark_select_max
+        local SW = CONSTANTS.CARD_WIDTH
+        local W = game_win_background.width
+        local spark_margin = 30
+
+        local total_sparks_width = N * SW + (N + 1) * CONSTANTS.SPARKS_MARGIN
+
+        if N <= 5 then
+            if i == 1 and N == 5 then
+                spark_margin = 0
+            end
+
+            local start_x = game_win_background.x + (W - total_sparks_width) / 2
+            x = start_x + (i - 1) * (SW + spark_margin)
+        else
+            local spacing = (W - SW) / (N - 1)
+            x = game_win_background.x + (i - 1) * spacing
+        end
 
         local rnd = math.random(1, #temp_sparks)
         local spark_base = temp_sparks[rnd]
@@ -977,14 +993,15 @@ function GameState.sparkOnClickFunc(self)
         local x = self.x - width
         local y = self.height/2
 
-        local button = Drawable:new(id, z_index, x, y, width, height,
-                function (self, dt)
-                    local spark_id = string.sub(self.id, 1, -4)
-                    local spark = Scenes:getDrawable("game-main", spark_id)
-                    self.z_index = spark.z_index
-                    self.x = spark.x - width
-                end
-            ):Button(
+        local button = Drawable:new(
+            id, z_index, x, y, width, height,
+            function (self, dt)
+                local spark_id = string.sub(self.id, 1, -4)
+                local spark = Scenes:getDrawable("game-main", spark_id)
+                self.z_index = spark.z_index
+                self.x = spark.x - width
+            end
+        ):Button(
             LANG.delete_spark, Font:resizeFont(Font.font_paths.pixel_font, 20),
             nil, nil,
             function (self)

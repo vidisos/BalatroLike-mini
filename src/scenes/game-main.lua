@@ -22,7 +22,7 @@ return {
         --background
         Drawable:new("rect-background", 0,
             0, 0, ww, wh
-        ):Rectangle(Color.background_blue),
+        ):Rectangle(Color.sky_blue),
 
         --background left column
         Drawable:new("rect-left", 1,

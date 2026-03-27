@@ -78,7 +78,6 @@ Options.drawables = {
         "rectangle"
     ),
 
-    --TODO mek sound effect work and stuff
     -- sound effects volume slider
     Drawable:new(
         "slider-sound-effects-volume-text", 1,
