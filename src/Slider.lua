@@ -163,11 +163,9 @@ function Slider:Slider(color, value, min, max, setter, orientation, track, knob)
         end
     end
 
-    return self
-end
+    self.getValue = function(self) return self.min + self.value * (self.max - self.min) end
 
-function Slider:getValue()
-    return self.min + self.value * (self.max - self.min)
+    return self
 end
 
 return Slider

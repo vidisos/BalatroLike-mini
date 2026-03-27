@@ -18,6 +18,10 @@ local wh = CONSTANTS.BASE_HEIGHT
 local start_menu_height = 350
 local game_main_height = 700
 
+local options_width = 670
+local options_x = Utils.getCenterAnchorX(0, ww, options_width)
+local options_y = Utils.getCenterAnchorY(0, wh, game_main_height)
+
 ---@type Options
 local Options = {}
 Options.id = "options"
@@ -26,13 +30,13 @@ Options.z_index = 3
 Options.drawables = {
     -- background
     Drawable:new("rect-background", 0,
-        Utils.getCenterAnchorX(0, ww, 600), Utils.getCenterAnchorY(0, wh, game_main_height), 600, game_main_height
+       options_x, options_y, options_width, game_main_height
     ):Rectangle(Color.light_grey, 10),
 
     -- Setting text
     Drawable:new(
         "text-settings-title", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 300), Utils.getCenterAnchorY(0, wh, game_main_height) + 20, 300, 50
+        Utils.getCenterAnchorX(options_x, options_width, 300), options_y + 20, 300, 50
     ):TextBox(
         LANG.settings, Font:resizeFont(Font.font_paths.pixel_font, 50)
     ),
@@ -40,55 +44,82 @@ Options.drawables = {
     -- background music volume slider
     Drawable:new(
         "slider-background-volume-text", 1,
-        Utils.getCenterAnchorX(0, ww, 600), Utils.getCenterAnchorY(0, wh, game_main_height) + 100, 300, 50
+        options_x, options_y + 100, 300, 50
     ):TextBox(
         LANG.background_music, Font:resizeFont(Font.font_paths.pixel_font, 25),
         nil, nil, "left", 20
     ),
     Drawable:new(
+        "text-background-volume-numbers", 1,
+        options_x+300, options_y + 100, 40, 50,
+        function(self, dt)
+            self.text = tostring(math.ceil(Scenes:getDrawable("options", "slider-background-volume"):getValue() * 100))
+        end
+    ):TextBox(
+        nil, Font:resizeFont(Font.font_paths.pixel_font, 20),
+        nil, nil,
+        "right"
+    ),
+    Drawable:new(
         "slider-background-volume", 1,
-        Utils.getCenterAnchorX(0, ww, 600)+310, Utils.getCenterAnchorY(0, wh, game_main_height) + 100, 240, 50,
+        options_x+options_width-300, options_y + 100, 250, 50,
         nil,
         nil,
         function (self) self.color = Color.dark_grey end,
         function (self) self.color = self.base_color end
     ):Slider(
         nil,
-        1, 0, 0.1,
+        0.33, 0, 1,
         function(v)
             audio_list.background_music:setVolume(v)
-        end
+        end,
+        nil,
+        "line",
+        "rectangle"
     ),
 
     --TODO mek sound effect work and stuff
-    --TODO sliders style and 0-10 text for them
     -- sound effects volume slider
     Drawable:new(
         "slider-sound-effects-volume-text", 1,
-        Utils.getCenterAnchorX(0, ww, 600), Utils.getCenterAnchorY(0, wh, game_main_height) + 200, 300, 50
+        options_x, options_y + 200, 300, 50
     ):TextBox(
         LANG.sound_effects, Font:resizeFont(Font.font_paths.pixel_font, 25),
         nil, nil, "left", 20
     ),
     Drawable:new(
+        "text-sound-effects-volume-numbers", 1,
+        options_x+300, options_y + 200, 40, 50,
+        function(self, dt)
+            self.text = tostring(math.ceil(Scenes:getDrawable("options", "slider-sound-effects-volume"):getValue() * 100))
+        end
+    ):TextBox(
+        nil, Font:resizeFont(Font.font_paths.pixel_font, 20),
+        nil, nil,
+        "right"
+    ),
+    Drawable:new(
         "slider-sound-effects-volume", 1,
-        Utils.getCenterAnchorX(0, ww, 600)+280, Utils.getCenterAnchorY(0, wh, game_main_height) + 200, 270, 50,
+        options_x+options_width-300, options_y + 200, 250, 50,
         nil,
         nil,
         function (self) self.color = Color.dark_grey end,
         function (self) self.color = self.base_color end
     ):Slider(
         nil,
-        1, 0, 0.1,
+        0.6, 0, 1,
         function(v)
             audio_list.background_music:setVolume(v)
-        end
+        end,
+        nil,
+        "line",
+        "rectangle"
     ),
 
     -- back
     Drawable:new(
         "btn-back", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 500), Utils.getCenterAnchorY(0, wh, game_main_height) + 300, 500, 60,
+        Utils.getCenterAnchorX(options_x, options_width, 500), options_y + 300, 500, 60,
         nil,
         nil,
         function (self) self.color = Color.dark_grey end,
@@ -107,7 +138,7 @@ Options.drawables = {
     -- new game
     Drawable:new(
         "btn-start", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 270, 400, 100,
+        Utils.getCenterAnchorX(options_x, options_width, 400), options_y + 270, 400, 100,
         nil,
         nil,
         function (self) self.color = Color.dark_grey end,
@@ -129,7 +160,7 @@ Options.drawables = {
     -- main menu
     Drawable:new(
         "btn-start-menu", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 380, 400, 100,
+        Utils.getCenterAnchorX(options_x, options_width, 400), options_y + 380, 400, 100,
         nil,
         nil,
         function (self) self.color = Color.dark_grey end,
@@ -151,7 +182,7 @@ Options.drawables = {
     -- language button
     Drawable:new(
         "btn-change-lang", 1,
-        Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 600), 600, 400), Utils.getCenterAnchorY(0, wh, game_main_height) + 490, 400, 100,
+        Utils.getCenterAnchorX(options_x, options_width, 400), options_y + 490, 400, 100,
         nil,
         nil,
         function (self) self.color = Color.dark_grey end,

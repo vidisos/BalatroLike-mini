@@ -133,6 +133,7 @@ function Scenes:resetScenes()
 end
 
 --------------GET-ers-----------------
+
 ---returns a specific scene table with the id
 ---@param id string
 ---@return Scene

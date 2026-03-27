@@ -172,7 +172,7 @@ function HandRankings.makeRankingInfo(background_drawable, ranking)
     local cards_info = {}
 
     -- switching y coords if the ranking is lower down
-    if ranking.key == "straight" or ranking.key == "three_of_a_kind" or ranking.key == "two_pair" or ranking.key == "pair" or ranking.key == "high_card" then
+    if ranking.key == "three_of_a_kind" or ranking.key == "two_pair" or ranking.key == "pair" or ranking.key == "high_card" then
         background_y = background_drawable.y - background_height
     end
 
@@ -181,19 +181,19 @@ function HandRankings.makeRankingInfo(background_drawable, ranking)
     if ranking.key == "high_card" then
         desc_text = LANG.high_card_desc
         cards_info = {
-            {image = image_list.cards.diamond11, isFocused = true},
-            {image = image_list.cards.diamond2,  isFocused = false},
+            {image = image_list.cards.heart1, isFocused = true},
+            {image = image_list.cards.heart13,  isFocused = false},
             {image = image_list.cards.club8,     isFocused = false},
-            {image = image_list.cards.heart1,    isFocused = false},
-            {image = image_list.cards.club6,     isFocused = false}
+            {image = image_list.cards.heart5,    isFocused = false},
+            {image = image_list.cards.club3,     isFocused = false}
         }
     elseif ranking.key == "pair" then
         desc_text = LANG.pair_desc
         cards_info = {
-            {image = image_list.cards.heart7,    isFocused = true},
-            {image = image_list.cards.spade7,    isFocused = true},
-            {image = image_list.cards.diamond2,  isFocused = false},
-            {image = image_list.cards.club9,     isFocused = false},
+            {image = image_list.cards.heart13,    isFocused = true},
+            {image = image_list.cards.spade13,    isFocused = true},
+            {image = image_list.cards.diamond8,  isFocused = false},
+            {image = image_list.cards.club5,     isFocused = false},
             {image = image_list.cards.heart4,    isFocused = false}
         }
     elseif ranking.key == "two_pair" then
@@ -208,29 +208,29 @@ function HandRankings.makeRankingInfo(background_drawable, ranking)
     elseif ranking.key == "three_of_a_kind" then
         desc_text = LANG.three_of_a_kind_desc
         cards_info = {
-            {image = image_list.cards.heart6,    isFocused = true},
-            {image = image_list.cards.diamond6,  isFocused = true},
-            {image = image_list.cards.spade6,    isFocused = true},
-            {image = image_list.cards.club3,     isFocused = false},
-            {image = image_list.cards.heart10,   isFocused = false}
+            {image = image_list.cards.heart8,    isFocused = true},
+            {image = image_list.cards.diamond8,  isFocused = true},
+            {image = image_list.cards.spade8,    isFocused = true},
+            {image = image_list.cards.club4,     isFocused = false},
+            {image = image_list.cards.heart2,   isFocused = false}
         }
     elseif ranking.key == "straight" then
         desc_text = LANG.straight_desc
         cards_info = {
-            {image = image_list.cards.heart5,    isFocused = true},
-            {image = image_list.cards.diamond6,  isFocused = true},
+            {image = image_list.cards.heart9,    isFocused = true},
+            {image = image_list.cards.spade8,  isFocused = true},
             {image = image_list.cards.club7,     isFocused = true},
-            {image = image_list.cards.spade8,    isFocused = true},
-            {image = image_list.cards.heart9,    isFocused = true}
+            {image = image_list.cards.diamond6,    isFocused = true},
+            {image = image_list.cards.heart5,    isFocused = true}
         }
     elseif ranking.key == "flush" then
         desc_text = LANG.flush_desc
         cards_info = {
-            {image = image_list.cards.heart2,    isFocused = true},
-            {image = image_list.cards.heart5,    isFocused = true},
+            {image = image_list.cards.heart13,    isFocused = true},
+            {image = image_list.cards.heart11,    isFocused = true},
             {image = image_list.cards.heart8,    isFocused = true},
-            {image = image_list.cards.heart11,   isFocused = true},
-            {image = image_list.cards.heart13,   isFocused = true}
+            {image = image_list.cards.heart3,   isFocused = true},
+            {image = image_list.cards.heart2,   isFocused = true}
         }
     elseif ranking.key == "full_house" then
         desc_text = LANG.full_house_desc
@@ -253,11 +253,11 @@ function HandRankings.makeRankingInfo(background_drawable, ranking)
     elseif ranking.key == "straight_flush" then
         desc_text = LANG.straight_flush_desc
         cards_info = {
-            {image = image_list.cards.spade5,    isFocused = true},
-            {image = image_list.cards.spade6,    isFocused = true},
-            {image = image_list.cards.spade7,    isFocused = true},
+            {image = image_list.cards.spade11,    isFocused = true},
+            {image = image_list.cards.spade10,    isFocused = true},
+            {image = image_list.cards.spade9,    isFocused = true},
             {image = image_list.cards.spade8,    isFocused = true},
-            {image = image_list.cards.spade9,    isFocused = true}
+            {image = image_list.cards.spade7,    isFocused = true}
         }
     end
 
@@ -297,8 +297,8 @@ function HandRankings.makeRankingInfo(background_drawable, ranking)
         local card_y = all_cards_y
 
         if not card_info.isFocused then
-            card_width = card_width*0.5
-            card_height = card_height*0.5
+            card_width = card_width*0.7
+            card_height = card_height*0.7
 
             card_x = Utils.getCenterAnchorX(card_x, base_card_width, card_width)
             card_y = Utils.getCenterAnchorY(card_y, base_card_height, card_height)
