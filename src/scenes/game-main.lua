@@ -309,7 +309,7 @@ return {
         -- sparks background
         Drawable:new("rect-sparks",1,
             CONSTANTS.SPARKS_X - 30,CONSTANTS.SPARKS_Y - 10,CONSTANTS.SPARKS_WIDTH + 60,CONSTANTS.SPARKS_HEIGHT + 20
-        ):Rectangle({105/255, 151/255, 224/255}),
+        ):ImageBox(image_list.sparks_background),
 
         -- sparks count
         Drawable:new("text-sparks-count",1,

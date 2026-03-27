@@ -14,6 +14,9 @@ local Color = {
     cornflower = {0.3922, 0.5882, 1},
     amber = {1, 0.5882, 0.1961},
 
+    play_green = {0.443, 0.8117, 0.3333},
+    play_green_border = {0.349, 0.6784, 0.251},
+
     -- navy/slate scale
     navy_1 = {0.0157, 0.4000, 0.7843},
     navy_2 = {0.0118, 0.3255, 0.6431},

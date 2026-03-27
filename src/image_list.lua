@@ -10,6 +10,7 @@ love.graphics.setDefaultFilter('nearest', 'nearest')
 
 local image_list = {
     settings_icon = newImage(image_folder .. "settings_icon.png"),
+    sparks_background = newImage(image_folder .. "sparks_background.png"),
 
     -- All poker cards (© ElvGames sigma) 
     cards = {

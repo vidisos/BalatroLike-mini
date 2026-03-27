@@ -2,7 +2,7 @@ local CONSTANTS = require "src.constants"
 local Scenes = require "src.Scenes"
 local Drawable  = require "src.Drawable"
 local Utils = require "src.Utils"
-local audio_list = require "src.audio_list"
+local Audio = require "src.Audio"
 local image_list = require "src.image_list"
 local card_list = require "src.card_list"
 local GameState = require "src.GameState"
@@ -71,7 +71,7 @@ Options.drawables = {
         nil,
         0.33, 0, 1,
         function(v)
-            audio_list.background_music:setVolume(v)
+            Audio.background_music:setVolume(v)
         end,
         nil,
         "line",
@@ -108,7 +108,7 @@ Options.drawables = {
         nil,
         0.6, 0, 1,
         function(v)
-            audio_list.background_music:setVolume(v)
+            Audio.background_music:setVolume(v)
         end,
         nil,
         "line",
@@ -184,15 +184,17 @@ Options.drawables = {
         Utils.getCenterAnchorX(options_x, options_width, 400), options_y + 490, 400, 100,
         nil,
         nil,
-        function (self) self.color = Color.dark_grey end,
+        function (self) self.color = Color:tintColor(self.base_color, 0.9) end,
         function (self) self.color = self.base_color end
     ):Button(
         LANG.language, Font:resizeFont(Font.font_paths.pixel_font, 30),
-        {0, 0, 100/255},
-        {1, 0, 0},
+        Color.white,
+        Color.light_grey,
         function(self)
             GameState:changeLang()
-        end
+        end,
+        8,
+        Color.dark_grey
     )
 }
 Options.source = ""

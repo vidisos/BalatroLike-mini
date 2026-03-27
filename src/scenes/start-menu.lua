@@ -52,16 +52,16 @@ return {
             function (self) self.color = self.base_color end
         ):Button(
             LANG.start, Font:resizeFont(Font.font_paths.pixel_font, 90),
-            {237/255, 164/255, 74/255},
-            {212/255, 198/255, 182/255},
+            Color.white,
+            Color.play_green,
             function (self)
                 Scenes:resetScenes()
                 Scenes:enableScene("game-main")
                 GameState:startNewGame()
                 Scenes:sortDrawables("game-main")
             end,
-            15,
-            {100/255, 50/255, 20/255}
+            10,
+            Color.dark_grey
         ),
 
         -- quit button
@@ -74,13 +74,13 @@ return {
             function (self) self.color = self.base_color end
         ):Button(
             LANG.quit, Font:resizeFont(Font.font_paths.pixel_font, 50),
-            {0, 0, 100/255},
+            Color.white,
             {1, 0, 0},
             function()
                 love.event.quit()
             end,
             10,
-            {0, 100/255, 25/255}
+            Color.dark_grey
         ),
 
         -- language button
@@ -93,11 +93,13 @@ return {
             function (self) self.color = self.base_color end
         ):Button(
             LANG.language, Font:resizeFont(Font.font_paths.pixel_font, 30),
-            {0, 0, 100/255},
-            {1, 0, 0},
+            Color.white,
+            Color.light_grey,
             function(self)
                 GameState:changeLang()
-            end
+            end,
+            8,
+            Color.dark_grey
         )
     }
 }
