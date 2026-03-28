@@ -65,7 +65,7 @@ return {
         -- quit button
         Drawable:new(
             "btn-quit", 1,
-            1060, 810, 250, 130,
+            1060, 810, 270, 130,
             nil,
             nil,
             function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
@@ -73,7 +73,7 @@ return {
         ):Button(
             LANG.quit, Font:resizeFont(Font.font_paths.pixel_font, 70),
             Color.white,
-            {1, 0, 0},
+            Color.red,
             function()
                 love.event.quit()
             end

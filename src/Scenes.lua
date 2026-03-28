@@ -188,7 +188,7 @@ end
 
 --------------INTERACTIONS-----------------
 
----disables clicks for all scenes
+---disables clicks and hovers for all scenes
 function Scenes:disableAllSceneInteractions()
     for _, scene in ipairs(self.scene_list) do
         self:disableSceneInteractions(scene.id)

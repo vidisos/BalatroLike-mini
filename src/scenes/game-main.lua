@@ -313,12 +313,12 @@ return {
 
         -- sparks background
         Drawable:new("rect-sparks",1,
-            CONSTANTS.SPARKS_X - 30,CONSTANTS.SPARKS_Y - 10,CONSTANTS.SPARKS_WIDTH + 60,CONSTANTS.SPARKS_HEIGHT + 20
+            CONSTANTS.SPARKS_X - 10,CONSTANTS.SPARKS_Y - 10,CONSTANTS.SPARKS_WIDTH + 20,CONSTANTS.SPARKS_HEIGHT + 20
         ):ImageBox(image_list.sparks_background),
 
         -- sparks count
         Drawable:new("text-sparks-count",1,
-            CONSTANTS.SPARKS_X - 30,CONSTANTS.SPARKS_Y + CONSTANTS.SPARKS_HEIGHT + 20,100,50,
+            CONSTANTS.SPARKS_X - 10,CONSTANTS.SPARKS_Y + CONSTANTS.SPARKS_HEIGHT + 20,100,50,
             function(self)
                 self.text = #GameState:getActiveSparks() .. "/" .. GameState.spark_active_max
             end

@@ -16,80 +16,82 @@ return {
         -- main background
         Drawable:new(
             "rect-background", 0,
-            860, 120, 400, 800
-        ):Rectangle({134/255, 142/255, 156/255}, 10),
+            860, 120, 420, 800
+        ):Rectangle(Color.dark_grey, 10),
 
         -- u lose
         Drawable:new(
             "text-you-win", 1,
-            Utils.getCenterAnchorX(860, 400, 370), 300, 370, 100
+            860, 280, 420, 100
         ):TextBox(
             LANG.you_win,
-            Font:resizeFont(Font.font_paths.pixel_font_bold, 110)
+            Font:resizeFont(Font.font_paths.pixel_font_bold, 110),
+            Color.blue
         ),
 
         -- continue game
         Drawable:new(
             "btn-continue-game", 1,
-            Utils.getCenterAnchorX(860, 400, 330), 520, 330, 100,
+            Utils.getCenterAnchorX(860, 420, 360), 520, 360, 100,
             nil,
             nil,
             function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
             function (self) self.color = self.base_color end
         ):Button(
             LANG.continue,
-            Font:resizeFont(Font.font_paths.pixel_font, 30),
-            {0, 0, 100/255},
-            {1, 0, 0},
+            Font:resizeFont(Font.font_paths.pixel_font, 50),
+            Color.white,
+            Color.blue,
             function(self)
                 Scenes:resetScenes()
                 Scenes:enableScene("game-main")
+                Scenes:enableScene("round-won")
             end,
-            10,
-            {0, 100/255, 25/255}
+            5,
+            Color.dark_blue
         ),
 
         -- start new game
         Drawable:new(
             "btn-new-game", 1,
-            Utils.getCenterAnchorX(860, 400, 330), 650, 330, 100,
+            Utils.getCenterAnchorX(860, 420, 360), 650, 360, 100,
             nil,
             nil,
             function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
             function (self) self.color = self.base_color end
         ):Button(
             LANG.new_game,
-            Font:resizeFont(Font.font_paths.pixel_font, 30),
-            {0, 0, 100/255},
-            {1, 0, 0},
+            Font:resizeFont(Font.font_paths.pixel_font, 50),
+            Color.white,
+            Color.blue,
             function(self)
-                GameState:startNewGame()
                 Scenes:resetScenes()
+                GameState:startNewGame()
                 Scenes:enableScene("game-main")
             end,
-            10,
-            {0, 100/255, 25/255}
+            5,
+            Color.dark_blue
         ),
 
         -- to main menu
         Drawable:new(
             "btn-to-main-menu", 1,
-            Utils.getCenterAnchorX(860, 400, 330), 780, 330, 100,
+            Utils.getCenterAnchorX(860, 420, 360), 780, 360, 100,
             nil,
             nil,
             function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
             function (self) self.color = self.base_color end
         ):Button(
             LANG.to_main_menu,
-            Font:resizeFont(Font.font_paths.pixel_font, 30),
-            {0, 0, 100/255},
-            {1, 0, 0},
+            Font:resizeFont(Font.font_paths.pixel_font, 50),
+            Color.white,
+            Color.blue,
             function(self)
                 Scenes:resetScenes()
                 Scenes:enableScene("start-menu")
             end,
-            10,
-            {0, 100/255, 25/255}
+            5,
+            Color.dark_blue
         )
     }
 }

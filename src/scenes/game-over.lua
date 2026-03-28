@@ -17,15 +17,15 @@ return {
         Drawable:new(
             "rect-background", 0,
             860, 120, 400, 800
-        ):Rectangle({134/255, 142/255, 156/255}, 10),
+        ):Rectangle(Color.dark_grey, 10, Color.light_grey),
 
         -- u lose
         Drawable:new(
             "text-you-lose", 1,
             Utils.getCenterAnchorX(860, 400, 370), 300, 370, 100
         ):TextBox(
-            LANG.you_lose,
-            Font:resizeFont(Font.font_paths.pixel_font_bold, 110)
+            LANG.you_lose, Font:resizeFont(Font.font_paths.pixel_font_bold, 110),
+            Color.red
         ),
 
         -- start new game
@@ -38,16 +38,16 @@ return {
             function (self) self.color = self.base_color end
         ):Button(
             LANG.new_game,
-            Font:resizeFont(Font.font_paths.pixel_font, 30),
-            {0, 0, 100/255},
-            {1, 0, 0},
+            Font:resizeFont(Font.font_paths.pixel_font, 50),
+            Color.white,
+            Color.blue,
             function(self)
                 GameState:startNewGame()
                 Scenes:resetScenes()
                 Scenes:enableScene("game-main")
             end,
-            10,
-            {0, 100/255, 25/255}
+            5,
+            Color.light_grey
         ),
 
         -- to main menu
@@ -60,15 +60,15 @@ return {
             function (self) self.color = self.base_color end
         ):Button(
             LANG.to_main_menu,
-            Font:resizeFont(Font.font_paths.pixel_font, 30),
-            {0, 0, 100/255},
-            {1, 0, 0},
+            Font:resizeFont(Font.font_paths.pixel_font, 50),
+            Color.white,
+            Color.blue,
             function(self)
                 Scenes:resetScenes()
                 Scenes:enableScene("start-menu")
             end,
-            10,
-            {0, 100/255, 25/255}
+            5,
+            Color.light_grey
         )
     }
 }

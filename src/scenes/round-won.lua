@@ -16,12 +16,6 @@ return {
     shouldDraw = false,
     z_index = 1,
     drawables = {
-        -- main background
-        Drawable:new(
-            "rect-background", 0,
-            CONSTANTS.HAND_X-100, 500, CONSTANTS.HAND_WIDTH+200, 800
-        ):Rectangle({134/255, 142/255, 156/255}, 10),
-
         -- round overlay
         Drawable:new(
             "text-choose-sparks", 1,
@@ -32,6 +26,12 @@ return {
             Color.dark_grey
         ),
 
+        -- main background
+        Drawable:new(
+            "rect-background", 0,
+            CONSTANTS.HAND_X-100, 500, CONSTANTS.HAND_WIDTH+200, 800
+        ):Rectangle(Color.grey, 10, Color.light_grey),
+
         -- skip sparks
         Drawable:new(
             "btn-skip-sparks", 1,
@@ -40,10 +40,13 @@ return {
             nil,
             function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
             function (self) self.color = self.base_color end
-        ):Button(LANG.skip, Font:resizeFont(Font.font_paths.pixel_font, 20), nil, nil,
+        ):Button(
+            LANG.skip, Font:resizeFont(Font.font_paths.pixel_font, 40),
+            Color.white, Color.blue,
             function (self)
                 GameState:moveToNextRound()
-            end
+            end,
+            3, Color.dark_blue
         )
     }
 }

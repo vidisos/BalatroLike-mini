@@ -143,30 +143,20 @@ end
 
 ---goes to the game over screen and stuff
 function GameState:gameWon()
+    Scenes:disableAllSceneInteractions()
     Scenes:enableScene("game-won")
-    Scenes:disableAllSceneClicks()
-    Scenes:enableSceneClicks("game-won")
+    Scenes:enableSceneInteractions("game-won")
 end
 
 ---goes to the game over screen and stuff
 function GameState:gameOver()
+    Scenes:disableAllSceneInteractions()
     Scenes:enableScene("game-over")
-    Scenes:disableAllSceneClicks()
-    Scenes:enableSceneClicks("game-over")
+    Scenes:enableSceneInteractions("game-over")
 end
 
 ---resets the cards and shows the spark select
 function GameState:roundWon()
-    if self.round % 3 == 0 then
-        self.ante = self.ante + 1
-    end
-    if self.ante > self.ante_win then
-        self:gameWon()
-    end
-
-    self.round = self.round + 1
-    self:updateScoreRequirement()
-
     self.player_on_win_screen = true
 
     -- we dont want the max counts to show only after selecting a spark, so they can more easily see if they need certain sparks and stuff
@@ -220,6 +210,17 @@ function GameState:roundWon()
     end
 
     Scenes:enableScene("round-won")
+
+    if self.round % 3 == 0 then
+        self.ante = self.ante + 1
+    end
+
+    self.round = self.round + 1
+    self:updateScoreRequirement()
+
+    if self.ante == self.ante_win+1 and self:getStageTitleText() == LANG.small then
+        self:gameWon()
+    end
 end
 
 function GameState:getStageTitleText()
