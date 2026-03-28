@@ -27,9 +27,9 @@ return {
             "text-choose-sparks", 1,
             Utils.getCenterAnchorX(left_column.x, left_column.width, left_column.width-50), 20, left_column.width-50, 320
         ):TextBox(
-            LANG.choose_spark, Font:resizeFont(Font.font_paths.pixel_font_bold, 90),
-            nil,
-            {134/255, 142/255, 156/255}
+            LANG.choose_spark, Font:resizeFont(Font.font_paths.pixel_font_bold, 80),
+            Color.white,
+            Color.dark_grey
         ),
 
         -- skip sparks

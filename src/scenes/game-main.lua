@@ -283,13 +283,13 @@ return {
         ):Button(
             LANG.play_hand,
             Font:resizeFont(Font.font_paths.pixel_font,40),
-            {237/255,164/255,74/255},
-            {212/255,198/255,182/255},
+            Color.white,
+            Color.dark_blue,
             function()
                 GameState:playHand()
             end,
-            10,
-            {1,0,0}
+            5,
+            Color.dark_grey
         ),
 
         -- discard
@@ -302,13 +302,13 @@ return {
         ):Button(
             LANG.discard_hand,
             Font:resizeFont(Font.font_paths.pixel_font,40),
-            {237/255,164/255,74/255},
-            {212/255,198/255,182/255},
+            Color.white,
+            Color.red,
             function()
                 GameState:discard()
             end,
-            10,
-            {1,0,0}
+            5,
+            Color.dark_grey
         ),
 
         -- sparks background
@@ -325,7 +325,7 @@ return {
         ):TextBox(
             nil,
             Font:resizeFont(Font.font_paths.pixel_font,40),
-            {1,1,1}
+            Color.white
         ),
 
         -- deck count

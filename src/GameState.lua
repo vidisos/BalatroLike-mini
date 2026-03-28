@@ -906,7 +906,7 @@ function GameState.showSparkInfo(self)
             self.x = spark.x
             self.y = spark.y + CONSTANTS.CARD_HEIGHT + 10
         end
-    ):Rectangle(Color.dark_grey, 3, {1, 1, 1})
+    ):Rectangle(Color.dark_grey, 3, Color.white)
 
     ---@type Drawable
     local title = Drawable:new(
@@ -918,8 +918,8 @@ function GameState.showSparkInfo(self)
             self.y = infoBox.y+7
         end
     ):TextBox(
-        self.title, Font:resizeFont(Font.font_paths.pixel_font, 17),
-        nil, {1, 1, 1}
+        self.title, Font:resizeFont(Font.font_paths.pixel_font, 19),
+        Color.white
     )
 
     ---@type Drawable

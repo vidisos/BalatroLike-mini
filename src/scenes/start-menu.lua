@@ -71,7 +71,7 @@ return {
             function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
             function (self) self.color = self.base_color end
         ):Button(
-            LANG.quit, Font:resizeFont(Font.font_paths.pixel_font, 50),
+            LANG.quit, Font:resizeFont(Font.font_paths.pixel_font, 70),
             Color.white,
             {1, 0, 0},
             function()

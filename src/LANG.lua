@@ -55,7 +55,7 @@ local LANG = {
     royal_flush = {en="Royal Flush", sl="Kraljeva barvna lestvica", font=Font.fonts.font_small},
 
     -- hand ranking descriptions
-    high_card_desc = {en="The highest card in your hand plays.", sl="Najvišja karta v roki igra."},
+    high_card_desc = {en="The highest card in your hand plays.", sl="Najvišja karta v igrani roki."},
     pair_desc = {en="Two cards of the same rank.", sl="Dve karti enake vrednosti."},
     two_pair_desc = {en="Two different pairs of matching cards.", sl="Dva različna para ujemajočih se kart."},
     three_of_a_kind_desc = {en="Three cards of the same rank.", sl="Tri karte enake vrednosti."},
