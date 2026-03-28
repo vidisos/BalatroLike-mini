@@ -345,7 +345,7 @@ return {
             ww-100,10,90,90,
             nil,
             nil,
-            function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
+            function (self) self.color = Color.light_grey end,
             function (self) self.color = self.base_color end
         ):ImageBox(
             image_list.settings_icon,

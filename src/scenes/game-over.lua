@@ -40,14 +40,14 @@ return {
             LANG.new_game,
             Font:resizeFont(Font.font_paths.pixel_font, 50),
             Color.white,
-            Color.blue,
+            Color.dark_blue,
             function(self)
                 GameState:startNewGame()
                 Scenes:resetScenes()
                 Scenes:enableScene("game-main")
             end,
             5,
-            Color.light_grey
+            Color.light_blue
         ),
 
         -- to main menu
@@ -62,13 +62,13 @@ return {
             LANG.to_main_menu,
             Font:resizeFont(Font.font_paths.pixel_font, 50),
             Color.white,
-            Color.blue,
+            Color.dark_blue,
             function(self)
                 Scenes:resetScenes()
                 Scenes:enableScene("start-menu")
             end,
             5,
-            Color.light_grey
+            Color.light_blue
         )
     }
 }

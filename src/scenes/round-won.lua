@@ -42,11 +42,11 @@ return {
             function (self) self.color = self.base_color end
         ):Button(
             LANG.skip, Font:resizeFont(Font.font_paths.pixel_font, 40),
-            Color.white, Color.blue,
+            Color.white, Color.dark_blue,
             function (self)
                 GameState:moveToNextRound()
             end,
-            3, Color.dark_blue
+            5, Color.light_blue
         )
     }
 }

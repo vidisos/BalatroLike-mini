@@ -34,7 +34,10 @@ return {
         -- settings icon
         Drawable:new(
             "img-settings", 1,
-            ww-100, 10, 90, 90
+            ww-100, 10, 90, 90,
+            nil, nil,
+            function(self) self.color = Color.light_grey end,
+            function(self) self.color = self.base_color end
         ):ImageBox(
             image_list.settings_icon,
             function ()
@@ -90,7 +93,7 @@ return {
         ):Button(
             LANG.language, Font:resizeFont(Font.font_paths.pixel_font, 30),
             Color.white,
-            Color.dark_grey,
+            Color.grey,
             function(self)
                 GameState:changeLang()
             end,
