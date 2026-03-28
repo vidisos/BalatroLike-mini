@@ -59,9 +59,7 @@ return {
                 Scenes:enableScene("game-main")
                 GameState:startNewGame()
                 Scenes:sortDrawables("game-main")
-            end,
-            10,
-            Color.dark_grey
+            end
         ),
 
         -- quit button
@@ -78,9 +76,7 @@ return {
             {1, 0, 0},
             function()
                 love.event.quit()
-            end,
-            10,
-            Color.dark_grey
+            end
         ),
 
         -- language button
@@ -94,12 +90,12 @@ return {
         ):Button(
             LANG.language, Font:resizeFont(Font.font_paths.pixel_font, 30),
             Color.white,
-            Color.light_grey,
+            Color.dark_grey,
             function(self)
                 GameState:changeLang()
             end,
-            8,
-            Color.dark_grey
+            3,
+            Color.light_grey
         )
     }
 }

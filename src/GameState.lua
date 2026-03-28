@@ -1019,9 +1019,8 @@ function GameState.sparkOnClickFunc(self)
         Scenes:removeDrawable("game-main", self.id.."btn")
     end
 
-    if GameState.player_on_win_screen then
-        self.selected = not self.selected
-    end
+    self.selected = not self.selected
+
     Scenes:sortDrawables("game-main")
 end
 

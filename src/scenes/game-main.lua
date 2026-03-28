@@ -27,13 +27,21 @@ return {
         --background left column
         Drawable:new("rect-left", 1,
             0, 0, 450, wh
-        ):Rectangle(Color.blue),
+        ):Rectangle(Color.grey),
 
+        --TODO colors change according to current stage title better colors yaa
         --title of round
         Drawable:new("text-level-title", 2,
             Utils.getCenterAnchorX(0,450,400), 30, 400,120,
             function (self, dt)
                 self.text = GameState:getStageTitleText()
+                if self.text == LANG.small then
+                    self.color = Color.light_grey
+                elseif self.text == LANG.medium then
+                    self.color = Color.light_orange
+                elseif self.text == LANG.big then
+                    self.color = Color.navy_1
+                end
             end
         ):TextBox(
             nil,
@@ -44,13 +52,14 @@ return {
         --round requirement
         Drawable:new("rect-level-requirement-background",2,
             Utils.getCenterAnchorX(0,450,310),165,310,170
-        ):Rectangle(Color.light_grey),
+        ):Rectangle(Color.dark_grey),
 
         Drawable:new("text-level-requirement-text",3,
             Utils.getCenterAnchorX(0,450,400),165,400,80
         ):TextBox(
             LANG.score_text,
-            Font:resizeFont(Font.font_paths.pixel_font,35)
+            Font:resizeFont(Font.font_paths.pixel_font,35),
+            Color.white
         ),
 
         Drawable:new("text-level-requirement-score",3,
@@ -67,35 +76,33 @@ return {
         -- current score
         Drawable:new("rect-current-score-base-background",2,
             Utils.getCenterAnchorX(0,450,400),350,400,100
-        ):Rectangle({0,0,0}),
+        ):Rectangle(Color.dark_grey),
 
         Drawable:new("text-current-score-text",3,
             30,350,120,100
         ):TextBox(
             LANG.round_score,
             Font:resizeFont(Font.font_paths.pixel_font,30),
-            {1,1,1}
+            Color.white
         ),
 
-        Drawable:new("rect-current-score-background",3,
-            160,360,250,80
-        ):Rectangle({154/255,162/255,173/255}),
-
         Drawable:new("text-current-score",4,
-            100,350,400,100,
+            Utils.getCenterAnchorX(0,450,400) + 130, 350 + 10,
+            260,80,
             function(self)
                 self.text = tostring(GameState.score)
             end
         ):TextBox(
             tostring(GameState.score),
             Font:resizeFont(Font.font_paths.pixel_font,60),
-            {1,1,1}
+            Color.white,
+            Color.grey
         ),
 
         -- selected hand
         Drawable:new("rect-selected-hand-background",2,
             Utils.getCenterAnchorX(0,450,400),470,400,220
-        ):Rectangle({154/255,162/255,173/255}),
+        ):Rectangle(Color.dark_grey),
 
         Drawable:new("text-selected-hand",3,
             Utils.getCenterAnchorX(Utils.getCenterAnchorX(0,450,400),400,380),
@@ -118,8 +125,8 @@ return {
         ):TextBox(
             tostring(GameState.chips),
             Font:resizeFont(Font.font_paths.pixel_font,60),
-            {1,1,1},
-            {0,0,1},
+            Color.white,
+            Color.light_blue,
             "right",
             -5
         ),
@@ -130,7 +137,7 @@ return {
         ):TextBox(
             "X",
             Font:resizeFont(Font.font_paths.pixel_font,60),
-            {1,0,0}
+            Color.red
         ),
 
         Drawable:new("text-mult",3,
@@ -141,8 +148,8 @@ return {
         ):TextBox(
             tostring(GameState.mult),
             Font:resizeFont(Font.font_paths.pixel_font,60),
-            {1,1,1},
-            {1,0,0},
+            Color.white,
+            Color.red,
             "left",
             5
         ),
@@ -150,14 +157,13 @@ return {
         -- hand count
         Drawable:new("rect-hand-count-background",2,
             25,710,175,130
-        ):Rectangle({113/255,142/255,171/255}, 5, Color.black),
+        ):Rectangle(Color.dark_grey),
 
         Drawable:new("text-hand-count-text",3,
             Utils.getCenterAnchorX(25,175,100),725,100,30
         ):TextBox(
-            LANG.hands,
-            Font:resizeFont(Font.font_paths.pixel_font,30),
-            {1,1,1}
+            LANG.hands, Font:resizeFont(Font.font_paths.pixel_font,30),
+            Color.white
         ),
 
         Drawable:new("text-hand-count",3,
@@ -168,21 +174,21 @@ return {
         ):TextBox(
             tostring(GameState.hands_remaining),
             Font:resizeFont(Font.font_paths.pixel_font,60),
-            {1,1,1},
-            {70/255,79/255,84/255}
+            Color.light_blue,
+            Color.grey
         ),
 
         -- discard count
         Drawable:new("rect-discard-count-background",2,
             250,710,175,130
-        ):Rectangle({207/255,123/255,116/255}, 5, Color.black),
+        ):Rectangle(Color.dark_grey),
 
         Drawable:new("text-discard-count-text",3,
             Utils.getCenterAnchorX(250,175,140),725,140,30
         ):TextBox(
             LANG.discards,
             Font:resizeFont(Font.font_paths.pixel_font,30),
-            {1,1,1}
+            Color.white
         ),
 
         Drawable:new("text-discard-count",3,
@@ -193,8 +199,8 @@ return {
         ):TextBox(
             tostring(GameState.discards_remaining),
             Font:resizeFont(Font.font_paths.pixel_font,60),
-            {1,1,1},
-            {70/255,79/255,84/255}
+            Color.red,
+            Color.grey
         ),
 
         --hand rankings info
@@ -220,52 +226,52 @@ return {
 
         -- ante count
         Drawable:new("rect-hand-count-background",2,
-            250,860,175,100
-        ):Rectangle({113/255,142/255,171/255}, 5, Color.black),
+            Utils.getCenterAnchorX(250, 175, 140),850,140,100
+        ):Rectangle(
+            Color.dark_grey
+        ),
 
         Drawable:new("text-hand-count-text",3,
-            Utils.getCenterAnchorX(250,175,100),870,100,30
+            Utils.getCenterAnchorX(Utils.getCenterAnchorX(250, 175, 140),140,75),855,75,30
         ):TextBox(
-            LANG.ante,
-            Font:resizeFont(Font.font_paths.pixel_font,25),
-            {1,1,1}
+            LANG.ante, Font:resizeFont(Font.font_paths.pixel_font,25),
+            Color.white
         ),
 
         Drawable:new("text-hand-count",3,
-            Utils.getCenterAnchorX(250,175,150),900,150,50,
+            Utils.getCenterAnchorX(Utils.getCenterAnchorX(250, 175, 140),140,110),890,110,50,
             function(self)
-                self.text = tostring(GameState.ante) .. "/" .. tostring(GameState.ante_win)
+                self.text = {Color.light_orange, tostring(GameState.ante), Color.white, "/" .. tostring(GameState.ante_win)}
             end
         ):TextBox(
             nil,
             Font:resizeFont(Font.font_paths.pixel_font,40),
-            {1,1,1},
-            {70/255,79/255,84/255}
+            Color.white,
+            Color.grey
         ),
 
         -- round count
-        Drawable:new("rect-hand-count-background",2,
-            250,970,175,100
-        ):Rectangle({113/255,142/255,171/255}, 5, Color.black),
+        Drawable:new("rect-round-count-background",2,
+            Utils.getCenterAnchorX(250, 175, 140),960,140,100
+        ):Rectangle(Color.dark_grey),
 
-        Drawable:new("text-hand-count-text",3,
-            Utils.getCenterAnchorX(250,175,100),980,100,30
+        Drawable:new("text-round-count-text",3,
+            Utils.getCenterAnchorX(Utils.getCenterAnchorX(250, 175, 140), 140, 100),965,100,30
         ):TextBox(
-            LANG.round,
-            Font:resizeFont(Font.font_paths.pixel_font,25),
-            {1,1,1}
+            LANG.round, Font:resizeFont(Font.font_paths.pixel_font,25),
+            Color.white
         ),
 
-        Drawable:new("text-hand-count",3,
-            Utils.getCenterAnchorX(250,175,150),1010,150,50,
+        Drawable:new("text-round-count",3,
+            Utils.getCenterAnchorX(Utils.getCenterAnchorX(250, 175, 140),140,110),1000,110,50,
             function(self)
                 self.text = tostring(GameState.round)
             end
         ):TextBox(
             nil,
-            Font:resizeFont(Font.font_paths.pixel_font,40),
-            {1,1,1},
-            {70/255,79/255,84/255}
+            Font:resizeFont(Font.font_paths.pixel_font,45),
+            Color.light_orange,
+            Color.grey
         ),
 
         -- play hand

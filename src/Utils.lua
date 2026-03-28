@@ -52,6 +52,8 @@ function Utils.drawText(text, base_font, text_color, lang, x, y, width, height, 
     love.graphics.setFont(font)
     if not isColored then
         Color:setColor(text_color)
+    else
+        Color:resetColor()
     end
     love.graphics.printf(display, x + x_margin, text_y, width, alignment)
     Color:resetColor()

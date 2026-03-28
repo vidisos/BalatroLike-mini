@@ -6,8 +6,9 @@ local Color = {
     light_orange = {1, 0.8, 0.4},
     dark_orange = {0.8, 0.4, 0},
     light_grey = {0.627, 0.639, 0.639},
-    dark_grey = {0.361, 0.369, 0.369},
-    light_blue = {0.68, 0.85, 0.9},
+    grey = {0.3137, 0.3176, 0.3412},
+    dark_grey = {0.1569, 0.1608, 0.1686},
+    light_blue = {0.2196, 0.5529, 0.9608},
     blue = {0.196, 0.392, 0.784},
 
     red = {1, 0.1961, 0.1961},
@@ -38,7 +39,7 @@ end
 
 ---resets the color so images and such dont inherit color from previous calls
 function Color:resetColor()
-    love.graphics.setColor(self.white[1], self.white[2], self.white[3], 1)
+    love.graphics.setColor(self.white)
 end
 
 ---make the input color as transparent as the input alpha value
