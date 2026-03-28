@@ -22,31 +22,30 @@ return {
         --background
         Drawable:new("rect-background", 0,
             0, 0, ww, wh
-        ):Rectangle(Color.sky_blue),
+        ):Rectangle(Color.blue),
 
         --background left column
         Drawable:new("rect-left", 1,
             0, 0, 450, wh
         ):Rectangle(Color.grey),
 
-        --TODO colors change according to current stage title better colors yaa
         --title of round
         Drawable:new("text-level-title", 2,
             Utils.getCenterAnchorX(0,450,400), 30, 400,120,
             function (self, dt)
                 self.text = GameState:getStageTitleText()
                 if self.text == LANG.small then
-                    self.color = Color.light_grey
+                    self.color = Color.dark_blue
                 elseif self.text == LANG.medium then
-                    self.color = Color.light_orange
+                    self.color = Color.dark_orange
                 elseif self.text == LANG.big then
-                    self.color = Color.navy_1
+                    self.color = Color.red
                 end
             end
         ):TextBox(
             nil,
             Font:resizeFont(Font.font_paths.pixel_font,80),
-            nil,{1,1,0}
+            Color.white
         ),
 
         --round requirement
@@ -205,23 +204,23 @@ return {
 
         --hand rankings info
         Drawable:new("btn-hand-rankings-info",2,
-            35,890,150,150,
+            25,890,200,150,
             nil,
             nil,
             function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
             function (self) self.color = self.base_color end
         ):Button(
             LANG.ranking_info,
-            Font:resizeFont(Font.font_paths.pixel_font,30),
-            {237/255,164/255,74/255},
-            {212/255,198/255,182/255},
+            Font:resizeFont(Font.font_paths.pixel_font,45),
+            Color.white,
+            Color.orange,
             function()
                 Scenes:disableAllSceneInteractions()
                 Scenes:enableSceneInteractions("hand-rankings")
                 Scenes:enableScene("hand-rankings")
             end,
             8,
-            Color.black
+            Color.dark_orange
         ),
 
         -- ante count
@@ -241,7 +240,7 @@ return {
         Drawable:new("text-hand-count",3,
             Utils.getCenterAnchorX(Utils.getCenterAnchorX(250, 175, 140),140,110),890,110,50,
             function(self)
-                self.text = {Color.light_orange, tostring(GameState.ante), Color.white, "/" .. tostring(GameState.ante_win)}
+                self.text = {Color.orange, tostring(GameState.ante), Color.white, "/" .. tostring(GameState.ante_win)}
             end
         ):TextBox(
             nil,
@@ -270,7 +269,7 @@ return {
         ):TextBox(
             nil,
             Font:resizeFont(Font.font_paths.pixel_font,45),
-            Color.light_orange,
+            Color.orange,
             Color.grey
         ),
 

@@ -22,7 +22,7 @@ return {
         -- background
         Drawable:new("rect-background", 0,
             0, 0, ww, wh
-        ):Rectangle({59/255, 124/255, 217/255}),
+        ):Rectangle(Color.blue),
 
         -- title
         Drawable:new(
@@ -53,7 +53,7 @@ return {
         ):Button(
             LANG.start, Font:resizeFont(Font.font_paths.pixel_font, 90),
             Color.white,
-            Color.play_green,
+            Color.green,
             function (self)
                 Scenes:resetScenes()
                 Scenes:enableScene("game-main")
@@ -94,7 +94,7 @@ return {
             function(self)
                 GameState:changeLang()
             end,
-            3,
+            5,
             Color.light_grey
         )
     }

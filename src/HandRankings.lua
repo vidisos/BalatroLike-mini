@@ -28,7 +28,7 @@ local rankings_height = 600
 local rankings_x = Utils.getCenterAnchorX(background_x, background_width, rankings_width)
 local rankings_y = background_y + 50
 
-local ranking_margin = 5
+local ranking_margin = 10
 
 ---@type HandRankings
 local HandRankings = {}
@@ -42,8 +42,8 @@ HandRankings.drawables = {
         "rect-background", 0,
         background_x, background_y, background_width, background_height
     ):Rectangle(
-        Color.light_grey,
-        10, Color.dark_grey
+        Color.dark_grey,
+        6, Color.light_grey
     ),
 
     -- back
@@ -55,15 +55,13 @@ HandRankings.drawables = {
         function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
         function (self) self.color = self.base_color end
     ):Button(
-        LANG.back, Font:resizeFont(Font.font_paths.pixel_font, 20),
-        Color.black,
-        Color.dark_orange,
+        LANG.back, Font:resizeFont(Font.font_paths.pixel_font, 30),
+        Color.white,
+        Color.orange,
         function (self)
             Scenes:enableAllSceneInteractions()
             Scenes:disableScene("hand-rankings")
-        end,
-        2,
-        {100/255, 50/255, 20/255}
+        end
     ),
 }
 
@@ -84,13 +82,12 @@ function HandRankings:drawRankings()
                     self.color = Color:tintColor(self.base_color, 0.8)
                     HandRankings.showRankingInfo(self)
                 end,
-                function(self) 
+                function(self)
                     self.color = self.base_color 
                     HandRankings.closeRankingInfo(self)
                 end
             ):Rectangle(
-                Color.light_grey,
-                3, Color.dark_grey
+                Color.light_grey
             )
 
             local hand_text = Drawable:new(
@@ -98,7 +95,8 @@ function HandRankings:drawRankings()
                 background.x, background.y, 400, background.height
             ):TextBox(
                 ranking.title, nil,
-                Color.white, nil, "left", 10
+                Color.white, nil,
+                "left", 10
             )
             -- we need to reapply the font since it would normally take the font size of the lanugae entry
             hand_text.font = Font:resizeFont(Font.font_paths.pixel_font, 30)
@@ -110,7 +108,7 @@ function HandRankings:drawRankings()
                 200,
                 background.height - 13
             ):Rectangle(
-                Color.black
+                Color.dark_grey
             )
 
             local chips_mult_height = scoring_background.height - 8
@@ -268,8 +266,8 @@ function HandRankings.makeRankingInfo(background_drawable, ranking)
         background_y,
         background_width, background_height
     ):Rectangle(
-        Color.light_grey,
-        5, Color.dark_grey
+        Color.white,
+        5, Color.dark_blue
     )
 
     local description = Drawable:new(
@@ -280,7 +278,7 @@ function HandRankings.makeRankingInfo(background_drawable, ranking)
         60
     ):TextBox(
         desc_text, Font:resizeFont(Font.font_paths.pixel_font, 30),
-        Color.white
+        Color.black
     )
 
     local base_card_width = 40 * 2

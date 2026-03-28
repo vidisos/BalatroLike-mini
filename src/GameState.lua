@@ -135,6 +135,10 @@ function GameState:discard()
     if #discarded_drawables > 0 then
         self.discards_remaining = self.discards_remaining - 1
     end
+
+    if #self:getHandCards() == 0 then
+        self:gameOver()
+    end
 end
 
 ---goes to the game over screen and stuff
@@ -771,8 +775,21 @@ end
 -- card functions
 function GameState.updateCardInHandFunc(self, dt)
     if self.inHand then
-        local spacing = ((self.displayIndex-1) * ((CONSTANTS.HAND_WIDTH - CONSTANTS.CARD_WIDTH) / (#GameState:getHandCards() - 1)))
-        self.x = CONSTANTS.HAND_X + spacing
+        local hand_cards_count = #GameState:getHandCards()
+        local N = hand_cards_count
+        local SW = CONSTANTS.CARD_WIDTH
+        local W = CONSTANTS.HAND_WIDTH
+        local card_margin = 10
+
+        local total_cards_width = N * SW + (N + 1) * card_margin
+
+        if N <= 5 then
+            local start_x = CONSTANTS.HAND_X + (W - total_cards_width) / 2
+            self.x = start_x + (self.displayIndex - 1) * (SW + card_margin)
+        else
+            local spacing = (W - SW) / (N - 1)
+            self.x = CONSTANTS.HAND_X + (self.displayIndex - 1) * spacing
+        end
     end
 end
 

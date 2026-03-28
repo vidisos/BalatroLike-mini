@@ -33,7 +33,7 @@ function TextBox:TextBox(text, font, text_color, color, text_alignment, text_mar
 
     self.drawFunc = function ()
         --background rectangle
-        if color then
+        if self.color then
             Color:setColor(self.color)
             love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
         end
