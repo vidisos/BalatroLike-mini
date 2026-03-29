@@ -174,22 +174,30 @@ Options.drawables = {
         function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
         function (self) self.color = self.base_color end
     ):Button(
-        LANG.language, Font:resizeFont(Font.font_paths.pixel_font, 35),
-        Color.white,
+        nil, nil,
+        nil,
         Color.grey,
         function(self)
             GameState:changeLang()
         end,
         5,
-        Color.light_grey,
-        "right", -10
+        Color.light_grey
     ),
 
     Drawable:new(
         "img-lang-icon", 2,
         Utils.getCenterAnchorX(options_x, options_width, 280) + 10, options_y + 500 + 20, 80, 60,
         nil, nil, nil, nil, true
-    ):ImageBox(image_list.language_icon)
+    ):ImageBox(image_list.language_icon),
+
+    Drawable:new(
+        "text-change-lang", 1,
+        Utils.getCenterAnchorX(options_x, options_width, 280) + 90, options_y + 500, 190, 100,
+        nil, nil, nil, nil, true
+    ):TextBox(
+        LANG.language, Font:resizeFont(Font.font_paths.pixel_font, 35),
+        Color.white
+    )
 }
 Options.source = ""
 
@@ -221,6 +229,7 @@ function Options:open(source)
         Scenes:getDrawable("options", "btn-start").shouldDraw = false
         Scenes:getDrawable("options", "btn-change-lang").shouldDraw = false
         Scenes:getDrawable("options", "img-lang-icon").shouldDraw = false
+        Scenes:getDrawable("options", "text-change-lang").shouldDraw = false
     else
         background.height = game_main_height
 
@@ -228,6 +237,7 @@ function Options:open(source)
         Scenes:getDrawable("options", "btn-start").shouldDraw = true
         Scenes:getDrawable("options", "btn-change-lang").shouldDraw = true
         Scenes:getDrawable("options", "img-lang-icon").shouldDraw = true
+        Scenes:getDrawable("options", "text-change-lang").shouldDraw = true
     end
 
     local back_button = Scenes:getDrawable("options", "btn-back")
