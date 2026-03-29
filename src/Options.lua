@@ -118,6 +118,8 @@ Options.drawables = {
         Color.white,
         Color.orange,
         function (self)
+            Audio:playSound(Audio.sfx.button_click_back)
+
             Options:close()
         end
     ),
@@ -135,6 +137,8 @@ Options.drawables = {
         Color.white,
         Color.dark_blue,
         function (self)
+            Audio:playSound(Audio.sfx.button_click)
+
             Scenes:resetScenes()
             Scenes:enableScene("game-main")
             GameState:startNewGame()
@@ -157,6 +161,8 @@ Options.drawables = {
         Color.white,
         Color.dark_blue,
         function (self)
+            Audio:playSound(Audio.sfx.button_click)
+
             Scenes:resetScenes()
             Scenes:enableScene("start-menu")
             Options:close()
@@ -178,6 +184,8 @@ Options.drawables = {
         nil,
         Color.grey,
         function(self)
+            Audio:playSound(Audio.sfx.button_click)
+
             GameState:changeLang()
         end,
         5,

@@ -148,6 +148,8 @@ end
 
 ---goes to the game over screen and stuff
 function GameState:gameWon()
+    Audio:playSound(Audio.sfx.game_won)
+
     Scenes:disableAllSceneInteractions()
     Scenes:enableScene("game-won")
     Scenes:enableSceneInteractions("game-won")
@@ -164,6 +166,8 @@ end
 
 ---resets the cards and shows the spark select
 function GameState:roundWon()
+    Audio:playSound(Audio.sfx.round_won)
+
     self.player_on_win_screen = true
 
     -- we dont want the max counts to show only after selecting a spark, so they can more easily see if they need certain sparks and stuff
@@ -650,6 +654,8 @@ end
 
 ---removes a spark and reverts any passive effects
 function GameState:removeSpark(spark)
+    Audio:playSound(Audio.sfx.spark_remove)
+
     if spark.isActive and spark.deactivate then
         spark:deactivate(GameState)
         self:resetHandDiscardCount()
@@ -999,54 +1005,61 @@ function GameState.sparkOnClickFunc(self)
             return
         end
 
+        Audio:playSound(Audio.sfx.spark_select)
+
         GameState:selectSpark(self)
         GameState:moveToNextRound()
         return
     end
 
-    if not self.selected and GameState.player_on_win_screen then
-        local active_sparks = GameState:getActiveSparks()
-        for _, spark in ipairs(active_sparks) do
-            spark.selected = false
-            Scenes:removeDrawable("game-main", spark.id.."btn")
+    if GameState.player_on_win_screen then
+
+        Audio:playSound(Audio.sfx.spark_click)
+
+        if not self.selected then
+            local active_sparks = GameState:getActiveSparks()
+            for _, spark in ipairs(active_sparks) do
+                spark.selected = false
+                Scenes:removeDrawable("game-main", spark.id.."btn")
+            end
+
+            -- making a spark delete button
+            local spark_id = self.id -- so we can use it in the function for the button
+            local id = self.id.."btn"
+            local z_index = self.z_index
+            local width = 100
+            local height = 80
+            local x = self.x - width
+            local y = self.height/2
+
+            local button = Drawable:new(
+                id, z_index, x, y, width, height,
+                function (self, dt)
+                    local spark_id = string.sub(self.id, 1, -4)
+                    local spark = Scenes:getDrawable("game-main", spark_id)
+                    self.z_index = spark.z_index
+                    self.x = spark.x - width
+                end
+            ):Button(
+                LANG.delete_spark, Font:resizeFont(Font.font_paths.pixel_font, 20),
+                nil, nil,
+                function (self)
+                    local spark = Scenes:getDrawable("game-main", spark_id)
+                    if spark then
+                        GameState:removeSpark(spark)
+                    end
+                    Scenes:removeDrawable("game-main", self.id)
+                end,
+                5, {1, 0, 0}
+            )
+
+            Scenes:addDrawable("game-main", button)
+        else
+            Scenes:removeDrawable("game-main", self.id.."btn")
         end
 
-        -- making a spark delete button
-        local spark_id = self.id -- so we can use it in the function for the button
-        local id = self.id.."btn"
-        local z_index = self.z_index
-        local width = 100
-        local height = 80
-        local x = self.x - width
-        local y = self.height/2
-
-        local button = Drawable:new(
-            id, z_index, x, y, width, height,
-            function (self, dt)
-                local spark_id = string.sub(self.id, 1, -4)
-                local spark = Scenes:getDrawable("game-main", spark_id)
-                self.z_index = spark.z_index
-                self.x = spark.x - width
-            end
-        ):Button(
-            LANG.delete_spark, Font:resizeFont(Font.font_paths.pixel_font, 20),
-            nil, nil,
-            function (self)
-                local spark = Scenes:getDrawable("game-main", spark_id)
-                if spark then
-                    GameState:removeSpark(spark)
-                end
-                Scenes:removeDrawable("game-main", self.id)
-            end,
-            5, {1, 0, 0}
-        )
-
-        Scenes:addDrawable("game-main", button)
-    else
-        Scenes:removeDrawable("game-main", self.id.."btn")
+        self.selected = not self.selected
     end
-
-    self.selected = not self.selected
 
     Scenes:sortDrawables("game-main")
 end

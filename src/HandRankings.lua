@@ -59,7 +59,7 @@ HandRankings.drawables = {
         Color.white,
         Color.orange,
         function (self)
-            Audio:playSound(Audio.sfx.button_click)
+            Audio:playSound(Audio.sfx.button_click_back)
 
             Scenes:enableAllSceneInteractions()
             Scenes:disableScene("hand-rankings")

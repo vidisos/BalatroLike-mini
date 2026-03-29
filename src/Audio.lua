@@ -8,8 +8,17 @@ local Audio = {
     sfx = {
         card_select = newSource(audio_folder .. "card_select.mp3", "static"),
         card_deselect = newSource(audio_folder .. "card_deselect.mp3", "static"),
+
+        spark_select = newSource(audio_folder .. "spark_select.mp3", "static"),
+        spark_click = newSource(audio_folder .. "spark_click.mp3", "static"),
+        spark_remove = newSource(audio_folder .. "spark_remove.mp3", "static"),
+
         button_click = newSource(audio_folder .. "button_click.mp3", "static"),
-        game_over = newSource(audio_folder .. "game_over.mp3", "static")
+        button_click_back = newSource(audio_folder .. "button_click_back.mp3", "static"),
+
+        game_over = newSource(audio_folder .. "game_over.mp3", "static"),
+        game_won = newSource(audio_folder .. "game_won.mp3", "static"),
+        round_won = newSource(audio_folder .. "round_won.mp3", "static")
     }
 }
 
