@@ -13,9 +13,7 @@ function love.load()
 
     Scenes:init()
 
-    local background_music = Audio.background_music
-    background_music:setLooping(true)
-    background_music:play()
+    Audio:playBackgroundMusic()
 end
 
 function love.update(dt)

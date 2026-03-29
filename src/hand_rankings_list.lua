@@ -1,4 +1,3 @@
-local LANG = require "src.LANG"
 local hand_rankings_list = {
     high_card = {chips=5, mult=1, display_index = 10, title = {en="High Card", sl="Visoka karta"}},
     pair = {chips=10, mult=2, display_index = 9, title = {en="Pair", sl="En par"}},

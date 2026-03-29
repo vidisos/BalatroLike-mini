@@ -4,6 +4,7 @@ local Drawable  = require "src.Drawable"
 local Utils = require "src.Utils"
 local GameState = require "src.GameState"
 local Color = require "src.Color"
+local Audio = require "src.Audio"
 
 local LANG = require "src.LANG"
 local Font = require "src.Font"
@@ -44,6 +45,8 @@ return {
             LANG.skip, Font:resizeFont(Font.font_paths.pixel_font, 40),
             Color.white, Color.dark_blue,
             function (self)
+                Audio:playSound(Audio.sfx.button_click)
+
                 GameState:moveToNextRound()
             end,
             5, Color.light_blue

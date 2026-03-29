@@ -67,7 +67,7 @@ Options.drawables = {
         nil,
         0.33, 0, 1,
         function(v)
-            Audio.background_music:setVolume(v)
+            Audio:setMusicVolume(v)
         end,
         nil,
         "line"
@@ -98,7 +98,7 @@ Options.drawables = {
         nil,
         0.6, 0, 1,
         function(v)
-            Audio.background_music:setVolume(v)
+            Audio:setSoundVolume(v)
         end,
         nil,
         "line",

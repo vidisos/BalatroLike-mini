@@ -6,6 +6,7 @@ local image_list = require "src.image_list"
 local GameState = require "src.GameState"
 local Color     = require "src.Color"
 local Options   = require "src.Options"
+local Audio     = require "src.Audio"
 
 local LANG = require "src.LANG"
 local Font = require "src.Font"
@@ -215,6 +216,8 @@ return {
             Color.white,
             Color.orange,
             function()
+                Audio:playSound(Audio.sfx.button_click)
+
                 Scenes:disableAllSceneInteractions()
                 Scenes:enableSceneInteractions("hand-rankings")
                 Scenes:enableScene("hand-rankings")
@@ -337,7 +340,7 @@ return {
         ):TextBox(
             nil,
             Font:resizeFont(Font.font_paths.pixel_font,40),
-            {1,1,1}
+            Color.white
         ),
 
         -- settings
@@ -350,6 +353,8 @@ return {
         ):ImageBox(
             image_list.settings_icon,
             function()
+                Audio:playSound(Audio.sfx.button_click)
+
                 Options:toggle("game-main")
             end
         ),

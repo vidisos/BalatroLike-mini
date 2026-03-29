@@ -3,6 +3,7 @@ local Drawable  = require "src.Drawable"
 local Utils = require "src.Utils"
 local GameState = require "src.GameState"
 local Color = require "src.Color"
+local Audio = require "src.Audio"
 
 local LANG = require "src.LANG"
 local Font = require "src.Font"
@@ -43,6 +44,8 @@ return {
             Color.white,
             Color.dark_blue,
             function(self)
+                Audio:playSound(Audio.sfx.button_click)
+
                 Scenes:resetScenes()
                 Scenes:enableScene("game-main")
                 Scenes:enableScene("round-won")
@@ -65,6 +68,8 @@ return {
             Color.white,
             Color.dark_blue,
             function(self)
+                Audio:playSound(Audio.sfx.button_click)
+
                 Scenes:resetScenes()
                 GameState:startNewGame()
                 Scenes:enableScene("game-main")
@@ -87,6 +92,8 @@ return {
             Color.white,
             Color.dark_blue,
             function(self)
+                Audio:playSound(Audio.sfx.button_click)
+
                 Scenes:resetScenes()
                 Scenes:enableScene("start-menu")
             end,

@@ -6,6 +6,7 @@ local image_list = require "src.image_list"
 local GameState = require "src.GameState"
 local Options   = require "src.Options"
 local Color = require "src.Color"
+local Audio = require "src.Audio"
 
 local LANG = require "src.LANG"
 local Font = require "src.Font"
@@ -41,6 +42,7 @@ return {
         ):ImageBox(
             image_list.settings_icon,
             function ()
+                Audio:playSound(Audio.sfx.button_click)
                 Options:toggle("start-menu")
             end
         ),
@@ -58,6 +60,8 @@ return {
             Color.white,
             Color.green,
             function (self)
+                Audio:playSound(Audio.sfx.button_click)
+
                 Scenes:resetScenes()
                 Scenes:enableScene("game-main")
                 GameState:startNewGame()
@@ -78,6 +82,8 @@ return {
             Color.white,
             Color.red,
             function()
+                Audio:playSound(Audio.sfx.button_click)
+
                 love.event.quit()
             end
         ),
@@ -95,6 +101,8 @@ return {
             nil,
             Color.grey,
             function(self)
+                Audio:playSound(Audio.sfx.button_click)
+
                 GameState:changeLang()
             end,
             5,

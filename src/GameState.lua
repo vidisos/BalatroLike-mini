@@ -8,6 +8,7 @@ local hand_rankings_list = require "src.hand_rankings_list"
 local LANG = require "src.LANG"
 local Font = require "src.Font"
 local Color= require "src.Color"
+local Audio= require "src.Audio"
 
 ---@class GameState
 local GameState = {
@@ -54,7 +55,7 @@ local GameState = {
     selected_cards_count = 0,
     selected_max = 5,
 
-    deck_count = 0
+    deck_count = 0,
 }
 
 ---resets the gamestate and starts a new round
@@ -81,6 +82,8 @@ function GameState:playHand()
     if self.hands_remaining <= 0 or #self:getSelectedHandCards() == 0 then
         return
     end
+
+    Audio:playSound(Audio.sfx.button_click)
 
     GameState:checkHandRanking()
     local sparks = self:getActiveSparks()
@@ -126,6 +129,8 @@ function GameState:discard()
         return
     end
 
+    Audio:playSound(Audio.sfx.button_click)
+
     local discarded_drawables = self:discardCards()
 
     self.selected_hand = nil
@@ -150,6 +155,8 @@ end
 
 ---goes to the game over screen and stuff
 function GameState:gameOver()
+    Audio:playSound(Audio.sfx.game_over)
+
     Scenes:disableAllSceneInteractions()
     Scenes:enableScene("game-over")
     Scenes:enableSceneInteractions("game-over")
@@ -863,11 +870,13 @@ function GameState.cardOnClickFunc(self)
     end
 
     if self.selected then
+        Audio:playSound(Audio.sfx.card_deselect)
         self.selected = false
         self.y = CONSTANTS.HAND_Y
         GameState.selected_cards_count = GameState.selected_cards_count - 1
         GameState:checkHandRanking()
     elseif GameState.selected_cards_count < GameState.selected_max then
+        Audio:playSound(Audio.sfx.card_select)
         self.selected = true
         self.y = CONSTANTS.HAND_Y - 70
         GameState.selected_cards_count = GameState.selected_cards_count + 1
