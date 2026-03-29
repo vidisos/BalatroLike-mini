@@ -14,14 +14,14 @@ Drawable.__index = Drawable
 ---@param onEnterHoverFunc? fun(self: Drawable)
 ---@param onExitHoverFunc? fun(self: Drawable)
 ---@return Drawable
-function Drawable:new(id, z_index, x, y, width, height, updateFunc, onHoverFunc, onEnterHoverFunc, onExitHoverFunc)
+function Drawable:new(id, z_index, x, y, width, height, updateFunc, onHoverFunc, onEnterHoverFunc, onExitHoverFunc, forceDisableHover)
     local self = setmetatable({}, Drawable) -- {} is basically a created object that you add stuff to wowza (setmetatable() returns a table)
 
     self.id = id
     self.z_index = z_index
     self.isClickable = true
     self.isHoverable = true
-    self.forceDisableHover = false
+    self.forceDisableHover = forceDisableHover or false
     self.shouldDraw = true
     self.isHovered = false
 

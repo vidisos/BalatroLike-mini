@@ -57,7 +57,7 @@ function Scenes:onClick(mx, my)
             local scene_clicked_drawables = {}
 
             for _, drawable in ipairs(scene.drawables) do
-                if drawable.shouldDraw and drawable.isClickable and drawable:isHoveredFunc(mx, my) then
+                if drawable.shouldDraw and drawable.isClickable and not drawable.forceDisableHover and drawable:isHoveredFunc(mx, my) then
                     table.insert(scene_clicked_drawables, drawable)
                 end
             end
@@ -85,7 +85,7 @@ function Scenes:onHover(mx, my)
             local scene_hovered_drawables = {}
 
             for _, drawable in ipairs(scene.drawables) do
-                if drawable.shouldDraw and drawable.isHoverable and drawable:isHoveredFunc(mx, my) then
+                if drawable.shouldDraw and drawable.isHoverable and not drawable.forceDisableHover and drawable:isHoveredFunc(mx, my) then
                     table.insert(scene_hovered_drawables, drawable)
                 end
             end

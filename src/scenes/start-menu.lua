@@ -85,20 +85,27 @@ return {
         -- language button
         Drawable:new(
             "btn-change-lang", 1,
-            1680, 950, 200, 100,
+            1560, 950, 280, 100,
             nil,
             nil,
             function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
             function (self) self.color = self.base_color end
         ):Button(
-            LANG.language, Font:resizeFont(Font.font_paths.pixel_font, 30),
+            LANG.language, Font:resizeFont(Font.font_paths.pixel_font, 35),
             Color.white,
             Color.grey,
             function(self)
                 GameState:changeLang()
             end,
             5,
-            Color.light_grey
-        )
+            Color.light_grey,
+            "right", -10
+        ),
+
+        Drawable:new(
+            "img-lang-icon", 2,
+            1570, 970, 80, 60,
+            nil, nil, nil, nil, true
+        ):ImageBox(image_list.language_icon)
     }
 }
