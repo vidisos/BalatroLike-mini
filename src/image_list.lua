@@ -81,20 +81,20 @@ local image_list = {
 
     -- Sparks (Balatro jokers but renamed hihi)
     sparks = {
-        spark1 = newImage(sparks_folder .. "spark1.png"),
-        spark2 = newImage(sparks_folder .. "spark2.png"),
-        spark3 = newImage(sparks_folder .. "spark3.png"),
-        spark4 = newImage(sparks_folder .. "spark4.png"),
-        spark5 = newImage(sparks_folder .. "spark5.png"),
-        spark6 = newImage(sparks_folder .. "spark6.png"),
-        spark7 = newImage(sparks_folder .. "spark7.png"),
-        spark8 = newImage(sparks_folder .. "spark8.png"),
-        spark9 = newImage(sparks_folder .. "spark9.png"),
-        spark10 = newImage(sparks_folder .. "spark10.png"),
+        spark1 = newImage(sparks_folder .. "spark_1.png"),
+        red_dragon = newImage(sparks_folder .. "red_dragon.png"),
+        spark3 = newImage(sparks_folder .. "spark_3.png"),
+        spark4 = newImage(sparks_folder .. "spark_4.png"),
+        spark5 = newImage(sparks_folder .. "spark_5.png"),
+        spark6 = newImage(sparks_folder .. "spark_6.png"),
+        blue_dragon = newImage(sparks_folder .. "blue_dragon.png"),
+        spark8 = newImage(sparks_folder .. "spark_8.png"),
+        spark9 = newImage(sparks_folder .. "spark_9.png"),
+        spark10 = newImage(sparks_folder .. "spark_10.png"),
         controller = newImage(sparks_folder .. "controller.png"),
-        spark12 = newImage(sparks_folder .. "spark12.png"),
-        spark13 = newImage(sparks_folder .. "spark13.png"),
-        spark14 = newImage(sparks_folder .. "spark14.png")
+        spark12 = newImage(sparks_folder .. "spark_12.png"),
+        spark13 = newImage(sparks_folder .. "spark_13.png"),
+        spark14 = newImage(sparks_folder .. "trash_can.png")
     }
 }
 

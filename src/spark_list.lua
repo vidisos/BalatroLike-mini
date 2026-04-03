@@ -14,7 +14,7 @@ local spark_list = {
             end
         end
     },
-    spark2 = {image = spark_images.spark2, id = "spark2", title = LANG.spark_2_title, desc = LANG.spark_2_desc, activation_type = "end-of-hand", effect =
+    red_dragon = {image = spark_images.red_dragon, id = "red_dragon", title = LANG.red_dragon_title, desc = LANG.red_dragon_desc, activation_type = "end-of-hand", effect =
         ---@param self Spark|Drawable
         ---@param gamestate GameState
         function(self, gamestate)
@@ -60,7 +60,7 @@ local spark_list = {
             end
         end
     },
-    spark7 = {image = spark_images.spark7, id = "spark7", title = LANG.spark_7_title, desc = LANG.spark_7_desc, activation_type = "end-of-hand", effect =
+    blue_dragon = {image = spark_images.blue_dragon, id = "blue_dragon", title = LANG.blue_dragon_title, desc = LANG.blue_dragon_desc, activation_type = "end-of-hand", effect =
         ---@param self Spark|Drawable
         ---@param gamestate GameState
         function(self, gamestate)
@@ -97,7 +97,7 @@ local spark_list = {
         end
     },
 
-    controller = {image = spark_images.controller, id = "controller", title = LANG.spark_11_title, desc = LANG.spark_11_desc, activation_type = "passive",
+    controller = {image = spark_images.controller, id = "controller", title = LANG.controller_title, desc = LANG.controller_desc, activation_type = "passive",
         effect =
             ---@param self Spark|Drawable
             ---@param gamestate GameState
@@ -135,7 +135,7 @@ local spark_list = {
             end
         end
     },
-    spark14 = {image = spark_images.spark14, id = "trash-can", title = LANG.spark_14_title, desc = LANG.spark_14_desc, activation_type = "passive",
+    spark14 = {image = spark_images.spark14, id = "trash-can", title = LANG.trash_can_title, desc = LANG.trash_can_desc, activation_type = "passive",
         effect =
             ---@param self Spark|Drawable
             ---@param gamestate GameState

@@ -312,7 +312,7 @@ end
 
 ---updates the score requirement depending on round and ante
 function GameState:updateScoreRequirement()
-    local base = 200
+    local base = 1
     local multiplier = 1.5
     self.score_requirement = math.floor(base * multiplier ^ (self.round - 1))
 end

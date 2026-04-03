@@ -128,8 +128,8 @@ local LANG = {
         en={ Color.red,"+8 Mult", Color.black," if played hand contains a ", Color.amber,"Pair" },
         sl={ Color.red,"+8 mult", Color.black,", če igrana roka vsebuje ", Color.amber,"Par" }
     },
-    spark_2_title = {en="Red Dragon", sl="Rdeči zmaj"},
-    spark_2_desc = {
+    red_dragon_title = {en="Red Dragon", sl="Rdeči zmaj"},
+    red_dragon_desc = {
         en={ Color.red,"+12 Mult", Color.black," if played hand contains a ", Color.amber,"Three of a Kind" },
         sl={ Color.red,"+12 mult", Color.black,", če igrana roka vsebuje ", Color.amber,"Tris" }
     },
@@ -154,8 +154,8 @@ local LANG = {
         en={ Color.cornflower,"+50 Chips", Color.black," if played hand contains a ", Color.amber,"Pair" },
         sl={ Color.cornflower,"+50 žetonov", Color.black,", če igrana roka vsebuje ", Color.amber,"Par" }
     },
-    spark_7_title = {en="Blue Dragon", sl="Modir zmaj"},
-    spark_7_desc = {
+    blue_dragon_title = {en="Blue Dragon", sl="Modir zmaj"},
+    blue_dragon_desc = {
         en={ Color.cornflower,"+100 Chips", Color.black," if played hand contains a ", Color.amber,"Three of a Kind" },
         sl={ Color.cornflower,"+100 žetonov", Color.black,", če igrana roka vsebuje ", Color.amber,"Tris" }
     },
@@ -175,8 +175,8 @@ local LANG = {
         sl={ Color.cornflower,"+80 žetonov", Color.black,", če igrana roka vsebuje ", Color.amber,"Barvo" }
     },
 
-    spark_11_title = {en="Controller", sl="Kontroler"},
-    spark_11_desc = {
+    controller_title = {en="Controller", sl="Kontroler"},
+    controller_desc = {
         en={ Color.dark_orange,"+1", Color.black," Hand" },
         sl={ Color.dark_orange,"+1", Color.black," Roka" }
     },
@@ -193,8 +193,8 @@ local LANG = {
         sl={ Color.black,"Vsi igrani ", Color.amber,"As-i", Color.black," ponudijo ", Color.red,"+2 mult" }
     },
 
-    spark_14_title = {en="Trash can", sl="Smetnjak"},
-    spark_14_desc = {
+    trash_can_title = {en="Trash can", sl="Smetnjak"},
+    trash_can_desc = {
         en={ Color.dark_orange,"+2", Color.black," Discards" },
         sl={ Color.dark_orange,"+2", Color.black," zavržka" }
     }
