@@ -123,8 +123,8 @@ local LANG = {
     card_king_spades = {en="King of Spades", sl="Kralj pik"},
 
     --sparks
-    spark_1_title = {en="Twintiply", sl="Twintiply"},
-    spark_1_desc = {
+    twintiply_title = {en="Twintiply", sl="Twintiply"},
+    twintiply_desc = {
         en={ Color.red,"+8 Mult", Color.black," if played hand contains a ", Color.amber,"Pair" },
         sl={ Color.red,"+8 mult", Color.black,", če igrana roka vsebuje ", Color.amber,"Par" }
     },
@@ -133,24 +133,24 @@ local LANG = {
         en={ Color.red,"+12 Mult", Color.black," if played hand contains a ", Color.amber,"Three of a Kind" },
         sl={ Color.red,"+12 mult", Color.black,", če igrana roka vsebuje ", Color.amber,"Tris" }
     },
-    spark_3_title = {en="Double pears", sl="Dvojni hruški"},
-    spark_3_desc = {
+    double_pears_title = {en="Double pears", sl="Dvojni hruški"},
+    double_pears_desc = {
         en={ Color.red,"+10 Mult", Color.black," if played hand contains a ", Color.amber,"Two Pair" },
         sl={ Color.red,"+10 mult", Color.black,", če igrana roka vsebuje ", Color.amber,"Dva para" }
     },
-    spark_4_title = {en="Multi-line", sl="Množična črta"},
-    spark_4_desc = {
+    multiline_title = {en="Multi-line", sl="Množična črta"},
+    multiline_desc = {
         en={ Color.red,"+12 Mult", Color.black," if played hand contains a ", Color.amber,"Straight" },
         sl={ Color.red,"+12 mult", Color.black,", če igrana roka vsebuje ", Color.amber,"Lestvico" }
     },
-    spark_5_title = {en="Color of all colors", sl="Barva vseh barv"},
-    spark_5_desc = {
+    colorofall_title = {en="Color of all colors", sl="Barva vseh barv"},
+    colorofall_desc = {
         en={ Color.red,"+10 Mult", Color.black," if played hand contains a ", Color.amber,"Flush" },
         sl={ Color.red,"+10 mult", Color.black,", če igrana roka vsebuje ", Color.amber,"Barvo" }
     },
 
-    spark_6_title = {en="Twin chips", sl="Čips dvojčka"},
-    spark_6_desc = {
+    twin_chips_title = {en="Twin chips", sl="Čips dvojčka"},
+    twin_chips_desc = {
         en={ Color.cornflower,"+50 Chips", Color.black," if played hand contains a ", Color.amber,"Pair" },
         sl={ Color.cornflower,"+50 žetonov", Color.black,", če igrana roka vsebuje ", Color.amber,"Par" }
     },
@@ -159,18 +159,18 @@ local LANG = {
         en={ Color.cornflower,"+100 Chips", Color.black," if played hand contains a ", Color.amber,"Three of a Kind" },
         sl={ Color.cornflower,"+100 žetonov", Color.black,", če igrana roka vsebuje ", Color.amber,"Tris" }
     },
-    spark_8_title = {en="Double scizzors", sl="Dvojne škarje"},
-    spark_8_desc = {
+    double_scizzors_title = {en="Double scizzors", sl="Dvojne škarje"},
+    double_scizzors_desc = {
         en={ Color.cornflower,"+80 Chips", Color.black," if played hand contains a ", Color.amber,"Two Pair" },
         sl={ Color.cornflower,"+80 žetonov", Color.black,", če igrana roka vsebuje ", Color.amber,"Dva para" }
     },
-    spark_9_title = {en="Grand line", sl="Velika linija"},
-    spark_9_desc = {
+    grand_line_title = {en="Grand line", sl="Velika linija"},
+    grand_line_desc = {
         en={ Color.cornflower,"+100 Chips", Color.black," if played hand contains a ", Color.amber,"Straight" },
         sl={ Color.cornflower,"+100 žetonov", Color.black,", če igrana roka vsebuje ", Color.amber,"Lestvico" }
     },
-    spark_10_title = {en="Collector", sl="Zbiralec"},
-    spark_10_desc = {
+    collector_title = {en="Collector", sl="Zbiralec"},
+    collector_desc = {
         en={ Color.cornflower,"+80 Chips", Color.black," if played hand contains a ", Color.amber,"Flush" },
         sl={ Color.cornflower,"+80 žetonov", Color.black,", če igrana roka vsebuje ", Color.amber,"Barvo" }
     },
@@ -181,16 +181,16 @@ local LANG = {
         sl={ Color.dark_orange,"+1", Color.black," Roka" }
     },
 
-    spark_12_title = {en="Spark", sl="Iskra"},
-    spark_12_desc = {
+    spark_title = {en="Spark", sl="Iskra"},
+    spark_desc = {
         en={ Color.dark_orange,"1", Color.black," more spark choice after winning a round" },
         sl={ Color.dark_orange,"1", Color.black," dodatna izbira isker po zmagi runde" }
     },
 
-    spark_13_title = {en="Quadruple kill!", sl="Štirikratni uboj!"},
-    spark_13_desc = {
-        en={ Color.black,"All played ", Color.amber,"Aces", Color.black," give ", Color.red,"+2 Mult" },
-        sl={ Color.black,"Vsi igrani ", Color.amber,"As-i", Color.black," ponudijo ", Color.red,"+2 mult" }
+    ace_title = {en="Ace!", sl="As!"},
+    ace_desc = {
+        en={ Color.black,"All played ", Color.amber,"Aces", Color.black," give ", Color.red,"+4 Mult" },
+        sl={ Color.black,"Vsi igrani ", Color.amber,"As-i", Color.black," ponudijo ", Color.red,"+4 mult" }
     },
 
     trash_can_title = {en="Trash can", sl="Smetnjak"},

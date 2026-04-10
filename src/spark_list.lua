@@ -5,7 +5,7 @@ local spark_images = image_list.sparks
 
 ---@type SparkBase[]
 local spark_list = {
-    spark1 = {image = spark_images.spark1, id = "spark1", title = LANG.spark_1_title, desc = LANG.spark_1_desc, activation_type = "end-of-hand", effect =
+    twintiply = {image = spark_images.twintiply, id = "twintiply", title = LANG.twintiply_title, desc = LANG.twintiply_desc, activation_type = "end-of-hand", effect =
         ---@param self Spark|Drawable
         ---@param gamestate GameState
         function(self, gamestate)
@@ -23,7 +23,7 @@ local spark_list = {
             end
         end
     },
-    spark3 = {image = spark_images.spark3, id = "spark3", title = LANG.spark_3_title, desc = LANG.spark_3_desc, activation_type = "end-of-hand", effect =
+    double_pears = {image = spark_images.double_pears, id = "double_pears", title = LANG.double_pears_title, desc = LANG.double_pears_desc, activation_type = "end-of-hand", effect =
         ---@param self Spark|Drawable
         ---@param gamestate GameState
         function(self, gamestate)
@@ -32,7 +32,7 @@ local spark_list = {
             end
         end
     },
-    spark4 = {image = spark_images.spark4, id = "spark4", title = LANG.spark_4_title, desc = LANG.spark_4_desc, activation_type = "end-of-hand", effect =
+    multiline = {image = spark_images.multiline, id = "multiline", title = LANG.multiline_title, desc = LANG.multiline_desc, activation_type = "end-of-hand", effect =
         ---@param self Spark|Drawable
         ---@param gamestate GameState
         function(self, gamestate)
@@ -41,7 +41,7 @@ local spark_list = {
             end
         end
     },
-    spark5 = {image = spark_images.spark5, id = "spark5", title = LANG.spark_5_title, desc = LANG.spark_5_desc, activation_type = "end-of-hand", effect =
+    colorofall = {image = spark_images.colorofall, id = "colorofall", title = LANG.colorofall_title, desc = LANG.colorofall_desc, activation_type = "end-of-hand", effect =
         ---@param self Spark|Drawable
         ---@param gamestate GameState
         function(self, gamestate)
@@ -51,7 +51,7 @@ local spark_list = {
         end
     },
 
-    spark6 = {image = spark_images.spark6, id = "spark6", title = LANG.spark_6_title, desc = LANG.spark_6_desc, activation_type = "end-of-hand", effect =
+    twin_chips = {image = spark_images.twin_chips, id = "twin_chips", title = LANG.twin_chips_title, desc = LANG.twin_chips_desc, activation_type = "end-of-hand", effect =
         ---@param self Spark|Drawable
         ---@param gamestate GameState
         function(self, gamestate)
@@ -69,7 +69,7 @@ local spark_list = {
             end
         end
     },
-    spark8 = {image = spark_images.spark8, id = "spark8", title = LANG.spark_8_title, desc = LANG.spark_8_desc, activation_type = "end-of-hand", effect =
+    double_scizzors = {image = spark_images.double_scizzors, id = "double_scizzors", title = LANG.double_scizzors_title, desc = LANG.double_scizzors_desc, activation_type = "end-of-hand", effect =
         ---@param self Spark|Drawable
         ---@param gamestate GameState
         function(self, gamestate)
@@ -78,7 +78,7 @@ local spark_list = {
             end
         end
     },
-    spark9 = {image = spark_images.spark9, id = "spark9", title = LANG.spark_9_title, desc = LANG.spark_9_desc, activation_type = "end-of-hand", effect =
+    grand_line = {image = spark_images.grand_line, id = "grand_line", title = LANG.grand_line_title, desc = LANG.grand_line_desc, activation_type = "end-of-hand", effect =
         ---@param self Spark|Drawable
         ---@param gamestate GameState
         function(self, gamestate)
@@ -87,7 +87,7 @@ local spark_list = {
             end
         end
     },
-    spark10 = {image = spark_images.spark10, id = "spark10", title = LANG.spark_10_title, desc = LANG.spark_10_desc, activation_type = "end-of-hand", effect =
+    collector = {image = spark_images.collector, id = "collector", title = LANG.collector_title, desc = LANG.collector_desc, activation_type = "end-of-hand", effect =
         ---@param self Spark|Drawable
         ---@param gamestate GameState
         function(self, gamestate)
@@ -111,7 +111,7 @@ local spark_list = {
                 gamestate.active_hands_remaining_max = gamestate.active_hands_remaining_max - 1
             end
     },
-    spark12 = {image = spark_images.spark12, id = "leguana", title = LANG.spark_12_title, desc = LANG.spark_12_desc, activation_type = "passive",
+    spark = {image = spark_images.spark, id = "spark", title = LANG.spark_title, desc = LANG.spark_desc, activation_type = "passive",
         effect =
             ---@param self Spark|Drawable
             ---@param gamestate GameState
@@ -125,17 +125,17 @@ local spark_list = {
                 gamestate.spark_select_max = gamestate.spark_select_max - 1
             end
     },
-    spark13 = {image = spark_images.spark13, id = "americatime", title = LANG.spark_13_title, desc = LANG.spark_13_desc, activation_type = "per-card", effect =
+    ace = {image = spark_images.ace, id = "ace", title = LANG.ace_title, desc = LANG.ace_desc, activation_type = "per-card", effect =
         ---@param self Spark|Drawable
         ---@param gamestate GameState
         ---@param card Card|Drawable
         function(self, gamestate, card)
             if card.rank == 14 then
-                gamestate.mult = gamestate.mult + 2
+                gamestate.mult = gamestate.mult + 4
             end
         end
     },
-    spark14 = {image = spark_images.spark14, id = "trash-can", title = LANG.trash_can_title, desc = LANG.trash_can_desc, activation_type = "passive",
+    trash_can = {image = spark_images.trash_can, id = "trash-can", title = LANG.trash_can_title, desc = LANG.trash_can_desc, activation_type = "passive",
         effect =
             ---@param self Spark|Drawable
             ---@param gamestate GameState
