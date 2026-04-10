@@ -1,2 +1,4 @@
 # BalatroLike-mini
-A very bad imitation of Balatro as my school project
+A pale imitation of Balatro as a school project. Wont be distributed commercially of course.
+
+Built in Love2D.
