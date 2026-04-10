@@ -239,7 +239,8 @@ return {
             Color.white,
             Color.orange,
             function()
-
+                Audio:playSound(Audio.sfx.button_click)
+                
             end,
             8,
             Color.dark_orange
