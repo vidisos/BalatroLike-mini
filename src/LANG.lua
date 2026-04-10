@@ -133,7 +133,7 @@ local LANG = {
         en={ Color.red,"+12 Mult", Color.black," if played hand contains a ", Color.amber,"Three of a Kind" },
         sl={ Color.red,"+12 mult", Color.black,", če igrana roka vsebuje ", Color.amber,"Tris" }
     },
-    spark_3_title = {en="Double date", sl="Dvojni Zmenek"},
+    spark_3_title = {en="Double pears", sl="Dvojni hruški"},
     spark_3_desc = {
         en={ Color.red,"+10 Mult", Color.black," if played hand contains a ", Color.amber,"Two Pair" },
         sl={ Color.red,"+10 mult", Color.black,", če igrana roka vsebuje ", Color.amber,"Dva para" }

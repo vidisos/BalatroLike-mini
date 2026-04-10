@@ -205,14 +205,14 @@ return {
 
         --hand rankings info
         Drawable:new("btn-hand-rankings-info",2,
-            25,890,200,150,
+            25,850,200,130,
             nil,
             nil,
             function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
             function (self) self.color = self.base_color end
         ):Button(
             LANG.ranking_info,
-            Font:resizeFont(Font.font_paths.pixel_font,45),
+            Font:resizeFont(Font.font_paths.pixel_font,40),
             Color.white,
             Color.orange,
             function()
@@ -221,6 +221,25 @@ return {
                 Scenes:disableAllSceneInteractions()
                 Scenes:enableSceneInteractions("hand-rankings")
                 Scenes:enableScene("hand-rankings")
+            end,
+            8,
+            Color.dark_orange
+        ),
+
+        --rules
+        Drawable:new("btn-rules",2,
+            25,990,200,85,
+            nil,
+            nil,
+            function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
+            function (self) self.color = self.base_color end
+        ):Button(
+            "Pravila",
+            Font:resizeFont(Font.font_paths.pixel_font,40),
+            Color.white,
+            Color.orange,
+            function()
+
             end,
             8,
             Color.dark_orange
