@@ -4,13 +4,11 @@ local Drawable  = require "src.Drawable"
 local Utils = require "src.Utils"
 local Audio = require "src.Audio"
 local image_list = require "src.image_list"
-local card_list = require "src.card_list"
 local GameState = require "src.GameState"
 local Color     = require "src.Color"
 
 local LANG = require "src.LANG"
 local Font = require "src.Font"
-local current_lang = GameState.current_lang
 
 local ww = CONSTANTS.BASE_WIDTH
 local wh = CONSTANTS.BASE_HEIGHT
@@ -207,6 +205,7 @@ Options.drawables = {
         Color.white
     )
 }
+
 Options.source = ""
 
 ---toggles between opened and closed options
@@ -258,6 +257,5 @@ function Options:close()
     Scenes:disableScene("options")
     self.source = ""
 end
-
 
 return Options

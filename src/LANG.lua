@@ -27,6 +27,7 @@ local LANG = {
     hands = {en="Hands", sl="Roke"},
     discards = {en="Discards", sl="Zavržki"},
     ranking_info = {en="Ranking info", sl="Info rok"},
+    tutorial = {en="Tutorial", sl="Pravila"},
     play_hand = {en="Play hand", sl="Igraj roko"},
     discard_hand = {en="Discard", sl="Zavrži"},
     to_main_menu = {en="Main menu", sl="Glavni meni"},

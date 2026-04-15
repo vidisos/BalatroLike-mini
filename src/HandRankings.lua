@@ -4,11 +4,8 @@ local Drawable  = require "src.Drawable"
 local Utils = require "src.Utils"
 local Audio = require "src.Audio"
 local image_list = require "src.image_list"
-local GameState = require "src.GameState"
-local Options   = require "src.Options"
 local Color     = require "src.Color"
 local hand_rankings_list = require "src.hand_rankings_list"
-local Rectangle     = require "src.Rectangle"
 
 local LANG = require "src.LANG"
 local Font = require "src.Font"
@@ -24,7 +21,6 @@ local ranking_width = 700
 local ranking_height = 60
 
 local rankings_width = ranking_width
-local rankings_height = 600
 local rankings_x = Utils.getCenterAnchorX(background_x, background_width, rankings_width)
 local rankings_y = background_y + 50
 

@@ -1,5 +1,6 @@
 local GameState = require "src.GameState"
 local Color     = require "src.Color"
+
 --[[
 Copyright (c) 2016 George Prosser
 

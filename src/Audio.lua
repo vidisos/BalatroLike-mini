@@ -1,4 +1,5 @@
 local audio_folder = "src/audio/"
+
 local newSource = love.audio.newSource
 
 local Audio = {

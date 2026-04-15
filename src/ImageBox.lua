@@ -1,4 +1,3 @@
-local Utils = require "src.Utils"
 local Color = require "src.Color"
 local image_list = require "src.image_list"
 

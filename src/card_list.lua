@@ -2,7 +2,6 @@ local image_list = require "src.image_list"
 local LANG = require "src.LANG"
 
 local card_images = image_list.cards
-local cardBackMain = card_images.cardBackMain
 
 ---@type CardBase[]
 local card_list = {

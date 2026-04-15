@@ -234,13 +234,16 @@ return {
             function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
             function (self) self.color = self.base_color end
         ):Button(
-            "Pravila",
+            LANG.tutorial,
             Font:resizeFont(Font.font_paths.pixel_font,40),
             Color.white,
             Color.orange,
             function()
                 Audio:playSound(Audio.sfx.button_click)
-                
+
+                Scenes:disableAllSceneInteractions()
+                Scenes:enableSceneInteractions("tutorial")
+                Scenes:enableScene("tutorial")
             end,
             8,
             Color.dark_orange

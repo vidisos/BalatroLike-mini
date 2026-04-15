@@ -103,4 +103,5 @@ function Drawable:Slider(...)
     local Slider = require("src.Slider")
     return Slider.Slider(self, ...)
 end
+
 return Drawable

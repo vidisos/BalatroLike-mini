@@ -119,6 +119,7 @@ end
 ---@return table
 function Utils.copyTable(original)
     local copy = {}
+
     for k, v in pairs(original) do
         if type(v) == "table" then
             copy[k] = Utils.copyTable(v)
@@ -126,6 +127,7 @@ function Utils.copyTable(original)
             copy[k] = v
         end
     end
+
     return copy
 end
 
@@ -134,10 +136,12 @@ end
 ---@return table
 function Utils.getArray(key_table)
     local array = {}
+
     for key, value in pairs(key_table) do
         value.key = key
         table.insert(array, value)
     end
+
     return array
 end
 

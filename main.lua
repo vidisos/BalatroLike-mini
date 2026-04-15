@@ -59,5 +59,3 @@ function love.mousepressed(mx, my, mouse_button)
 
     Scenes:onClick(mx, my)
 end
-
-
