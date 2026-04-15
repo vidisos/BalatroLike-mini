@@ -43,6 +43,25 @@ local LANG = {
     delete_spark = {en="Remove", sl="Odstrani"},
     choose_spark = {en="Choose a Spark!", sl="Izberi Iskro!"},
 
+    -- tutorial
+    tutorial_how_to_title = {en="How to play", sl="Kako igrati"},
+    tutorial_how_to_desc = {
+        en="You select cards from your hand and can either discard them to draw new cards, or play them to score points.\nTo beat a round, you must reach or surpass the score requirement before running out of hands. Beating 3 rounds advances you to the next ante, and beating 3 antes wins the run.\nYou may continue playing afterwards to see how far you can go.",
+        sl="Iz roke izberete karte, ki jih lahko zavržete za nove karte ali odigrate za točke.\nDa premagate rundo, morate doseči ali preseči zahtevano število točk, preden vam zmanjka rok. S tremi premaganimi rundami preidete v naslednjo ante, s tremi premaganimi antes pa uspešno zaključite igro.\nPo zmagi lahko nadaljujete in preverite, kako daleč pridete."
+    },
+
+    tutorial_scoring_title = {en="Scoring", sl="Točkovanje"},
+    tutorial_scoring_desc = {
+        en="Points are the product of chips and mult. Different hand rankings yield different chips and mult values. Cards that contribute to the hand ranking add their flat chip value to the base chips — visible when hovering over them.",
+        sl="Točke so zmnožek žetonov in mult. Različne kombinacije kart prinesejo različne vrednosti žetonov in mult. Karte, ki prispevajo h kombinaciji pokra, prištejejo svojo vrednost čipov k osnovnim čipom — vidno ob lebdenju nad njimi."
+    },
+
+    tutorial_sparks_title = {en="Sparks", sl="Iskre"},
+    tutorial_sparks_desc = {
+        en="Sparks are chosen after winning a round. Some affect scoring, others provide general boosts. You can also remove a spark you own by clicking it on the spark selection screen, in case you run out of space.",
+        sl="Iskro izberete po zmagi v rundi. Nekatere vplivajo na točkovanje, druge prinašajo splošne prednosti. Iskro, ki jo že imate, lahko tudi odstranite s klikom nanjo na zaslonu za izbiro iskre, če vam zmanjka prostora."
+    },
+
     -- hands
     high_card = {en="High Card", sl="Visoka karta"},
     pair = {en="Pair", sl="En par"},
