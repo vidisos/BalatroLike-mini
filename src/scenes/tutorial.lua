@@ -33,22 +33,6 @@ Tutorial.drawables = {
     )
 }
 
---[[
-HOW TO PLAY
-You select cards from the hand and can either discard them to get new cards into the hand or play them to score points. 
-To beat a round you need to reach or surpass the score requirement before you run out of hands to play.
-When you beat 3 rounds you move into the next ante, and after beating 3 antes you succesfully beat the game. 
-You may also continue the run after in case you want to see how far you get.
-
-POINTS
-Points are the product of chips and mult, different hand rankings have different amount of chips and mult.
-Played cards that contribute to the hand ranking add to the base chips their flat amount of chips, seen when theyre hovered.
-
-SPARKS
-After winning a round you get to choose between a certain amount of sparks. Some affect scoring, others give general boosts. 
-You can also remove a spark you own by clicking on it on the spark select screen, in case you run out of space.
-]]
-
 local paragraph_margin = 30
 local paragraph_start_x = background_x + paragraph_margin
 local paragraph_start_y = background_y + paragraph_margin
@@ -120,7 +104,7 @@ current_y = current_y + scoring_title.height
 local scoring_desc = (
     Drawable:new(
         "text-scoring-desc", 1,
-        paragraph_start_x, current_y, paragraph_width, 130
+        paragraph_start_x, current_y, paragraph_width, 140
     ):TextBox(
         LANG.tutorial_scoring_desc, Font:resizeFont(Font.font_paths.pixel_font, 25),
         Color.black,
@@ -133,7 +117,7 @@ current_y = current_y + scoring_desc.height + paragraph_gap
 local sparks_title = (
     Drawable:new(
         "text-how-to", 1,
-        paragraph_start_x, current_y, 200, 60
+        paragraph_start_x, current_y, 250, 60
     ):TextBox(
         LANG.tutorial_sparks_title, Font:resizeFont(Font.font_paths.pixel_font, 40),
         Color.white,
@@ -146,7 +130,7 @@ current_y = current_y + sparks_title.height
 local sparks_desc = (
     Drawable:new(
         "text-how-to", 1,
-        paragraph_start_x, current_y, paragraph_width, 120
+        paragraph_start_x, current_y, paragraph_width, 110
     ):TextBox(
         LANG.tutorial_sparks_desc, Font:resizeFont(Font.font_paths.pixel_font, 25),
         Color.black,
