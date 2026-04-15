@@ -46,7 +46,7 @@ runD.bat
 runE.bat
 gitSetup.bat
 
-.distribution_stuff/
+distribution_stuff/
 license.txt
 
 *.docx
