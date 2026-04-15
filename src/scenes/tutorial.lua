@@ -22,7 +22,6 @@ local Tutorial = {}
 Tutorial.id = "tutorial"
 Tutorial.shouldDraw = false
 Tutorial.z_index = 3
-
 Tutorial.drawables = {
     -- background
     Drawable:new(
@@ -31,10 +30,28 @@ Tutorial.drawables = {
     ):Rectangle(
         Color.dark_grey,
         6, Color.light_grey
-    ),
+    )
 }
 
-local background = (
+--[[
+HOW TO PLAY
+You select cards from the hand and can either discard them to get new cards into the hand or play them to score points. 
+To beat a round you need to reach or surpass the score requirement for the current round before you run out of hands to play.
+When you beat 3 rounds you move into the next ante, and after beating 3 antes you succesfully beat the game. 
+You may also continue the run after in case you want to see how far you get.
+
+POINTS
+Points are the product of chips and mult, different hand rankings have different amount of chips and mult.
+Played cards that contribute to the hand ranking add to the base chips their flat amount of chips, seen when theyre hovered.
+
+SPARKS
+After winning a round you get to choose between a certain amount of sparks. Some affect scoring, others give general boosts. 
+You can also remove a spark you own by clicking on it on the spark select screen, in case you run out of space.
+]]
+
+
+
+local button = (
     Drawable:new(
         "btn-back", 1,
         Utils.getCenterAnchorX(Utils.getCenterAnchorX(0, ww, 800), 800, 700), Utils.getCenterAnchorY(0, wh, 800) + 800 - 60 - 30, 700, 60,
@@ -55,7 +72,7 @@ local background = (
     )
 )
 
-table.insert(Tutorial.drawables, background)
+table.insert(Tutorial.drawables, button)
 
 
 return Tutorial
