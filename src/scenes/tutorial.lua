@@ -44,7 +44,7 @@ local current_y = paragraph_start_y
 local button = (
     Drawable:new(
         "btn-back", 1,
-        Utils.getCenterAnchorX(background_x, background_width, 700), background_y + 800 - 60 - 30, 700, 60,
+        Utils.getCenterAnchorX(background_x, background_width, background_width - 60), background_y + 800 - 60 - 30, background_width - 60, 60,
         nil,
         nil,
         function (self) self.color = Color:tintColor(self.base_color, 0.8) end,
